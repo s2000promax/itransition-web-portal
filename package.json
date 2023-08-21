@@ -1,12 +1,23 @@
 {
   "name": "itransition-web-portal",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Web portal for reviews",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepare": "husky install",
+    "start:dev": "concurrently \"npm --prefix server run start:dev\" \"npm --prefix client run start:dev\"",
+    "test": "echo \"Error: no test specified\""
   },
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "Stan <s2000promax@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.0",
+    "husky": "^8.0.3",
+    "prettier": "3.0.2"
+  }
 }

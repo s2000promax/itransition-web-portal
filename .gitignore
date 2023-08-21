@@ -1,0 +1,31 @@
+.idea
+.env
+node_modules
+
+/client/node_modules
+/client/build
+/client/dist
+/client/.vscode
+/client/.env
+
+# Compiled output
+/client/tmp
+/client/out-tsc
+/client/bazel-out
+
+# Miscellaneous
+/client/.angular
+/client/.angular/cache
+/client.sass-cache/
+/client/connect.lock
+/client/coverage
+/client/testem.log
+
+# System files
+/client/.DS_Store
+/client/Thumbs.db
+
+/server/node_modules
+/server/build
+/server/dist
+/server/.env
