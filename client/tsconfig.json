@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "declaration": true,
+        "removeComments": true,
+        "allowSyntheticDefaultImports": true,
+        "target": "es5",
+        "sourceMap": false,
+        "outDir": "./dist",
+        "baseUrl": "./",
+        "skipLibCheck": true,
+        "noImplicitAny": true,
+        "jsx": "react-jsx",
+        "allowJs": true,
+        "strict": true,
+        "isolatedModules": true,
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "paths": {
+            "@/*": ["./src/*"]
+        }
+    },
+    "ts-node": {
+        "compilerOptions": {
+            "module": "CommonJS",
+        }
+    },
+
+}

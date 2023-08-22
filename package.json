@@ -7,6 +7,14 @@
     "start:dev": "concurrently \"npm --prefix server run start:dev\" \"npm --prefix client run start:dev\"",
     "test": "echo \"Error: no test specified\""
   },
+  "lint-staged": {
+    "client/**/*.{ts,tsx}": [
+      "prettier"
+    ],
+    "server/**/*.{ts,tsx}": [
+      "prettier"
+    ]
+  },
   "private": true,
   "workspaces": [
     "client",
@@ -18,6 +26,7 @@
   "devDependencies": {
     "concurrently": "^8.2.0",
     "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
     "prettier": "3.0.2"
   }
 }
