@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Web portal for reviews",
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "npx husky install",
     "start:dev": "concurrently \"npm --prefix server run start:dev\" \"npm --prefix client run start:dev\"",
     "test": "echo \"Error: no test specified\""
   },
