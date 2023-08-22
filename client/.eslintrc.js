@@ -7,6 +7,7 @@ module.exports = {
         'plugin:react/recommended',
         'airbnb',
         'plugin:i18next/recommended',
+        'plugin:storybook/recommended',
     ],
     parser: '@typescript-eslint/parser',
     parserOptions: {
@@ -81,7 +82,7 @@ module.exports = {
             'error',
             {
                 ignoreComments: true,
-                code: 120,
+                code: 80,
             },
         ],
         'jsx-a11y/no-static-element-interactions': 'off',
