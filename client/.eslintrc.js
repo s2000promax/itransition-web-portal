@@ -99,8 +99,11 @@ module.exports = {
         ],
         'react/no-unstable-nested-components': 'warn',
         'react/jsx-indent': 'off',
+        'react/jsx-indent-props': 'off',
+        'react/no-array-index-key': 'off',
         'func-names': 'off',
         indent: ['error', 4],
+        'object-curly-newline': 'off',
     },
     globals: {
         __IS_DEV__: true,
