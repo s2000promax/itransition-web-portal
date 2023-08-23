@@ -1,5 +1,8 @@
 {
   "An unexpected error has occurred": "An unexpected error has occurred",
   "App": "App",
-  "Refresh the page": "Refresh the page"
+  "AppRouter": "AppRouter",
+  "Navbar": "Navbar",
+  "Refresh the page": "Refresh the page",
+  "Sidebar": "Sidebar"
 }

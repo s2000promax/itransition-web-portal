@@ -104,6 +104,7 @@ module.exports = {
         'func-names': 'off',
         indent: ['error', 4],
         'object-curly-newline': 'off',
+        'react/jsx-wrap-multilines': 'off',
     },
     globals: {
         __IS_DEV__: true,
