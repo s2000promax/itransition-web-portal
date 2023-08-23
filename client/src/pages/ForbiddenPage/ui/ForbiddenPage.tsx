@@ -1,8 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-const ForbiddenPage = () => {
-    const { t } = useTranslation('');
+export const ForbiddenPage = () => {
+    const { t } = useTranslation('forbidden');
 
     return (
         <div data-testid="ForbiddenPage">
@@ -10,5 +10,3 @@ const ForbiddenPage = () => {
         </div>
     );
 };
-
-export default ForbiddenPage;
