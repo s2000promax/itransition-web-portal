@@ -1,13 +1,13 @@
 {
-  "About site": "About site",
-  "Main": "Main",
-  "toggle": "toggle",
-  "Главная страница": "Главная страница",
-  "Новый перевод": "Новый перевод",
-  "О сайте": "О сайте",
-  "Language": "English",
-  "Lang": "Eng",
+  "An unexpected error has occurred": "An unexpected error has occurred",
+  "App": "App",
+  "AppRouter": "AppRouter",
+  "Email": "Email",
+  "Login": "Login",
+  "Navbar": "Navbar",
   "Page not found": "Page not found",
-  "Username": "Username",
-  "Login or password incorrect": "Login or password incorrect"
+  "Password": "Password",
+  "Refresh the page": "Refresh the page",
+  "Sidebar": "Sidebar",
+  "Wrong login or password": "Wrong login or password"
 }

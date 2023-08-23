@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { classNames } from '@/shared/libs/classNames/classNames';
-import cls from './scrollToTopButton.module.scss';
+import cls from './ScrollToTopButton.module.scss';
 import { Icon } from '@/shared/UI-kit/Icon';
 import CircleIcon from '@/shared/assets/ui/icons/circle-up.svg';
 
