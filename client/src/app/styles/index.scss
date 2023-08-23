@@ -1,0 +1,46 @@
+@import "reset";
+@import "variables/global";
+@import "themes/normal";
+@import "themes/dark";
+@import "themes/sand";
+
+.app {
+    background: var(--bg);
+    min-height: 100vh;
+    font: var(--font-m);
+    color: var(--text);
+}
+
+.content-page {
+    display: flex;
+}
+
+*::-webkit-scrollbar {
+    width: 12px;
+    height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+    background: var(--light-bg);
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--icon);
+    border-radius: 20px;
+    border: 1px solid var(--accent);
+}
+
+.app *::-webkit-scrollbar {
+    width: 12px;
+    height: 8px;
+}
+
+.app *::-webkit-scrollbar-track {
+    background: var(--card-bg);
+}
+
+.app *::-webkit-scrollbar-thumb {
+    background-color: var(--text);
+    border-radius: 20px;
+    border: 2px solid var(--bg);
+}
