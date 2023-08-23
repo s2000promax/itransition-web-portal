@@ -1,9 +1,4 @@
-import React, {
-    ReactNode,
-    useEffect,
-    useMemo,
-    useState,
-} from 'react';
+import React, { ReactNode, useEffect, useMemo, useState } from 'react';
 import { ThemeContext } from '@/shared/libs/context/ThemeContext';
 import { ThemeEnums } from '@/shared/enums/theme.enums';
 import { PersistenceService } from '@/shared/services/persistence.service';
@@ -14,8 +9,9 @@ interface ThemeProviderProps {
     children: ReactNode;
 }
 
-const fallbackTheme = PersistenceService
-    .get(LocalStorageEnums.THEME) as ThemeEnums;
+const fallbackTheme = PersistenceService.get(
+    LocalStorageEnums.THEME,
+) as ThemeEnums;
 
 const ThemeProvider = (props: ThemeProviderProps) => {
     const { initialTheme, children } = props;

@@ -4,6 +4,9 @@ import { classNames } from '@/shared/libs/classNames/classNames';
 import { useTheme } from '@/shared/libs/hooks/useTheme/useTheme';
 import { MainLayout } from '@/shared/layouts/MainLayout';
 import { useAppToolbar } from '@/shared/libs/hooks/useAppToolbar/useAppToolbar';
+import { Navbar } from '@/widgets/Navbar';
+import AppRouter from '@/app/providers/router/ui/AppRouter';
+import { Sidebar } from '@/widgets/Sidebar';
 
 const App = () => {
     const { theme } = useTheme();
@@ -17,9 +20,9 @@ const App = () => {
         >
             <Suspense fallback="">
                 <MainLayout
-                    header={<div>{t('Navbar')}</div>}
-                    content={<div>{t('AppRouter')}</div>}
-                    sidebar={<div>{t('Sidebar')}</div>}
+                    header={<Navbar />}
+                    content={<AppRouter />}
+                    sidebar={<Sidebar />}
                     toolbar={toolbar}
                 />
             </Suspense>
