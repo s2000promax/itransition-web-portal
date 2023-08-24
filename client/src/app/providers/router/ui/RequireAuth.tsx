@@ -1,18 +1,18 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import { useMemo } from 'react';
 import { getRouteForbidden, getRouteMain } from '@/shared/enums/router.enums';
-import { UserRole } from '@/entities/User';
+import { UserRolesEnums } from '@/entities/User';
 
 interface RequireAuthProps {
     children: JSX.Element;
-    roles?: UserRole[];
+    roles?: UserRolesEnums[];
 }
 
 export function RequireAuth({ children, roles }: RequireAuthProps) {
     const auth = true;
     const location = useLocation();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    const userRoles: UserRole[] = [UserRole.ADMIN];
+    const userRoles: UserRolesEnums[] = [UserRolesEnums.ADMIN];
 
     const hasRequiredRoles = useMemo(() => {
         if (!roles) {
