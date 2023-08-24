@@ -21,8 +21,8 @@ import {
     getRouteReviewsCreate,
     getRouteReviewsEdit,
 } from '@/shared/enums/router.enums';
-import { AppRoutesProps } from '@/shared/types/router';
-import { UserRole } from '@/entities/User';
+import { AppRoutesProps } from '@/shared/types/router.type';
+import { UserRolesEnums } from '@/entities/User';
 
 export const routeConfig: Record<AppRoutesEnums, AppRoutesProps> = {
     [AppRoutesEnums.MAIN]: {
@@ -66,7 +66,7 @@ export const routeConfig: Record<AppRoutesEnums, AppRoutesProps> = {
         path: getRouteAdmin(),
         element: <AdminDashboardPage />,
         authOnly: true,
-        roles: [UserRole.ADMIN],
+        roles: [UserRolesEnums.ADMIN],
     },
     [AppRoutesEnums.FORBIDDEN]: {
         path: getRouteForbidden(),
