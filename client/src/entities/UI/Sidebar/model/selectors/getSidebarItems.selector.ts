@@ -3,7 +3,7 @@ import ReviewIcon from '@/shared/assets/ui/icons/review.svg';
 import AboutIcon from '@/shared/assets/ui/icons/Info.svg';
 import ProfileIcon from '@/shared/assets/ui/icons/avatar.svg';
 
-import { SidebarItemI } from '../types/SidebarItem.interface';
+import { SidebarItemI } from '../types/sidebar.interface';
 import {
     getRouteAbout,
     getRouteMain,

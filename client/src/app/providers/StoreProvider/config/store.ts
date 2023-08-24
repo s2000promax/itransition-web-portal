@@ -1,10 +1,11 @@
 import { configureStore, ReducersMapObject } from '@reduxjs/toolkit';
 import { CombinedState, Reducer } from 'redux';
-import { StateSchemaI } from './stateSchema.interface';
+import { StateSchemaI, ThunkExtraArg } from './stateSchema.interface';
+import { $api } from '@/shared/api/api';
+import { rtkApi } from '@/shared/api/rtk.api';
 import { createReducerManager } from './reducerManager';
 import { userReducer } from '@/entities/User';
-import { uiReducer } from '@/entities/UI';
-import { rtkApi } from '@/shared/api/rtk.api';
+import { uiReducer } from '@/entities/UI/UI';
 
 export function createReduxStore(
     initialState?: StateSchemaI,
@@ -19,10 +20,20 @@ export function createReduxStore(
 
     const reducerManager = createReducerManager(rootReducers);
 
+    const extraArg: ThunkExtraArg = {
+        api: $api,
+    };
+
     const store = configureStore({
         reducer: reducerManager.reduce as Reducer<CombinedState<StateSchemaI>>,
         devTools: __IS_DEV__,
         preloadedState: initialState,
+        middleware: (getDefaultMiddleware) =>
+            getDefaultMiddleware({
+                thunk: {
+                    extraArgument: extraArg,
+                },
+            }).concat(rtkApi.middleware),
     });
 
     // @ts-ignore

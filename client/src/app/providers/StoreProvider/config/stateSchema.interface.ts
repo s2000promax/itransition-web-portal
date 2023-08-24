@@ -5,13 +5,14 @@ import {
     ReducersMapObject,
 } from '@reduxjs/toolkit';
 import { CombinedState } from 'redux';
-import { ReviewsPageSchemaI } from '@/entities/ReviewsPage';
+import { AxiosInstance } from 'axios';
 import { rtkApi } from '@/shared/api/rtk.api';
 import { UserSchemaI } from '@/entities/User';
-import { UISchemaI } from '@/entities/UI';
+import { UISchemaI } from '@/entities/UI/UI';
 import { LoginSchemaI } from '@/entities/Auth';
 import { ProfileSchemaI } from '@/entities/Profile';
 import { ReviewSchemaI } from '@/entities/Review';
+import { ReviewsPageSchemaI } from '@/entities/ReviewsPage';
 import { ReviewDetailsPageSchemaI } from '@/entities/ReviewDetailsPage';
 import { CommentFormSchemaI } from '@/entities/CommentForm';
 
@@ -28,8 +29,8 @@ export interface StateSchemaI {
     commentForm?: CommentFormSchemaI;
 }
 
-export type StateSchemaKey = keyof StateSchemaI;
-export type MountedReducers = OptionalRecord<StateSchemaKey, boolean>;
+export type StateSchemaKeyT = keyof StateSchemaI;
+export type MountedReducers = OptionalRecord<StateSchemaKeyT, boolean>;
 
 export interface ReducerManager {
     getReducerMap: () => ReducersMapObject<StateSchemaI>;
@@ -37,16 +38,21 @@ export interface ReducerManager {
         state: StateSchemaI,
         action: AnyAction,
     ) => CombinedState<StateSchemaI>;
-    add: (key: StateSchemaKey, reducer: Reducer) => void;
-    remove: (key: StateSchemaKey) => void;
+    add: (key: StateSchemaKeyT, reducer: Reducer) => void;
+    remove: (key: StateSchemaKeyT) => void;
     getMountedReducers: () => MountedReducers;
 }
 
-export interface ReduxStoreWithManager extends EnhancedStore<StateSchemaI> {
+export interface ReduxStoreWithManagerI extends EnhancedStore<StateSchemaI> {
     reducerManager: ReducerManager;
+}
+
+export interface ThunkExtraArg {
+    api: AxiosInstance;
 }
 
 export interface ThunkConfig<T> {
     rejectValue: T;
+    extra: ThunkExtraArg;
     state: StateSchemaI;
 }
