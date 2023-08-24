@@ -1,8 +1,8 @@
 import { memo } from 'react';
-import { Skeleton } from '@/shared/UI-kit/Skeleton';
-import { HStack, VStack } from '@/shared/UI-kit/Stack';
-import { MainLayout } from '../MainLayout';
 import cls from './AppLoaderLayout.module.scss';
+import { MainLayout } from '../../MainLayout';
+import { HStack, VStack } from '@/shared/UI-kit/Stack';
+import { Skeleton } from '@/shared/UI-kit/Skeleton';
 
 export const AppLoaderLayout = memo(() => (
     <MainLayout

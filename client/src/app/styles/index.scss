@@ -40,7 +40,7 @@
 }
 
 .app *::-webkit-scrollbar-thumb {
-    background-color: var(--text);
+    background-color: var(--dark-bg);
     border-radius: 20px;
-    border: 2px solid var(--bg);
+    border: 1px solid var(--accent);
 }

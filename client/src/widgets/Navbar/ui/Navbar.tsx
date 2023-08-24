@@ -5,6 +5,10 @@ import { Button } from '@/shared/UI-kit/Button';
 import { HStack } from '@/shared/UI-kit/Stack';
 import { LoginModal } from '@/features/Auth';
 import cls from './Navbar.module.scss';
+import { useSelector } from 'react-redux';
+import { getUserAuthData } from '@/entities/User';
+import { AvatarDropdown } from '@/features/UI/AvatarDropdown';
+import { NotificationButton } from '@/features/UI/Notification';
 
 interface NavbarProps {
     className?: string;
@@ -13,7 +17,7 @@ interface NavbarProps {
 export const Navbar = memo(({ className }: NavbarProps) => {
     const { t } = useTranslation('navbar');
     const [isAuthModal, setIsAuthModal] = useState(false);
-    const authData = true;
+    const authData = useSelector(getUserAuthData);
 
     const onCloseModal = useCallback(() => {
         setIsAuthModal(false);
@@ -30,8 +34,8 @@ export const Navbar = memo(({ className }: NavbarProps) => {
                     gap="16"
                     className={cls.actions}
                 >
-                    <div>{t('Notification')}</div>
-                    <div>{t('Avatar')}</div>
+                    <NotificationButton />
+                    <AvatarDropdown />
                 </HStack>
             </header>
         );
