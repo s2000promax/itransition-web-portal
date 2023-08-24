@@ -5,7 +5,6 @@ module.exports = {
     },
     extends: [
         'plugin:react/recommended',
-        'airbnb',
         'plugin:i18next/recommended',
         'plugin:storybook/recommended',
     ],
@@ -105,6 +104,8 @@ module.exports = {
         indent: ['error', 4],
         'object-curly-newline': 'off',
         'react/jsx-wrap-multilines': 'off',
+        'operator-linebreak': 'off',
+        'implicit-arrow-linebreak': 'off',
     },
     globals: {
         __IS_DEV__: true,

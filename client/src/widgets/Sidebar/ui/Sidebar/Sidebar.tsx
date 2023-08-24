@@ -4,7 +4,7 @@ import { ThemeSwitcher } from '@/features/UI/ThemeSwitcher';
 import { LangSwitcher } from '@/features/UI/LangSwitcher';
 import { VStack } from '@/shared/UI-kit/Stack';
 import { SidebarItem } from '../SidebarItem/SidebarItem';
-import { useSidebarItems } from '@/entities/UI/Sidebar/selectors/getSidebarItems';
+import { useSidebarItems } from '@/entities/UI/Sidebar/model/selectors/getSidebarItems';
 import { AppLogo } from '@/shared/UI-kit/AppLogo';
 import { Icon } from '@/shared/UI-kit/Icon';
 import ArrowIcon from '@/shared/assets/ui/icons/arrow-bottom.svg';
