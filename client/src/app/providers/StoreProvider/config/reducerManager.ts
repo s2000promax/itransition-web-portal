@@ -8,7 +8,7 @@ import {
     MountedReducers,
     ReducerManager,
     StateSchemaI,
-    StateSchemaKey,
+    StateSchemaKeyT,
 } from './stateSchema.interface';
 
 export function createReducerManager(
@@ -18,7 +18,7 @@ export function createReducerManager(
 
     let combinedReducer = combineReducers(reducers);
 
-    let keysToRemove: Array<StateSchemaKey> = [];
+    let keysToRemove: Array<StateSchemaKeyT> = [];
     const mountedReducers: MountedReducers = {};
 
     return {
@@ -34,7 +34,7 @@ export function createReducerManager(
             }
             return combinedReducer(state, action);
         },
-        add: (key: StateSchemaKey, reducer: Reducer) => {
+        add: (key: StateSchemaKeyT, reducer: Reducer) => {
             if (!key || reducers[key]) {
                 return;
             }
@@ -43,7 +43,7 @@ export function createReducerManager(
 
             combinedReducer = combineReducers(reducers);
         },
-        remove: (key: StateSchemaKey) => {
+        remove: (key: StateSchemaKeyT) => {
             if (!key || !reducers[key]) {
                 return;
             }

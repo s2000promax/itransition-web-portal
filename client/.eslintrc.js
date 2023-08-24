@@ -77,13 +77,7 @@ module.exports = {
                 ],
             },
         ],
-        'max-len': [
-            'error',
-            {
-                ignoreComments: true,
-                code: 80,
-            },
-        ],
+        'max-len': 'off',
         'jsx-a11y/no-static-element-interactions': 'off',
         'jsx-a11y/click-events-have-key-events': 'off',
         'react-hooks/rules-of-hooks': 'error',
@@ -101,11 +95,12 @@ module.exports = {
         'react/jsx-indent-props': 'off',
         'react/no-array-index-key': 'off',
         'func-names': 'off',
-        indent: ['error', 4],
+        indent: 'off',
         'object-curly-newline': 'off',
         'react/jsx-wrap-multilines': 'off',
         'operator-linebreak': 'off',
         'implicit-arrow-linebreak': 'off',
+        'react/display-name': 'off',
     },
     globals: {
         __IS_DEV__: true,

@@ -1,1 +1,1 @@
-export { LoginModal } from './ui/LoginModal/LoginModal';
+export { LoginModal } from '@/features/Auth/Login/LoginModal/LoginModal';

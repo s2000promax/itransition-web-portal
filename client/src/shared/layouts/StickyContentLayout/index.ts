@@ -1,1 +1,1 @@
-export { StickyContentLayout } from './StickyContentLayout';
+export { StickyContentLayout } from './ui/StickyContentLayout';
