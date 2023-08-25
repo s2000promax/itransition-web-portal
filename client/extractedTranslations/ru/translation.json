@@ -1,13 +1,10 @@
 {
-  "An unexpected error has occurred": "An unexpected error has occurred",
   "App": "App",
   "AppRouter": "AppRouter",
   "Email": "Email",
   "Login": "Login",
   "Navbar": "Navbar",
-  "Page not found": "Page not found",
   "Password": "Password",
-  "Refresh the page": "Refresh the page",
   "Sidebar": "Sidebar",
   "Wrong login or password": "Wrong login or password"
 }

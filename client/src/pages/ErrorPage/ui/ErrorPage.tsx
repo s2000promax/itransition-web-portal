@@ -8,7 +8,7 @@ interface ErrorPageProps {
 }
 
 export const ErrorPage = ({ className }: ErrorPageProps) => {
-    const { t } = useTranslation();
+    const { t } = useTranslation('errorPage');
 
     const reloadPage = () => {
         location.reload();
@@ -16,8 +16,8 @@ export const ErrorPage = ({ className }: ErrorPageProps) => {
 
     return (
         <div className={classNames(cls.ErrorPage, {}, [className])}>
-            <p>{t('An unexpected error has occurred')}</p>
-            <Button onClick={reloadPage}>{t('Refresh the page')}</Button>
+            <p>{t('message')}</p>
+            <Button onClick={reloadPage}>{t('refresh')}</Button>
         </div>
     );
 };
