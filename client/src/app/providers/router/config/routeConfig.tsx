@@ -21,10 +21,10 @@ import {
     getRouteReviewsCreate,
     getRouteReviewsEdit,
 } from '@/shared/enums/router.enums';
-import { AppRoutesProps } from '@/shared/types/router.type';
+import { AppRoutesPropsT } from '@/shared/types/router.type';
 import { UserRolesEnums } from '@/entities/User';
 
-export const routeConfig: Record<AppRoutesEnums, AppRoutesProps> = {
+export const routeConfig: Record<AppRoutesEnums, AppRoutesPropsT> = {
     [AppRoutesEnums.MAIN]: {
         path: getRouteMain(),
         element: <MainPage />,

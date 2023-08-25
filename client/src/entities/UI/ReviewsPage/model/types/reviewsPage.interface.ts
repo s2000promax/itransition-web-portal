@@ -1,5 +1,5 @@
 import { EntityState } from '@reduxjs/toolkit';
-import { SortOrder } from '@/shared/types/sort.type';
+import { SortOrderT } from '@/shared/types/sort.type';
 import {
     ReviewI,
     ReviewSortFieldEnums,
@@ -18,7 +18,7 @@ export interface ReviewsPageSchemaI extends EntityState<ReviewI> {
 
     // filters
     view: ReviewViewEnums;
-    order: SortOrder;
+    order: SortOrderT;
     sort: ReviewSortFieldEnums;
     search: string;
     type: ReviewTypeEnums;

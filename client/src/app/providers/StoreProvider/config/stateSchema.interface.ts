@@ -12,9 +12,9 @@ import { UISchemaI } from '@/entities/UI/UI';
 import { LoginSchemaI } from '@/entities/Auth';
 import { ProfileSchemaI } from '@/entities/Profile';
 import { ReviewSchemaI } from '@/entities/Review';
-import { ReviewsPageSchemaI } from '@/entities/ReviewsPage';
-import { ReviewDetailsPageSchemaI } from '@/entities/ReviewDetailsPage';
-import { CommentFormSchemaI } from '@/entities/CommentForm';
+import { ReviewsPageSchemaI } from 'src/entities/UI/ReviewsPage';
+import { ReviewDetailsPageSchemaI } from 'src/entities/UI/ReviewDetailsPage';
+import { CommentFormSchemaI } from 'src/entities/UI/CommentForm';
 
 export interface StateSchemaI {
     user: UserSchemaI;
