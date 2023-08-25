@@ -1,5 +1,8 @@
 {
+  "Go to main": "Go to main",
+  "Refresh the page": "Refresh the page",
   "You do not have access to this page": {
     "": ""
-  }
+  },
+  "forbidden": "forbidden"
 }
