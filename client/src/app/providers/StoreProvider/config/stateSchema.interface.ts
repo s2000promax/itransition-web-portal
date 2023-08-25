@@ -24,8 +24,9 @@ export interface StateSchemaI {
     loginForm?: LoginSchemaI;
     profile?: ProfileSchemaI;
     review?: ReviewSchemaI;
+
+    reviewDetailsPage?: ReviewDetailsPageSchemaI;
     reviewsPage?: ReviewsPageSchemaI;
-    reviewsDetailsPage?: ReviewDetailsPageSchemaI;
     commentForm?: CommentFormSchemaI;
 }
 

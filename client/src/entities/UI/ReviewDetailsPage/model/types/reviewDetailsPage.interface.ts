@@ -11,6 +11,7 @@ export interface CommentsSchemaI extends EntityState<CommentI> {
     isLoading?: boolean;
     error?: string;
 }
+
 export interface ReviewDetailsPageSchemaI {
     comments: CommentsSchemaI;
     recommendations: RecommendationsReviewsSchemaI;

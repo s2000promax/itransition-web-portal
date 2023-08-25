@@ -2,8 +2,8 @@ import { MainPage } from '@/pages/MainPage';
 import { AboutPage } from '@/pages/AboutPage';
 import { ProfilePage } from '@/pages/ProfilePage';
 import { ReviewsPage } from '@/pages/ReviewsPage';
-import { ReviewsDetailsPage } from '@/pages/ReviewsDetailsPage';
-import { ReviewsEditPage } from '@/pages/ReviewsEditPage';
+import { ReviewDetailsPage } from 'src/pages/ReviewDetailsPage';
+import { ReviewEditPage } from 'src/pages/ReviewEditPage';
 import { AdminDashboardPage } from '@/pages/AdminDashboardPage';
 import { SettingsPage } from '@/pages/SettingsPage';
 import { ForbiddenPage } from '@/pages/ForbiddenPage';
@@ -49,17 +49,17 @@ export const routeConfig: Record<AppRoutesEnums, AppRoutesPropsT> = {
     },
     [AppRoutesEnums.REVIEWS_DETAILS]: {
         path: getRouteReviewsDetails(':id'),
-        element: <ReviewsDetailsPage />,
+        element: <ReviewDetailsPage />,
         authOnly: true,
     },
     [AppRoutesEnums.REVIEWS_CREATE]: {
         path: getRouteReviewsCreate(),
-        element: <ReviewsEditPage />,
+        element: <ReviewEditPage />,
         authOnly: true,
     },
     [AppRoutesEnums.REVIEWS_EDIT]: {
         path: getRouteReviewsEdit(':id'),
-        element: <ReviewsEditPage />,
+        element: <ReviewEditPage />,
         authOnly: true,
     },
     [AppRoutesEnums.ADMIN_DASHBOARD]: {
