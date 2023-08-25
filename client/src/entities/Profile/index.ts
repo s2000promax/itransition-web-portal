@@ -9,8 +9,8 @@ export { getProfileValidateErrors } from './model/selectors/getProfileValidateEr
 
 export { profileReducer, profileActions } from './model/slice/profile.slice';
 
-export { fetchProfileData } from './model/services/fetchProfileData/fetchProfileData';
-export { updateProfileData } from './model/services/updateProfileData/updateProfileData';
-export { validateProfileData } from './model/services/validateProfileData/validateProfileData';
+export { fetchProfileData } from './model/services/fetchProfileData/fetchProfileData.service';
+export { updateProfileData } from './model/services/updateProfileData/updateProfileData.service';
+export { validateProfileData } from './model/services/validateProfileData/validateProfileData.service';
 
 export { ValidateProfileEnums } from './model/enums/validateProfileEnums';
