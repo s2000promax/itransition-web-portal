@@ -6,5 +6,7 @@
   "Navbar": "Navbar",
   "Password": "Password",
   "Sidebar": "Sidebar",
-  "Wrong login or password": "Wrong login or password"
+  "Wrong login or password": "Wrong login or password",
+  "Попробуйте обновить страницу": "Попробуйте обновить страницу",
+  "Произошла ошибка при загрузке профиля": "Произошла ошибка при загрузке профиля"
 }
