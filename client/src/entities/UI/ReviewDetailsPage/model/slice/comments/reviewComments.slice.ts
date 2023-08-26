@@ -7,13 +7,13 @@ import { CommentI } from '@/entities/Comment';
 import { StateSchemaI } from '@/app/providers/StoreProvider';
 
 import { CommentsSchemaI } from '../../types/reviewDetailsPage.interface';
-import { fetchCommentsByReviewIdService } from '@/entities/UI/ReviewDetailsPage/model/services/comments/fetchCommentsByReviewId/fetchCommentsByReviewId.service';
+import { fetchCommentsByReviewIdService } from '../../services/comments/fetchCommentsByReviewId/fetchCommentsByReviewId.service';
 
 const commentsAdapter = createEntityAdapter<CommentI>({
     selectId: (comment) => comment.id,
 });
 
-export const getArticleComments = commentsAdapter.getSelectors<StateSchemaI>(
+export const getReviewComments = commentsAdapter.getSelectors<StateSchemaI>(
     (state) =>
         state.reviewDetailsPage?.comments || commentsAdapter.getInitialState(),
 );
