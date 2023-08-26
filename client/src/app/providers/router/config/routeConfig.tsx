@@ -2,8 +2,8 @@ import { MainPage } from '@/pages/MainPage';
 import { AboutPage } from '@/pages/AboutPage';
 import { ProfilePage } from '@/pages/ProfilePage';
 import { ReviewsPage } from '@/pages/ReviewsPage';
-import { ReviewDetailsPage } from 'src/pages/ReviewDetailsPage';
-import { ReviewEditPage } from 'src/pages/ReviewEditPage';
+import { ReviewDetailsPage } from '@/pages/ReviewDetailsPage';
+import { ReviewEditPage } from '@/pages/ReviewEditPage';
 import { AdminDashboardPage } from '@/pages/AdminDashboardPage';
 import { SettingsPage } from '@/pages/SettingsPage';
 import { ForbiddenPage } from '@/pages/ForbiddenPage';
@@ -17,9 +17,9 @@ import {
     getRouteProfile,
     getRouteSettings,
     getRouteReviews,
-    getRouteReviewsDetails,
-    getRouteReviewsCreate,
-    getRouteReviewsEdit,
+    getRouteReviewDetails,
+    getRouteReviewCreate,
+    getRouteReviewEdit,
 } from '@/shared/enums/router.enums';
 import { AppRoutesPropsT } from '@/shared/types/router.type';
 import { UserRolesEnums } from '@/entities/User';
@@ -47,18 +47,18 @@ export const routeConfig: Record<AppRoutesEnums, AppRoutesPropsT> = {
         element: <ReviewsPage />,
         authOnly: true,
     },
-    [AppRoutesEnums.REVIEWS_DETAILS]: {
-        path: getRouteReviewsDetails(':id'),
+    [AppRoutesEnums.REVIEW_DETAILS]: {
+        path: getRouteReviewDetails(':id'),
         element: <ReviewDetailsPage />,
         authOnly: true,
     },
-    [AppRoutesEnums.REVIEWS_CREATE]: {
-        path: getRouteReviewsCreate(),
+    [AppRoutesEnums.REVIEW_CREATE]: {
+        path: getRouteReviewCreate(),
         element: <ReviewEditPage />,
         authOnly: true,
     },
-    [AppRoutesEnums.REVIEWS_EDIT]: {
-        path: getRouteReviewsEdit(':id'),
+    [AppRoutesEnums.REVIEW_EDIT]: {
+        path: getRouteReviewEdit(':id'),
         element: <ReviewEditPage />,
         authOnly: true,
     },
