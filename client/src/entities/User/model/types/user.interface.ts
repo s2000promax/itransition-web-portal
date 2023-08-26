@@ -4,7 +4,7 @@ import { ThemeEnums } from '@/shared/enums/theme.enums';
 export interface UserSettingsI {
     theme?: ThemeEnums;
     isFirstVisit?: boolean;
-    isArticlesPageWasOpened?: boolean;
+    isReviewsPageWasOpened?: boolean;
 }
 
 export interface UserI {
