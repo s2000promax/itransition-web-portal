@@ -1,3 +1,20 @@
 {
-  "Profile": "Profile"
+  "Cсылка на аватар": "Cсылка на аватар",
+  "Profile": "Profile",
+  "cancel": "cancel",
+  "edit": "edit",
+  "error": {
+    "no_data": "no_data",
+    "save": "save",
+    "user_data": "user_data"
+  },
+  "firstName": "firstName",
+  "lastName": "lastName",
+  "link": "link",
+  "profile": "profile",
+  "save": "save",
+  "userName": "userName",
+  "Имя": "Имя",
+  "Имя пользователя": "Имя пользователя",
+  "Фамилия": "Фамилия"
 }

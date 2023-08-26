@@ -1,7 +1,8 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import { useMemo } from 'react';
 import { getRouteForbidden, getRouteMain } from '@/shared/enums/router.enums';
-import { UserRolesEnums } from '@/entities/User';
+import { getUserAuthData, getUserRoles, UserRolesEnums } from '@/entities/User';
+import { useSelector } from 'react-redux';
 
 interface RequireAuthProps {
     children: JSX.Element;
@@ -9,10 +10,10 @@ interface RequireAuthProps {
 }
 
 export function RequireAuth({ children, roles }: RequireAuthProps) {
-    const auth = true;
+    const auth = useSelector(getUserAuthData);
     const location = useLocation();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const userRoles: UserRolesEnums[] = [UserRolesEnums.ADMIN];
+
+    const userRoles = useSelector(getUserRoles);
 
     const hasRequiredRoles = useMemo(() => {
         if (!roles) {

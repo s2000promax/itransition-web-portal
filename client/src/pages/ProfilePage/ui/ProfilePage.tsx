@@ -1,7 +1,8 @@
 import { useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import { VStack } from '@/shared/UI-kit/Stack';
+import { Page } from '@/widgets/Page';
+import { EditableProfileCard } from '@/features/Profile/EditableProfileCard';
 
 export interface ProfilePageProps {
     className?: string;
@@ -9,10 +10,9 @@ export interface ProfilePageProps {
 
 const ProfilePage = ({ className }: ProfilePageProps) => {
     const { id } = useParams<{ id: string }>();
-    const { t } = useTranslation('profile');
 
     return (
-        <div
+        <Page
             data-testid="ProfilePage"
             className={classNames('', {}, [className])}
         >
@@ -20,12 +20,9 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
                 gap="16"
                 max
             >
-                <div>
-                    {t('Profile')}
-                    <span>{id}</span>
-                </div>
+                <EditableProfileCard id={id} />
             </VStack>
-        </div>
+        </Page>
     );
 };
 
