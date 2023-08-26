@@ -8,21 +8,21 @@ import { AdminDashboardPage } from '@/pages/AdminDashboardPage';
 import { SettingsPage } from '@/pages/SettingsPage';
 import { ForbiddenPage } from '@/pages/ForbiddenPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
+import { AppRoutesEnums } from '@/shared/enums/router.enums';
+import { AppRoutesPropsT } from '@/shared/types/router.type';
+import { UserRolesEnums } from '@/entities/User';
 import {
-    AppRoutesEnums,
     getRouteAbout,
     getRouteAdmin,
     getRouteForbidden,
     getRouteMain,
     getRouteProfile,
-    getRouteSettings,
-    getRouteReviews,
-    getRouteReviewDetails,
     getRouteReviewCreate,
+    getRouteReviewDetails,
     getRouteReviewEdit,
-} from '@/shared/enums/router.enums';
-import { AppRoutesPropsT } from '@/shared/types/router.type';
-import { UserRolesEnums } from '@/entities/User';
+    getRouteReviews,
+    getRouteSettings,
+} from '@/shared/routes/routes.patterns';
 
 export const routeConfig: Record<AppRoutesEnums, AppRoutesPropsT> = {
     [AppRoutesEnums.MAIN]: {
