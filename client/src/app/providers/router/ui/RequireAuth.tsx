@@ -1,8 +1,11 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import { useMemo } from 'react';
-import { getRouteForbidden, getRouteMain } from '@/shared/enums/router.enums';
 import { getUserAuthData, getUserRoles, UserRolesEnums } from '@/entities/User';
 import { useSelector } from 'react-redux';
+import {
+    getRouteForbidden,
+    getRouteMain,
+} from '@/shared/routes/routes.patterns';
 
 interface RequireAuthProps {
     children: JSX.Element;

@@ -2,10 +2,10 @@ import { memo, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getReviewDataSelector } from '@/entities/Review';
-import { getRouteReviewEdit } from '@/shared/enums/router.enums';
 import { Card } from '@/shared/UI-kit/Card';
 import { AdditionalInfo } from './AdditionalInfo/AdditionalInfo';
 import { classNames } from '@/shared/libs/classNames/classNames';
+import { getRouteReviewEdit } from '@/shared/routes/routes.patterns';
 
 interface AdditionalInfoContainerProps {
     className?: string;

@@ -4,12 +4,13 @@ import AboutIcon from '@/shared/assets/ui/icons/Info.svg';
 import ProfileIcon from '@/shared/assets/ui/icons/avatar.svg';
 
 import { SidebarItemI } from '../types/sidebar.interface';
+
 import {
     getRouteAbout,
     getRouteMain,
     getRouteProfile,
     getRouteReviews,
-} from '@/shared/enums/router.enums';
+} from '@/shared/routes/routes.patterns';
 
 export const useSidebarItems = () => {
     const userData = {

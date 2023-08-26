@@ -10,7 +10,6 @@ import { Skeleton } from '@/shared/UI-kit/Skeleton';
 import { AppLink } from '@/shared/UI-kit/AppLink';
 import { Button } from '@/shared/UI-kit/Button';
 import { HStack, VStack } from '@/shared/UI-kit/Stack';
-import { getRouteReviewDetails } from '@/shared/enums/router.enums';
 import { Icon } from '@/shared/UI-kit/Icon';
 import EyeIcon from '@/shared/assets/ui/icons/eye.svg';
 import {
@@ -19,6 +18,7 @@ import {
     ReviewTextBlockI,
     ReviewBlockTypeEnums,
 } from '@/entities/Review';
+import { getRouteReviewDetails } from '@/shared/routes/routes.patterns';
 
 interface ListItemProps {
     className?: string;
