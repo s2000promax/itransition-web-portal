@@ -1,9 +1,7 @@
 import { matchPath, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import {
-    AppRouteByPathPattern,
-    AppRoutesEnums,
-} from '@/shared/enums/router.enums';
+import { AppRoutesEnums } from '@/shared/enums/router.enums';
+import { AppRouteByPathPattern } from '@/shared/routes/routes.patterns';
 
 export function useRouteChange() {
     const location = useLocation();
