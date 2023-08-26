@@ -3,7 +3,7 @@ import { classNames } from '@/shared/libs/classNames/classNames';
 import { Card } from '@/shared/UI-kit/Card';
 import { Skeleton } from '@/shared/UI-kit/Skeleton';
 import { ReviewViewEnums } from '@/entities/Review';
-import cls from './listItemSkeleton.module.scss';
+import cls from './ListItemSkeleton.module.scss';
 
 interface ListItemSkeletonProps {
     className?: string;

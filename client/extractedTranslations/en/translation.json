@@ -7,6 +7,15 @@
   "Password": "Password",
   "Sidebar": "Sidebar",
   "Wrong login or password": "Wrong login or password",
+  "all": "all",
+  "comments": "comments",
+  "edit": "edit",
+  "it": "it",
+  "movies": "movies",
+  "music": "music",
+  "science": "science",
+  "{{count}} views": "{{count}} views",
+  "{{count}} views_plural": "{{count}} views_plural",
   "Попробуйте обновить страницу": "Попробуйте обновить страницу",
   "Произошла ошибка при загрузке профиля": "Произошла ошибка при загрузке профиля"
 }

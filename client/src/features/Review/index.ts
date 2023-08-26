@@ -1,1 +1,1 @@
-export { Review } from './ui/review';
+export { Review } from './ui/Review';

@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { classNames } from '@/shared/libs/classNames/classNames';
-import cls from './imageBlockComponent.module.scss';
+import cls from './ImageBlockComponent.module.scss';
 import { Text } from '@/shared/UI-kit/Text';
 import { ReviewImageBlockI } from '@/entities/Review';
 

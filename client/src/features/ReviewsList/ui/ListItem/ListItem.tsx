@@ -1,7 +1,7 @@
 import { HTMLAttributeAnchorTarget, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { classNames } from '@/shared/libs/classNames/classNames';
-import cls from './listItem.module.scss';
+import cls from './ListItem.module.scss';
 import { Text } from '@/shared/UI-kit/Text';
 import { Card } from '@/shared/UI-kit/Card';
 import { Avatar } from '@/shared/UI-kit/Avatar';
@@ -10,7 +10,7 @@ import { Skeleton } from '@/shared/UI-kit/Skeleton';
 import { AppLink } from '@/shared/UI-kit/AppLink';
 import { Button } from '@/shared/UI-kit/Button';
 import { HStack, VStack } from '@/shared/UI-kit/Stack';
-import { getRouteReviewsDetails } from '@/shared/enums/router.enums';
+import { getRouteReviewDetails } from '@/shared/enums/router.enums';
 import { Icon } from '@/shared/UI-kit/Icon';
 import EyeIcon from '@/shared/assets/ui/icons/eye.svg';
 import {
@@ -111,7 +111,7 @@ export const ListItem = memo((props: ListItemProps) => {
                     >
                         <AppLink
                             target={target}
-                            to={getRouteReviewsDetails(review.id)}
+                            to={getRouteReviewDetails(review.id)}
                         >
                             <Button variant="outline">{t('read_more')}</Button>
                         </AppLink>
@@ -126,7 +126,7 @@ export const ListItem = memo((props: ListItemProps) => {
         <AppLink
             data-testid="ReviewListItem"
             target={target}
-            to={getRouteReviewsDetails(review.id)}
+            to={getRouteReviewDetails(review.id)}
             className={classNames(cls.ArticleListItem, {}, [
                 className,
                 cls[view],

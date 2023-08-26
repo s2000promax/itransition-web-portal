@@ -1,24 +1,27 @@
 import { memo, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { classNames } from '@/shared/libs/classNames/classNames';
-import cls from './ArticlesPage.module.scss';
+import cls from './ReviewsPage.module.scss';
 import { useInitialEffect } from '@/shared/libs/hooks/useInitialEffect/useInitialEffect';
 import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
 import {
     DynamicModuleLoader,
     ReducersList,
 } from '@/shared/libs/components/DynamicModuleLoader';
-import { ArticleInfiniteList } from '../ArticleInfiniteList/ArticleInfiniteList';
 import { StickyContentLayout } from '@/shared/layouts/StickyContentLayout';
 import { Page } from '@/widgets/Page';
-import { ArticlePageGreeting } from '@/features/articlePageGreeting';
-import { ViewSelectorContainer } from '../ViewSelectorContainer/ViewSelectorContainer';
-import { FiltersContainer } from '../FiltersContainer/FiltersContainer';
+
 import {
     fetchNextReviewsPageService,
     initReviewsPageService,
     reviewsPageReducer,
 } from '@/entities/UI/ReviewsPage';
+import {
+    FiltersContainer,
+    ReviewInfiniteList,
+    ViewSelectorContainer,
+} from '@/features/ReviewsPage';
+import { Greeting } from '@/features/UI/Greeting';
 
 interface ReviewsPageProps {
     className?: string;
@@ -51,8 +54,8 @@ const ReviewsPage = (props: ReviewsPageProps) => {
                     onScrollEnd={onLoadNextPart}
                     className={classNames(cls.ReviewsPage, {}, [className])}
                 >
-                    <ArticleInfiniteList className={cls.list} />
-                    <ArticlePageGreeting />
+                    <ReviewInfiniteList className={cls.list} />
+                    <Greeting />
                 </Page>
             }
         />

@@ -1,4 +1,4 @@
-import cls from '*.scss';
+import cls from './ContentSkeleton.module.scss';
 import { VStack } from '@/shared/UI-kit/Stack';
 import { Skeleton } from '@/shared/UI-kit/Skeleton';
 

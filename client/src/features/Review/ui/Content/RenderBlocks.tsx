@@ -1,8 +1,8 @@
-import cls from '../review.module.scss';
+import cls from '../Review.module.scss';
 import { ReviewBlockT, ReviewBlockTypeEnums } from '@/entities/Review';
-import { CodeBlockComponent } from '@/features/Review/ui/content/codeBlockComponent/codeBlockComponent';
-import { ImageBlockComponent } from '@/features/Review/ui/content/imageBlockComponent/imageBlockComponent';
-import { TextBlockComponent } from '@/features/Review/ui/content/textBlockComponent/textBlockComponent';
+import { CodeBlockComponent } from '@/features/Review/ui/Content/CodeBlockComponent/CodeBlockComponent';
+import { ImageBlockComponent } from '@/features/Review/ui/Content/ImageBlockComponent/ImageBlockComponent';
+import { TextBlockComponent } from '@/features/Review/ui/Content/TextBlockComponent/TextBlockComponent';
 
 export const renderBlocks = (block: ReviewBlockT) => {
     switch (block.type) {

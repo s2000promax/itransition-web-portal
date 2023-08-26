@@ -1,11 +1,11 @@
 import { HTMLAttributeAnchorTarget, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { classNames } from '@/shared/libs/classNames/classNames';
-import cls from './reviewsList.module.scss';
+import cls from './ReviewsList.module.scss';
 import { Text } from '@/shared/UI-kit/Text';
 import { HStack } from '@/shared/UI-kit/Stack';
-import { ListItemSkeleton } from './listItemSkeleton/listItemSkeleton';
-import { ListItem } from '@/features/ReviewsList/ui/listItem/listItem';
+import { ListItemSkeleton } from './ListItemSkeleton/ListItemSkeleton';
+import { ListItem } from './ListItem/ListItem';
 import { ReviewI, ReviewViewEnums } from '@/entities/Review';
 
 interface ReviewsListProps {

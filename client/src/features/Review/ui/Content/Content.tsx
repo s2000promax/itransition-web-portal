@@ -1,11 +1,11 @@
 import { memo } from 'react';
-import cls from './content.module.scss';
+import cls from './Content.module.scss';
 import { useSelector } from 'react-redux';
 import { Text } from '@/shared/UI-kit/Text';
 import { AppImage } from '@/shared/UI-kit/AppImage';
 import { Skeleton } from '@/shared/UI-kit/Skeleton';
 import { getReviewDataSelector } from '@/entities/Review';
-import { renderBlocks } from '@/features/Review/ui/content/renderBlocks';
+import { renderBlocks } from '@/features/Review/ui/Content/RenderBlocks';
 
 export const Content = memo(() => {
     const review = useSelector(getReviewDataSelector);
