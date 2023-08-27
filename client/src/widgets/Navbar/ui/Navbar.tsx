@@ -9,6 +9,10 @@ import { useSelector } from 'react-redux';
 import { getUserAuthData } from '@/entities/User';
 import { AvatarDropdown } from '@/features/UI/AvatarDropdown';
 import { NotificationButton } from '@/features/UI/Notification';
+import { AppLink } from '@/shared/UI-kit/AppLink';
+import CreateIcon from '@/shared/assets/ui/icons/edit.svg';
+import { Icon } from '@/shared/UI-kit/Icon';
+import { getRouteReviewCreate } from '@/shared/routes/routes.patterns';
 
 interface NavbarProps {
     className?: string;
@@ -34,6 +38,9 @@ export const Navbar = memo(({ className }: NavbarProps) => {
                     gap="16"
                     className={cls.actions}
                 >
+                    <AppLink to={getRouteReviewCreate()}>
+                        <Icon Svg={CreateIcon} />
+                    </AppLink>
                     <NotificationButton />
                     <AvatarDropdown />
                 </HStack>
