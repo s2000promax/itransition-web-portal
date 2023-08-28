@@ -18,7 +18,8 @@
   "private": true,
   "workspaces": [
     "client",
-    "server"
+    "server",
+    "database"
   ],
   "keywords": [],
   "author": "Stan <s2000promax@gmail.com>",
