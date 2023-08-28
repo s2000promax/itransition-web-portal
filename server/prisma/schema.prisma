@@ -1,0 +1,33 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mysql"
+    url      = env("VERCEL_DATABASE_URL")
+}
+
+model User {
+    id          String   @id @default(uuid())
+    email       String   @unique
+    password    String?
+    username    String?
+    createdAt   DateTime @default(now()) @map("created_at")
+    lastLoginAt DateTime @default(now()) @map("last_login_at")
+    isBlocked   Boolean  @default(false) @map("is_blocked")
+    Token       Token[]
+
+    @@map("users")
+}
+
+model Token {
+    token   String   @unique
+    expired DateTime
+    user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId  String
+
+    @@map("tokens")
+}
