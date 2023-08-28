@@ -29,3 +29,9 @@ node_modules
 /server/build
 /server/dist
 /server/.env
+
+/database/node_modules
+/database/build
+/database/dist
+/database/.env
+/database/docker/.env
