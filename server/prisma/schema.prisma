@@ -11,14 +11,21 @@ datasource db {
 }
 
 model User {
-    id          String   @id @default(uuid())
-    email       String   @unique
-    password    String?
-    username    String?
-    createdAt   DateTime @default(now()) @map("created_at")
-    lastLoginAt DateTime @default(now()) @map("last_login_at")
-    isBlocked   Boolean  @default(false) @map("is_blocked")
-    Token       Token[]
+    id         BigInt        @id @default(autoincrement())
+    email      String        @unique
+    password   String?
+    createdAt  DateTime      @default(now()) @map("created_at")
+    updatedAt  DateTime      @updatedAt @map("updated_at")
+    token      Token[]       @relation(name: "TokenToUser")
+    roles      Roles
+    isBlocked  Boolean       @default(false) @map("is_blocked")
+    userFields UserFields?   @relation(name: "UserToUserFields")
+    settings   Int
+    reviews    Review[]      @relation(name: "owner")
+    likes      Like[]        @relation(name: "LikeToUser")
+    ratings    UsersRating[] @relation(name: "UserToUserRating")
+    comments   Comment[]     @relation(name: "CommentToUser")
+    hiddens    HiddenList[]  @relation(name: "HiddenToUser")
 
     @@map("users")
 }
@@ -26,8 +33,122 @@ model User {
 model Token {
     token   String   @unique
     expired DateTime
-    user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId  String
+    user    User     @relation(name: "TokenToUser", fields: [userId], references: [id], onDelete: Cascade)
+    userId  BigInt   @unique
 
     @@map("tokens")
+}
+
+model UserFields {
+    user      User   @relation(name: "UserToUserFields", fields: [userId], references: [id], onDelete: Cascade)
+    userId    BigInt @unique
+    firstName String @map("first_name")
+    lastName  String @map("last_name")
+
+    @@map("userFields")
+}
+
+model Review {
+    id            BigInt        @id @default(autoincrement())
+    title         String
+    subtitle      String
+    cover         String
+    preview       String
+    body          ReviewBlock[] @relation(name: "BlockToReview")
+    owner         User          @relation(name: "owner", fields: [ownerUserId], references: [id], onDelete: Cascade)
+    ownerUserId   BigInt
+    tags          ReviewTag[]   @relation(name: "ReviewToReviewTag")
+    likes         Like[]        @relation(name: "LikeToReview")
+    ratings       UsersRating[] @relation(name: "ReviewToUserRating")
+    comments      Comment[]     @relation(name: "CommentToReview")
+    hiddens       HiddenList[]  @relation(name: "HiddenToReview")
+    createdAt     DateTime      @default(now())
+    updatedAt     DateTime      @updatedAt
+    viewCount     Int
+    averageRating Int
+    likesCount    Int
+
+    @@map("reviews")
+}
+
+model ReviewBlock {
+    id         BigInt    @id @default(autoincrement())
+    review     Review    @relation(name: "BlockToReview", fields: [reviewId], references: [id], onDelete: Cascade)
+    reviewId   BigInt
+    type       BlockType
+    title      String?
+    src        String?
+    paragraphs String?
+    code       String?
+
+    @@map("reviewBlocks")
+}
+
+model ReviewTag {
+    id       BigInt @id @default(autoincrement())
+    review   Review @relation(name: "ReviewToReviewTag", fields: [reviewId], references: [id])
+    reviewId BigInt
+    tag      Tag    @relation(name: "ReviewTagToTag", fields: [tagId], references: [id])
+    tagId    BigInt
+
+    @@map("reviewTags")
+}
+
+model Tag {
+    id         BigInt      @id @default(autoincrement())
+    name       String      @unique
+    reviewTags ReviewTag[] @relation(name: "ReviewTagToTag")
+
+    @@map("tags")
+}
+
+model Like {
+    user     User   @relation(name: "LikeToUser", fields: [userId], references: [id], onDelete: Cascade)
+    userId   BigInt @unique
+    review   Review @relation(name: "LikeToReview", fields: [reviewId], references: [id], onDelete: Cascade)
+    reviewId BigInt
+
+    @@map("likes")
+}
+
+model UsersRating {
+    rating   Bytes
+    user     User   @relation(name: "UserToUserRating", fields: [userId], references: [id], onDelete: Cascade)
+    userId   BigInt
+    review   Review @relation(name: "ReviewToUserRating", fields: [reviewId], references: [id], onDelete: Cascade)
+    reviewId BigInt @unique
+
+    @@map("usersRatings")
+}
+
+model Comment {
+    id       BigInt @id @default(autoincrement())
+    content  String
+    user     User   @relation(name: "CommentToUser", fields: [userId], references: [id], onDelete: Cascade)
+    userId   BigInt
+    review   Review @relation(name: "CommentToReview", fields: [reviewId], references: [id], onDelete: Cascade)
+    reviewId BigInt
+
+    @@map("comments")
+}
+
+model HiddenList {
+    user     User   @relation(name: "HiddenToUser", fields: [userId], references: [id], onDelete: Cascade)
+    userId   BigInt @unique
+    review   Review @relation(name: "HiddenToReview", fields: [reviewId], references: [id], onDelete: Cascade)
+    reviewId BigInt
+
+    @@map("hiddenList")
+}
+
+enum BlockType {
+    TEXT
+    IMAGE
+    CODE
+}
+
+enum Roles {
+    SA
+    ADMIN
+    USER
 }
