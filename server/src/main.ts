@@ -20,7 +20,7 @@ async function bootstrap() {
         methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
         credentials: true,
     });
-    app.use(cookieParser());
+    // app.use(cookieParser());
     app.setGlobalPrefix('api');
 
     if (process.env.VERCEL_NODE_ENV !== 'production') {
