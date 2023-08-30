@@ -104,9 +104,10 @@ model Tag {
 }
 
 model Like {
-    user     User   @relation(name: "LikeToUser", fields: [userId], references: [id], onDelete: Cascade)
-    userId   String @unique
-    review   Review @relation(name: "LikeToReview", fields: [reviewId], references: [id], onDelete: Cascade)
+    user     User    @relation(name: "LikeToUser", fields: [userId], references: [id], onDelete: Cascade)
+    userId   String  @unique
+    like     Boolean @default(false)
+    review   Review  @relation(name: "LikeToReview", fields: [reviewId], references: [id], onDelete: Cascade)
     reviewId String
 
     @@map("likes")

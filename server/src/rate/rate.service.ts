@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { RateDto } from './dto';
-import { UsersRating } from '@prisma/client';
+import { Like, UsersRating } from '@prisma/client';
+import { LikeDto } from './dto/like.dto';
 
 @Injectable()
 export class RateService {
@@ -14,6 +15,18 @@ export class RateService {
             data: {
                 rating,
                 feedback,
+                userId,
+                reviewId,
+            },
+        });
+    }
+
+    async addLike(likeDto: LikeDto): Promise<Like> {
+        const { like, userId, reviewId } = likeDto;
+
+        return this.prisma.like.create({
+            data: {
+                like,
                 userId,
                 reviewId,
             },
