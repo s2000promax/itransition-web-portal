@@ -8,6 +8,8 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { CommentModule } from './comment/comment.module';
+import { RateModule } from './rate/rate.module';
 
 @Module({
     imports: [
@@ -18,6 +20,8 @@ import { UserModule } from './user/user.module';
         PrismaModule,
         AuthModule,
         UserModule,
+        CommentModule,
+        RateModule,
     ],
     controllers: [AppController],
     providers: [
