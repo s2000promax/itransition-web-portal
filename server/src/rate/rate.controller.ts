@@ -1,9 +1,8 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { RateService } from './rate.service';
 import { ApiBody } from '@nestjs/swagger';
-import { RateDto } from './dto';
+import { RateDto, LikeDto } from './dto';
 import { Like, UsersRating } from '@prisma/client';
-import { LikeDto } from './dto/like.dto';
 
 @Controller('rate')
 export class RateController {
