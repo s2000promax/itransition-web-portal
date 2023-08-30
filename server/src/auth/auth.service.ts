@@ -1,6 +1,6 @@
 import {
     ConflictException,
-    HttpException,
+    HttpException, HttpStatus,
     Injectable,
     UnauthorizedException,
 } from '@nestjs/common';
@@ -16,6 +16,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { UserService } from '../user/user.service';
 import { TokensInterface } from '../config/types/auth/tokens.interface';
 import { JwtPayload } from '../config/types/auth/jwtPayload';
+import { ProvidersEnums } from '../config/enums/providers.enums';
 
 @Injectable()
 export class AuthService {
@@ -117,5 +118,29 @@ export class AuthService {
                 token,
             },
         });
+    }
+
+    async providerAuth(email: string, provider: ProvidersEnums) {
+        const userExists = await this.userService.findByEmail(email);
+        if (userExists) {
+            const user = await this.userService
+                .save({ email, provider })
+                .catch((err) => {
+                    return null;
+                });
+            return this.generateTokens(user);
+        }
+        const user = await this.userService
+            .save({ email, provider })
+            .catch((err) => {
+                return null;
+            });
+        if (!user) {
+            throw new HttpException(
+                `Failed to create user with email: ${email} in ${provider} Auth`,
+                HttpStatus.BAD_REQUEST,
+            );
+        }
+        return this.generateTokens(user);
     }
 }

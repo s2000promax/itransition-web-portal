@@ -9,6 +9,7 @@ export class UserResponse implements User {
     settings: number;
     isBlocked: boolean;
     roles: string;
+    provider: string;
 
     @Exclude()
     password: string;

@@ -26,6 +26,7 @@ model User {
     ratings    UsersRating[] @relation(name: "UserToUserRating")
     comments   Comment[]     @relation(name: "CommentToUser")
     hiddens    HiddenList[]  @relation(name: "HiddenToUser")
+    provider   String?
 
     @@map("users")
 }
@@ -146,10 +147,4 @@ enum BlockType {
     TEXT
     IMAGE
     CODE
-}
-
-enum Roles {
-    SA
-    ADMIN
-    USER
 }
