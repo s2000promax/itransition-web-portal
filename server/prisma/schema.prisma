@@ -114,7 +114,7 @@ model Like {
 
 model UsersRating {
     rating   Int
-    feedbar  String
+    feedback String
     user     User   @relation(name: "UserToUserRating", fields: [userId], references: [id], onDelete: Cascade)
     userId   String
     review   Review @relation(name: "ReviewToUserRating", fields: [reviewId], references: [id], onDelete: Cascade)
