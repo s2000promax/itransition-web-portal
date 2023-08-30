@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { CommentModule } from './comment/comment.module';
 import { RateModule } from './rate/rate.module';
+import { ReviewModule } from './review/review.module';
 
 @Module({
     imports: [
@@ -20,6 +21,7 @@ import { RateModule } from './rate/rate.module';
         PrismaModule,
         AuthModule,
         UserModule,
+        ReviewModule,
         CommentModule,
         RateModule,
     ],
