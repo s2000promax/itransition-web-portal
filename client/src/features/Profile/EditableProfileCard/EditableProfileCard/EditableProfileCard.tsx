@@ -58,23 +58,16 @@ export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
         }
     });
 
-    const onChangeFirstname = useCallback(
+    const onChangeFirstName = useCallback(
         (value?: string) => {
-            dispatch(profileActions.updateProfile({ first: value || '' }));
+            dispatch(profileActions.updateProfile({ firstName: value || '' }));
         },
         [dispatch],
     );
 
-    const onChangeLastname = useCallback(
+    const onChangeLastName = useCallback(
         (value?: string) => {
-            dispatch(profileActions.updateProfile({ lastname: value || '' }));
-        },
-        [dispatch],
-    );
-
-    const onChangeUsername = useCallback(
-        (value?: string) => {
-            dispatch(profileActions.updateProfile({ username: value || '' }));
+            dispatch(profileActions.updateProfile({ lastName: value || '' }));
         },
         [dispatch],
     );
@@ -108,9 +101,8 @@ export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
                     isLoading={isLoading}
                     error={error}
                     readonly={readonly}
-                    onChangeFirstname={onChangeFirstname}
-                    onChangeLastname={onChangeLastname}
-                    onChangeUsername={onChangeUsername}
+                    onChangeFirstName={onChangeFirstName}
+                    onChangeLastName={onChangeLastName}
                     onChangeAvatar={onChangeAvatar}
                 />
             </VStack>

@@ -11,11 +11,11 @@ import {
     getRouteProfile,
     getRouteReviews,
 } from '@/shared/routes/routes.patterns';
+import { useSelector } from 'react-redux';
+import { getUserDataSelector } from '@/entities/User';
 
 export const useSidebarItems = () => {
-    const userData = {
-        id: '123',
-    };
+    const userData = useSelector(getUserDataSelector);
     const sidebarItemsList: SidebarItemI[] = [
         {
             path: getRouteMain(),

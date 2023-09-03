@@ -14,11 +14,8 @@ export interface ProfileCardProps {
     error?: string;
     isLoading?: boolean;
     readonly?: boolean;
-    onChangeLastname?: (value?: string) => void;
-    onChangeFirstname?: (value?: string) => void;
-    onChangeCity?: (value?: string) => void;
-    onChangeAge?: (value?: string) => void;
-    onChangeUsername?: (value?: string) => void;
+    onChangeLastName?: (value?: string) => void;
+    onChangeFirstName?: (value?: string) => void;
     onChangeAvatar?: (value?: string) => void;
 }
 
@@ -29,10 +26,9 @@ export const ProfileCard = (props: ProfileCardProps) => {
         isLoading,
         error,
         readonly,
-        onChangeFirstname,
-        onChangeLastname,
+        onChangeFirstName,
+        onChangeLastName,
         onChangeAvatar,
-        onChangeUsername,
     } = props;
 
     const { t } = useTranslation('profile');
@@ -73,16 +69,16 @@ export const ProfileCard = (props: ProfileCardProps) => {
                         max
                     >
                         <Input
-                            value={data?.first}
+                            value={data?.firstName}
                             label={t('firstName')}
-                            onChange={onChangeFirstname}
+                            onChange={onChangeFirstName}
                             readonly={readonly}
                             data-testid="ProfileCard.firstname"
                         />
                         <Input
-                            value={data?.lastname}
+                            value={data?.lastName}
                             label={t('lastName')}
-                            onChange={onChangeLastname}
+                            onChange={onChangeLastName}
                             readonly={readonly}
                             data-testid="ProfileCard.lastname"
                         />
@@ -91,12 +87,6 @@ export const ProfileCard = (props: ProfileCardProps) => {
                         gap="16"
                         max
                     >
-                        <Input
-                            value={data?.username}
-                            label={t('userName')}
-                            onChange={onChangeUsername}
-                            readonly={readonly}
-                        />
                         <Input
                             value={data?.avatar}
                             label={t('link')}

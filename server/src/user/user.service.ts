@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { genSaltSync, hashSync } from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service';
+import { JwtPayload } from '../config/types/auth/jwtPayload';
 
 @Injectable()
 export class UserService {
@@ -100,19 +101,15 @@ export class UserService {
         }
     }
 
-    async delete(ids: string[]) {
-        const deleteResponse = await this.prismaService.user.deleteMany({
-            where: {
-                id: {
-                    in: ids,
-                },
-            },
-        });
-        if (!deleteResponse) {
-            return JSON.stringify('Failed to remove');
+    async delete(id: string, user: JwtPayload) {
+        if (user.id !== id) {
+            throw new ForbiddenException();
         }
 
-        return JSON.stringify(`Success. Removed ${deleteResponse.count} users`);
+        return this.prismaService.user.delete({
+            where: { id },
+            select: { id: true },
+        });
     }
 
     async updateIsBlockedStatus(ids: string[], status: boolean) {

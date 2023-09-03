@@ -2,7 +2,10 @@ import {
     Body,
     ClassSerializerInterceptor,
     Controller,
+    Delete,
     Get,
+    Param,
+    ParseUUIDPipe,
     Put,
     UseInterceptors,
 } from '@nestjs/common';
@@ -10,6 +13,8 @@ import { UserService } from './user.service';
 import { CurrentUser } from '../libs/decorators';
 import { UserResponse } from './responses';
 import { ApiTags } from '@nestjs/swagger';
+import { JwtPayload } from '../config/types/auth/jwtPayload';
+import { User } from '@prisma/client';
 
 interface BodyRequestInterface {
     ids: string[];
@@ -35,15 +40,26 @@ export class UserController {
         return me;
     }
 
+    @UseInterceptors(ClassSerializerInterceptor)
+    @Get(':id')
+    async findOneUser(@Param('id') id: string) {
+        const user = await this.userService.findById(id);
+
+        return new UserResponse(user);
+    }
+
+    @UseInterceptors(ClassSerializerInterceptor)
     @Put()
-    async updateUsers(@Body() body: BodyRequestInterface) {
-        if (body.delete) {
-            return await this.userService.delete(body.ids);
-        } else {
-            return await this.userService.updateIsBlockedStatus(
-                body.ids,
-                body.status,
-            );
-        }
+    async updateUser(@Body() body: Partial<User>) {
+        const user = await this.userService.save(body);
+        return new UserResponse(user);
+    }
+
+    @Delete(':id')
+    async deleteUser(
+        @Param('id', ParseUUIDPipe) id: string,
+        @CurrentUser() user: JwtPayload,
+    ) {
+        return this.userService.delete(id, user);
     }
 }
