@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
-import { getUserAuthData } from '@/entities/User';
+import { getUserDataSelector } from '@/entities/User';
 import {
     profileActions,
     getProfileData,
@@ -24,7 +24,7 @@ export const EditableProfileCardHeader = memo(
         const { className } = props;
 
         const { t } = useTranslation('profile');
-        const authData = useSelector(getUserAuthData);
+        const authData = useSelector(getUserDataSelector);
         const profileData = useSelector(getProfileData);
         const canEdit = authData?.id === profileData?.id;
         const readonly = useSelector(getProfileReadonly);

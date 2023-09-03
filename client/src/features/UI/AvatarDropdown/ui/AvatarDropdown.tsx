@@ -2,7 +2,11 @@ import { useTranslation } from 'react-i18next';
 import React, { memo, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { classNames } from '@/shared/libs/classNames/classNames';
-import { getUserAuthData, isUserRoleAdmin, userActions } from '@/entities/User';
+import {
+    getUserDataSelector,
+    isUserRoleAdminSelector,
+    userActions,
+} from '@/entities/User';
 import { Dropdown } from '@/shared/UI-kit/Popups';
 import { Avatar } from '@/shared/UI-kit/Avatar';
 import {
@@ -19,8 +23,8 @@ export const AvatarDropdown = memo((props: AvatarDropdownProps) => {
     const { className } = props;
     const { t } = useTranslation('navbar');
     const dispatch = useDispatch();
-    const isAdmin = useSelector(isUserRoleAdmin);
-    const authData = useSelector(getUserAuthData);
+    const isAdmin = useSelector(isUserRoleAdminSelector);
+    const authData = useSelector(getUserDataSelector);
 
     const onLogout = useCallback(() => {
         dispatch(userActions.logout());

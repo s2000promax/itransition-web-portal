@@ -1,30 +1,36 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { UserI, userActions } from '@/entities/User';
+import { initAuthData, UserI } from '@/entities/User';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
+import { authActions, AuthSchemaI } from '@/entities/Auth';
+import { PersistenceService } from '@/shared/services/persistence.service';
+import { LocalStorageEnums } from '@/shared/enums/localStorage.enums';
 
-interface LoginByUsernameProps {
-    username: string;
-    password: string;
-}
+type LoginByEmailProps = Pick<UserI, 'email' | 'password'>;
 
 export const loginByEmail = createAsyncThunk<
-    UserI,
-    LoginByUsernameProps,
+    AuthSchemaI,
+    LoginByEmailProps,
     ThunkConfig<string>
->('login/loginByUsername', async (authData, thunkApi) => {
+>('login/loginByEmail', async (authData, thunkApi) => {
     const { extra, dispatch, rejectWithValue } = thunkApi;
 
     try {
-        const response = await extra.api.post<UserI>('/login', authData);
+        const response = await extra.api.post<AuthSchemaI>(
+            'auth/login',
+            authData,
+        );
 
-        if (!response.data) {
-            throw new Error();
+        if (response.status !== 201) {
+            return rejectWithValue('error');
         }
 
-        dispatch(userActions.setAuthData(response.data));
+        dispatch(authActions.setAuthData(response.data));
+        PersistenceService.set(
+            LocalStorageEnums.TOKEN,
+            response.data.accessToken,
+        );
         return response.data;
     } catch (e) {
-        console.log(e);
         return rejectWithValue('error');
     }
 });

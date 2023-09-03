@@ -7,9 +7,9 @@ export const rtkApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: __API__,
         prepareHeaders: (headers) => {
-            const token =
-                (PersistenceService.get(LocalStorageEnums.USER) as string) ||
-                '';
+            const token = PersistenceService.get(
+                LocalStorageEnums.TOKEN,
+            ) as string;
             if (token) {
                 headers.set('Authorization', token);
             }

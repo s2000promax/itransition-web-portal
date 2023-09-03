@@ -1,19 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { LoginSchemaI } from '../types/login.interface';
-import { loginByEmail } from '../services/login.service';
+import { loginByEmail } from '@/entities/Auth/model/services/login.service';
 
 const initialState: LoginSchemaI = {
     isLoading: false,
-    username: '',
+    email: '',
     password: '',
+    error: undefined,
 };
 
 const loginSlice = createSlice({
     name: 'login',
     initialState,
     reducers: {
-        setUsername: (state, action: PayloadAction<string>) => {
-            state.username = action.payload;
+        setEmail: (state, action: PayloadAction<string>) => {
+            state.email = action.payload;
         },
         setPassword: (state, action: PayloadAction<string>) => {
             state.password = action.payload;

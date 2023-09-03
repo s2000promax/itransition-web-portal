@@ -6,6 +6,7 @@ import { rtkApi } from '@/shared/api/rtk.api';
 import { createReducerManager } from './reducerManager';
 import { userReducer } from '@/entities/User';
 import { uiReducer } from '@/entities/UI/UI';
+import { authReducer } from '@/entities/Auth';
 
 export function createReduxStore(
     initialState?: StateSchemaI,
@@ -13,6 +14,7 @@ export function createReduxStore(
 ) {
     const rootReducers: ReducersMapObject<StateSchemaI> = {
         ...asyncReducers,
+        authData: authReducer,
         user: userReducer,
         ui: uiReducer,
         [rtkApi.reducerPath]: rtkApi.reducer,

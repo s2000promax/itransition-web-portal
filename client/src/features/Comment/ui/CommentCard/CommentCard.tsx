@@ -78,7 +78,7 @@ export const CommentCard = memo((props: CommentCardProps) => {
                             />
                         ) : null}
                         <Text
-                            text={comment.user.username}
+                            text={comment.user.email}
                             bold
                         />
                     </HStack>

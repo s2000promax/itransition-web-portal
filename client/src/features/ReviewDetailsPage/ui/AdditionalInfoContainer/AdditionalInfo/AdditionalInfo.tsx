@@ -31,7 +31,7 @@ export const AdditionalInfo = memo((props: AdditionalInfoProps) => {
                     size={32}
                 />
                 <Text
-                    text={author.username}
+                    text={author.email}
                     bold
                 />
                 <Text text={createdAt} />

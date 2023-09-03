@@ -4,17 +4,17 @@ export type {
     UserSettingsI,
 } from './model/types/user.interface';
 
-export { getUserInited } from './model/selectors/getUserInited.selector';
-export { getUserAuthData } from './model/selectors/getUserAuthData.selector';
+export { getUserInitedSelector } from './model/selectors/getUserInited/getUserInited.selector';
+export { getUserDataSelector } from './model/selectors/getUserData/getUserAuthData.selector';
 export {
     getUserSettings,
     useUserSettings,
-} from './model/selectors/getUserSettings.selector';
+} from './model/selectors/getUserSettings/getUserSettings.selector';
 export {
-    getUserRoles,
-    isUserRoleAdmin,
-    isUserRoleUser,
-} from './model/selectors/getUserRoles.selector';
+    getUserRolesSelector,
+    isUserRoleAdminSelector,
+    isUserRoleUserSelector,
+} from './model/selectors/getUserRoles/getUserRoles.selector';
 
 export { userReducer, userActions } from './model/slice/user.slice';
 

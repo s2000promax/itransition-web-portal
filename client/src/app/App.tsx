@@ -8,13 +8,13 @@ import { useAppToolbar } from '@/shared/libs/hooks/useAppToolbar/useAppToolbar';
 import { MainLayout } from '@/shared/layouts/MainLayout';
 import { Navbar } from '@/widgets/Navbar';
 import { Sidebar } from '@/widgets/Sidebar';
-import { getUserInited, initAuthData } from '@/entities/User';
+import { getUserInitedSelector, initAuthData } from '@/entities/User';
 import { AppLoaderLayout } from '@/shared/layouts/AppLoaderLayout';
 
 const App = memo(() => {
     const { theme } = useTheme();
     const dispatch = useAppDispatch();
-    const inited = useSelector(getUserInited);
+    const inited = useSelector(getUserInitedSelector);
     const toolbar = useAppToolbar();
 
     useEffect(() => {

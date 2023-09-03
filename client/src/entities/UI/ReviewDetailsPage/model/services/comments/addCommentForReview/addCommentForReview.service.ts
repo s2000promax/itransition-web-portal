@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getUserAuthData } from '@/entities/User';
+import { getUserDataSelector } from '@/entities/User';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { CommentI } from '@/entities/Comment';
 import { getReviewDataSelector } from '@/entities/Review';
@@ -12,7 +12,7 @@ export const addCommentForReviewService = createAsyncThunk<
 >('articleDetails/addCommentForArticle', async (text, thunkApi) => {
     const { extra, dispatch, rejectWithValue, getState } = thunkApi;
 
-    const userData = getUserAuthData(getState());
+    const userData = getUserDataSelector(getState());
     const review = getReviewDataSelector(getState());
 
     if (!userData || !text || !review) {

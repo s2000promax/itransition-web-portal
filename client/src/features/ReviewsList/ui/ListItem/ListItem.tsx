@@ -40,7 +40,7 @@ export const ListItem = memo((props: ListItemProps) => {
             />
             <Text
                 bold
-                text={review.user.username}
+                text={review.user.email}
             />
         </>
     );

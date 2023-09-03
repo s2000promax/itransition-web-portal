@@ -11,22 +11,24 @@ datasource db {
 }
 
 model User {
-    id         String        @id @default(uuid())
-    email      String        @unique
-    password   String?
-    createdAt  DateTime      @default(now()) @map("created_at")
-    updatedAt  DateTime      @updatedAt @map("updated_at")
-    token      Token[]       @relation(name: "TokenToUser")
-    roles      String
-    isBlocked  Boolean?      @default(false) @map("is_blocked")
-    userFields UserFields?   @relation(name: "UserToUserFields")
-    settings   Int           @default(0)
-    reviews    Review[]      @relation(name: "owner")
-    likes      Like[]        @relation(name: "LikeToUser")
-    ratings    UsersRating[] @relation(name: "UserToUserRating")
-    comments   Comment[]     @relation(name: "CommentToUser")
-    hiddens    HiddenList[]  @relation(name: "HiddenToUser")
-    provider   String?
+    id        String        @id @default(uuid())
+    firstName String        @map("first_name")
+    lastName  String        @map("last_name")
+    email     String        @unique
+    password  String?
+    avatar    String
+    createdAt DateTime      @default(now()) @map("created_at")
+    updatedAt DateTime      @updatedAt @map("updated_at")
+    token     Token[]       @relation(name: "TokenToUser")
+    role      String
+    isBlocked Boolean?      @default(false) @map("is_blocked")
+    settings  Int           @default(0)
+    reviews   Review[]      @relation(name: "owner")
+    likes     Like[]        @relation(name: "LikeToUser")
+    ratings   UsersRating[] @relation(name: "UserToUserRating")
+    comments  Comment[]     @relation(name: "CommentToUser")
+    hiddens   HiddenList[]  @relation(name: "HiddenToUser")
+    provider  String?
 
     @@map("users")
 }
@@ -38,15 +40,6 @@ model Token {
     userId  String
 
     @@map("tokens")
-}
-
-model UserFields {
-    user      User   @relation(name: "UserToUserFields", fields: [userId], references: [id], onDelete: Cascade)
-    userId    String @unique
-    firstName String @map("first_name")
-    lastName  String @map("last_name")
-
-    @@map("userFields")
 }
 
 model Review {

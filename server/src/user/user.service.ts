@@ -14,9 +14,12 @@ export class UserService {
 
         const createdUser = await this.prismaService.user.create({
             data: {
+                firstName: user.firstName,
+                lastName: user.lastName,
                 email: user.email,
                 password: hashedPassword,
-                roles: 'ADMIN',
+                avatar: '',
+                role: 'USER',
                 settings: 0,
             },
         });
@@ -37,16 +40,22 @@ export class UserService {
                 email: user.email,
             },
             update: {
+                firstName: user.firstName ?? undefined,
+                lastName: user.lastName ?? undefined,
+                avatar: user.avatar ?? undefined,
                 password: hashedPassword ?? undefined,
                 provider: user?.provider ?? undefined,
-                roles: user?.roles ?? undefined,
+                role: user?.role ?? undefined,
                 isBlocked: user?.isBlocked ?? undefined,
             },
             create: {
+                firstName: user.firstName ?? undefined,
+                lastName: user.lastName ?? undefined,
+                avatar: user.avatar ?? undefined,
                 email: user.email,
                 password: hashedPassword,
                 provider: user?.provider,
-                roles: user.roles ?? undefined,
+                role: user.role ?? undefined,
                 isBlocked: user?.isBlocked ?? undefined,
             },
         });

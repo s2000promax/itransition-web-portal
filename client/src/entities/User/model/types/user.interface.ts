@@ -9,13 +9,19 @@ export interface UserSettingsI {
 
 export interface UserI {
     id: string;
-    username: string;
+    email: string;
+    password?: string;
+    firstName: string;
+    lastName: string;
     avatar?: string;
-    roles?: UserRolesEnums[];
+    role?: UserRolesEnums[];
+    isBlocked?: boolean;
+    settings?: number;
+    accessToken?: string;
     userSettings?: UserSettingsI;
 }
 
 export interface UserSchemaI {
-    authData?: UserI;
+    userData?: UserI;
     _inited: boolean;
 }

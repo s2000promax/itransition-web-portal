@@ -15,13 +15,18 @@ import { ReviewSchemaI } from '@/entities/Review';
 import { ReviewsPageSchemaI } from 'src/entities/UI/ReviewsPage';
 import { ReviewDetailsPageSchemaI } from 'src/entities/UI/ReviewDetailsPage';
 import { CommentFormSchemaI } from 'src/entities/UI/CommentForm';
+import { RegisterSchemaI } from '@/entities/Auth/model/types/register.interface';
+import { AuthSchemaI } from '@/entities/Auth/model/types/auth.interface';
 
 export interface StateSchemaI {
     user: UserSchemaI;
     ui: UISchemaI;
     [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;
 
+    authData: AuthSchemaI;
     loginForm?: LoginSchemaI;
+    registerForm?: RegisterSchemaI;
+
     profile?: ProfileSchemaI;
     review?: ReviewSchemaI;
 

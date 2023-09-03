@@ -15,29 +15,29 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         setAuthData: (state, { payload }: PayloadAction<UserI>) => {
-            state.authData = payload;
+            state.userData = payload;
 
-            PersistenceService.set(LocalStorageEnums.USER, payload.id);
+            // PersistenceService.set(LocalStorageEnums.TOKEN, payload.id);
         },
         logout: (state) => {
-            state.authData = undefined;
+            state.userData = undefined;
 
-            PersistenceService.removeKey(LocalStorageEnums.USER);
+            PersistenceService.removeKey(LocalStorageEnums.TOKEN);
         },
     },
     extraReducers: (builder) => {
         builder.addCase(
             saveUserSettings.fulfilled,
             (state, { payload }: PayloadAction<UserSettingsI>) => {
-                if (state.authData) {
-                    state.authData.userSettings = payload;
+                if (state.userData) {
+                    state.userData.userSettings = payload;
                 }
             },
         );
         builder.addCase(
             initAuthData.fulfilled,
             (state, { payload }: PayloadAction<UserI>) => {
-                state.authData = payload;
+                state.userData = payload;
                 state._inited = true;
             },
         );

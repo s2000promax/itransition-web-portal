@@ -29,8 +29,10 @@ export class UserController {
     }
 
     @Get('me')
-    me(@CurrentUser() user: UserResponse) {
-        return JSON.stringify(user.id);
+    async me(@CurrentUser() user: UserResponse) {
+        const response = await this.userService.findById(user.id);
+        const { password, ...me } = response;
+        return me;
     }
 
     @Put()

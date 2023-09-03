@@ -1,6 +1,10 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import { useMemo } from 'react';
-import { getUserAuthData, getUserRoles, UserRolesEnums } from '@/entities/User';
+import {
+    getUserDataSelector,
+    getUserRolesSelector,
+    UserRolesEnums,
+} from '@/entities/User';
 import { useSelector } from 'react-redux';
 import {
     getRouteForbidden,
@@ -13,10 +17,10 @@ interface RequireAuthProps {
 }
 
 export function RequireAuth({ children, roles }: RequireAuthProps) {
-    const auth = useSelector(getUserAuthData);
+    const auth = useSelector(getUserDataSelector);
     const location = useLocation();
 
-    const userRoles = useSelector(getUserRoles);
+    const userRoles = useSelector(getUserRolesSelector);
 
     const hasRequiredRoles = useMemo(() => {
         if (!roles) {

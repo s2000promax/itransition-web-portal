@@ -2,7 +2,7 @@ import { memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
-import { getUserAuthData } from '@/entities/User';
+import { getUserDataSelector } from '@/entities/User';
 import { Skeleton } from '@/shared/UI-kit/Skeleton';
 import { useGetRating, useRate } from '@/entities/Rating';
 import { RatingCard } from '@/features/UI/RatingCard';
@@ -15,7 +15,7 @@ export interface ReviewRatingProps {
 const ReviewRating = memo((props: ReviewRatingProps) => {
     const { className, reviewId } = props;
     const { t } = useTranslation('review_rating');
-    const userData = useSelector(getUserAuthData);
+    const userData = useSelector(getUserDataSelector);
 
     const { data, isLoading } = useGetRating({
         reviewId: reviewId,

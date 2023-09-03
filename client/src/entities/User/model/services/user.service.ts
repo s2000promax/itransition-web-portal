@@ -1,33 +1,31 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
-import { getUserDataByIdQuery } from '../api/user.api';
+
 import { UserI, UserSettingsI } from '../types/user.interface';
 import { LocalStorageEnums } from '@/shared/enums/localStorage.enums';
 import { PersistenceService } from '@/shared/services/persistence.service';
-import { getUserAuthData } from '../selectors/getUserAuthData.selector';
-import { getUserSettings } from '../selectors/getUserSettings.selector';
+// import { getUserAuthData } from '../selectors/getUserAuthData.selector';
+// import { getUserSettings } from '../selectors/getUserSettings.selector';
 import { setUserSettingsMutation } from '../api/user.api';
+import { getAuthDataSelector, RegisterSchemaI } from '@/entities/Auth';
+import { getUserDataSelector, getUserSettings } from '@/entities/User';
+import { useSelector } from 'react-redux';
 
 export const initAuthData = createAsyncThunk<UserI, void, ThunkConfig<string>>(
     'user/initAuthData',
-    async (newJsonSettings, thunkApi) => {
-        const { rejectWithValue, dispatch } = thunkApi;
-
-        const userId = PersistenceService.get(LocalStorageEnums.USER) as string;
-
-        if (!userId) {
-            return rejectWithValue('');
-        }
+    async (_, thunkApi) => {
+        const { extra, rejectWithValue, dispatch } = thunkApi;
 
         try {
-            const response = await dispatch(
-                getUserDataByIdQuery(userId),
-            ).unwrap();
+            const response = await extra.api.get<UserI>('user/me');
 
-            return response;
+            if (response.status !== 200) {
+                return rejectWithValue('error');
+            }
+
+            return response.data;
         } catch (e) {
-            console.log(e);
-            return rejectWithValue('');
+            return rejectWithValue('error');
         }
     },
 );
@@ -38,8 +36,7 @@ export const saveUserSettings = createAsyncThunk<
     ThunkConfig<string>
 >('user/saveJsonSettings', async (newUserSettings, thunkApi) => {
     const { rejectWithValue, getState, dispatch } = thunkApi;
-    const userData = getUserAuthData(getState());
-    const currentSettings = getUserSettings(getState());
+    const userData = getUserDataSelector(getState());
 
     if (!userData) {
         return rejectWithValue('');
@@ -50,7 +47,7 @@ export const saveUserSettings = createAsyncThunk<
             setUserSettingsMutation({
                 userId: userData.id,
                 userSettings: {
-                    ...currentSettings,
+                    // ...currentSettings,
                     ...newUserSettings,
                 },
             }),

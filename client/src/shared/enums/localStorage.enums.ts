@@ -1,5 +1,5 @@
 export enum LocalStorageEnums {
     THEME = 'theme',
-    USER = 'user',
+    TOKEN = 'token',
     REVIEWS_VIEW = 'reviews_view',
 }
