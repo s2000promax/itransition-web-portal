@@ -11,6 +11,7 @@ import { UserModule } from './user/user.module';
 import { CommentModule } from './comment/comment.module';
 import { RateModule } from './rate/rate.module';
 import { ReviewModule } from './review/review.module';
+import { AwsS3Module } from './aws-s3/aws-s3.module';
 
 @Module({
     imports: [
@@ -24,6 +25,7 @@ import { ReviewModule } from './review/review.module';
         ReviewModule,
         CommentModule,
         RateModule,
+        AwsS3Module,
     ],
     controllers: [AppController],
     providers: [
