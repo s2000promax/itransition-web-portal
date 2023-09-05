@@ -10,8 +10,8 @@ import {
 } from '@/shared/libs/components/DynamicModuleLoader';
 import {
     fetchReviewByIdService,
-    getReviewDataErrorSelector,
-    getReviewDataLoadingSelector,
+    getReviewErrorSelector,
+    getReviewIsLoadingSelector,
     reviewReducer,
 } from '@/entities/Review';
 import { ContentSkeleton } from '@/features/Review/ui/ContentSkeleton/ContentSkeleton';
@@ -32,8 +32,8 @@ export const Review = memo((props: ReviewProps) => {
     const { className, id } = props;
     const { t } = useTranslation('review');
     const dispatch = useAppDispatch();
-    const isLoading = useSelector(getReviewDataLoadingSelector);
-    const error = useSelector(getReviewDataErrorSelector);
+    const isLoading = useSelector(getReviewIsLoadingSelector);
+    const error = useSelector(getReviewErrorSelector);
 
     useEffect(() => {
         if (__PROJECT__ !== 'storybook' && __PROJECT__ !== 'jest') {

@@ -1,0 +1,11 @@
+.EditableCodeBlock {
+
+}
+
+.control {
+    margin-bottom: 8px;
+
+    & .delete {
+        color: var(--cancel);
+    }
+}

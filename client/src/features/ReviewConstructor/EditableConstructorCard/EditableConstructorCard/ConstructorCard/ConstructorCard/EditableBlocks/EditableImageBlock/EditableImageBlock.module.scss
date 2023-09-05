@@ -1,0 +1,20 @@
+.EditableImageBlock {
+
+}
+
+.image {
+    max-width: 900px;
+    margin-bottom: 16px;
+}
+
+.description {
+    margin-bottom: 8px;
+}
+
+.control {
+    margin-bottom: 8px;
+
+    & .delete {
+        color: var(--cancel);
+    }
+}

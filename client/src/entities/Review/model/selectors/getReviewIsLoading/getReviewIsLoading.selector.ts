@@ -1,4 +1,4 @@
 import { StateSchemaI } from '@/app/providers/StoreProvider';
 
-export const getReviewDataLoadingSelector = (state: StateSchemaI) =>
+export const getReviewIsLoadingSelector = (state: StateSchemaI) =>
     state.review?.isLoading || false;

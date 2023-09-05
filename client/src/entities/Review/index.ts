@@ -8,8 +8,12 @@ export type {
 } from './model/types/review.interface';
 
 export { getReviewDataSelector } from './model/selectors/getReviewData/getReviewData.selector';
-export { getReviewDataLoadingSelector } from './model/selectors/getReviewDataLoading/getReviewDataLoading.selector';
-export { getReviewDataErrorSelector } from './model/selectors/getReviewDataError/getReviewDataError.selector';
+export { getReviewIsLoadingSelector } from './model/selectors/getReviewIsLoading/getReviewIsLoading.selector';
+export { getReviewErrorSelector } from './model/selectors/getReviewError/getReviewError.selector';
+export { getReviewReadonlySelector } from './model/selectors/getReviewReadonly/getReviewReadonly.selector';
+export { getReviewValidateErrorsSelector } from './model/selectors/getReviewValidateErrors/getReviewValidateErrors.selector';
+export { getReviewFormSelector } from './model/selectors/getReviewForm/getReviewForm.selector';
+export { getReviewFormBlocksSelector } from './model/selectors/getReviewFormBlocks/getReviewFormBlocks.selector';
 
 export { reviewReducer, reviewActions } from './model/slice/review.slice';
 
@@ -21,3 +25,5 @@ export {
     ReviewViewEnums,
     ReviewTypeEnums,
 } from './model/enums/review.enums';
+
+export { ValidateReviewEnums } from './model/enums/validateReview.enums';

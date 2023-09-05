@@ -1,0 +1,15 @@
+.EditableTextBlock {
+
+}
+
+.control {
+    margin-bottom: 8px;
+
+    & .add {
+        color: var(--save);
+    }
+
+    & .delete {
+        color: var(--cancel);
+    }
+}

@@ -1,0 +1,20 @@
+{
+  "Cover": "Cover",
+  "Subtitle": "Subtitle",
+  "Title": "Title",
+  "code": "code",
+  "code description": "code description",
+  "error": {
+    "data": "data",
+    "incorrect_data": "incorrect_data",
+    "no_data": "no_data",
+    "save": "save",
+    "user_data": "user_data"
+  },
+  "image description": "image description",
+  "no files uploaded yet": "no files uploaded yet",
+  "paragraph": "paragraph",
+  "title": "title",
+  "upload cover for review": "upload cover for review",
+  "upload your image": "upload your image"
+}

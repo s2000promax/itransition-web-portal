@@ -1,5 +1,6 @@
 import { UserI } from '@/entities/User';
 import { ReviewBlockTypeEnums, ReviewTypeEnums } from '../enums/review.enums';
+import { ValidateReviewEnums } from '@/entities/Review/model/enums/validateReview.enums';
 
 interface ReviewBlockBaseI {
     id: string;
@@ -9,6 +10,7 @@ interface ReviewBlockBaseI {
 export interface ReviewCodeBlockI extends ReviewBlockBaseI {
     type: ReviewBlockTypeEnums.CODE;
     code: string;
+    title: string;
 }
 
 export interface ReviewImageBlockI extends ReviewBlockBaseI {
@@ -20,7 +22,7 @@ export interface ReviewImageBlockI extends ReviewBlockBaseI {
 export interface ReviewTextBlockI extends ReviewBlockBaseI {
     type: ReviewBlockTypeEnums.TEXT;
     paragraphs: string[];
-    title?: string;
+    title: string;
 }
 
 export type ReviewBlockT =
@@ -33,7 +35,7 @@ export interface ReviewI {
     title: string;
     user: UserI;
     subtitle: string;
-    img: string;
+    cover: string;
     views: number;
     createdAt: string;
     type: ReviewTypeEnums[];
@@ -41,7 +43,10 @@ export interface ReviewI {
 }
 
 export interface ReviewSchemaI {
+    data?: ReviewI;
+    form?: ReviewI;
+    readonly?: boolean;
     isLoading: boolean;
     error?: string;
-    data?: ReviewI;
+    validateErrors?: ValidateReviewEnums[];
 }

@@ -95,7 +95,7 @@ export const ListItem = memo((props: ListItemProps) => {
                                 height={250}
                             />
                         }
-                        src={review.img}
+                        src={review.cover}
                         className={cls.img}
                         alt={review.title}
                     />
@@ -145,7 +145,7 @@ export const ListItem = memo((props: ListItemProps) => {
                         />
                     }
                     alt={review.title}
-                    src={review.img}
+                    src={review.cover}
                     className={cls.img}
                 />
                 <VStack
