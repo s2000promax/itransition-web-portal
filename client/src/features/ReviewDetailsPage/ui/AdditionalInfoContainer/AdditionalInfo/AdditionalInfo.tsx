@@ -11,7 +11,7 @@ import { Button } from '@/shared/UI-kit/Button';
 interface AdditionalInfoProps {
     className?: string;
     author: UserI;
-    createdAt: string;
+    createdAt: Date;
     views: number;
     onEdit: () => void;
 }
@@ -34,7 +34,7 @@ export const AdditionalInfo = memo((props: AdditionalInfoProps) => {
                     text={author.email}
                     bold
                 />
-                <Text text={createdAt} />
+                <Text text={createdAt.toDateString()} />
             </HStack>
             <Button onClick={onEdit}>{t('edit')}</Button>
             <Text text={t('{{count}} views', { count: views })} />

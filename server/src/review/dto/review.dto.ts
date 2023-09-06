@@ -1,4 +1,4 @@
-import { Review } from '@prisma/client';
+import { Review, ReviewTypeEnum } from '@prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class ReviewDto implements Review {
@@ -30,8 +30,6 @@ export class ReviewDto implements Review {
         type: String,
         description: 'Review text preview',
     })
-    preview: string;
-
     createdAt: Date;
     updatedAt: Date;
     likesCount: number;
@@ -43,5 +41,7 @@ export class ReviewDto implements Review {
         type: String,
         description: 'Review owner ID',
     })
-    ownerUserId: string;
+    ownerId: string;
+    ownerRating: number;
+    type: ReviewTypeEnum;
 }

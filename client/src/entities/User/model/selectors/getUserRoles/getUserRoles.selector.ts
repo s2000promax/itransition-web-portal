@@ -3,7 +3,7 @@ import { StateSchemaI } from '@/app/providers/StoreProvider';
 import { UserRolesEnums } from '../../enums/userRoles.enums';
 
 export const getUserRolesSelector = (state: StateSchemaI) =>
-    state.user.userData?.role;
+    state.user.userData?.roles;
 
 export const isUserRoleAdminSelector = createSelector(
     getUserRolesSelector,

@@ -1,12 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import React, { memo, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { classNames } from '@/shared/libs/classNames/classNames';
-import {
-    getUserDataSelector,
-    isUserRoleAdminSelector,
-    userActions,
-} from '@/entities/User';
+import { getUserDataSelector, isUserRoleAdminSelector } from '@/entities/User';
 import { Dropdown } from '@/shared/UI-kit/Popups';
 import { Avatar } from '@/shared/UI-kit/Avatar';
 import {
@@ -14,6 +10,8 @@ import {
     getRouteProfile,
     getRouteSettings,
 } from '@/shared/routes/routes.patterns';
+import { removeAuthData } from '@/entities/Auth';
+import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
 
 interface AvatarDropdownProps {
     className?: string;
@@ -22,17 +20,17 @@ interface AvatarDropdownProps {
 export const AvatarDropdown = memo((props: AvatarDropdownProps) => {
     const { className } = props;
     const { t } = useTranslation('navbar');
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const isAdmin = useSelector(isUserRoleAdminSelector);
-    const authData = useSelector(getUserDataSelector);
+    const userData = useSelector(getUserDataSelector);
 
     const onLogout = useCallback(() => {
-        dispatch(userActions.logout());
+        dispatch(removeAuthData());
     }, [dispatch]);
 
     const isAdminDashboardAvailable = isAdmin;
 
-    if (!authData) {
+    if (!userData) {
         return null;
     }
 
@@ -51,7 +49,7 @@ export const AvatarDropdown = memo((props: AvatarDropdownProps) => {
         },
         {
             content: t('Profile'),
-            href: getRouteProfile(authData.id),
+            href: getRouteProfile(userData.id),
         },
         {
             content: t('Logout'),
@@ -67,7 +65,7 @@ export const AvatarDropdown = memo((props: AvatarDropdownProps) => {
             trigger={
                 <Avatar
                     size={40}
-                    src={authData.avatar}
+                    src={userData.avatar}
                 />
             }
         />

@@ -1,12 +1,29 @@
-import { Body, Controller, Get, Patch, Post, Put } from '@nestjs/common';
+import {
+    Body,
+    ClassSerializerInterceptor,
+    Controller,
+    Get,
+    Param,
+    Patch,
+    Post,
+    Put,
+    Query,
+    UseInterceptors,
+} from '@nestjs/common';
 import { ReviewService } from './review.service';
 import { ApiBody } from '@nestjs/swagger';
 import { ReviewDto } from './dto';
-import { Like, Review, UsersRating } from '@prisma/client';
+import { Like, Review, ReviewTypeEnum, UsersRating } from '@prisma/client';
+
+import { UserService } from '../user/user.service';
+import { ReviewResponse, UserResponse } from './responses';
 
 @Controller('review')
 export class ReviewController {
-    constructor(private reviewService: ReviewService) {}
+    constructor(
+        private reviewService: ReviewService,
+        private userService: UserService,
+    ) {}
 
     @Post('create')
     @ApiBody({ type: ReviewDto })
@@ -22,4 +39,38 @@ export class ReviewController {
 
     @Get('all')
     async getAllReviews() {}
+
+    @UseInterceptors(ClassSerializerInterceptor)
+    @Get(':id')
+    async findOneUser(
+        @Param('id') id: string,
+        @Query('_expand') expand: string,
+    ) {
+        // const review = await this.reviewService.findById(id);
+
+        const review: Review = {
+            id: '123123',
+            ownerId: 'd2c2c6f4-5de9-433a-ad4a-58c8cd4c559c',
+            title: 'Test Review',
+            subtitle: 'sdfdsfdsfsd',
+            cover: '',
+            type: ReviewTypeEnum.ALL,
+            ownerRating: 7,
+            averageRating: 4,
+            likesCount: 33,
+            viewCount: 234,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+        };
+
+        if (expand === 'user') {
+            const user = await this.userService.findById(review.ownerId);
+            return {
+                ...new ReviewResponse(review),
+                user: new UserResponse(user),
+            };
+        }
+
+        return new ReviewResponse(review);
+    }
 }

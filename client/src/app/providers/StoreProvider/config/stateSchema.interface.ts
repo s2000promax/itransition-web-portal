@@ -19,11 +19,11 @@ import { RegisterSchemaI } from '@/entities/Auth/model/types/register.interface'
 import { AuthSchemaI } from '@/entities/Auth/model/types/auth.interface';
 
 export interface StateSchemaI {
+    authData: AuthSchemaI;
     user: UserSchemaI;
     ui: UISchemaI;
     [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>;
 
-    authData: AuthSchemaI;
     loginForm?: LoginSchemaI;
     registerForm?: RegisterSchemaI;
 

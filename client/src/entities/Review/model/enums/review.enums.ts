@@ -16,9 +16,12 @@ export enum ReviewViewEnums {
 }
 
 export enum ReviewTypeEnums {
-    ALL = 'all',
-    IT = 'it',
-    MUSIC = 'music',
-    MOVIES = 'movies',
-    SCIENCE = 'science',
+    ALL = 'ALL',
+    IT = 'IT',
+    MUSIC = 'MUSIC',
+    MOVIES = 'MOVIES',
+    GAMES = 'GAMES',
+    TECHNOLOGY = 'TECHNOLOGY',
+    STARTUPS = 'STARTUPS',
+    SCIENCE = 'SCIENCE',
 }

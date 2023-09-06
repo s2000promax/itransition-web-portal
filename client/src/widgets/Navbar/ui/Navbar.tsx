@@ -13,7 +13,7 @@ import CreateIcon from '@/shared/assets/ui/icons/edit.svg';
 import { Icon } from '@/shared/UI-kit/Icon';
 import { getRouteReviewCreate } from '@/shared/routes/routes.patterns';
 import { getAuthDataSelector } from '@/entities/Auth';
-import { getUserDataSelector, initAuthData } from '@/entities/User';
+import { getUserDataSelector } from '@/entities/User';
 import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
 
 interface NavbarProps {
@@ -29,10 +29,10 @@ export const Navbar = memo(({ className }: NavbarProps) => {
     const userData = useSelector(getUserDataSelector);
 
     useEffect(() => {
-        if (authData) {
-            dispatch(initAuthData());
+        if (userData) {
+            // dispatch(initAuthData());
         }
-    }, [authData]);
+    }, [userData]);
 
     const onCloseModal = useCallback(() => {
         setIsLoginModal(false);

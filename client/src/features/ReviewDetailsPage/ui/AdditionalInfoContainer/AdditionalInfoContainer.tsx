@@ -36,9 +36,9 @@ export const AdditionalInfoContainer = memo(
             >
                 <AdditionalInfo
                     onEdit={onEditArticle}
-                    author={review.user}
+                    author={review.user!}
                     createdAt={review.createdAt}
-                    views={review.views}
+                    views={review.viewCount}
                 />
             </Card>
         );

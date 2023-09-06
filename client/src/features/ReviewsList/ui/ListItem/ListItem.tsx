@@ -35,12 +35,12 @@ export const ListItem = memo((props: ListItemProps) => {
         <>
             <Avatar
                 size={32}
-                src={review.user.avatar}
+                src={review.user?.avatar}
                 className={cls.avatar}
             />
             <Text
                 bold
-                text={review.user.email}
+                text={review.user?.email}
             />
         </>
     );
@@ -48,7 +48,7 @@ export const ListItem = memo((props: ListItemProps) => {
         <HStack gap="8">
             <Icon Svg={EyeIcon} />
             <Text
-                text={String(review.views)}
+                text={String(review.viewCount)}
                 className={cls.views}
             />
         </HStack>
@@ -78,7 +78,7 @@ export const ListItem = memo((props: ListItemProps) => {
                         max
                     >
                         {userInfo}
-                        <Text text={review.createdAt} />
+                        <Text text={review.createdAt.toDateString()} />
                     </HStack>
                     <Text
                         title={review.title}
@@ -166,7 +166,7 @@ export const ListItem = memo((props: ListItemProps) => {
                             max
                         >
                             <Text
-                                text={review.createdAt}
+                                text={review.createdAt.toDateString()}
                                 className={cls.date}
                             />
                             {views}

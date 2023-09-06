@@ -7,6 +7,8 @@ export {
 
 export { authReducer, authActions } from './model/slice/auth.slice';
 
+export { initAuthData, removeAuthData } from './model/services/auth.service';
+
 export type { RegisterSchemaI } from './model/types/register.interface';
 
 export { getRegisterFirstNameSelector } from './model/selectors/Register/getRegisterFirstName/getRegisterFirstName.selector';

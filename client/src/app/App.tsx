@@ -8,8 +8,9 @@ import { useAppToolbar } from '@/shared/libs/hooks/useAppToolbar/useAppToolbar';
 import { MainLayout } from '@/shared/layouts/MainLayout';
 import { Navbar } from '@/widgets/Navbar';
 import { Sidebar } from '@/widgets/Sidebar';
-import { getUserInitedSelector, initAuthData } from '@/entities/User';
+import { getUserInitedSelector } from '@/entities/User';
 import { AppLoaderLayout } from '@/shared/layouts/AppLoaderLayout';
+import { initAuthData } from '@/entities/Auth';
 
 const App = memo(() => {
     const { theme } = useTheme();

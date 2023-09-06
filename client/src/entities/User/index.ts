@@ -18,6 +18,6 @@ export {
 
 export { userReducer, userActions } from './model/slice/user.slice';
 
-export { initAuthData, saveUserSettings } from './model/services/user.service';
+export { saveUserSettings } from './model/services/user.service';
 
 export { UserRolesEnums } from './model/enums/userRoles.enums';

@@ -25,9 +25,11 @@ const loginSlice = createSlice({
             .addCase(loginByEmail.pending, (state) => {
                 state.error = undefined;
                 state.isLoading = true;
+                console.log('pending');
             })
             .addCase(loginByEmail.fulfilled, (state) => {
                 state.isLoading = false;
+                console.log('fulfilled');
             })
             .addCase(loginByEmail.rejected, (state, action) => {
                 state.isLoading = false;

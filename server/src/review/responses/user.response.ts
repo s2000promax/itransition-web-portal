@@ -5,20 +5,32 @@ export class UserResponse implements User {
     id: string;
     firstName: string;
     lastName: string;
-    email: string;
 
     @Exclude()
-    password: string;
+    email: string;
 
     avatar: string;
+
+    @Exclude()
     settings: number;
+
+    @Exclude()
     isBlocked: boolean;
+
+    @Exclude()
     role: string;
+
+    @Exclude()
     createdAt: Date;
+
+    @Exclude()
     updatedAt: Date;
 
     @Exclude()
     provider: string;
+
+    @Exclude()
+    password: string;
 
     constructor(user: User) {
         Object.assign(this, user);

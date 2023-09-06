@@ -10,13 +10,21 @@ import { saveUserSettings, useUserSettings } from '@/entities/User';
 export const Greeting = memo(() => {
     const { t } = useTranslation('greeting');
     const [isOpen, setIsOpen] = useState(false);
-    const { isReviewsPageWasOpened } = useUserSettings();
+    const { isReviewsPageWasOpened, theme, language, isFirstVisit } =
+        useUserSettings();
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         if (!isReviewsPageWasOpened) {
             setIsOpen(true);
-            dispatch(saveUserSettings({ isReviewsPageWasOpened: true }));
+            dispatch(
+                saveUserSettings({
+                    theme,
+                    isFirstVisit,
+                    language,
+                    isReviewsPageWasOpened: true,
+                }),
+            );
         }
     }, [dispatch, isReviewsPageWasOpened]);
 

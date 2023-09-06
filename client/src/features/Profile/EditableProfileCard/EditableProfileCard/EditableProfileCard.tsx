@@ -26,6 +26,8 @@ import {
 import { EditableProfileCardHeader } from '../EditableProfileCardHeader/EditableProfileCardHeader';
 import { VStack } from '@/shared/UI-kit/Stack';
 import { Text } from '@/shared/UI-kit/Text';
+import { uploadService } from '@/entities/Upload';
+import { reviewActions } from '@/entities/Review';
 interface EditableProfileCardProps {
     className?: string;
     id?: string;
@@ -73,8 +75,23 @@ export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
     );
 
     const onChangeAvatar = useCallback(
-        (value?: string) => {
-            dispatch(profileActions.updateProfile({ avatar: value || '' }));
+        (file: File) => {
+            console.log('AVATAR!!!', file);
+            // dispatch(profileActions.updateProfile({ avatar: value || '' }));
+
+            dispatch(uploadService(file)).then((response) => {
+                if (response.meta.requestStatus === 'fulfilled') {
+                    const url = Object.values(
+                        response.payload as { url: string },
+                    ).join();
+
+                    dispatch(
+                        profileActions.updateProfile({
+                            avatar: url || '',
+                        }),
+                    );
+                }
+            });
         },
         [dispatch],
     );

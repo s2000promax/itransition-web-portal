@@ -1,5 +1,5 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
+import { RolesEnum, Settings, User, UserRole } from '@prisma/client';
 import { genSaltSync, hashSync } from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service';
 import { JwtPayload } from '../config/types/auth/jwtPayload';
@@ -13,22 +13,33 @@ export class UserService {
             ? this.hashPassword(user.password)
             : null;
 
-        const createdUser = await this.prismaService.user.create({
-            data: {
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email,
-                password: hashedPassword,
-                avatar: '',
-                role: 'USER',
-                settings: 0,
-            },
-        });
+        try {
+            const existingRoleUSER = await this.prismaService.role.findFirst({
+                where: {
+                    name: RolesEnum.USER,
+                },
+            });
 
-        if (!createdUser) {
-            return null;
-        } else {
+            const createdUser = await this.prismaService.user.create({
+                data: {
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    email: user.email,
+                    password: hashedPassword,
+                    avatar: '',
+                    roles: {
+                        create: [
+                            {
+                                roleId: existingRoleUSER.id,
+                            },
+                        ],
+                    },
+                },
+            });
             return createdUser;
+        } catch (e) {
+            console.log(e);
+            return null;
         }
     }
 
@@ -46,7 +57,7 @@ export class UserService {
                 avatar: user.avatar ?? undefined,
                 password: hashedPassword ?? undefined,
                 provider: user?.provider ?? undefined,
-                role: user?.role ?? undefined,
+                // roles: user?.roles ?? undefined,
                 isBlocked: user?.isBlocked ?? undefined,
             },
             create: {
@@ -56,7 +67,7 @@ export class UserService {
                 email: user.email,
                 password: hashedPassword,
                 provider: user?.provider,
-                role: user.role ?? undefined,
+                // role: user.role ?? undefined,
                 isBlocked: user?.isBlocked ?? undefined,
             },
         });
@@ -110,6 +121,33 @@ export class UserService {
             where: { id },
             select: { id: true },
         });
+    }
+
+    async findSettingsById(id: string): Promise<Settings> {
+        const foundedSettings = await this.prismaService.settings.findFirst({
+            where: {
+                userId: id,
+            },
+        });
+
+        if (!foundedSettings) {
+            return null;
+        } else {
+            return foundedSettings;
+        }
+    }
+
+    async getUserRoles(userId: string): Promise<string[]> {
+        const userRoles = await this.prismaService.userRole.findMany({
+            where: { userId },
+            include: { role: true },
+        });
+
+        if (!userRoles) {
+            return null;
+        } else {
+            return userRoles.map((userRole) => userRole.role.name);
+        }
     }
 
     async updateIsBlockedStatus(ids: string[], status: boolean) {

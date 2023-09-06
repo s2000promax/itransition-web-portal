@@ -5,11 +5,11 @@ import { getReviewDataSelector } from '@/entities/Review';
 export const getCanEditReviewSelector = createSelector(
     getReviewDataSelector,
     getUserDataSelector,
-    (article, user) => {
-        if (!article || !user) {
+    (review, user) => {
+        if (!review || !user) {
             return false;
         }
 
-        return article.user.id === user.id;
+        return review.ownerId === user.id;
     },
 );

@@ -1,6 +1,6 @@
-import { UserI } from '@/entities/User';
 import { ReviewBlockTypeEnums, ReviewTypeEnums } from '../enums/review.enums';
 import { ValidateReviewEnums } from '@/entities/Review/model/enums/validateReview.enums';
+import { UserI } from '@/entities/User';
 
 interface ReviewBlockBaseI {
     id: string;
@@ -32,14 +32,20 @@ export type ReviewBlockT =
 
 export interface ReviewI {
     id: string;
+    ownerId: string;
     title: string;
-    user: UserI;
     subtitle: string;
     cover: string;
-    views: number;
-    createdAt: string;
     type: ReviewTypeEnums[];
+    tags: [];
     blocks: ReviewBlockT[];
+    createdAt: Date;
+    updatedAt: Date;
+    ownerRating: number;
+    averageRating: number;
+    viewCount: number;
+    likesCount: number;
+    user?: UserI;
 }
 
 export interface ReviewSchemaI {

@@ -19,20 +19,19 @@ const initialState: ReviewSchemaI = {
     data: undefined,
     form: {
         id: '',
+        ownerId: '',
         title: '',
         subtitle: '',
         cover: '',
-        user: {
-            id: '',
-            avatar: '',
-            lastName: '',
-            firstName: '',
-            email: '',
-        },
         type: [],
         blocks: [],
-        views: 0,
-        createdAt: '',
+        viewCount: 0,
+        likesCount: 0,
+        averageRating: 0,
+        ownerRating: 0,
+        tags: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
     },
 };
 

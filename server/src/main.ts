@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import cookieParser from 'cookie-parser';
+import * as cookieParser from 'cookie-parser';
 import * as bodyParser from 'body-parser';
 import { SwaggerModule } from '@nestjs/swagger';
 import swaggerConfig from './config/app/swaggerConfig';
@@ -8,7 +8,7 @@ import appConfig from './config/app/appConfig';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
-
+    console.log(appConfig().origins);
     app.enableCors({
         allowedHeaders: [
             'content-type',
@@ -23,7 +23,7 @@ async function bootstrap() {
     });
     app.use(bodyParser.json({ limit: '5mb' }));
     app.use(bodyParser.urlencoded({ limit: '5mb', extended: true }));
-    // app.use(cookieParser());
+    app.use(cookieParser());
     app.setGlobalPrefix('api');
 
     if (process.env.VERCEL_NODE_ENV !== 'production') {

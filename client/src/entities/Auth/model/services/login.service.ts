@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { initAuthData, UserI } from '@/entities/User';
+import { userActions, UserI } from '@/entities/User';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
-import { authActions, AuthSchemaI } from '@/entities/Auth';
+import { authActions, AuthSchemaI, initAuthData } from '@/entities/Auth';
 import { PersistenceService } from '@/shared/services/persistence.service';
 import { LocalStorageEnums } from '@/shared/enums/localStorage.enums';
 
@@ -24,11 +24,15 @@ export const loginByEmail = createAsyncThunk<
             return rejectWithValue('error');
         }
 
-        dispatch(authActions.setAuthData(response.data));
         PersistenceService.set(
             LocalStorageEnums.TOKEN,
             response.data.accessToken,
         );
+
+        dispatch(authActions.setAuthData(response.data));
+
+        dispatch(initAuthData());
+
         return response.data;
     } catch (e) {
         return rejectWithValue('error');

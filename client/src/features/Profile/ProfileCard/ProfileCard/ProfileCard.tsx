@@ -7,6 +7,7 @@ import { Card } from '@/shared/UI-kit/Card';
 import { HStack, VStack } from '@/shared/UI-kit/Stack';
 import { Input } from '@/shared/UI-kit/Input';
 import { Avatar } from '@/shared/UI-kit/Avatar';
+import { ImageDragDropUploader } from '@/features/UI/ImageDragDropUploader';
 
 export interface ProfileCardProps {
     className?: string;
@@ -16,7 +17,7 @@ export interface ProfileCardProps {
     readonly?: boolean;
     onChangeLastName?: (value?: string) => void;
     onChangeFirstName?: (value?: string) => void;
-    onChangeAvatar?: (value?: string) => void;
+    onChangeAvatar: (file: File) => void;
 }
 
 export const ProfileCard = (props: ProfileCardProps) => {
@@ -60,6 +61,11 @@ export const ProfileCard = (props: ProfileCardProps) => {
                         />
                     </HStack>
                 )}
+
+                {!readonly && (
+                    <ImageDragDropUploader onUpload={onChangeAvatar} />
+                )}
+
                 <HStack
                     gap="24"
                     max
@@ -81,17 +87,6 @@ export const ProfileCard = (props: ProfileCardProps) => {
                             onChange={onChangeLastName}
                             readonly={readonly}
                             data-testid="ProfileCard.lastname"
-                        />
-                    </VStack>
-                    <VStack
-                        gap="16"
-                        max
-                    >
-                        <Input
-                            value={data?.avatar}
-                            label={t('link')}
-                            onChange={onChangeAvatar}
-                            readonly={readonly}
                         />
                     </VStack>
                 </HStack>

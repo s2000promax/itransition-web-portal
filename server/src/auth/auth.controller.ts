@@ -44,7 +44,9 @@ export class AuthController {
     @UseInterceptors(ClassSerializerInterceptor)
     @Post('register')
     async register(@Body() dto: RegisterDto, @Res() res: Response) {
+        console.log(dto);
         const user = await this.authService.register(dto);
+        console.log('user:', user);
         if (!user) {
             throw new BadRequestException(
                 `Failed to register user with data: ${JSON.stringify(dto)}`,
