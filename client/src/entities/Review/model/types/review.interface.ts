@@ -36,7 +36,7 @@ export interface ReviewI {
     title: string;
     subtitle: string;
     cover: string;
-    type: ReviewTypeEnums[];
+    type: ReviewTypeEnums;
     tags: [];
     blocks: ReviewBlockT[];
     createdAt: Date;
@@ -50,7 +50,16 @@ export interface ReviewI {
 
 export interface ReviewSchemaI {
     data?: ReviewI;
-    form?: ReviewI;
+    form?: Omit<
+        ReviewI,
+        | 'id'
+        | 'createdAt'
+        | 'updatedAt'
+        | 'tags'
+        | 'viewCount'
+        | 'likesCount'
+        | 'averageRating'
+    >;
     readonly?: boolean;
     isLoading: boolean;
     error?: string;

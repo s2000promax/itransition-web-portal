@@ -2,10 +2,11 @@ import { memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { classNames } from '@/shared/libs/classNames/classNames';
+import cls from './EditableConstructorCardHeader.module.scss';
 import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
 import { getUserDataSelector } from '@/entities/User';
 import { getProfileData } from '@/entities/Profile';
-import { HStack } from '@/shared/UI-kit/Stack';
+import { HStack, VStack } from '@/shared/UI-kit/Stack';
 import { Text } from '@/shared/UI-kit/Text';
 import { Button } from '@/shared/UI-kit/Button';
 import { Card } from '@/shared/UI-kit/Card';
@@ -14,13 +15,16 @@ import AddImageBlockIcon from '@/shared/assets/ui/icons/add-image.svg';
 import AddCodeBlockIcon from '@/shared/assets/ui/icons/add-code.svg';
 import { Icon } from '@/shared/UI-kit/Icon';
 import {
+    getReviewFormReviewTypeSelector,
     getReviewReadonlySelector,
     reviewActions,
     ReviewBlockTypeEnums,
     ReviewCodeBlockI,
     ReviewImageBlockI,
     ReviewTextBlockI,
+    ReviewTypeEnums,
 } from '@/entities/Review';
+import { TypeSelector } from '@/features/UI/TypeSelector';
 
 interface EditableProfileCardHeaderProps {
     className?: string;
@@ -36,6 +40,7 @@ export const EditableConstructorCardHeader = memo(
         const canEdit = true; // authData?.id === profileData?.id;
         const readonly = useSelector(getReviewReadonlySelector);
         const dispatch = useAppDispatch();
+        const reviewType = useSelector(getReviewFormReviewTypeSelector);
 
         const onEdit = useCallback(() => {
             dispatch(reviewActions.setReadonly(false));
@@ -79,6 +84,13 @@ export const EditableConstructorCardHeader = memo(
             dispatch(reviewActions.addReviewBlock(newCodeBlock));
         }, [dispatch]);
 
+        const onReviewTypeChange = useCallback(
+            (type: ReviewTypeEnums) => {
+                dispatch(reviewActions.updateFormReview({ type }));
+            },
+            [dispatch],
+        );
+
         return (
             <Card
                 padding="24"
@@ -116,28 +128,39 @@ export const EditableConstructorCardHeader = memo(
                 </HStack>
                 {!readonly && (
                     <HStack
-                        gap="16"
                         max
-                        justify="center"
+                        justify="between"
+                        className={cls.controlContainer}
                     >
-                        <Button
-                            variant="clear"
-                            onClick={onAddTextBlock}
+                        <HStack
+                            gap="16"
+                            justify="center"
                         >
-                            <Icon Svg={AddTextBlockIcon} />
-                        </Button>
-                        <Button
-                            variant="clear"
-                            onClick={onAddImageBlock}
-                        >
-                            <Icon Svg={AddImageBlockIcon} />
-                        </Button>
-                        <Button
-                            variant="clear"
-                            onClick={onAddCodeBlock}
-                        >
-                            <Icon Svg={AddCodeBlockIcon} />
-                        </Button>
+                            <Button
+                                variant="clear"
+                                onClick={onAddTextBlock}
+                            >
+                                <Icon Svg={AddTextBlockIcon} />
+                            </Button>
+                            <Button
+                                variant="clear"
+                                onClick={onAddImageBlock}
+                            >
+                                <Icon Svg={AddImageBlockIcon} />
+                            </Button>
+                            <Button
+                                variant="clear"
+                                onClick={onAddCodeBlock}
+                            >
+                                <Icon Svg={AddCodeBlockIcon} />
+                            </Button>
+                        </HStack>
+                        <HStack>
+                            <TypeSelector
+                                value={reviewType}
+                                onChangeType={onReviewTypeChange}
+                            />
+                        </HStack>
                     </HStack>
                 )}
             </Card>

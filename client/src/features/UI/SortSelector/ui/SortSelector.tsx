@@ -54,11 +54,7 @@ export const SortSelector = memo((props: SortSelectorProps) => {
     );
 
     return (
-        <div
-            className={classNames(cls.ArticleSortSelectorRedesigned, {}, [
-                className,
-            ])}
-        >
+        <div className={classNames(cls.SortSelector, {}, [className])}>
             <VStack gap="8">
                 <Text text={t('sort_by')} />
                 <ListBox

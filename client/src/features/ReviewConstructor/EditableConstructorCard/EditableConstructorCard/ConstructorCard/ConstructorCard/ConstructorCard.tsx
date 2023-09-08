@@ -22,7 +22,7 @@ import {
 
 export interface ProfileCardProps {
     className?: string;
-    data?: ReviewI;
+    data?: Partial<ReviewI>;
     error?: string;
     isLoading?: boolean;
     readonly?: boolean;

@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import {
-    ReviewSchemaI,
-    ReviewI,
     ReviewBlockT,
-    ReviewTextBlockI,
     ReviewCodeBlockI,
+    ReviewI,
     ReviewImageBlockI,
+    ReviewSchemaI,
+    ReviewTextBlockI,
 } from '../types/review.interface';
 import { fetchReviewByIdService } from '../services/fetchReviewById/fetchReviewById.service';
 import { Partial } from '@react-spring/web';
@@ -17,22 +17,26 @@ const initialState: ReviewSchemaI = {
     isLoading: false,
     error: undefined,
     data: undefined,
-    form: {
-        id: '',
-        ownerId: '',
-        title: '',
-        subtitle: '',
-        cover: '',
-        type: [],
-        blocks: [],
-        viewCount: 0,
-        likesCount: 0,
-        averageRating: 0,
-        ownerRating: 0,
-        tags: [],
-        createdAt: new Date(),
-        updatedAt: new Date(),
-    },
+    form: undefined,
+};
+
+const initialForm: Omit<
+    ReviewI,
+    | 'id'
+    | 'createdAt'
+    | 'updatedAt'
+    | 'tags'
+    | 'viewCount'
+    | 'likesCount'
+    | 'averageRating'
+> = {
+    ownerId: '',
+    title: '',
+    subtitle: '',
+    cover: '',
+    type: 'ALL' as ReviewTypeEnums,
+    blocks: [],
+    ownerRating: 0,
 };
 
 const reviewSlice = createSlice({
@@ -41,6 +45,7 @@ const reviewSlice = createSlice({
     reducers: {
         setReadonly: (state, action: PayloadAction<boolean>) => {
             state.readonly = action.payload;
+            state.form = initialForm;
         },
         cancelEdit: (state) => {
             state.readonly = true;
@@ -57,11 +62,17 @@ const reviewSlice = createSlice({
             state.form!.cover = action.payload;
         },
         addReviewBlock: (state, action: PayloadAction<ReviewBlockT>) => {
-            const newBlock = {
+            const newBlock: ReviewBlockT = {
                 ...action.payload,
-                id: String(state.form!.blocks.length),
+                id: String(state.form!.blocks?.length ?? 0),
             };
-            state.form!.blocks.push(newBlock);
+            state.form!.blocks?.push(newBlock);
+            /*
+            state.form!.blocks
+                ? state.form!.blocks.push(newBlock)
+                : (state.form!.blocks = [newBlock]);
+
+             */
         },
         removeReviewBlock: (state, action: PayloadAction<{ id: string }>) => {
             if (state.form?.blocks?.length) {
@@ -71,12 +82,15 @@ const reviewSlice = createSlice({
                         ...block,
                         id: String(index + 1),
                     }));
+            } else {
+                state.form!.blocks = [];
             }
         },
         addTextParagraph: (state, action: PayloadAction<{ id: string }>) => {
-            const indexBlock = state.form!.blocks.findIndex(
-                (block) => block.id === action.payload.id,
-            );
+            const indexBlock =
+                state.form!.blocks?.findIndex(
+                    (block) => block.id === action.payload.id,
+                ) ?? -1;
             if (
                 indexBlock !== -1 &&
                 state.form!.blocks[indexBlock].type ===
