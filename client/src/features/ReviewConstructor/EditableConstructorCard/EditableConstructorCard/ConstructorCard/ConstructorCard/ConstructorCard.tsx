@@ -5,7 +5,7 @@ import cls from './ConstructorCard.module.scss';
 import { ConstructorCardError } from '@/features/ReviewConstructor/EditableConstructorCard/EditableConstructorCard/ConstructorCard/ConstructorCardError/ConstructorCardError';
 import { ConstructorCardSkeleton } from '@/features/ReviewConstructor/EditableConstructorCard/EditableConstructorCard/ConstructorCard/ConstructorCardSkeleton/ConstructorCardSkeleton';
 import { Card } from '@/shared/UI-kit/Card';
-import { VStack } from '@/shared/UI-kit/Stack';
+import { HStack, VStack } from '@/shared/UI-kit/Stack';
 import { Input } from '@/shared/UI-kit/Input';
 import { Text } from '@/shared/UI-kit/Text';
 import { FileUploader } from 'react-drag-drop-files';
@@ -19,6 +19,8 @@ import {
     reviewActions,
     ReviewI,
 } from '@/entities/Review';
+import { OwnerRating } from '@/features/UI/OwnerRating';
+import { ImageDragDropUploader } from '@/features/UI/ImageDragDropUploader';
 
 export interface ProfileCardProps {
     className?: string;
@@ -28,6 +30,7 @@ export interface ProfileCardProps {
     readonly?: boolean;
     onChangeTitle?: (value?: string) => void;
     onChangeSubtitle?: (value?: string) => void;
+    onChangeOwnerRating?: (value: number) => void;
 }
 
 export const ConstructorCard = (props: ProfileCardProps) => {
@@ -39,6 +42,7 @@ export const ConstructorCard = (props: ProfileCardProps) => {
         readonly,
         onChangeTitle,
         onChangeSubtitle,
+        onChangeOwnerRating,
     } = props;
 
     const { t } = useTranslation('reviewEdit');
@@ -47,11 +51,7 @@ export const ConstructorCard = (props: ProfileCardProps) => {
     const formData = useSelector(getReviewFormSelector);
     const blocks = useSelector(getReviewFormBlocksSelector);
 
-    const [file, setFile] = useState<File | null>(null);
-
     const handleFileUploaderChange = (file: File) => {
-        setFile(file);
-
         dispatch(uploadService(file)).then((response) => {
             if (response.meta.requestStatus === 'fulfilled') {
                 const url = Object.values(
@@ -62,8 +62,6 @@ export const ConstructorCard = (props: ProfileCardProps) => {
             }
         });
     };
-
-    const fileTypes = ['JPG', 'PNG', 'GIF', 'JPEG'];
 
     if (isLoading) {
         return <ConstructorCardSkeleton />;
@@ -106,25 +104,9 @@ export const ConstructorCard = (props: ProfileCardProps) => {
                     />
                 )}
                 {!readonly && (
-                    <VStack
-                        align="center"
-                        gap="8"
-                    >
-                        <Text text={t('upload cover for review')} />
-                        <FileUploader
-                            multiple={false}
-                            handleChange={handleFileUploaderChange}
-                            name="file"
-                            types={fileTypes}
-                        />
-                        <Text
-                            text={
-                                file
-                                    ? `File name: ${file.name}`
-                                    : t('no files uploaded yet')
-                            }
-                        />
-                    </VStack>
+                    <ImageDragDropUploader
+                        onUpload={handleFileUploaderChange}
+                    />
                 )}
             </VStack>
 
@@ -135,6 +117,21 @@ export const ConstructorCard = (props: ProfileCardProps) => {
                 >
                     {blocks.map(renderEditableBlocks)}
                 </VStack>
+            )}
+
+            {!readonly && (
+                <HStack
+                    justify="center"
+                    gap="8"
+                    className={cls.rateContainer}
+                >
+                    <Text text={t('you_rate')} />
+                    <OwnerRating
+                        onChangeOwnerRating={onChangeOwnerRating}
+                        className={cls.ownerRating}
+                    />
+                    <Text text={String(formData?.ownerRating ?? 0)} />
+                </HStack>
             )}
         </Card>
     );

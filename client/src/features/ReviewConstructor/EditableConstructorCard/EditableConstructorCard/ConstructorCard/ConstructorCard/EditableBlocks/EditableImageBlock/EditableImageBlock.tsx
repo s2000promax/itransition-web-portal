@@ -1,7 +1,6 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { memo, useCallback } from 'react';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import cls from './EditableImageBlock.module.scss';
-import { Text } from '@/shared/UI-kit/Text';
 import {
     getReviewReadonlySelector,
     reviewActions,
@@ -9,7 +8,6 @@ import {
 } from '@/entities/Review';
 import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
 import { AppImage } from '@/shared/UI-kit/AppImage';
-import { FileUploader } from 'react-drag-drop-files';
 import { Input } from '@/shared/UI-kit/Input';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -18,6 +16,7 @@ import DeleteBlockIcon from '@/shared/assets/ui/icons/delete.svg';
 import { Icon } from '@/shared/UI-kit/Icon';
 import { Button } from '@/shared/UI-kit/Button';
 import { HStack, VStack } from '@/shared/UI-kit/Stack';
+import { ImageDragDropUploader } from '@/features/UI/ImageDragDropUploader';
 
 interface ReviewImageBlockComponentProps {
     className?: string;
@@ -31,10 +30,7 @@ export const EditableImageBlock = memo(
         const dispatch = useAppDispatch();
         const readonly = useSelector(getReviewReadonlySelector);
 
-        const [file, setFile] = useState<File | null>(null);
-
         const handleFileUploaderChange = (file: File) => {
-            setFile(file);
             dispatch(uploadService(file)).then((response) => {
                 if (response.meta.requestStatus === 'fulfilled') {
                     const url = Object.values(
@@ -50,14 +46,6 @@ export const EditableImageBlock = memo(
                 }
             });
         };
-
-        useEffect(() => {
-            if (file) {
-                // dispatch(uploadService(file));
-            }
-        }, [file, dispatch]);
-
-        const fileTypes = ['JPG', 'PNG', 'GIF', 'JPEG'];
 
         const onDeleteBlock = useCallback(() => {
             dispatch(reviewActions.removeReviewBlock({ id: block.id }));
@@ -114,26 +102,9 @@ export const EditableImageBlock = memo(
                 />
 
                 {!readonly && (
-                    <VStack
-                        max
-                        align="center"
-                        gap="8"
-                    >
-                        <Text text={t('upload your image')} />
-                        <FileUploader
-                            multiple={false}
-                            handleChange={handleFileUploaderChange}
-                            name="file"
-                            types={fileTypes}
-                        />
-                        <Text
-                            text={
-                                file
-                                    ? `File name: ${file.name}`
-                                    : t('no files uploaded yet')
-                            }
-                        />
-                    </VStack>
+                    <ImageDragDropUploader
+                        onUpload={handleFileUploaderChange}
+                    />
                 )}
             </VStack>
         );

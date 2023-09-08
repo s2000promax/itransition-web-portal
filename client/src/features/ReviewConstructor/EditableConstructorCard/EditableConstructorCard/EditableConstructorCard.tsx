@@ -77,6 +77,15 @@ export const EditableConstructorCard = memo(
             [dispatch],
         );
 
+        const onChangeOwnerRating = useCallback(
+            (value?: number) => {
+                dispatch(
+                    reviewActions.updateFormReview({ ownerRating: value || 0 }),
+                );
+            },
+            [dispatch],
+        );
+
         return (
             <DynamicModuleLoader reducers={reducers}>
                 <VStack
@@ -101,6 +110,7 @@ export const EditableConstructorCard = memo(
                         readonly={readonly}
                         onChangeTitle={onChangeTitle}
                         onChangeSubtitle={onChangeSubtitle}
+                        onChangeOwnerRating={onChangeOwnerRating}
                     />
                 </VStack>
             </DynamicModuleLoader>

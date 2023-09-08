@@ -3,18 +3,24 @@ import { classNames } from '@/shared/libs/classNames/classNames';
 import cls from './StarRating.module.scss';
 import StarIcon from '@/shared/assets/ui/icons/star.svg';
 import { Icon } from '../../Icon';
+import { HStack } from '@/shared/UI-kit/Stack';
 
 interface StarRatingProps {
     className?: string;
     onSelect?: (starsCount: number) => void;
     size?: number;
     selectedStars?: number;
+    stars?: number[];
 }
 
-const stars = [1, 2, 3, 4, 5];
-
 export const StarRating = memo((props: StarRatingProps) => {
-    const { className, size = 30, selectedStars = 0, onSelect } = props;
+    const {
+        className,
+        size = 30,
+        selectedStars = 0,
+        onSelect,
+        stars = [1, 2, 3, 4, 5],
+    } = props;
     const [currentStarsCount, setCurrentStarsCount] = useState(selectedStars);
     const [isSelected, setIsSelected] = useState(Boolean(selectedStars));
 
@@ -39,7 +45,7 @@ export const StarRating = memo((props: StarRatingProps) => {
     };
 
     return (
-        <div className={classNames(cls.StarRating, {}, [className])}>
+        <HStack className={classNames(cls.StarRating, {}, [className])}>
             {stars.map((starNumber) => {
                 const commonProps = {
                     className: classNames(
@@ -70,6 +76,6 @@ export const StarRating = memo((props: StarRatingProps) => {
                     </React.Fragment>
                 );
             })}
-        </div>
+        </HStack>
     );
 });
