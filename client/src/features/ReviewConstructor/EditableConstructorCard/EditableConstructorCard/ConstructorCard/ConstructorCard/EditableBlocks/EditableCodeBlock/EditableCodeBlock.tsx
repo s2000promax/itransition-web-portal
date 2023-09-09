@@ -30,14 +30,14 @@ export const EditableCodeBlock = memo(
         const readonly = useSelector(getReviewReadonlySelector);
 
         const onDeleteBlock = useCallback(() => {
-            dispatch(reviewActions.removeReviewBlock({ id: block.id }));
+            dispatch(reviewActions.removeReviewBlock({ id: block.sortId }));
         }, [dispatch]);
 
         const onChangeCode = useCallback(
             (value?: string) => {
                 dispatch(
                     reviewActions.editCodeBlock({
-                        blockId: block.id,
+                        sortId: block.sortId,
                         code: value || '',
                     }),
                 );
@@ -49,7 +49,7 @@ export const EditableCodeBlock = memo(
             (value?: string) => {
                 dispatch(
                     reviewActions.editBlockTitle({
-                        blockId: block.id,
+                        sortId: block.sortId,
                         title: value || '',
                     }),
                 );

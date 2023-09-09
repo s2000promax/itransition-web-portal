@@ -1,4 +1,0 @@
--- AlterTable
-ALTER TABLE `users` MODIFY `is_blocked` BOOLEAN NULL DEFAULT false,
-    MODIFY `roles` ENUM('SA', 'ADMIN', 'USER') NOT NULL DEFAULT 'USER',
-    MODIFY `settings` INTEGER NOT NULL DEFAULT 0;

@@ -15,11 +15,14 @@ import AddImageBlockIcon from '@/shared/assets/ui/icons/add-image.svg';
 import AddCodeBlockIcon from '@/shared/assets/ui/icons/add-code.svg';
 import { Icon } from '@/shared/UI-kit/Icon';
 import {
+    createReviewService,
     getReviewFormReviewTypeSelector,
+    getReviewFormSelector,
     getReviewReadonlySelector,
     reviewActions,
     ReviewBlockTypeEnums,
     ReviewCodeBlockI,
+    ReviewI,
     ReviewImageBlockI,
     ReviewTextBlockI,
     ReviewTypeEnums,
@@ -28,15 +31,18 @@ import { TypeSelector } from '@/features/UI/TypeSelector';
 
 interface EditableProfileCardHeaderProps {
     className?: string;
+    reviewData?: ReviewI;
+    ownerId?: string;
 }
 
 export const EditableConstructorCardHeader = memo(
     (props: EditableProfileCardHeaderProps) => {
-        const { className } = props;
+        const { className, reviewData, ownerId } = props;
 
         const { t } = useTranslation('profile');
-        const authData = useSelector(getUserDataSelector);
-        const profileData = useSelector(getProfileData);
+        const formData = useSelector(getReviewFormSelector);
+        const currentUser = useSelector(getUserDataSelector);
+
         const canEdit = true; // authData?.id === profileData?.id;
         const readonly = useSelector(getReviewReadonlySelector);
         const dispatch = useAppDispatch();
@@ -44,6 +50,11 @@ export const EditableConstructorCardHeader = memo(
 
         const onEdit = useCallback(() => {
             dispatch(reviewActions.setReadonly(false));
+            dispatch(
+                reviewActions.updateFormReview({
+                    ownerId: ownerId || currentUser?.id,
+                }),
+            );
         }, [dispatch]);
 
         const onCancelEdit = useCallback(() => {
@@ -51,22 +62,29 @@ export const EditableConstructorCardHeader = memo(
         }, [dispatch]);
 
         const onSave = useCallback(() => {
-            // dispatch(updateProfileData());
-        }, [dispatch]);
+            if (formData) {
+                dispatch(createReviewService(formData));
+            }
+        }, [dispatch, formData]);
 
         const onAddTextBlock = useCallback(() => {
             const newTextBlock: ReviewTextBlockI = {
-                id: '',
+                sortId: 0,
                 title: '',
                 type: ReviewBlockTypeEnums.TEXT,
-                paragraphs: [''],
+                paragraphs: [
+                    {
+                        sortId: 0,
+                        content: '',
+                    },
+                ],
             };
             dispatch(reviewActions.addReviewBlock(newTextBlock));
         }, [dispatch]);
 
         const onAddImageBlock = useCallback(() => {
             const newImageBlock: ReviewImageBlockI = {
-                id: '',
+                sortId: 0,
                 title: '',
                 type: ReviewBlockTypeEnums.IMAGE,
                 src: '',
@@ -76,7 +94,7 @@ export const EditableConstructorCardHeader = memo(
 
         const onAddCodeBlock = useCallback(() => {
             const newCodeBlock: ReviewCodeBlockI = {
-                id: '',
+                sortId: 0,
                 title: '',
                 code: '',
                 type: ReviewBlockTypeEnums.CODE,

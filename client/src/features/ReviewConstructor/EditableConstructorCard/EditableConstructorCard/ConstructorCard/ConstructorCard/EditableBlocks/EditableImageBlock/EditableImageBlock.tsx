@@ -39,7 +39,7 @@ export const EditableImageBlock = memo(
 
                     dispatch(
                         reviewActions.editImageBlock({
-                            blockId: block.id,
+                            sortId: block.sortId,
                             src: url,
                         }),
                     );
@@ -48,14 +48,14 @@ export const EditableImageBlock = memo(
         };
 
         const onDeleteBlock = useCallback(() => {
-            dispatch(reviewActions.removeReviewBlock({ id: block.id }));
+            dispatch(reviewActions.removeReviewBlock({ id: block.sortId }));
         }, [dispatch]);
 
         const onChangeTitle = useCallback(
             (value?: string) => {
                 dispatch(
                     reviewActions.editBlockTitle({
-                        blockId: block.id,
+                        sortId: block.sortId,
                         title: value || '',
                     }),
                 );

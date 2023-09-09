@@ -3,7 +3,8 @@ import { ValidateReviewEnums } from '@/entities/Review/model/enums/validateRevie
 import { UserI } from '@/entities/User';
 
 interface ReviewBlockBaseI {
-    id: string;
+    id?: string;
+    sortId: number;
     type: ReviewBlockTypeEnums;
 }
 
@@ -19,16 +20,33 @@ export interface ReviewImageBlockI extends ReviewBlockBaseI {
     title: string;
 }
 
+export interface ReviewTextBlockParagraphI {
+    id?: string;
+    sortId: number;
+    content: string;
+}
+
 export interface ReviewTextBlockI extends ReviewBlockBaseI {
     type: ReviewBlockTypeEnums.TEXT;
-    paragraphs: string[];
     title: string;
+    paragraphs: ReviewTextBlockParagraphI[];
 }
 
 export type ReviewBlockT =
     | ReviewCodeBlockI
     | ReviewImageBlockI
     | ReviewTextBlockI;
+
+export type FormDataI = Omit<
+    ReviewI,
+    | 'id'
+    | 'createdAt'
+    | 'updatedAt'
+    | 'tags'
+    | 'viewCount'
+    | 'likesCount'
+    | 'averageRating'
+>;
 
 export interface ReviewI {
     id: string;
@@ -50,16 +68,7 @@ export interface ReviewI {
 
 export interface ReviewSchemaI {
     data?: ReviewI;
-    form?: Omit<
-        ReviewI,
-        | 'id'
-        | 'createdAt'
-        | 'updatedAt'
-        | 'tags'
-        | 'viewCount'
-        | 'likesCount'
-        | 'averageRating'
-    >;
+    form?: FormDataI;
     readonly?: boolean;
     isLoading: boolean;
     error?: string;

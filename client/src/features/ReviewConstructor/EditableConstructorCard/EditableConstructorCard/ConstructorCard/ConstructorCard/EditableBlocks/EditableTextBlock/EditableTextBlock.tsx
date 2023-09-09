@@ -30,18 +30,18 @@ export const EditableTextBlock = memo(
         const readonly = useSelector(getReviewReadonlySelector);
 
         const onDeleteBlock = useCallback(() => {
-            dispatch(reviewActions.removeReviewBlock({ id: block.id }));
+            dispatch(reviewActions.removeReviewBlock({ id: block.sortId }));
         }, [dispatch]);
 
         const onAddParagraph = useCallback(() => {
-            dispatch(reviewActions.addTextParagraph({ id: block.id }));
+            dispatch(reviewActions.addTextParagraph({ id: block.sortId }));
         }, [dispatch]);
 
         const onChangeTitle = useCallback(
             (value?: string) => {
                 dispatch(
                     reviewActions.editBlockTitle({
-                        blockId: block.id,
+                        sortId: block.sortId,
                         title: value || '',
                     }),
                 );
@@ -53,7 +53,7 @@ export const EditableTextBlock = memo(
             (index: number, value?: string) => {
                 dispatch(
                     reviewActions.editTextParagraph({
-                        blockId: block.id,
+                        sortId: block.sortId,
                         paragraphIndex: index,
                         content: value || '',
                     }),
@@ -107,8 +107,8 @@ export const EditableTextBlock = memo(
                     />
                     {block.paragraphs.map((paragraph, index) => (
                         <TextArea
-                            key={`Block_${block.id}_${index}`}
-                            value={paragraph}
+                            key={`Block_${block.sortId}_${index}`}
+                            value={paragraph.content}
                             placeholder={t('paragraph')}
                             onChange={(value) =>
                                 onChangeParagraph(index, value)

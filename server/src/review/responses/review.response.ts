@@ -1,5 +1,4 @@
 import { Review, ReviewTypeEnum } from '@prisma/client';
-import { Exclude } from 'class-transformer';
 
 export class ReviewResponse implements Review {
     id: string;
@@ -12,8 +11,8 @@ export class ReviewResponse implements Review {
     updatedAt: Date;
     ownerRating: number;
     averageRating: number;
-    likesCount: number;
-    viewCount: number;
+    likesCount: bigint;
+    viewCount: bigint;
 
     constructor(review: Review) {
         Object.assign(this, review);

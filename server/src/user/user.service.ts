@@ -19,6 +19,16 @@ export class UserService {
                     name: RolesEnum.USER,
                 },
             });
+            const existingRoleSA = await this.prismaService.role.findFirst({
+                where: {
+                    name: RolesEnum.SA,
+                },
+            });
+            const existingRoleAdmin = await this.prismaService.role.findFirst({
+                where: {
+                    name: RolesEnum.ADMIN,
+                },
+            });
 
             const createdUser = await this.prismaService.user.create({
                 data: {
@@ -29,6 +39,9 @@ export class UserService {
                     avatar: '',
                     roles: {
                         create: [
+                            // {
+                            //     roleId: existingRoleAdmin.id,
+                            // },
                             {
                                 roleId: existingRoleUSER.id,
                             },

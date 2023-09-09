@@ -1,12 +1,6 @@
-import { rtkApi } from '@/shared/api/rtk.api';
 import { UserI } from '@/entities/User';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import {
-    authActions,
-    AuthSchemaI,
-    registerActions,
-    RegisterSchemaI,
-} from '@/entities/Auth';
+import { RegisterSchemaI } from '@/entities/Auth';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 
 type RegisterProps = Pick<

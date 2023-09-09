@@ -16,7 +16,7 @@ model User {
     lastName  String        @map("last_name")
     email     String        @unique
     password  String?
-    avatar    String
+    avatar    String        @db.VarChar(2048)
     createdAt DateTime      @default(now()) @map("created_at")
     updatedAt DateTime      @updatedAt @map("updated_at")
     token     Token[]
@@ -46,18 +46,18 @@ model Review {
     id            String         @id @default(uuid())
     owner         User           @relation(fields: [ownerId], references: [id], onDelete: Cascade)
     ownerId       String
-    title         String
-    subtitle      String
-    cover         String
+    title         String         @db.Text
+    subtitle      String         @db.Text
+    cover         String         @db.VarChar(2048)
     tags          ReviewTag[]
     type          ReviewTypeEnum
     blocks        ReviewBlock[]
     createdAt     DateTime       @default(now()) @map("created_at")
     updatedAt     DateTime       @updatedAt @map("updated_at")
-    ownerRating   Int            @map("owner_rating")
-    averageRating Int            @map("average_rating")
-    viewCount     Int            @map("view_count")
-    likesCount    Int            @map("likes_count")
+    ownerRating   Int            @map("owner_rating") @db.UnsignedTinyInt
+    averageRating Float          @map("average_rating")
+    viewCount     BigInt         @map("view_count") @db.UnsignedBigInt
+    likesCount    BigInt         @map("likes_count") @db.UnsignedBigInt
     likes         Like[]
     ratings       UsersRating[]
     comments      Comment[]
@@ -68,21 +68,24 @@ model Review {
 
 model ReviewBlock {
     id         String        @id @default(uuid())
+    sortId     Int           @db.UnsignedTinyInt
     review     Review        @relation(fields: [reviewId], references: [id], onDelete: Cascade)
     reviewId   String
     type       BlockTypeEnum
-    title      String?
-    src        String?
+    title      String?       @db.Text
+    src        String?       @db.VarChar(2048)
     paragraphs Paragraph[]
-    code       String?
+    code       String?       @db.Text
 
     @@map("reviewBlocks")
 }
 
 model Paragraph {
-    content       String?
+    id            String      @id @default(uuid())
+    sortId        Int         @db.UnsignedTinyInt
+    content       String?     @db.Text
     reviewBlock   ReviewBlock @relation(fields: [reviewBlockId], references: [id], onDelete: Cascade)
-    reviewBlockId String      @id
+    reviewBlockId String
 }
 
 model ReviewTag {
@@ -114,8 +117,8 @@ model Like {
 }
 
 model UsersRating {
-    rating   Int
-    feedback String
+    rating   Int    @db.UnsignedTinyInt
+    feedback String @db.Text
     user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId   String
     review   Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)
@@ -127,7 +130,7 @@ model UsersRating {
 
 model Comment {
     id       String @id @default(uuid())
-    content  String
+    content  String @db.Text
     user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId   String
     review   Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)

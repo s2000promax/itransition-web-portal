@@ -64,7 +64,7 @@ const reviewSlice = createSlice({
         addReviewBlock: (state, action: PayloadAction<ReviewBlockT>) => {
             const newBlock: ReviewBlockT = {
                 ...action.payload,
-                id: String(state.form!.blocks?.length ?? 0),
+                sortId: state.form!.blocks?.length ?? 0,
             };
             state.form!.blocks?.push(newBlock);
             /*
@@ -74,22 +74,22 @@ const reviewSlice = createSlice({
 
              */
         },
-        removeReviewBlock: (state, action: PayloadAction<{ id: string }>) => {
+        removeReviewBlock: (state, action: PayloadAction<{ id: number }>) => {
             if (state.form?.blocks?.length) {
                 state.form.blocks = state.form?.blocks
-                    .filter((block) => block.id !== action.payload.id)
+                    .filter((block) => block.sortId !== action.payload.id)
                     .map((block, index) => ({
                         ...block,
-                        id: String(index + 1),
+                        sortId: index,
                     }));
             } else {
                 state.form!.blocks = [];
             }
         },
-        addTextParagraph: (state, action: PayloadAction<{ id: string }>) => {
+        addTextParagraph: (state, action: PayloadAction<{ id: number }>) => {
             const indexBlock =
                 state.form!.blocks?.findIndex(
-                    (block) => block.id === action.payload.id,
+                    (block) => block.sortId === action.payload.id,
                 ) ?? -1;
             if (
                 indexBlock !== -1 &&
@@ -99,19 +99,22 @@ const reviewSlice = createSlice({
                 const textBlock = state.form!.blocks[
                     indexBlock
                 ] as ReviewTextBlockI;
-                textBlock.paragraphs.push('');
+                textBlock.paragraphs.push({
+                    sortId: textBlock.paragraphs?.length ?? 0,
+                    content: '',
+                });
             }
         },
         editTextParagraph: (
             state,
             action: PayloadAction<{
-                blockId: string;
+                sortId: number;
                 paragraphIndex: number;
                 content: string;
             }>,
         ) => {
             const indexBlock = state.form!.blocks.findIndex(
-                (block) => block.id === action.payload.blockId,
+                (block) => block.sortId === action.payload.sortId,
             );
             if (
                 indexBlock !== -1 &&
@@ -121,19 +124,19 @@ const reviewSlice = createSlice({
                 const textBlock = state.form!.blocks[
                     indexBlock
                 ] as ReviewTextBlockI;
-                textBlock.paragraphs[action.payload.paragraphIndex] =
+                textBlock.paragraphs[action.payload.paragraphIndex].content =
                     action.payload.content;
             }
         },
         editBlockTitle: (
             state,
             action: PayloadAction<{
-                blockId: string;
+                sortId: number;
                 title: string;
             }>,
         ) => {
             const indexBlock = state.form!.blocks.findIndex(
-                (block) => block.id === action.payload.blockId,
+                (block) => block.sortId === action.payload.sortId,
             );
             if (indexBlock !== -1) {
                 const block = state.form!.blocks[indexBlock] as ReviewBlockT;
@@ -143,12 +146,12 @@ const reviewSlice = createSlice({
         editCodeBlock: (
             state,
             action: PayloadAction<{
-                blockId: string;
+                sortId: number;
                 code: string;
             }>,
         ) => {
             const indexBlock = state.form!.blocks.findIndex(
-                (block) => block.id === action.payload.blockId,
+                (block) => block.sortId === action.payload.sortId,
             );
             if (
                 indexBlock !== -1 &&
@@ -164,12 +167,12 @@ const reviewSlice = createSlice({
         editImageBlock: (
             state,
             action: PayloadAction<{
-                blockId: string;
+                sortId: number;
                 src: string;
             }>,
         ) => {
             const indexBlock = state.form!.blocks.findIndex(
-                (block) => block.id === action.payload.blockId,
+                (block) => block.sortId === action.payload.sortId,
             );
             if (
                 indexBlock !== -1 &&

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import cls from './ConstructorCard.module.scss';
@@ -16,6 +16,7 @@ import { renderEditableBlocks } from './EditableBlocks/RenderEditableBlocks';
 import {
     getReviewFormBlocksSelector,
     getReviewFormSelector,
+    getReviewReadonlySelector,
     reviewActions,
     ReviewI,
 } from '@/entities/Review';
@@ -24,32 +25,52 @@ import { ImageDragDropUploader } from '@/features/UI/ImageDragDropUploader';
 
 export interface ProfileCardProps {
     className?: string;
-    data?: Partial<ReviewI>;
+    // data?: Partial<ReviewI>;
     error?: string;
     isLoading?: boolean;
-    readonly?: boolean;
-    onChangeTitle?: (value?: string) => void;
-    onChangeSubtitle?: (value?: string) => void;
-    onChangeOwnerRating?: (value: number) => void;
+    // readonly?: boolean;
 }
 
 export const ConstructorCard = (props: ProfileCardProps) => {
     const {
         className,
-        data,
+        // data,
         isLoading,
         error,
-        readonly,
-        onChangeTitle,
-        onChangeSubtitle,
-        onChangeOwnerRating,
+        // readonly,
+        // onChangeTitle,
+        // onChangeSubtitle,
+        // onChangeOwnerRating,
     } = props;
 
     const { t } = useTranslation('reviewEdit');
     const dispatch = useAppDispatch();
-
     const formData = useSelector(getReviewFormSelector);
+    const readonly = useSelector(getReviewReadonlySelector);
     const blocks = useSelector(getReviewFormBlocksSelector);
+
+    const onChangeTitle = useCallback(
+        (value?: string) => {
+            dispatch(reviewActions.updateFormReview({ title: value || '' }));
+        },
+        [dispatch],
+    );
+
+    const onChangeSubtitle = useCallback(
+        (value?: string) => {
+            dispatch(reviewActions.updateFormReview({ subtitle: value || '' }));
+        },
+        [dispatch],
+    );
+
+    const onChangeOwnerRating = useCallback(
+        (value?: number) => {
+            dispatch(
+                reviewActions.updateFormReview({ ownerRating: value || 0 }),
+            );
+        },
+        [dispatch],
+    );
 
     const handleFileUploaderChange = (file: File) => {
         dispatch(uploadService(file)).then((response) => {

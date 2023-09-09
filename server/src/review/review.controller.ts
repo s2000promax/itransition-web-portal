@@ -27,7 +27,9 @@ export class ReviewController {
 
     @Post('create')
     @ApiBody({ type: ReviewDto })
-    async createReview(@Body() reviewDto: ReviewDto) {}
+    async createReview(@Body() reviewDto: ReviewDto) {
+        await this.reviewService.create(reviewDto);
+    }
 
     @Put('update')
     @ApiBody({ type: ReviewDto })
@@ -57,8 +59,8 @@ export class ReviewController {
             type: ReviewTypeEnum.ALL,
             ownerRating: 7,
             averageRating: 4,
-            likesCount: 33,
-            viewCount: 234,
+            likesCount: BigInt(33),
+            viewCount: BigInt(234),
             createdAt: new Date(),
             updatedAt: new Date(),
         };

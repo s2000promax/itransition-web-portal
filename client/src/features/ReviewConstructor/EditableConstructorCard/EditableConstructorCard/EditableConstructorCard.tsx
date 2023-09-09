@@ -16,6 +16,7 @@ import { VStack } from '@/shared/UI-kit/Stack';
 import { Text } from '@/shared/UI-kit/Text';
 import {
     fetchReviewByIdService,
+    getReviewDataSelector,
     getReviewErrorSelector,
     getReviewFormSelector,
     getReviewIsLoadingSelector,
@@ -25,6 +26,12 @@ import {
     reviewReducer,
     ValidateReviewEnums,
 } from '@/entities/Review';
+import { getUserDataSelector, userActions } from '@/entities/User';
+import {
+    fetchProfileData,
+    getProfileData,
+    profileActions,
+} from '@/entities/Profile';
 
 interface EditableProfileCardProps {
     className?: string;
@@ -39,12 +46,11 @@ export const EditableConstructorCard = memo(
     (props: EditableProfileCardProps) => {
         const { className, id } = props;
         const { t } = useTranslation('reviewEdit');
-
         const dispatch = useAppDispatch();
-        const formData = useSelector(getReviewFormSelector);
         const isLoading = useSelector(getReviewIsLoadingSelector);
         const error = useSelector(getReviewErrorSelector);
-        const readonly = useSelector(getReviewReadonlySelector);
+        const reviewData = useSelector(getReviewDataSelector);
+        const ownerUser = useSelector(getProfileData);
         const validateErrors = useSelector(getReviewValidateErrorsSelector);
 
         const validateErrorTranslates = {
@@ -57,34 +63,12 @@ export const EditableConstructorCard = memo(
             if (id) {
                 dispatch(fetchReviewByIdService(id));
             }
+
+            if (reviewData) {
+                dispatch(fetchProfileData(reviewData.ownerId));
+            } else {
+            }
         });
-
-        const onChangeTitle = useCallback(
-            (value?: string) => {
-                dispatch(
-                    reviewActions.updateFormReview({ title: value || '' }),
-                );
-            },
-            [dispatch],
-        );
-
-        const onChangeSubtitle = useCallback(
-            (value?: string) => {
-                dispatch(
-                    reviewActions.updateFormReview({ subtitle: value || '' }),
-                );
-            },
-            [dispatch],
-        );
-
-        const onChangeOwnerRating = useCallback(
-            (value?: number) => {
-                dispatch(
-                    reviewActions.updateFormReview({ ownerRating: value || 0 }),
-                );
-            },
-            [dispatch],
-        );
 
         return (
             <DynamicModuleLoader reducers={reducers}>
@@ -93,7 +77,10 @@ export const EditableConstructorCard = memo(
                     max
                     className={classNames('', {}, [className])}
                 >
-                    <EditableConstructorCardHeader />
+                    <EditableConstructorCardHeader
+                        reviewData={reviewData}
+                        ownerId={ownerUser?.id}
+                    />
                     {validateErrors?.length &&
                         validateErrors.map((err) => (
                             <Text
@@ -104,13 +91,8 @@ export const EditableConstructorCard = memo(
                             />
                         ))}
                     <ConstructorCard
-                        data={formData}
                         isLoading={isLoading}
                         error={error}
-                        readonly={readonly}
-                        onChangeTitle={onChangeTitle}
-                        onChangeSubtitle={onChangeSubtitle}
-                        onChangeOwnerRating={onChangeOwnerRating}
                     />
                 </VStack>
             </DynamicModuleLoader>

@@ -5,6 +5,7 @@ export type {
     ReviewImageBlockI,
     ReviewCodeBlockI,
     ReviewTextBlockI,
+    ReviewTextBlockParagraphI,
 } from './model/types/review.interface';
 
 export { getReviewDataSelector } from './model/selectors/getReviewData/getReviewData.selector';
@@ -19,6 +20,7 @@ export { getReviewFormReviewTypeSelector } from './model/selectors/getReviewForm
 export { reviewReducer, reviewActions } from './model/slice/review.slice';
 
 export { fetchReviewByIdService } from './model/services/fetchReviewById/fetchReviewById.service';
+export { createReviewService } from './model/services/createReview/createReview.service';
 
 export {
     ReviewSortFieldEnums,
