@@ -5,6 +5,7 @@ import { useReviewRecommendationsList } from '@/entities/Recommendations';
 import { VStack } from '@/shared/UI-kit/Stack';
 import { Text } from '@/shared/UI-kit/Text';
 import { ReviewList } from '@/features/ReviewList';
+import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
 
 interface RecommendationsListProps {
     className?: string;
@@ -13,6 +14,7 @@ interface RecommendationsListProps {
 export const RecommendationsList = memo((props: RecommendationsListProps) => {
     const { className } = props;
     const { t } = useTranslation('recommendations_list');
+    // const dispatch = useAppDispatch();
     const { isLoading, data: reviews, error } = useReviewRecommendationsList(3);
 
     if (isLoading || error || !reviews) {
@@ -21,7 +23,7 @@ export const RecommendationsList = memo((props: RecommendationsListProps) => {
 
     return (
         <VStack
-            data-testid="ArticleRecommendationsList"
+            data-testid="ReviewsRecommendationsList"
             gap="8"
             className={classNames('', {}, [className])}
         >
