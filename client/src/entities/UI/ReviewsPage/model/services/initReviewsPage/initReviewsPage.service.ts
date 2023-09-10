@@ -4,13 +4,13 @@ import { ReviewTypeEnums, ReviewSortFieldEnums } from '@/entities/Review';
 import { SortOrderT } from '@/shared/types/sort.type';
 import { getReviewsPageInitedSelector } from '../../selectors/getReviewsPageInited/getReviewsPageInited.selector';
 import { reviewsPageActions } from '@/entities/UI/ReviewsPage/model/slices/reviewsPage.slice';
-import { fetchReviewsListService } from '@/entities/UI/ReviewsPage/model/services/fetchReviewsList/fetchReviewsList.service';
+import { fetchReviewListService } from '@/entities/UI/ReviewsPage/model/services/fetchReviewsList/fetchReviewListService';
 
 export const initReviewsPageService = createAsyncThunk<
     void,
     URLSearchParams,
     ThunkConfig<string>
->('articlesPage/initArticlesPage', async (searchParams, thunkApi) => {
+>('reviewsPage/initReviewsPage', async (searchParams, thunkApi) => {
     const { getState, dispatch } = thunkApi;
     const inited = getReviewsPageInitedSelector(getState());
 
@@ -34,6 +34,6 @@ export const initReviewsPageService = createAsyncThunk<
         }
 
         dispatch(reviewsPageActions.initState());
-        dispatch(fetchReviewsListService({}));
+        dispatch(fetchReviewListService({}));
     }
 });

@@ -16,7 +16,7 @@ import { ReviewDto } from './dto';
 import { Like, Review, ReviewTypeEnum, UsersRating } from '@prisma/client';
 
 import { UserService } from '../user/user.service';
-import { ReviewResponse, UserResponse } from './responses';
+import { ReviewResponse, ReviewResponseList, UserResponse } from './responses';
 
 @Controller('review')
 export class ReviewController {
@@ -39,40 +39,46 @@ export class ReviewController {
     @ApiBody({ type: ReviewDto })
     async deleteReview(@Body() reviewDto: ReviewDto) {}
 
-    @Get('all')
-    async getAllReviews() {}
+    @UseInterceptors(ClassSerializerInterceptor)
+    @Get('reviewList')
+    async getReviewList(
+        @Query('_expand') expand: string,
+        @Query('_limit') limit: string,
+        @Query('_page') page: string,
+        @Query('_sort') order: string,
+        @Query('q') search: string,
+        @Query('type') type: ReviewTypeEnum,
+    ) {
+        console.log(expand, limit, page, order, search, type);
+        const foundedReviewList = await this.reviewService.findReviewList(
+            expand,
+            limit,
+            page,
+            order,
+            search,
+            type,
+            'asc',
+        );
+
+        const reviewList = foundedReviewList.map(
+            (review) => new ReviewResponse(review, review.owner),
+        );
+
+        const reviewListResponse = new ReviewResponseList(reviewList);
+        console.log(reviewListResponse.reviews);
+        return reviewListResponse.reviews;
+    }
 
     @UseInterceptors(ClassSerializerInterceptor)
     @Get(':id')
-    async findOneUser(
+    async findOneReview(
         @Param('id') id: string,
         @Query('_expand') expand: string,
     ) {
-        // const review = await this.reviewService.findById(id);
+        const review = await this.reviewService.findById(id, expand);
 
-        const review: Review = {
-            id: '123123',
-            ownerId: 'd2c2c6f4-5de9-433a-ad4a-58c8cd4c559c',
-            title: 'Test Review',
-            subtitle: 'sdfdsfdsfsd',
-            cover: '',
-            type: ReviewTypeEnum.ALL,
-            ownerRating: 7,
-            averageRating: 4,
-            likesCount: BigInt(33),
-            viewCount: BigInt(234),
-            createdAt: new Date(),
-            updatedAt: new Date(),
-        };
+        const reviewResponse = new ReviewResponse(review, review.owner);
 
-        if (expand === 'user') {
-            const user = await this.userService.findById(review.ownerId);
-            return {
-                ...new ReviewResponse(review),
-                user: new UserResponse(user),
-            };
-        }
-
-        return new ReviewResponse(review);
+        return reviewResponse;
     }
 }

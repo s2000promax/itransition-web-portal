@@ -20,5 +20,5 @@ export {
 } from './model/slices/reviewsPage.slice';
 
 export { initReviewsPageService } from './model/services/initReviewsPage/initReviewsPage.service';
-export { fetchReviewsListService } from './model/services/fetchReviewsList/fetchReviewsList.service';
+export { fetchReviewListService } from './model/services/fetchReviewsList/fetchReviewListService';
 export { fetchNextReviewsPageService } from './model/services/fetchNextReviewsPage/fetchNextReviewsPage.service';

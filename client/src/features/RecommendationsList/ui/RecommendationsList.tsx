@@ -4,7 +4,7 @@ import { classNames } from '@/shared/libs/classNames/classNames';
 import { useReviewRecommendationsList } from '@/entities/Recommendations';
 import { VStack } from '@/shared/UI-kit/Stack';
 import { Text } from '@/shared/UI-kit/Text';
-import { ReviewsList } from '@/features/ReviewsList';
+import { ReviewList } from '@/features/ReviewList';
 
 interface RecommendationsListProps {
     className?: string;
@@ -29,7 +29,7 @@ export const RecommendationsList = memo((props: RecommendationsListProps) => {
                 size="l"
                 title={t('Recommended')}
             />
-            <ReviewsList
+            <ReviewList
                 reviewsList={reviews}
                 target="_blank"
             />

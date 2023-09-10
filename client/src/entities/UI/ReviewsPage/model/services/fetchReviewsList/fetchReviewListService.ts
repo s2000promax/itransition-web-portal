@@ -9,15 +9,15 @@ import { getReviewsPageSearchSelector } from '../../selectors/getReviewsPageSear
 import { getReviewsPageNumberSelector } from '../../selectors/getReviewsPageNum/getReviewsPageNumber.selector';
 import { getReviewsPageTypeSelector } from '../../selectors/getReviewsPageType/getReviewsPageType.selector';
 
-interface FetchArticlesListProps {
+interface FetchReviewListProps {
     replace?: boolean;
 }
 
-export const fetchReviewsListService = createAsyncThunk<
+export const fetchReviewListService = createAsyncThunk<
     ReviewI[],
-    FetchArticlesListProps,
+    FetchReviewListProps,
     ThunkConfig<string>
->('articlesPage/fetchArticlesList', async (props, thunkApi) => {
+>('reviewsPage/fetchReviewList', async (props, thunkApi) => {
     const { extra, rejectWithValue, getState } = thunkApi;
     const limit = getReviewsPageLimitSelector(getState());
     const sort = getReviewsPageSortSelector(getState());
@@ -33,7 +33,7 @@ export const fetchReviewsListService = createAsyncThunk<
             search,
             type,
         });
-        const response = await extra.api.get<ReviewI[]>('/articles', {
+        const response = await extra.api.get<ReviewI[]>('review/reviewList', {
             params: {
                 _expand: 'user',
                 _limit: limit,
@@ -44,7 +44,7 @@ export const fetchReviewsListService = createAsyncThunk<
                 type: type === ReviewTypeEnums.ALL ? undefined : type,
             },
         });
-
+        console.log('###', response.data);
         if (!response.data) {
             throw new Error();
         }

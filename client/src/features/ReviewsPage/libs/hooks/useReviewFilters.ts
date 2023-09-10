@@ -7,7 +7,7 @@ import {
     getReviewsPageTypeSelector,
     getReviewsPageViewSelector,
     reviewsPageActions,
-    fetchReviewsListService,
+    fetchReviewListService,
 } from '@/entities/UI/ReviewsPage';
 import {
     ReviewSortFieldEnums,
@@ -28,7 +28,7 @@ export function useReviewFilters() {
     const dispatch = useAppDispatch();
 
     const fetchData = useCallback(() => {
-        dispatch(fetchReviewsListService({ replace: true }));
+        dispatch(fetchReviewListService({ replace: true }));
     }, [dispatch]);
 
     const debouncedFetchData = useDebounce(fetchData, 500);

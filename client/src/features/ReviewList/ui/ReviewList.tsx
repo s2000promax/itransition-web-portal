@@ -8,7 +8,7 @@ import { ListItemSkeleton } from './ListItemSkeleton/ListItemSkeleton';
 import { ListItem } from './ListItem/ListItem';
 import { ReviewI, ReviewViewEnums } from '@/entities/Review';
 
-interface ReviewsListProps {
+interface ReviewListProps {
     className?: string;
     reviewsList: ReviewI[];
     isLoading?: boolean;
@@ -27,7 +27,7 @@ const getSkeletons = (view: ReviewViewEnums) =>
             />
         ));
 
-export const ReviewsList = memo((props: ReviewsListProps) => {
+export const ReviewList = memo((props: ReviewListProps) => {
     const {
         className,
         reviewsList,
@@ -58,7 +58,7 @@ export const ReviewsList = memo((props: ReviewsListProps) => {
             wrap="wrap"
             gap="16"
             className={classNames(cls.ArticleListRedesigned, {}, [])}
-            data-testid="ReviewsList"
+            data-testid="ReviewList"
         >
             {reviewsList.map((item) => (
                 <ListItem

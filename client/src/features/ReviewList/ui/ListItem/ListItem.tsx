@@ -29,7 +29,7 @@ interface ListItemProps {
 
 export const ListItem = memo((props: ListItemProps) => {
     const { className, review, view, target } = props;
-    const { t } = useTranslation('reviews_list');
+    const { t } = useTranslation('review_list');
 
     const userInfo = (
         <>
@@ -40,7 +40,7 @@ export const ListItem = memo((props: ListItemProps) => {
             />
             <Text
                 bold
-                text={review.user?.email}
+                text={review.user?.email || 'userEmail'}
             />
         </>
     );
@@ -78,7 +78,10 @@ export const ListItem = memo((props: ListItemProps) => {
                         max
                     >
                         {userInfo}
-                        <Text text={review.createdAt.toDateString()} />
+                        <Text
+                            // text={review.createdAt.toDateString()}
+                            text={'Data User info'}
+                        />
                     </HStack>
                     <Text
                         title={review.title}
@@ -127,7 +130,7 @@ export const ListItem = memo((props: ListItemProps) => {
             data-testid="ReviewListItem"
             target={target}
             to={getRouteReviewDetails(review.id)}
-            className={classNames(cls.ArticleListItem, {}, [
+            className={classNames(cls.ReviewListItem, {}, [
                 className,
                 cls[view],
             ])}
@@ -166,7 +169,8 @@ export const ListItem = memo((props: ListItemProps) => {
                             max
                         >
                             <Text
-                                text={review.createdAt.toDateString()}
+                                // text={review.createdAt.toDateString()}
+                                text={'Data'}
                                 className={cls.date}
                             />
                             {views}

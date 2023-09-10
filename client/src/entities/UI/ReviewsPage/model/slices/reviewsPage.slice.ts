@@ -14,7 +14,7 @@ import { LocalStorageEnums } from '@/shared/enums/localStorage.enums';
 import { SortOrderT } from '@/shared/types/sort.type';
 
 import { ReviewsPageSchemaI } from '@/entities/UI/ReviewsPage';
-import { fetchReviewsListService } from '@/entities/UI/ReviewsPage/model/services/fetchReviewsList/fetchReviewsList.service';
+import { fetchReviewListService } from '@/entities/UI/ReviewsPage/model/services/fetchReviewsList/fetchReviewListService';
 import { PersistenceService } from '@/shared/services/persistence.service';
 
 const reviewsAdapter = createEntityAdapter<ReviewI>({
@@ -76,7 +76,7 @@ const reviewsPageSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchReviewsListService.pending, (state, action) => {
+            .addCase(fetchReviewListService.pending, (state, action) => {
                 state.error = undefined;
                 state.isLoading = true;
 
@@ -84,7 +84,7 @@ const reviewsPageSlice = createSlice({
                     reviewsAdapter.removeAll(state);
                 }
             })
-            .addCase(fetchReviewsListService.fulfilled, (state, action) => {
+            .addCase(fetchReviewListService.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.hasMore = action.payload.length >= state.limit;
 
@@ -94,7 +94,7 @@ const reviewsPageSlice = createSlice({
                     reviewsAdapter.addMany(state, action.payload);
                 }
             })
-            .addCase(fetchReviewsListService.rejected, (state, action) => {
+            .addCase(fetchReviewListService.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
             });

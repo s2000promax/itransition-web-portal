@@ -31,10 +31,13 @@ export const AdditionalInfo = memo((props: AdditionalInfoProps) => {
                     size={32}
                 />
                 <Text
-                    text={author.email}
+                    text={author.firstName}
                     bold
                 />
-                <Text text={createdAt.toDateString()} />
+                <Text
+                    // text={createdAt.toDateString()}
+                    text={'Data'}
+                />
             </HStack>
             <Button onClick={onEdit}>{t('edit')}</Button>
             <Text text={t('{{count}} views', { count: views })} />

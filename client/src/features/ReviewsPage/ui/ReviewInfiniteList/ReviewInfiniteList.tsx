@@ -8,7 +8,7 @@ import {
     getReviewsPageViewSelector,
 } from '@/entities/UI/ReviewsPage';
 import { Text } from '@/shared/UI-kit/Text';
-import { ReviewsList } from '@/features/ReviewsList';
+import { ReviewList } from '@/features/ReviewList';
 
 interface ArticleInfiniteListProps {
     className?: string;
@@ -32,7 +32,7 @@ export const ReviewInfiniteList = memo((props: ArticleInfiniteListProps) => {
     }
 
     return (
-        <ReviewsList
+        <ReviewList
             isLoading={isLoading}
             view={view}
             reviewsList={reviewsList}

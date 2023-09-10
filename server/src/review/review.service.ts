@@ -3,11 +3,13 @@ import { PrismaService } from '../prisma/prisma.service';
 import {
     BlockTypeEnum,
     Review,
+    ReviewTypeEnum,
     ReviewBlock,
     RolesEnum,
     User,
 } from '@prisma/client';
 import { ReviewDto } from './dto';
+import { ReviewResponse } from './responses';
 
 @Injectable()
 export class ReviewService {
@@ -65,6 +67,68 @@ export class ReviewService {
         } catch (e) {
             console.log(e);
             return null;
+        }
+    }
+
+    async findById(reviewId: string, expand: string) {
+        try {
+            const foundedReview = await this.prismaService.review.findFirst({
+                where: {
+                    id: reviewId,
+                },
+                include: {
+                    blocks: {
+                        include: {
+                            paragraphs: true,
+                        },
+                    },
+                    owner: expand === 'user',
+                },
+            });
+            console.log(foundedReview);
+            return foundedReview;
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    async findReviewList(
+        expand: string,
+        limit: string,
+        page: string,
+        order: string,
+        search: string,
+        type: ReviewTypeEnum,
+        sort: string,
+    ) {
+        const _limit = Number(limit);
+        const _page = Number(page);
+        const _skip = (_page - 1) * _limit;
+        const _sort = sort;
+        const _order = order;
+        const _search = search;
+        const _type = type === ReviewTypeEnum.ALL ? undefined : type;
+
+        try {
+            const foundedReviews = await this.prismaService.review.findMany({
+                skip: _skip,
+                take: _limit,
+                where: {
+                    type: _type,
+                },
+                include: {
+                    owner: expand === 'user',
+                    blocks: {
+                        include: {
+                            paragraphs: true,
+                        },
+                    },
+                },
+            });
+
+            return foundedReviews;
+        } catch (error) {
+            console.log(error);
         }
     }
 }

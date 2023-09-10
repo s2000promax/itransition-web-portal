@@ -1,4 +1,12 @@
-import { Review, ReviewTypeEnum } from '@prisma/client';
+import { Review as OriginalReview, ReviewTypeEnum, User } from '@prisma/client';
+import { UserResponse } from './user.response';
+import { Exclude } from 'class-transformer';
+
+interface Review extends Omit<OriginalReview, 'likesCount' | 'viewCount'> {
+    likesCount: string;
+    viewCount: string;
+    user: UserResponse;
+}
 
 export class ReviewResponse implements Review {
     id: string;
@@ -11,10 +19,19 @@ export class ReviewResponse implements Review {
     updatedAt: Date;
     ownerRating: number;
     averageRating: number;
-    likesCount: bigint;
-    viewCount: bigint;
 
-    constructor(review: Review) {
+    likesCount: string;
+    viewCount: string;
+
+    user: UserResponse;
+
+    @Exclude()
+    owner: User;
+
+    constructor(review: OriginalReview, user: User) {
         Object.assign(this, review);
+        this.likesCount = review.likesCount.toString();
+        this.viewCount = review.viewCount.toString();
+        this.user = new UserResponse(user);
     }
 }
