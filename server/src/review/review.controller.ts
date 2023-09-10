@@ -17,6 +17,8 @@ import { Like, Review, ReviewTypeEnum, UsersRating } from '@prisma/client';
 
 import { UserService } from '../user/user.service';
 import { ReviewResponse, ReviewResponseList, UserResponse } from './responses';
+import { CurrentUser } from '../libs/decorators';
+import { JwtPayload } from '../config/types/auth/jwtPayload';
 
 @Controller('review')
 export class ReviewController {
@@ -65,7 +67,6 @@ export class ReviewController {
         );
 
         const reviewListResponse = new ReviewResponseList(reviewList);
-        console.log(reviewListResponse.reviews);
         return reviewListResponse.reviews;
     }
 
@@ -74,8 +75,9 @@ export class ReviewController {
     async findOneReview(
         @Param('id') id: string,
         @Query('_expand') expand: string,
+        @CurrentUser() user: JwtPayload,
     ) {
-        const review = await this.reviewService.findById(id, expand);
+        const review = await this.reviewService.findById(id, expand, user);
 
         const reviewResponse = new ReviewResponse(review, review.owner);
 

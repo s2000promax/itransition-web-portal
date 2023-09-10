@@ -10,6 +10,7 @@ import {
 } from '@prisma/client';
 import { ReviewDto } from './dto';
 import { ReviewResponse } from './responses';
+import { JwtPayload } from '../config/types/auth/jwtPayload';
 
 @Injectable()
 export class ReviewService {
@@ -70,7 +71,7 @@ export class ReviewService {
         }
     }
 
-    async findById(reviewId: string, expand: string) {
+    async findById(reviewId: string, expand: string, user: JwtPayload) {
         try {
             const foundedReview = await this.prismaService.review.findFirst({
                 where: {
@@ -78,14 +79,28 @@ export class ReviewService {
                 },
                 include: {
                     blocks: {
+                        orderBy: {
+                            sortId: 'asc',
+                        },
                         include: {
-                            paragraphs: true,
+                            paragraphs: {
+                                orderBy: {
+                                    sortId: 'asc',
+                                },
+                            },
                         },
                     },
                     owner: expand === 'user',
                 },
             });
-            console.log(foundedReview);
+
+            if (user.id !== foundedReview.ownerId) {
+                await this.prismaService.review.update({
+                    where: { id: reviewId },
+                    data: { viewCount: { increment: 1 } },
+                });
+            }
+
             return foundedReview;
         } catch (e) {
             console.log(e);
@@ -119,8 +134,15 @@ export class ReviewService {
                 include: {
                     owner: expand === 'user',
                     blocks: {
+                        orderBy: {
+                            sortId: 'asc',
+                        },
                         include: {
-                            paragraphs: true,
+                            paragraphs: {
+                                orderBy: {
+                                    sortId: 'asc',
+                                },
+                            },
                         },
                     },
                 },
