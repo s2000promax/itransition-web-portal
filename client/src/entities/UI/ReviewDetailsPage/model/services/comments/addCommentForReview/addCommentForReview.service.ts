@@ -9,21 +9,21 @@ export const addCommentForReviewService = createAsyncThunk<
     CommentI,
     string,
     ThunkConfig<string>
->('articleDetails/addCommentForArticle', async (text, thunkApi) => {
+>('reviewDetailsPage/addCommentForReview', async (content, thunkApi) => {
     const { extra, dispatch, rejectWithValue, getState } = thunkApi;
 
     const userData = getUserDataSelector(getState());
     const review = getReviewDataSelector(getState());
 
-    if (!userData || !text || !review) {
+    if (!userData || !content || !review) {
         return rejectWithValue('no data');
     }
 
     try {
-        const response = await extra.api.post<CommentI>('/comments', {
-            articleId: review.id,
+        const response = await extra.api.post<CommentI>('comment/add', {
+            reviewId: review.id,
             userId: userData.id,
-            text,
+            content,
         });
 
         if (!response.data) {

@@ -44,7 +44,7 @@ export const fetchReviewListService = createAsyncThunk<
                 type: type === ReviewTypeEnums.ALL ? undefined : type,
             },
         });
-        console.log('###', response.data);
+
         if (!response.data) {
             throw new Error();
         }

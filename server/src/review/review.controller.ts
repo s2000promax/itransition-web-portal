@@ -4,7 +4,6 @@ import {
     Controller,
     Get,
     Param,
-    Patch,
     Post,
     Put,
     Query,
@@ -13,19 +12,15 @@ import {
 import { ReviewService } from './review.service';
 import { ApiBody } from '@nestjs/swagger';
 import { ReviewDto } from './dto';
-import { Like, Review, ReviewTypeEnum, UsersRating } from '@prisma/client';
+import { ReviewTypeEnum } from '@prisma/client';
+import { ReviewResponse } from './interceptors';
 
-import { UserService } from '../user/user.service';
-import { ReviewResponse, ReviewResponseList, UserResponse } from './responses';
 import { CurrentUser } from '../libs/decorators';
 import { JwtPayload } from '../config/types/auth/jwtPayload';
 
 @Controller('review')
 export class ReviewController {
-    constructor(
-        private reviewService: ReviewService,
-        private userService: UserService,
-    ) {}
+    constructor(private reviewService: ReviewService) {}
 
     @Post('create')
     @ApiBody({ type: ReviewDto })
@@ -51,7 +46,6 @@ export class ReviewController {
         @Query('q') search: string,
         @Query('type') type: ReviewTypeEnum,
     ) {
-        console.log(expand, limit, page, order, search, type);
         const foundedReviewList = await this.reviewService.findReviewList(
             expand,
             limit,
@@ -62,12 +56,11 @@ export class ReviewController {
             'asc',
         );
 
-        const reviewList = foundedReviewList.map(
+        const reviewListResponse = foundedReviewList.map(
             (review) => new ReviewResponse(review, review.owner),
         );
 
-        const reviewListResponse = new ReviewResponseList(reviewList);
-        return reviewListResponse.reviews;
+        return reviewListResponse;
     }
 
     @UseInterceptors(ClassSerializerInterceptor)

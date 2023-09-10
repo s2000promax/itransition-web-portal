@@ -7,11 +7,17 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
     async onModuleInit() {
         this.initRoles()
             .catch((e) => {
-                console.error(e);
+                console.error('Prisma initial failure', e);
                 process.exit(1);
             })
             .finally(async () => {
-                await this.$connect();
+                await this.$connect()
+                    .then(() => {
+                        console.log('Prisma DB connect successful');
+                    })
+                    .catch((e) => {
+                        console.log('Prisma DB connect failure', e);
+                    });
             });
     }
 

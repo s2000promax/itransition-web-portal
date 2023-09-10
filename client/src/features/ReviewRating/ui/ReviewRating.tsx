@@ -21,12 +21,12 @@ const ReviewRating = memo((props: ReviewRatingProps) => {
         reviewId: reviewId,
         userId: userData?.id ?? '',
     });
-    const [rateArticleMutation] = useRate();
+    const [rateReviewMutation] = useRate();
 
-    const handleRateArticle = useCallback(
+    const handleRateReview = useCallback(
         (starsCount: number, feedback?: string) => {
             try {
-                rateArticleMutation({
+                rateReviewMutation({
                     userId: userData?.id ?? '',
                     reviewId: reviewId,
                     rate: starsCount,
@@ -36,21 +36,21 @@ const ReviewRating = memo((props: ReviewRatingProps) => {
                 console.log(e);
             }
         },
-        [reviewId, rateArticleMutation, userData?.id],
+        [reviewId, rateReviewMutation, userData?.id],
     );
 
     const onAccept = useCallback(
         (starsCount: number, feedback?: string) => {
-            handleRateArticle(starsCount, feedback);
+            handleRateReview(starsCount, feedback);
         },
-        [handleRateArticle],
+        [handleRateReview],
     );
 
     const onCancel = useCallback(
         (starsCount: number) => {
-            handleRateArticle(starsCount);
+            handleRateReview(starsCount);
         },
-        [handleRateArticle],
+        [handleRateReview],
     );
 
     if (isLoading) {

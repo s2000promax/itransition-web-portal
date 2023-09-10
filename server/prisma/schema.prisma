@@ -25,6 +25,7 @@ model User {
     settings  Settings[]
     reviews   Review[]
     likes     Like[]
+    views     UniqueViews[]
     ratings   UsersRating[]
     comments  Comment[]
     hiddens   HiddenList[]
@@ -62,6 +63,7 @@ model Review {
     ratings       UsersRating[]
     comments      Comment[]
     hiddens       HiddenList[]
+    views         UniqueViews[]
 
     @@map("reviews")
 }
@@ -106,35 +108,48 @@ model Tag {
 }
 
 model Like {
-    user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId   String
-    like     Boolean @default(false)
-    review   Review  @relation(fields: [reviewId], references: [id], onDelete: Cascade)
-    reviewId String
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId    String
+    createdAt DateTime @default(now()) @map("created_at")
+    review    Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+    reviewId  String
 
     @@id([userId, reviewId])
     @@map("likes")
 }
 
+model UniqueViews {
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId    String
+    createdAt DateTime @default(now()) @map("created_at")
+    review    Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+    reviewId  String
+
+    @@id([userId, reviewId])
+    @@map("uniqueViews")
+}
+
 model UsersRating {
-    rating   Int    @db.UnsignedTinyInt
-    feedback String @db.Text
-    user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId   String
-    review   Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)
-    reviewId String
+    rating    Int      @db.UnsignedTinyInt
+    feedback  String   @db.Text
+    createdAt DateTime @default(now()) @map("created_at")
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId    String
+    review    Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+    reviewId  String
 
     @@id([userId, reviewId])
     @@map("usersRatings")
 }
 
 model Comment {
-    id       String @id @default(uuid())
-    content  String @db.Text
-    user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId   String
-    review   Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)
-    reviewId String
+    id        String   @id @default(uuid())
+    content   String   @db.Text
+    createdAt DateTime @default(now()) @map("created_at")
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId    String
+    review    Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+    reviewId  String
 
     @@map("comments")
 }

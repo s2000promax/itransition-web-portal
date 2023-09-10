@@ -1,6 +1,8 @@
 import { Comment } from '@prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
-export class CreateCommentDto implements Partial<Comment> {
+export class CreateCommentDto implements Comment {
+    id: string;
+
     @ApiProperty({
         required: true,
         type: String,
@@ -21,4 +23,6 @@ export class CreateCommentDto implements Partial<Comment> {
         description: 'Review ID',
     })
     reviewId: string;
+
+    createdAt: Date;
 }

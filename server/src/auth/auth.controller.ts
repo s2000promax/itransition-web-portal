@@ -21,7 +21,7 @@ import { HttpService } from '@nestjs/axios';
 import { Response, Request } from 'express';
 
 import { Cookie, Public } from '../libs/decorators';
-import { UserResponse } from '../user/responses';
+import { UserResponse } from '../user/interceptors';
 import { LoginDto, RegisterDto } from './dto';
 import { CookiesEnums } from '../config/enums/cookies.enums';
 import { ProvidersEnums } from '../config/enums/providers.enums';

@@ -7,15 +7,39 @@ import { Comment } from '@prisma/client';
 export class CommentService {
     constructor(private prisma: PrismaService) {}
 
-    async createComment(createCommentDto: CreateCommentDto): Promise<Comment> {
-        const { content, userId, reviewId } = createCommentDto;
+    async createComment(body: CreateCommentDto) {
+        const { content, userId, reviewId } = body;
 
-        return this.prisma.comment.create({
-            data: {
-                content,
-                userId,
-                reviewId,
-            },
-        });
+        try {
+            await this.prisma.comment.create({
+                data: {
+                    content,
+                    userId,
+                    reviewId,
+                },
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    async findCommentsByReviewId(reviewId: string, expand: string) {
+        try {
+            const foundedComments = await this.prisma.comment.findMany({
+                where: {
+                    reviewId: reviewId,
+                },
+                include: {
+                    user: expand === 'user',
+                },
+                orderBy: {
+                    createdAt: 'desc',
+                },
+            });
+
+            return foundedComments;
+        } catch (e) {
+            console.log(e);
+        }
     }
 }

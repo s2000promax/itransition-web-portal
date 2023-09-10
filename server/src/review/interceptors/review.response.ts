@@ -1,5 +1,5 @@
 import { Review as OriginalReview, ReviewTypeEnum, User } from '@prisma/client';
-import { UserResponse } from './user.response';
+import { UserResponse } from '../../interceptors';
 import { Exclude } from 'class-transformer';
 
 interface Review extends Omit<OriginalReview, 'likesCount' | 'viewCount'> {

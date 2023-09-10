@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CurrentUser } from '../libs/decorators';
-import { SettingsResponse, UserResponse } from './responses';
+import { SettingsResponse, UserResponse } from './interceptors';
 import { ApiTags } from '@nestjs/swagger';
 import { JwtPayload } from '../config/types/auth/jwtPayload';
 import { User } from '@prisma/client';

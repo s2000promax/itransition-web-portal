@@ -9,7 +9,7 @@ import {
     User,
 } from '@prisma/client';
 import { ReviewDto } from './dto';
-import { ReviewResponse } from './responses';
+import { ReviewResponse } from './interceptors';
 import { JwtPayload } from '../config/types/auth/jwtPayload';
 
 @Injectable()
@@ -18,8 +18,6 @@ export class ReviewService {
 
     async create(review: ReviewDto) {
         try {
-            console.log(review);
-
             const createdReview = await this.prismaService.review.create({
                 data: {
                     ownerId: review.ownerId,
@@ -95,10 +93,34 @@ export class ReviewService {
             });
 
             if (user.id !== foundedReview.ownerId) {
-                await this.prismaService.review.update({
-                    where: { id: reviewId },
-                    data: { viewCount: { increment: 1 } },
-                });
+                try {
+                    const uniqueView =
+                        await this.prismaService.uniqueViews.findUnique({
+                            where: {
+                                userId_reviewId: {
+                                    userId: user.id,
+                                    reviewId: reviewId,
+                                },
+                            },
+                        });
+
+                    if (!uniqueView) {
+                        await this.prismaService.$transaction([
+                            this.prismaService.uniqueViews.create({
+                                data: {
+                                    userId: user.id,
+                                    reviewId: reviewId,
+                                },
+                            }),
+                            this.prismaService.review.update({
+                                where: { id: reviewId },
+                                data: { viewCount: { increment: 1 } },
+                            }),
+                        ]);
+                    }
+                } catch (e) {
+                    console.error(e);
+                }
             }
 
             return foundedReview;
