@@ -1,12 +1,16 @@
 import {
+    BadRequestException,
     Body,
     ClassSerializerInterceptor,
     Controller,
     Delete,
     Get,
+    HttpStatus,
     Param,
     ParseUUIDPipe,
+    Patch,
     Put,
+    Res,
     UseInterceptors,
 } from '@nestjs/common';
 import { UserService } from './user.service';
@@ -14,7 +18,8 @@ import { CurrentUser } from '../libs/decorators';
 import { SettingsResponse, UserResponse } from './interceptors';
 import { ApiTags } from '@nestjs/swagger';
 import { JwtPayload } from '../config/types/auth/jwtPayload';
-import { User } from '@prisma/client';
+import { Settings, User } from '@prisma/client';
+import { Response } from 'express';
 
 interface BodyRequestInterface {
     ids: string[];
@@ -77,5 +82,19 @@ export class UserController {
         @CurrentUser() user: JwtPayload,
     ) {
         return this.userService.delete(id, user);
+    }
+
+    @Patch(':id')
+    async setUserSettings(
+        @Param('id') userId: string,
+        @Body() body: Settings,
+        @Res() res: Response,
+    ) {
+        try {
+            await this.userService.updateUserSettings(userId, body);
+            res.status(HttpStatus.OK).send();
+        } catch (e) {
+            throw new BadRequestException(`Failed to update user settings`);
+        }
     }
 }

@@ -8,6 +8,7 @@ export class SettingsResponse implements Settings {
     theme: string;
     language: string;
     isFirstVisit: boolean;
+    isReviewsPageWasOpened: boolean;
 
     constructor(settings: Settings) {
         Object.assign(this, settings);

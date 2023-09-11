@@ -1,19 +1,16 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 
-import { UserI, UserSettingsI } from '../types/user.interface';
-import { LocalStorageEnums } from '@/shared/enums/localStorage.enums';
-import { PersistenceService } from '@/shared/services/persistence.service';
+import { UserSettingsI } from '../types/user.interface';
 
 import { setUserSettingsMutation } from '../api/user.api';
-import { getAuthDataSelector, RegisterSchemaI } from '@/entities/Auth';
-import { getUserDataSelector, getUserSettings } from '@/entities/User';
+import { getUserDataSelector } from '../selectors/getUserData/getUserAuthData.selector';
 
 export const saveUserSettings = createAsyncThunk<
     UserSettingsI,
     UserSettingsI,
     ThunkConfig<string>
->('user/saveJsonSettings', async (newUserSettings, thunkApi) => {
+>('user/saveUserSettings', async (newUserSettings, thunkApi) => {
     const { rejectWithValue, getState, dispatch } = thunkApi;
     const userData = getUserDataSelector(getState());
 

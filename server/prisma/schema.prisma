@@ -180,11 +180,12 @@ model UserRole {
 }
 
 model Settings {
-    theme        String
-    language     String
-    isFirstVisit Boolean
-    user         User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId       String  @id
+    theme                  String
+    language               String
+    isFirstVisit           Boolean @map("is_first_visit")
+    isReviewsPageWasOpened Boolean @map("is_reviews_page_was_opened")
+    user                   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId                 String  @id
 }
 
 enum RolesEnum {

@@ -163,6 +163,31 @@ export class UserService {
         }
     }
 
+    async updateUserSettings(userId: string, body: Settings) {
+        const { theme, language, isFirstVisit, isReviewsPageWasOpened } = body;
+
+        try {
+            await this.prismaService.settings.upsert({
+                where: { userId },
+                update: {
+                    theme,
+                    language,
+                    isFirstVisit,
+                    isReviewsPageWasOpened,
+                },
+                create: {
+                    userId,
+                    theme,
+                    language,
+                    isFirstVisit,
+                    isReviewsPageWasOpened,
+                },
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     async updateIsBlockedStatus(ids: string[], status: boolean) {
         if (Array.isArray(ids) && typeof status !== undefined) {
             const updateResponse = await this.prismaService.user.updateMany({
