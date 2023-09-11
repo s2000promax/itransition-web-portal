@@ -1,6 +1,6 @@
 import { UsersRating } from '@prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
-export class RateDto implements Partial<UsersRating> {
+export class RateDto implements UsersRating {
     @ApiProperty({
         type: String,
         description: 'User feedback message',
@@ -12,7 +12,7 @@ export class RateDto implements Partial<UsersRating> {
         type: Number,
         description: 'User rating (1-5)',
     })
-    rating: number;
+    rate: number;
 
     @ApiProperty({
         required: true,
@@ -27,4 +27,6 @@ export class RateDto implements Partial<UsersRating> {
         description: 'Review ID',
     })
     reviewId: string;
+
+    createdAt: Date;
 }

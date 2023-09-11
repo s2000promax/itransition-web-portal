@@ -7,25 +7,52 @@ import { Like, UsersRating } from '@prisma/client';
 export class RateService {
     constructor(private prisma: PrismaService) {}
 
-    async createFeedback(rateDto: RateDto): Promise<UsersRating> {
-        const { rating, feedback, userId, reviewId } = rateDto;
+    async findReviewRateById(reviewId: string, userId: string) {
+        try {
+            const foundedReviewRate = await this.prisma.usersRating.findFirst({
+                where: {
+                    reviewId,
+                    userId,
+                },
+            });
 
-        return this.prisma.usersRating.create({
-            data: {
-                rating,
-                feedback,
-                userId,
-                reviewId,
-            },
-        });
+            return foundedReviewRate;
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    async updateReviewRate(body: RateDto) {
+        const { rate, feedback, userId, reviewId } = body;
+        try {
+            await this.prisma.usersRating.upsert({
+                where: {
+                    userId_reviewId: {
+                        userId,
+                        reviewId,
+                    },
+                },
+                update: {
+                    rate,
+                    feedback,
+                },
+                create: {
+                    userId,
+                    reviewId,
+                    rate,
+                    feedback,
+                },
+            });
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     async addLike(likeDto: LikeDto): Promise<Like> {
-        const { like, userId, reviewId } = likeDto;
+        const { userId, reviewId } = likeDto;
 
         return this.prisma.like.create({
             data: {
-                like,
                 userId,
                 reviewId,
             },

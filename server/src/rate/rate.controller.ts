@@ -1,22 +1,53 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+    BadRequestException,
+    Body,
+    ClassSerializerInterceptor,
+    Controller,
+    Get,
+    HttpStatus,
+    Post,
+    Query,
+    Res,
+    UseInterceptors,
+} from '@nestjs/common';
 import { RateService } from './rate.service';
-import { ApiBody } from '@nestjs/swagger';
-import { RateDto, LikeDto } from './dto';
-import { Like, UsersRating } from '@prisma/client';
+import { RateDto } from './dto';
+import { Response } from 'express';
 
 @Controller('rate')
 export class RateController {
     constructor(private rateService: RateService) {}
 
-    @Post('feedback')
-    @ApiBody({ type: RateDto })
-    async createComment(@Body() rateDto: RateDto): Promise<UsersRating> {
-        return await this.rateService.createFeedback(rateDto);
+    @UseInterceptors(ClassSerializerInterceptor)
+    @Get('reviewRate')
+    async getReviewRateById(
+        @Query('reviewId') reviewId: string,
+        @Query('userId') userId: string,
+    ) {
+        try {
+            const foundedReviewRate = await this.rateService.findReviewRateById(
+                reviewId,
+                userId,
+            );
+
+            // const commentListResponse = foundedCommentList.map(
+            //     (comment) => new CommentResponse(comment, comment.user),
+            // );
+            console.log(foundedReviewRate);
+            return foundedReviewRate;
+        } catch (e) {
+            throw new BadRequestException('Failed to fetch rating');
+        }
     }
 
-    @Post('like')
-    @ApiBody({ type: LikeDto })
-    async addLike(@Body() likeDto: LikeDto): Promise<Like> {
-        return await this.rateService.addLike(likeDto);
+    @Post()
+    async rateReview(@Body() body: RateDto, @Res() res: Response) {
+        try {
+            await this.rateService.updateReviewRate(body);
+
+            res.status(HttpStatus.OK).send();
+        } catch (e) {
+            throw new BadRequestException('Failed to rate Review');
+        }
     }
 }

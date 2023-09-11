@@ -15,18 +15,18 @@ interface RateArg {
 
 const ratingApi = rtkApi.injectEndpoints({
     endpoints: (build) => ({
-        getArticleRating: build.query<RatingI[], GetRatingArg>({
+        getReviewRating: build.query<RatingI[], GetRatingArg>({
             query: ({ reviewId, userId }) => ({
-                url: '/article-ratings',
+                url: 'rate/reviewRate',
                 params: {
                     userId,
                     reviewId,
                 },
             }),
         }),
-        rateArticle: build.mutation<void, RateArg>({
+        rateReview: build.mutation<void, RateArg>({
             query: (arg) => ({
-                url: '/article-ratings',
+                url: 'rate',
                 method: 'POST',
                 body: arg,
             }),
@@ -34,5 +34,5 @@ const ratingApi = rtkApi.injectEndpoints({
     }),
 });
 
-export const useGetRating = ratingApi.useGetArticleRatingQuery;
-export const useRate = ratingApi.useRateArticleMutation;
+export const useGetRating = ratingApi.useGetReviewRatingQuery;
+export const useRate = ratingApi.useRateReviewMutation;

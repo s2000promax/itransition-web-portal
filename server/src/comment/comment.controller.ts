@@ -39,7 +39,6 @@ export class CommentController {
         @Query('reviewId') reviewId: string,
         @Query('_expand') expand: string,
     ) {
-        console.log(reviewId, expand);
         try {
             const foundedCommentList =
                 await this.commentService.findCommentsByReviewId(
