@@ -9,5 +9,6 @@ export const isPublic = (ctx: ExecutionContext, reflector: Reflector) => {
         ctx.getHandler(),
         ctx.getClass(),
     ]);
+
     return isPublic;
 };

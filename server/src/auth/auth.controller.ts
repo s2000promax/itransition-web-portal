@@ -21,7 +21,7 @@ import { HttpService } from '@nestjs/axios';
 import { Response, Request } from 'express';
 
 import { Cookie, Public } from '../libs/decorators';
-import { UserResponse } from '../user/interceptors';
+import { UserResponse } from '../user/transformers';
 import { LoginDto, RegisterDto } from './dto';
 import { CookiesEnums } from '../config/enums/cookies.enums';
 import { ProvidersEnums } from '../config/enums/providers.enums';
@@ -44,27 +44,34 @@ export class AuthController {
     @UseInterceptors(ClassSerializerInterceptor)
     @Post('register')
     async register(@Body() dto: RegisterDto, @Res() res: Response) {
-        console.log(dto);
-        const user = await this.authService.register(dto);
-        console.log('user:', user);
-        if (!user) {
+        try {
+            await this.authService.register(dto);
+
+            res.status(HttpStatus.OK).send();
+        } catch (e) {
             throw new BadRequestException(
                 `Failed to register user with data: ${JSON.stringify(dto)}`,
             );
         }
-        res.status(HttpStatus.OK).send();
     }
 
     @Post('login')
     async login(@Body() dto: LoginDto, @Res() res: Response) {
-        const tokens = await this.authService.login(dto);
-        if (!tokens) {
+        try {
+            const tokens = await this.authService.login(dto);
+
+            if (!tokens) {
+                throw new BadRequestException(
+                    `Failed to login with data: ${JSON.stringify(dto)}`,
+                );
+            }
+
+            this.setRefreshTokenToCookies(tokens, res);
+        } catch (e) {
             throw new BadRequestException(
                 `Failed to login with data: ${JSON.stringify(dto)}`,
             );
         }
-
-        this.setRefreshTokenToCookies(tokens, res);
     }
 
     @Get('logout')
@@ -72,16 +79,23 @@ export class AuthController {
         @Cookie(CookiesEnums.REFRESH_TOKEN) refreshToken: string,
         @Res() res: Response,
     ) {
-        if (!refreshToken) {
+        try {
+            if (!refreshToken) {
+                res.status(HttpStatus.OK).send();
+            }
+
+            await this.authService.deleteRefreshToken(refreshToken);
+
+            res.cookie(CookiesEnums.REFRESH_TOKEN, '', {
+                httpOnly: true,
+                secure: true,
+                expires: new Date(),
+            });
+
             res.status(HttpStatus.OK).send();
+        } catch (e) {
+            throw new BadRequestException('Failed logout');
         }
-        await this.authService.deleteRefreshToken(refreshToken);
-        res.cookie(CookiesEnums.REFRESH_TOKEN, '', {
-            httpOnly: true,
-            secure: true,
-            expires: new Date(),
-        });
-        res.status(HttpStatus.OK).send();
     }
 
     @Get('refresh-tokens')
@@ -89,34 +103,45 @@ export class AuthController {
         @Cookie(CookiesEnums.REFRESH_TOKEN) refreshToken: string,
         @Res() res: Response,
     ) {
-        if (!refreshToken) {
-            throw new UnauthorizedException();
-        }
-        const tokens = await this.authService.refreshTokens(refreshToken);
+        try {
+            if (!refreshToken) {
+                throw new UnauthorizedException();
+            }
 
-        if (!tokens) {
-            throw new UnauthorizedException();
-        }
+            const tokens = await this.authService.refreshTokens(refreshToken);
 
-        this.setRefreshTokenToCookies(tokens, res);
+            if (!tokens) {
+                throw new UnauthorizedException();
+            }
+
+            this.setRefreshTokenToCookies(tokens, res);
+        } catch (e) {
+            throw new BadRequestException('Failed to get refresh token');
+        }
     }
 
     private setRefreshTokenToCookies(tokens: TokensInterface, res: Response) {
-        if (!tokens) {
-            throw new UnauthorizedException();
+        try {
+            if (!tokens) {
+                throw new UnauthorizedException();
+            }
+
+            res.cookie(CookiesEnums.REFRESH_TOKEN, tokens.refreshToken.token, {
+                httpOnly: true,
+                sameSite: 'lax',
+                expires: new Date(tokens.refreshToken.expired),
+                secure:
+                    this.configService.get('VERCEL_NODE_ENV', 'production') ===
+                    'production',
+                path: '/',
+            });
+
+            res.status(HttpStatus.CREATED).json({
+                accessToken: tokens.accessToken,
+            });
+        } catch (e) {
+            throw new BadRequestException('Failed to set token');
         }
-        res.cookie(CookiesEnums.REFRESH_TOKEN, tokens.refreshToken.token, {
-            httpOnly: true,
-            sameSite: 'lax',
-            expires: new Date(tokens.refreshToken.expired),
-            secure:
-                this.configService.get('VERCEL_NODE_ENV', 'production') ===
-                'production',
-            path: '/',
-        });
-        res.status(HttpStatus.CREATED).json({
-            accessToken: tokens.accessToken,
-        });
     }
 
     @UseGuards(GoogleGuard)

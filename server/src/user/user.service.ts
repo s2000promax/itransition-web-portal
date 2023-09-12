@@ -3,7 +3,8 @@ import { RolesEnum, Settings, User, UserRole } from '@prisma/client';
 import { genSaltSync, hashSync } from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service';
 import { JwtPayload } from '../config/types/auth/jwtPayload';
-import { TransformUserI } from './interceptors';
+import { TransformUserI } from './transformers';
+import { ExtendUserI } from './types/extendUser.interface';
 
 @Injectable()
 export class UserService {
@@ -51,10 +52,10 @@ export class UserService {
                     email: user.email,
                 },
                 update: {
-                    firstName: user.firstName,
-                    lastName: user.lastName,
-                    avatar: user.avatar,
-                    password: hashedPassword,
+                    firstName: user.firstName ?? undefined,
+                    lastName: user.lastName ?? undefined,
+                    avatar: user.avatar ?? undefined,
+                    password: hashedPassword ?? undefined,
                 },
                 create: {
                     firstName: user.firstName ?? '',
@@ -84,9 +85,9 @@ export class UserService {
         }
     }
 
-    async findById(userId: string): Promise<TransformUserI> {
+    async findById(userId: string): Promise<User> {
         try {
-            const foundedUser = await this.prismaService.user.findFirst({
+            const foundedUser = (await this.prismaService.user.findFirst({
                 where: {
                     id: userId,
                 },
@@ -98,7 +99,7 @@ export class UserService {
                     },
                     settings: true,
                 },
-            });
+            })) as ExtendUserI;
 
             return foundedUser;
         } catch (e) {

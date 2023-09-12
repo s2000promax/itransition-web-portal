@@ -1,27 +1,24 @@
 import { Review as OriginalReview, ReviewTypeEnum, User } from '@prisma/client';
-import { UserResponse } from '../../interceptors';
+import { TransformUserI, UserResponse } from '../../libs/transformers';
 import { Exclude } from 'class-transformer';
 
-interface Review extends Omit<OriginalReview, 'likesCount' | 'viewCount'> {
-    likesCount: string;
-    viewCount: string;
+interface Review extends Omit<OriginalReview, 'viewCounter'> {
+    viewCounter: string;
     user: UserResponse;
 }
 
 export class ReviewResponse implements Review {
     id: string;
+    workId: string;
     ownerId: string;
     title: string;
-    subtitle: string;
+    workTitle: string;
     cover: string;
     type: ReviewTypeEnum;
     createdAt: Date;
     updatedAt: Date;
     ownerRating: number;
-    averageRating: number;
-
-    likesCount: string;
-    viewCount: string;
+    viewCounter: string;
 
     user: UserResponse;
 
@@ -30,8 +27,7 @@ export class ReviewResponse implements Review {
 
     constructor(review: OriginalReview, user: User) {
         Object.assign(this, review);
-        this.likesCount = review.likesCount.toString();
-        this.viewCount = review.viewCount.toString();
+        this.viewCounter = review.viewCounter.toString();
         this.user = new UserResponse(user);
     }
 }

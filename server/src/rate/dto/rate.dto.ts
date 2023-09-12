@@ -24,9 +24,9 @@ export class RateDto implements UsersRating {
     @ApiProperty({
         required: true,
         type: String,
-        description: 'Review ID',
+        description: 'Work ID',
     })
-    reviewId: string;
+    workId: string;
 
     createdAt: Date;
 }

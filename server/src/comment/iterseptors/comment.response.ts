@@ -1,5 +1,5 @@
 import { Comment, User } from '@prisma/client';
-import { UserResponse } from '../../interceptors';
+import { UserResponse } from '../../libs/transformers';
 import { Exclude } from 'class-transformer';
 
 export class CommentResponse implements Comment {

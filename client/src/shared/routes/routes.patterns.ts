@@ -5,9 +5,9 @@ export const getRouteSettings = () => '/settings';
 export const getRouteAbout = () => '/about';
 export const getRouteProfile = (id: string) => `/profile/${id}`;
 export const getRouteReviews = () => '/reviews';
-export const getRouteReviewDetails = (id: string) => `/review/${id}`;
-export const getRouteReviewCreate = () => '/review/new';
-export const getRouteReviewEdit = (id: string) => `/review/${id}/edit`;
+export const getRouteReviewDetails = (id: string) => `/${id}`;
+export const getRouteReviewCreate = () => '/new';
+export const getRouteReviewEdit = (id: string) => `/${id}/edit`;
 export const getRouteAdmin = () => '/admin';
 export const getRouteForbidden = () => '/forbidden';
 

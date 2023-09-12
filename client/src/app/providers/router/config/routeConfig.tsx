@@ -50,7 +50,7 @@ export const routeConfig: Record<AppRoutesEnums, AppRoutesPropsT> = {
     [AppRoutesEnums.REVIEW_DETAILS]: {
         path: getRouteReviewDetails(':id'),
         element: <ReviewDetailsPage />,
-        authOnly: true,
+        // authOnly: true,
     },
     [AppRoutesEnums.REVIEW_CREATE]: {
         path: getRouteReviewCreate(),

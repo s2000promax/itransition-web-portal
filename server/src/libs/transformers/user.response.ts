@@ -1,15 +1,19 @@
-import { User } from '@prisma/client';
+import { User, User as OriginalUser } from '@prisma/client';
 import { Exclude } from 'class-transformer';
 
-export class UserResponse implements User {
+export interface TransformUserI extends Omit<OriginalUser, 'likesCounter'> {
+    likesCounter: string;
+}
+
+export class UserResponse implements TransformUserI {
     id: string;
     firstName: string;
     lastName: string;
+    avatar: string;
+    likesCounter: string;
 
     @Exclude()
     email: string;
-
-    avatar: string;
 
     @Exclude()
     settings: number;
@@ -34,5 +38,6 @@ export class UserResponse implements User {
 
     constructor(user: User) {
         Object.assign(this, user);
+        this.likesCounter = user.likesCounter.toString();
     }
 }

@@ -1,6 +1,7 @@
 import React, { memo, Suspense, useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import AppRouter from '@/app/providers/router/ui/AppRouter';
+import { BrowserView, MobileView } from 'react-device-detect';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import { useTheme } from '@/shared/libs/hooks/useTheme/useTheme';
 import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
@@ -19,7 +20,6 @@ const App = memo(() => {
     const toolbar = useAppToolbar();
 
     const handleInited = useCallback(() => {
-        console.log('RENDER 123', inited);
         dispatch(initUserData());
     }, [dispatch]);
 
@@ -27,7 +27,6 @@ const App = memo(() => {
 
     useEffect(() => {
         if (!inited) {
-            // dispatch(initUserData());
             debouncedInited();
         }
     }, [inited]);
@@ -49,12 +48,17 @@ const App = memo(() => {
             className={classNames('app', {}, [theme])}
         >
             <Suspense fallback="">
-                <MainLayout
-                    header={<Navbar />}
-                    content={<AppRouter />}
-                    sidebar={<Sidebar />}
-                    toolbar={toolbar}
-                />
+                <BrowserView>
+                    <MainLayout
+                        header={<Navbar />}
+                        content={<AppRouter />}
+                        sidebar={<Sidebar />}
+                        toolbar={toolbar}
+                    />
+                </BrowserView>
+                <MobileView>
+                    <div>Mobile</div>
+                </MobileView>
             </Suspense>
         </div>
     );

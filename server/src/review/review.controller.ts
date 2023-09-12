@@ -13,9 +13,9 @@ import { ReviewService } from './review.service';
 import { ApiBody } from '@nestjs/swagger';
 import { ReviewDto } from './dto';
 import { ReviewTypeEnum } from '@prisma/client';
-import { ReviewResponse } from './interceptors';
+import { ReviewResponse } from './transformers';
 
-import { CurrentUser } from '../libs/decorators';
+import { CurrentUser, Public } from '../libs/decorators';
 import { JwtPayload } from '../config/types/auth/jwtPayload';
 
 @Controller('review')
@@ -36,6 +36,7 @@ export class ReviewController {
     @ApiBody({ type: ReviewDto })
     async deleteReview(@Body() reviewDto: ReviewDto) {}
 
+    @Public()
     @UseInterceptors(ClassSerializerInterceptor)
     @Get('reviewList')
     async getReviewList(
@@ -46,6 +47,7 @@ export class ReviewController {
         @Query('q') search: string,
         @Query('type') type: ReviewTypeEnum,
     ) {
+        console.log('ReviewList', type);
         const foundedReviewList = await this.reviewService.findReviewList(
             expand,
             limit,
@@ -63,6 +65,7 @@ export class ReviewController {
         return reviewListResponse;
     }
 
+    @Public()
     @UseInterceptors(ClassSerializerInterceptor)
     @Get(':id')
     async findOneReview(

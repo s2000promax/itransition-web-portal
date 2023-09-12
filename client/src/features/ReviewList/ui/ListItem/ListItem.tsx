@@ -64,7 +64,7 @@ export const ListItem = memo((props: ListItemProps) => {
                 padding="24"
                 fullWidth
                 data-testid="ReviewListItem"
-                className={classNames(cls.ArticleListItem, {}, [
+                className={classNames(cls.ReviewListItem, {}, [
                     className,
                     cls[view],
                 ])}

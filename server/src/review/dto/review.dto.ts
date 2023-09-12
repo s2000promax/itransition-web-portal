@@ -7,6 +7,7 @@ interface ReviewBlockI extends ReviewBlock {
 
 export class ReviewDto implements Review {
     id: string;
+    workId: string;
 
     @ApiProperty({
         required: true,
@@ -25,9 +26,9 @@ export class ReviewDto implements Review {
     @ApiProperty({
         required: true,
         type: String,
-        description: 'Review subtitle',
+        description: 'Work title',
     })
-    subtitle: string;
+    workTitle: string;
 
     @ApiProperty({
         required: true,
@@ -59,7 +60,6 @@ export class ReviewDto implements Review {
 
     createdAt: Date;
     updatedAt: Date;
-    likesCount: bigint;
-    averageRating: number;
-    viewCount: bigint;
+
+    viewCounter: bigint;
 }

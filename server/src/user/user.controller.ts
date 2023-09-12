@@ -16,11 +16,12 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CurrentUser } from '../libs/decorators';
-import { UserResponse } from './interceptors';
+import { UserResponse } from './transformers';
 import { ApiTags } from '@nestjs/swagger';
 import { JwtPayload } from '../config/types/auth/jwtPayload';
 import { RolesEnum, Settings, User } from '@prisma/client';
 import { Response } from 'express';
+import { ExtendUserI } from './types/extendUser.interface';
 
 @ApiTags('user')
 @Controller('user')
@@ -33,7 +34,7 @@ export class UserController {
         try {
             const foundedUser = await this.userService.findById(user.id);
 
-            return new UserResponse(foundedUser);
+            return new UserResponse(foundedUser as ExtendUserI);
         } catch (e) {
             throw new BadRequestException('Failed to get user');
         }
@@ -45,7 +46,7 @@ export class UserController {
         try {
             const foundedUser = await this.userService.findById(userId);
 
-            return new UserResponse(foundedUser);
+            return new UserResponse(foundedUser as ExtendUserI);
         } catch (e) {
             throw new BadRequestException('Failed to get user');
         }
@@ -59,7 +60,7 @@ export class UserController {
 
             const foundedUser = await this.userService.findById(updatedUser.id);
 
-            return new UserResponse(foundedUser);
+            return new UserResponse(foundedUser as ExtendUserI);
         } catch (e) {
             throw new BadRequestException('Failed to get user');
         }

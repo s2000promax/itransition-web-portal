@@ -40,7 +40,7 @@ export const ReviewList = memo((props: ReviewListProps) => {
     if (!isLoading && !reviewsList.length) {
         return (
             <div
-                className={classNames(cls.ArticleList, {}, [
+                className={classNames(cls.ReviewList, {}, [
                     className,
                     cls[view],
                 ])}
@@ -57,7 +57,7 @@ export const ReviewList = memo((props: ReviewListProps) => {
         <HStack
             wrap="wrap"
             gap="16"
-            className={classNames(cls.ArticleListRedesigned, {}, [])}
+            className={classNames(cls.ReviewList, {}, [])}
             data-testid="ReviewList"
         >
             {reviewsList.map((item) => (

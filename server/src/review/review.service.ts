@@ -9,7 +9,7 @@ import {
     User,
 } from '@prisma/client';
 import { ReviewDto } from './dto';
-import { ReviewResponse } from './interceptors';
+import { ReviewResponse } from './transformers';
 import { JwtPayload } from '../config/types/auth/jwtPayload';
 
 @Injectable()
@@ -21,14 +21,13 @@ export class ReviewService {
             const createdReview = await this.prismaService.review.create({
                 data: {
                     ownerId: review.ownerId,
+                    workId: review.workId,
                     title: review.title,
-                    subtitle: review.subtitle,
+                    workTitle: review.workTitle,
                     cover: review.cover,
                     type: review.type,
                     ownerRating: review.ownerRating,
-                    viewCount: 0,
-                    likesCount: 0,
-                    averageRating: 0,
+                    viewCounter: 0,
 
                     blocks: {
                         create:
@@ -92,7 +91,7 @@ export class ReviewService {
                 },
             });
 
-            if (user.id !== foundedReview.ownerId) {
+            if (user && user.id !== foundedReview.ownerId) {
                 try {
                     const uniqueView =
                         await this.prismaService.uniqueViews.findUnique({
@@ -114,7 +113,7 @@ export class ReviewService {
                             }),
                             this.prismaService.review.update({
                                 where: { id: reviewId },
-                                data: { viewCount: { increment: 1 } },
+                                data: { viewCounter: { increment: 1 } },
                             }),
                         ]);
                     }

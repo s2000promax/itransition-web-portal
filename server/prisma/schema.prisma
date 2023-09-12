@@ -11,83 +11,96 @@ datasource db {
 }
 
 model User {
-    id        String        @id @default(uuid())
-    firstName String        @map("first_name")
-    lastName  String        @map("last_name")
-    email     String        @unique
-    password  String?
-    avatar    String        @db.VarChar(2048)
-    createdAt DateTime      @default(now()) @map("created_at")
-    updatedAt DateTime      @updatedAt @map("updated_at")
-    token     Token[]
-    roles     UserRole[]
-    isBlocked Boolean       @default(false) @map("is_blocked")
-    settings  Settings[]
-    reviews   Review[]
-    likes     Like[]
-    views     UniqueViews[]
-    ratings   UsersRating[]
-    comments  Comment[]
-    hiddens   HiddenList[]
-    provider  String?
+    id           String        @id @default(uuid())
+    firstName    String        @map("first_name")
+    lastName     String        @map("last_name")
+    email        String        @unique
+    password     String?
+    avatar       String        @db.VarChar(2048)
+    createdAt    DateTime      @default(now()) @map("created_at")
+    updatedAt    DateTime      @updatedAt @map("updated_at")
+    roles        UserRole[]
+    isBlocked    Boolean       @default(false) @map("is_blocked")
+    settings     Settings[]
+    reviews      Review[]
+    likes        Like[]
+    likesCounter BigInt        @default(0) @map("likes_counter") @db.UnsignedBigInt
+    views        UniqueViews[]
+    ratings      UsersRating[]
+    comments     Comment[]
+    token        Token[]
+    provider     String?
 
     @@map("users")
 }
 
 model Token {
-    token   String   @unique
-    expired DateTime
     user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId  String
+    token   String   @unique
+    expired DateTime
 
     @@map("tokens")
 }
 
-model Review {
+model Work {
     id            String         @id @default(uuid())
-    owner         User           @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-    ownerId       String
     title         String         @db.Text
-    subtitle      String         @db.Text
     cover         String         @db.VarChar(2048)
-    tags          ReviewTag[]
-    type          ReviewTypeEnum
-    blocks        ReviewBlock[]
-    createdAt     DateTime       @default(now()) @map("created_at")
-    updatedAt     DateTime       @updatedAt @map("updated_at")
-    ownerRating   Int            @map("owner_rating") @db.UnsignedTinyInt
-    averageRating Float          @map("average_rating")
-    viewCount     BigInt         @map("view_count") @db.UnsignedBigInt
-    likesCount    BigInt         @map("likes_count") @db.UnsignedBigInt
-    likes         Like[]
+    description   String         @db.Text
+    type          ReviewTypeEnum @default(ALL)
+    averageRating Float          @default(0) @map("average_rating")
+    reviews       Review[]
     ratings       UsersRating[]
-    comments      Comment[]
-    hiddens       HiddenList[]
-    views         UniqueViews[]
+
+    @@map("works")
+}
+
+model Review {
+    id          String         @id @default(uuid())
+    work        Work           @relation(fields: [workId], references: [id])
+    workId      String
+    owner       User           @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+    ownerId     String
+    title       String         @db.Text
+    workTitle   String         @db.Text
+    cover       String         @db.VarChar(2048)
+    tags        ReviewTag[]
+    type        ReviewTypeEnum
+    blocks      ReviewBlock[]
+    createdAt   DateTime       @default(now()) @map("created_at")
+    updatedAt   DateTime       @updatedAt @map("updated_at")
+    ownerRating Int            @map("owner_rating") @db.UnsignedTinyInt
+    viewCounter BigInt         @map("view_count") @db.UnsignedBigInt
+    comments    Comment[]
+    views       UniqueViews[]
+    likes       Like[]
 
     @@map("reviews")
 }
 
 model ReviewBlock {
     id         String        @id @default(uuid())
-    sortId     Int           @db.UnsignedTinyInt
     review     Review        @relation(fields: [reviewId], references: [id], onDelete: Cascade)
     reviewId   String
+    sortId     Int           @db.UnsignedTinyInt
     type       BlockTypeEnum
     title      String?       @db.Text
     src        String?       @db.VarChar(2048)
-    paragraphs Paragraph[]
     code       String?       @db.Text
+    paragraphs Paragraph[]
 
     @@map("reviewBlocks")
 }
 
 model Paragraph {
     id            String      @id @default(uuid())
-    sortId        Int         @db.UnsignedTinyInt
-    content       String?     @db.Text
     reviewBlock   ReviewBlock @relation(fields: [reviewBlockId], references: [id], onDelete: Cascade)
     reviewBlockId String
+    sortId        Int         @db.UnsignedTinyInt
+    content       String?     @db.Text
+
+    @@map("paragraphs")
 }
 
 model ReviewTag {
@@ -110,9 +123,9 @@ model Tag {
 model Like {
     user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId    String
-    createdAt DateTime @default(now()) @map("created_at")
     review    Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
     reviewId  String
+    createdAt DateTime @default(now()) @map("created_at")
 
     @@id([userId, reviewId])
     @@map("likes")
@@ -121,71 +134,66 @@ model Like {
 model UniqueViews {
     user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId    String
-    createdAt DateTime @default(now()) @map("created_at")
     review    Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
     reviewId  String
+    createdAt DateTime @default(now()) @map("created_at")
 
     @@id([userId, reviewId])
     @@map("uniqueViews")
 }
 
 model UsersRating {
-    rate      Int      @db.UnsignedTinyInt
-    feedback  String   @db.Text
-    createdAt DateTime @default(now()) @map("created_at")
     user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId    String
-    review    Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
-    reviewId  String
+    work      Work     @relation(fields: [workId], references: [id], onDelete: Cascade)
+    workId    String
+    createdAt DateTime @default(now()) @map("created_at")
+    rate      Int      @db.UnsignedTinyInt
+    feedback  String   @db.Text
 
-    @@id([userId, reviewId])
+    @@id([userId, workId])
     @@map("usersRatings")
 }
 
 model Comment {
     id        String   @id @default(uuid())
-    content   String   @db.Text
-    createdAt DateTime @default(now()) @map("created_at")
     user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId    String
     review    Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
     reviewId  String
+    createdAt DateTime @default(now()) @map("created_at")
+    content   String   @db.Text
 
     @@map("comments")
 }
 
-model HiddenList {
-    user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId   String
-    review   Review @relation(fields: [reviewId], references: [id], onDelete: Cascade)
-    reviewId String
-
-    @@id([userId, reviewId])
-    @@map("hiddenList")
-}
-
 model Role {
     id    String     @id @default(uuid())
-    name  RolesEnum
     users UserRole[]
+    name  RolesEnum
+
+    @@map("roles")
 }
 
 model UserRole {
-    roleId String
     userId String
-    role   Role   @relation(fields: [roleId], references: [id], onDelete: Cascade)
     user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    roleId String
+    role   Role   @relation(fields: [roleId], references: [id], onDelete: Cascade)
 
     @@id([userId, roleId])
+    @@map("userRoles")
 }
 
 model Settings {
+    user                   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId                 String  @id
     theme                  String
     language               String
     isFirstVisit           Boolean @map("is_first_visit")
     isReviewsPageWasOpened Boolean @map("is_reviews_page_was_opened")
-    user                   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId                 String  @id
+
+    @@map("settings")
 }
 
 enum RolesEnum {

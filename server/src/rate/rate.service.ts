@@ -7,11 +7,11 @@ import { Like, UsersRating } from '@prisma/client';
 export class RateService {
     constructor(private prisma: PrismaService) {}
 
-    async findReviewRateById(reviewId: string, userId: string) {
+    async findReviewRateById(workId: string, userId: string) {
         try {
             const foundedReviewRate = await this.prisma.usersRating.findFirst({
                 where: {
-                    reviewId,
+                    workId,
                     userId,
                 },
             });
@@ -23,13 +23,13 @@ export class RateService {
     }
 
     async updateReviewRate(body: RateDto) {
-        const { rate, feedback, userId, reviewId } = body;
+        const { rate, feedback, userId, workId } = body;
         try {
             await this.prisma.usersRating.upsert({
                 where: {
-                    userId_reviewId: {
+                    userId_workId: {
+                        workId,
                         userId,
-                        reviewId,
                     },
                 },
                 update: {
@@ -38,7 +38,7 @@ export class RateService {
                 },
                 create: {
                     userId,
-                    reviewId,
+                    workId,
                     rate,
                     feedback,
                 },

@@ -15,6 +15,7 @@ import { ApiBody } from '@nestjs/swagger';
 import { CreateCommentDto } from './dto';
 import { Response } from 'express';
 import { CommentResponse } from './iterseptors';
+import { Public } from '../libs/decorators';
 
 @Controller('comment')
 export class CommentController {
@@ -33,6 +34,7 @@ export class CommentController {
         }
     }
 
+    @Public()
     @UseInterceptors(ClassSerializerInterceptor)
     @Get('commentList')
     async getCommentCommentList(

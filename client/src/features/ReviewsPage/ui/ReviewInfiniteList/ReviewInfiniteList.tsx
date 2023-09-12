@@ -10,11 +10,11 @@ import {
 import { Text } from '@/shared/UI-kit/Text';
 import { ReviewList } from '@/features/ReviewList';
 
-interface ArticleInfiniteListProps {
+interface ReviewInfiniteListProps {
     className?: string;
 }
 
-export const ReviewInfiniteList = memo((props: ArticleInfiniteListProps) => {
+export const ReviewInfiniteList = memo((props: ReviewInfiniteListProps) => {
     const { className } = props;
     const reviewsList = useSelector(getReviews.selectAll);
     const isLoading = useSelector(getReviewsPageIsLoadingSelector);
@@ -26,7 +26,7 @@ export const ReviewInfiniteList = memo((props: ArticleInfiniteListProps) => {
         return (
             <Text
                 size="l"
-                text={t('An error occurred while loading the article')}
+                text={t('An error occurred while loading the reviews')}
             />
         );
     }
