@@ -3,12 +3,13 @@ import { userActions, UserI } from '@/entities/User';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { PersistenceService } from '@/shared/services/persistence.service';
 import { LocalStorageEnums } from '@/shared/enums/localStorage.enums';
-import { authActions } from '@/entities/Auth';
+import { authActions, AuthSchemaI } from '@/entities/Auth';
 
-export const initAuthData = createAsyncThunk<void, void, ThunkConfig<string>>(
+/*
+export const initAuthData = createAsyncThunk<AuthSchemaI, void, ThunkConfig<string>>(
     'auth/initAuthData',
     async (_, thunkApi) => {
-        const { extra, rejectWithValue, dispatch } = thunkApi;
+        const { extra, dispatch, rejectWithValue } = thunkApi;
 
         const token = PersistenceService.get(LocalStorageEnums.TOKEN);
 
@@ -24,6 +25,7 @@ export const initAuthData = createAsyncThunk<void, void, ThunkConfig<string>>(
         }
     },
 );
+*/
 
 export const removeAuthData = createAsyncThunk<void, void, ThunkConfig<string>>(
     'auth/removeAuthData',

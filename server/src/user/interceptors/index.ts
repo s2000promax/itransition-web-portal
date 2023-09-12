@@ -1,2 +1,1 @@
-export { UserResponse } from './user.response';
-export { SettingsResponse } from './settings.response';
+export { UserResponse, TransformUserI } from './user.response';

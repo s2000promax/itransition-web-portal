@@ -26,4 +26,6 @@ export interface UserI {
 export interface UserSchemaI {
     userData: UserI | null;
     _inited: boolean;
+    isLoading: boolean;
+    error?: string;
 }

@@ -5,6 +5,7 @@ export type {
 } from './model/types/user.interface';
 
 export { getUserInitedSelector } from './model/selectors/getUserInited/getUserInited.selector';
+export { getIsLoadingUserDataSelector } from './model/selectors/getIsLoadingUserData/getIsLoadingUserData.selector';
 export { getUserDataSelector } from './model/selectors/getUserData/getUserAuthData.selector';
 export {
     getUserSettings,
@@ -18,6 +19,6 @@ export {
 
 export { userReducer, userActions } from './model/slice/user.slice';
 
-export { saveUserSettings } from './model/services/user.service';
+export { initUserData, saveUserSettings } from './model/services/user.service';
 
 export { UserRolesEnums } from './model/enums/userRoles.enums';

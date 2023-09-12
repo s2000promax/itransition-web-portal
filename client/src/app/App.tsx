@@ -1,4 +1,4 @@
-import React, { memo, Suspense, useEffect } from 'react';
+import React, { memo, Suspense, useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import AppRouter from '@/app/providers/router/ui/AppRouter';
 import { classNames } from '@/shared/libs/classNames/classNames';
@@ -8,9 +8,9 @@ import { useAppToolbar } from '@/shared/libs/hooks/useAppToolbar/useAppToolbar';
 import { MainLayout } from '@/shared/layouts/MainLayout';
 import { Navbar } from '@/widgets/Navbar';
 import { Sidebar } from '@/widgets/Sidebar';
-import { getUserInitedSelector } from '@/entities/User';
+import { getUserInitedSelector, initUserData } from '@/entities/User';
 import { AppLoaderLayout } from '@/shared/layouts/AppLoaderLayout';
-import { initAuthData } from '@/entities/Auth';
+import { useDebounce } from '@/shared/libs/hooks/useDebounce/useDebounce';
 
 const App = memo(() => {
     const { theme } = useTheme();
@@ -18,11 +18,19 @@ const App = memo(() => {
     const inited = useSelector(getUserInitedSelector);
     const toolbar = useAppToolbar();
 
+    const handleInited = useCallback(() => {
+        console.log('RENDER 123', inited);
+        dispatch(initUserData());
+    }, [dispatch]);
+
+    const debouncedInited = useDebounce(handleInited, 300);
+
     useEffect(() => {
         if (!inited) {
-            dispatch(initAuthData());
+            // dispatch(initUserData());
+            debouncedInited();
         }
-    }, [dispatch, inited]);
+    }, [inited]);
 
     if (!inited) {
         return (

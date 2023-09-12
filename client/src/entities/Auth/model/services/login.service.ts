@@ -1,9 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { userActions, UserI } from '@/entities/User';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
-import { authActions, AuthSchemaI, initAuthData } from '@/entities/Auth';
+import { authActions, AuthSchemaI } from '@/entities/Auth';
 import { PersistenceService } from '@/shared/services/persistence.service';
 import { LocalStorageEnums } from '@/shared/enums/localStorage.enums';
+import { initUserData } from '@/entities/User/model/services/user.service';
 
 type LoginByEmailProps = Pick<UserI, 'email' | 'password'>;
 
@@ -31,7 +32,7 @@ export const loginByEmail = createAsyncThunk<
 
         dispatch(authActions.setAuthData(response.data));
 
-        dispatch(initAuthData());
+        dispatch(initUserData());
 
         return response.data;
     } catch (e) {
