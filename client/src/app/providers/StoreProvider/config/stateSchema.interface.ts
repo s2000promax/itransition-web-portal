@@ -9,14 +9,13 @@ import { AxiosInstance } from 'axios';
 import { rtkApi } from '@/shared/api/rtk.api';
 import { UserSchemaI } from '@/entities/User';
 import { UISchemaI } from '@/entities/UI/UI';
-import { LoginSchemaI } from '@/entities/Auth';
 import { ProfileSchemaI } from '@/entities/Profile';
 import { ReviewSchemaI } from '@/entities/Review';
 import { ReviewsPageSchemaI } from 'src/entities/UI/ReviewsPage';
-import { ReviewDetailsPageSchemaI } from 'src/entities/UI/ReviewDetailsPage';
-import { CommentFormSchemaI } from 'src/entities/UI/CommentForm';
-import { RegisterSchemaI } from '@/entities/Auth/model/types/register.interface';
-import { AuthSchemaI } from '@/entities/Auth/model/types/auth.interface';
+import { ReviewDetailsPageSchemaI } from '@/entities/UI/ReviewDetailsPage';
+import { CommentFormSchemaI } from '@/entities/UI/CommentForm';
+import { AuthSchemaI, LoginSchemaI, RegisterSchemaI } from '@/entities/Auth';
+import { WorkSchemaI } from '@/entities/Work';
 
 export interface StateSchemaI {
     authData: AuthSchemaI;
@@ -28,6 +27,7 @@ export interface StateSchemaI {
     registerForm?: RegisterSchemaI;
 
     profile?: ProfileSchemaI;
+    work?: WorkSchemaI;
     review?: ReviewSchemaI;
 
     reviewDetailsPage?: ReviewDetailsPageSchemaI;

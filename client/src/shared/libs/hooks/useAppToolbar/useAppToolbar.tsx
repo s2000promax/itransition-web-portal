@@ -8,7 +8,7 @@ export function useAppToolbar() {
     const scrollToolbar = <ScrollToolbar />;
 
     const toolbarByAppRoute: OptionalRecord<AppRoutesEnums, ReactElement> = {
-        [AppRoutesEnums.REVIEWS]: scrollToolbar,
+        [AppRoutesEnums.REVIEW_LIST]: scrollToolbar,
         [AppRoutesEnums.REVIEW_DETAILS]: scrollToolbar,
     };
 
