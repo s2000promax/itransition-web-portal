@@ -26,12 +26,18 @@ import {
     reviewReducer,
     ValidateReviewEnums,
 } from '@/entities/Review';
-import { getUserDataSelector, userActions } from '@/entities/User';
+import {
+    getUserDataSelector,
+    getUserExtendDataSelector,
+    userActions,
+} from '@/entities/User';
 import {
     fetchProfileData,
     getProfileData,
     profileActions,
 } from '@/entities/Profile';
+import { getWorkDataSelector, workReducer } from '@/entities/Work';
+import { fetchWorkDataService } from '@/entities/Work/model/services/fetchWorkData/fetchWorkData.service';
 
 interface EditableProfileCardProps {
     className?: string;
@@ -40,6 +46,7 @@ interface EditableProfileCardProps {
 
 const reducers: ReducersList = {
     review: reviewReducer,
+    work: workReducer,
 };
 
 export const EditableConstructorCard = memo(
@@ -49,7 +56,9 @@ export const EditableConstructorCard = memo(
         const dispatch = useAppDispatch();
         const isLoading = useSelector(getReviewIsLoadingSelector);
         const error = useSelector(getReviewErrorSelector);
+        const workId = useSelector(getUserExtendDataSelector);
         const reviewData = useSelector(getReviewDataSelector);
+        const workData = useSelector(getWorkDataSelector);
         const ownerUser = useSelector(getProfileData);
         const validateErrors = useSelector(getReviewValidateErrorsSelector);
 
@@ -60,6 +69,10 @@ export const EditableConstructorCard = memo(
         };
 
         useInitialEffect(() => {
+            if (workId) {
+                dispatch(fetchWorkDataService(workId));
+            }
+
             if (id) {
                 dispatch(fetchReviewByIdService(id));
             }
@@ -78,7 +91,9 @@ export const EditableConstructorCard = memo(
                     className={classNames('', {}, [className])}
                 >
                     <EditableConstructorCardHeader
+                        isNewReview={!id}
                         reviewData={reviewData}
+                        workData={workData}
                         ownerId={ownerUser?.id}
                     />
                     {validateErrors?.length &&
@@ -87,7 +102,7 @@ export const EditableConstructorCard = memo(
                                 key={err}
                                 variant="error"
                                 text={validateErrorTranslates[err]}
-                                data-testid="EditableProfileCard.Error"
+                                data-testid="EditableConstructorCard.Error"
                             />
                         ))}
                     <ConstructorCard

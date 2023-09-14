@@ -1,15 +1,18 @@
 import { WorkTypeEnums } from '../enums/work.enums';
-import { ValidateEnums } from '../enums/validate.enums';
+import { ValidateWorkEnums } from '../enums/validateWork.enums';
 import { ReviewI } from '@/entities/Review';
 import { RatingI } from '@/entities/Rating';
 
 export interface WorkI {
-    id: string;
-    title: string;
-    cover: string;
-    description: string;
-    type: WorkTypeEnums;
-    averageRating: number;
+    id?: string;
+    title?: string;
+    author?: string;
+    releaseDate?: Date;
+    cover?: string;
+    description?: string;
+    type?: WorkTypeEnums;
+    averageUsersRating?: number;
+    averageReviewsRating?: number;
     reviews?: ReviewI[];
     ratings?: RatingI[];
 }
@@ -17,8 +20,9 @@ export interface WorkI {
 export interface WorkSchemaI {
     data?: WorkI;
     form?: WorkI;
+    entities?: WorkI[];
     readonly: boolean;
     isLoading: boolean;
     error?: string;
-    validateErrors?: ValidateEnums[];
+    validateErrors?: ValidateWorkEnums[];
 }

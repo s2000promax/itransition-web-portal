@@ -1,0 +1,19 @@
+{
+  "An error occurred while loading the work": "An error occurred while loading the work",
+  "Try refreshing the page": "Try refreshing the page",
+  "author": "author",
+  "cancel": "cancel",
+  "description": "description",
+  "edit": "edit",
+  "error": {
+    "no_data": "no_data",
+    "save": "save",
+    "work_data": "work_data"
+  },
+  "profile": "profile",
+  "releaseDate": "releaseDate",
+  "save": "save",
+  "title": "title",
+  "work_no_found": "work_no_found",
+  "works": "works"
+}

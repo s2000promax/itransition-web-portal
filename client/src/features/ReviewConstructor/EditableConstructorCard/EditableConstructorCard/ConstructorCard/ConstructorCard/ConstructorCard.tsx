@@ -56,13 +56,6 @@ export const ConstructorCard = (props: ProfileCardProps) => {
         [dispatch],
     );
 
-    const onChangeSubtitle = useCallback(
-        (value?: string) => {
-            dispatch(reviewActions.updateFormReview({ subtitle: value || '' }));
-        },
-        [dispatch],
-    );
-
     const onChangeOwnerRating = useCallback(
         (value?: number) => {
             dispatch(
@@ -111,10 +104,14 @@ export const ConstructorCard = (props: ProfileCardProps) => {
                     readonly={readonly}
                 />
                 <Input
-                    value={formData?.subtitle || ''}
-                    placeholder={t('Subtitle')}
-                    onChange={onChangeSubtitle}
-                    readonly={readonly}
+                    value={formData?.workTitle || ''}
+                    placeholder={t('workTitle')}
+                    readonly={true}
+                />
+                <Input
+                    value={formData?.type || ''}
+                    placeholder={t('type')}
+                    readonly={true}
                 />
 
                 {formData?.cover && (

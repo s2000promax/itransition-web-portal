@@ -44,14 +44,17 @@ model Token {
 }
 
 model Work {
-    id            String         @id @default(uuid())
-    title         String         @db.Text
-    cover         String         @db.VarChar(2048)
-    description   String         @db.Text
-    type          ReviewTypeEnum @default(ALL)
-    averageRating Float          @default(0) @map("average_rating")
-    reviews       Review[]
-    ratings       UsersRating[]
+    id                   String         @id @default(uuid())
+    title                String         @db.Text
+    cover                String         @db.VarChar(2048)
+    description          String         @db.Text
+    author               String         @db.VarChar(255)
+    releaseDate          DateTime       @default(now()) @map("release_date")
+    type                 ReviewTypeEnum @default(ALL)
+    averageReviewsRating Float          @default(0) @map("average_reviews_rating")
+    averageUsersRating   Float          @default(0) @map("average_users_rating")
+    reviews              Review[]
+    ratings              UsersRating[]
 
     @@map("works")
 }

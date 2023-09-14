@@ -2,9 +2,9 @@ import React, { ReactNode, useMemo } from 'react';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import cls from './TypeSelector.module.scss';
 import { useTranslation } from 'react-i18next';
-import { ReviewTypeEnums } from '@/entities/Review';
 import { VStack } from '@/shared/UI-kit/Stack';
 import { ListBox } from '@/shared/UI-kit/Popups';
+import { WorkTypeEnums } from '@/entities/Work';
 
 interface TabItem {
     value: string;
@@ -13,8 +13,8 @@ interface TabItem {
 
 interface TypeSelectorProps {
     className?: string;
-    value: ReviewTypeEnums;
-    onChangeType: (type: ReviewTypeEnums) => void;
+    value: WorkTypeEnums;
+    onChangeType: (type: WorkTypeEnums) => void;
 }
 
 export const TypeSelector = (props: TypeSelectorProps) => {
@@ -24,35 +24,35 @@ export const TypeSelector = (props: TypeSelectorProps) => {
     const typeItems = useMemo<TabItem[]>(
         () => [
             {
-                value: ReviewTypeEnums.ALL,
+                value: WorkTypeEnums.ALL,
                 content: t('all'),
             },
             {
-                value: ReviewTypeEnums.IT,
+                value: WorkTypeEnums.IT,
                 content: t('it'),
             },
             {
-                value: ReviewTypeEnums.MUSIC,
+                value: WorkTypeEnums.MUSIC,
                 content: t('music'),
             },
             {
-                value: ReviewTypeEnums.MOVIES,
+                value: WorkTypeEnums.MOVIES,
                 content: t('movies'),
             },
             {
-                value: ReviewTypeEnums.GAMES,
+                value: WorkTypeEnums.GAMES,
                 content: t('games'),
             },
             {
-                value: ReviewTypeEnums.TECHNOLOGY,
+                value: WorkTypeEnums.TECHNOLOGY,
                 content: t('technology'),
             },
             {
-                value: ReviewTypeEnums.STARTUPS,
+                value: WorkTypeEnums.STARTUPS,
                 content: t('startups'),
             },
             {
-                value: ReviewTypeEnums.SCIENCE,
+                value: WorkTypeEnums.SCIENCE,
                 content: t('science'),
             },
         ],

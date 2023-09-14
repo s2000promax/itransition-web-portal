@@ -1,14 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { WorkI } from '../../types/work.interface';
-import { ValidateEnums } from '../../enums/validate.enums';
+import { ValidateWorkEnums } from '../../enums/validateWork.enums';
 import { getWorkFormSelector } from '../../selectors/getWorkForm/getWorkForm.selector';
 import { validateWorkDataService } from '../../services/validateWorkData/validateWorkData.service';
 
 export const updateWorkDataService = createAsyncThunk<
     WorkI,
     void,
-    ThunkConfig<ValidateEnums[]>
+    ThunkConfig<ValidateWorkEnums[]>
 >('work/updateWorkData', async (_, thunkApi) => {
     const { extra, rejectWithValue, getState } = thunkApi;
 
@@ -24,11 +24,11 @@ export const updateWorkDataService = createAsyncThunk<
         const response = await extra.api.put<WorkI>('work', formData);
 
         if (response.status !== 200) {
-            return rejectWithValue([ValidateEnums.SERVER_ERROR]);
+            return rejectWithValue([ValidateWorkEnums.SERVER_ERROR]);
         }
 
         return response.data;
     } catch (e) {
-        return rejectWithValue([ValidateEnums.SERVER_ERROR]);
+        return rejectWithValue([ValidateWorkEnums.SERVER_ERROR]);
     }
 });

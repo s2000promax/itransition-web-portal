@@ -1,13 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { WorkI, WorkSchemaI } from '../types/work.interface';
-import { fetchWorkDataService } from '../services/fetchWorkData/fetchWorkData.service';
+import { fetchWorkListDataService } from '@/entities/Work/model/services/fetchWorkListData/fetchWorkListData.service';
 import { updateWorkDataService } from '../services/updateWorkData/updateWorkData.service';
+import { fetchWorkDataService } from '@/entities/Work/model/services/fetchWorkData/fetchWorkData.service';
 
 const initialState: WorkSchemaI = {
     readonly: true,
     isLoading: false,
     error: undefined,
     data: undefined,
+    entities: undefined,
 };
 
 const workSlice = createSlice({
@@ -16,6 +18,7 @@ const workSlice = createSlice({
     reducers: {
         setReadonly: (state, action: PayloadAction<boolean>) => {
             state.readonly = action.payload;
+            state.form = state.data;
         },
         cancelEdit: (state) => {
             state.readonly = true;
@@ -40,7 +43,6 @@ const workSlice = createSlice({
                 (state, action: PayloadAction<WorkI>) => {
                     state.isLoading = false;
                     state.data = action.payload;
-                    state.form = action.payload;
                 },
             )
             .addCase(fetchWorkDataService.rejected, (state, action) => {
@@ -64,6 +66,22 @@ const workSlice = createSlice({
             .addCase(updateWorkDataService.rejected, (state, action) => {
                 state.isLoading = false;
                 state.validateErrors = action.payload;
+            })
+
+            .addCase(fetchWorkListDataService.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(
+                fetchWorkListDataService.fulfilled,
+                (state, action: PayloadAction<WorkI[]>) => {
+                    state.isLoading = false;
+                    state.entities = action.payload;
+                },
+            )
+            .addCase(fetchWorkListDataService.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
             });
     },
 });

@@ -26,7 +26,6 @@ export {
     ReviewSortFieldEnums,
     ReviewBlockTypeEnums,
     ReviewViewEnums,
-    ReviewTypeEnums,
 } from './model/enums/review.enums';
 
 export { ValidateReviewEnums } from './model/enums/validateReview.enums';

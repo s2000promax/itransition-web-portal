@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
-import { ReviewI, ReviewTypeEnums } from '@/entities/Review';
+import { ReviewI } from '@/entities/Review';
 import { addQueryParams } from '@/shared/libs/url';
 import { getReviewsPageLimitSelector } from '../../selectors/getReviewsPageLimit/getReviewsPageLimit.selector';
 import { getReviewsPageSortSelector } from '../../selectors/getReviewsPageSort/getReviewsPageSort.selector';
@@ -8,6 +8,7 @@ import { getReviewsPageOrderSelector } from '../../selectors/getReviewsPageOrder
 import { getReviewsPageSearchSelector } from '../../selectors/getReviewsPageSearch/getReviewsPageSearch.selector';
 import { getReviewsPageNumberSelector } from '../../selectors/getReviewsPageNum/getReviewsPageNumber.selector';
 import { getReviewsPageTypeSelector } from '../../selectors/getReviewsPageType/getReviewsPageType.selector';
+import { WorkTypeEnums } from '@/entities/Work';
 
 interface FetchReviewListProps {
     replace?: boolean;
@@ -41,7 +42,7 @@ export const fetchReviewListService = createAsyncThunk<
                 _sort: sort,
                 _order: order,
                 q: search,
-                type: type === ReviewTypeEnums.ALL ? undefined : type,
+                type: type === WorkTypeEnums.ALL ? undefined : type,
             },
         });
 

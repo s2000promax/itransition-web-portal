@@ -1,5 +1,5 @@
 import { StateSchemaI } from '@/app/providers/StoreProvider';
-import { ReviewTypeEnums } from '@/entities/Review';
+import { WorkTypeEnums } from '@/entities/Work';
 
 export const getReviewFormReviewTypeSelector = (state: StateSchemaI) =>
-    state.review?.form?.type || ReviewTypeEnums.ALL;
+    state.review?.form?.type || WorkTypeEnums.ALL;

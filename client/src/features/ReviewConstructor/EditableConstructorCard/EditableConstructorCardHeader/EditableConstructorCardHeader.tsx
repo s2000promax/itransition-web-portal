@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { classNames } from '@/shared/libs/classNames/classNames';
@@ -25,21 +25,25 @@ import {
     ReviewI,
     ReviewImageBlockI,
     ReviewTextBlockI,
-    ReviewTypeEnums,
 } from '@/entities/Review';
 import { TypeSelector } from '@/features/UI/TypeSelector';
+import { useInitialEffect } from '@/shared/libs/hooks/useInitialEffect/useInitialEffect';
+import { WorkI } from '@/entities/Work';
+import { Input } from '@/shared/UI-kit/Input';
 
 interface EditableProfileCardHeaderProps {
     className?: string;
     reviewData?: ReviewI;
+    workData?: WorkI;
     ownerId?: string;
+    isNewReview: boolean;
 }
 
 export const EditableConstructorCardHeader = memo(
     (props: EditableProfileCardHeaderProps) => {
-        const { className, reviewData, ownerId } = props;
+        const { className, reviewData, workData, ownerId, isNewReview } = props;
 
-        const { t } = useTranslation('profile');
+        const { t } = useTranslation('reviewConstructor');
         const formData = useSelector(getReviewFormSelector);
         const currentUser = useSelector(getUserDataSelector);
 
@@ -52,10 +56,13 @@ export const EditableConstructorCardHeader = memo(
             dispatch(reviewActions.setReadonly(false));
             dispatch(
                 reviewActions.updateFormReview({
+                    workId: workData?.id,
                     ownerId: ownerId || currentUser?.id,
+                    workTitle: workData?.title,
+                    type: workData?.type,
                 }),
             );
-        }, [dispatch]);
+        }, [dispatch, workData]);
 
         const onCancelEdit = useCallback(() => {
             dispatch(reviewActions.cancelEdit());
@@ -102,13 +109,6 @@ export const EditableConstructorCardHeader = memo(
             dispatch(reviewActions.addReviewBlock(newCodeBlock));
         }, [dispatch]);
 
-        const onReviewTypeChange = useCallback(
-            (type: ReviewTypeEnums) => {
-                dispatch(reviewActions.updateFormReview({ type }));
-            },
-            [dispatch],
-        );
-
         return (
             <Card
                 padding="24"
@@ -147,7 +147,7 @@ export const EditableConstructorCardHeader = memo(
                 {!readonly && (
                     <HStack
                         max
-                        justify="between"
+                        justify="center"
                         className={cls.controlContainer}
                     >
                         <HStack
@@ -172,12 +172,6 @@ export const EditableConstructorCardHeader = memo(
                             >
                                 <Icon Svg={AddCodeBlockIcon} />
                             </Button>
-                        </HStack>
-                        <HStack>
-                            <TypeSelector
-                                value={reviewType}
-                                onChangeType={onReviewTypeChange}
-                            />
                         </HStack>
                     </HStack>
                 )}

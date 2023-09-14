@@ -88,7 +88,7 @@ export const ListItem = memo((props: ListItemProps) => {
                         bold
                     />
                     <Text
-                        title={review.subtitle}
+                        title={review.workTitle}
                         size="s"
                     />
                     <AppImage

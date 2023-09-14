@@ -16,6 +16,7 @@ export {
     isUserRoleAdminSelector,
     isUserRoleUserSelector,
 } from './model/selectors/getUserRoles/getUserRoles.selector';
+export { getUserExtendDataSelector } from './model/selectors/getUserExtendData/getUserExtendData.selector';
 
 export { userReducer, userActions } from './model/slice/user.slice';
 

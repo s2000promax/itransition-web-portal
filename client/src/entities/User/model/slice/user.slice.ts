@@ -16,6 +16,9 @@ const userSlice = createSlice({
         removeUserData: (state) => {
             state.userData = null;
         },
+        updateExtendUserData: (state, action: PayloadAction<string>) => {
+            state.extendData = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder

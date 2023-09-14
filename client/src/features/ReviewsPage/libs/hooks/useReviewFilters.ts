@@ -9,14 +9,11 @@ import {
     reviewsPageActions,
     fetchReviewListService,
 } from '@/entities/UI/ReviewsPage';
-import {
-    ReviewSortFieldEnums,
-    ReviewTypeEnums,
-    ReviewViewEnums,
-} from '@/entities/Review';
+import { ReviewSortFieldEnums, ReviewViewEnums } from '@/entities/Review';
 import { SortOrderT } from '@/shared/types/sort.type';
 import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
 import { useDebounce } from '@/shared/libs/hooks/useDebounce/useDebounce';
+import { WorkTypeEnums } from '@/entities/Work';
 
 export function useReviewFilters() {
     const view = useSelector(getReviewsPageViewSelector);
@@ -68,7 +65,7 @@ export function useReviewFilters() {
     );
 
     const onChangeType = useCallback(
-        (value: ReviewTypeEnums) => {
+        (value: WorkTypeEnums) => {
             dispatch(reviewsPageActions.setType(value));
             dispatch(reviewsPageActions.setPage(1));
             fetchData();

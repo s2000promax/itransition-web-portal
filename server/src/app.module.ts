@@ -12,6 +12,7 @@ import { CommentModule } from './comment/comment.module';
 import { RateModule } from './rate/rate.module';
 import { ReviewModule } from './review/review.module';
 import { AwsS3Module } from './aws-s3/aws-s3.module';
+import { WorkModule } from './work/work.module';
 
 @Module({
     imports: [
@@ -22,6 +23,7 @@ import { AwsS3Module } from './aws-s3/aws-s3.module';
         PrismaModule,
         AuthModule,
         UserModule,
+        WorkModule,
         ReviewModule,
         CommentModule,
         RateModule,

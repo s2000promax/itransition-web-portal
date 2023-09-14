@@ -6,7 +6,6 @@ import {
 import { StateSchemaI } from '@/app/providers/StoreProvider';
 import {
     ReviewI,
-    ReviewTypeEnums,
     ReviewViewEnums,
     ReviewSortFieldEnums,
 } from '@/entities/Review';
@@ -16,6 +15,7 @@ import { SortOrderT } from '@/shared/types/sort.type';
 import { ReviewsPageSchemaI } from '@/entities/UI/ReviewsPage';
 import { fetchReviewListService } from '@/entities/UI/ReviewsPage/model/services/fetchReviewsList/fetchReviewListService';
 import { PersistenceService } from '@/shared/services/persistence.service';
+import { WorkTypeEnums } from '@/entities/Work';
 
 const reviewsAdapter = createEntityAdapter<ReviewI>({
     selectId: (review) => review.id,
@@ -40,7 +40,7 @@ const reviewsPageSlice = createSlice({
         sort: ReviewSortFieldEnums.CREATED,
         search: '',
         order: 'asc',
-        type: ReviewTypeEnums.ALL,
+        type: WorkTypeEnums.ALL,
     }),
     reducers: {
         setView: (state, action: PayloadAction<ReviewViewEnums>) => {
@@ -59,7 +59,7 @@ const reviewsPageSlice = createSlice({
         setSort: (state, action: PayloadAction<ReviewSortFieldEnums>) => {
             state.sort = action.payload;
         },
-        setType: (state, action: PayloadAction<ReviewTypeEnums>) => {
+        setType: (state, action: PayloadAction<WorkTypeEnums>) => {
             state.type = action.payload;
         },
         setSearch: (state, action: PayloadAction<string>) => {

@@ -1,6 +1,7 @@
-import { ReviewBlockTypeEnums, ReviewTypeEnums } from '../enums/review.enums';
+import { ReviewBlockTypeEnums } from '../enums/review.enums';
 import { ValidateReviewEnums } from '@/entities/Review/model/enums/validateReview.enums';
 import { UserI } from '@/entities/User';
+import { WorkTypeEnums } from '@/entities/Work';
 
 interface ReviewBlockBaseI {
     id?: string;
@@ -50,19 +51,18 @@ export type FormDataI = Omit<
 
 export interface ReviewI {
     id: string;
+    workId: string;
     ownerId: string;
     title: string;
-    subtitle: string;
+    workTitle: string;
     cover: string;
-    type: ReviewTypeEnums;
+    type: WorkTypeEnums;
     tags: [];
     blocks: ReviewBlockT[];
     createdAt: Date;
     updatedAt: Date;
     ownerRating: number;
-    averageRating: number;
     viewCount: number;
-    likesCount: number;
     user?: UserI;
 }
 

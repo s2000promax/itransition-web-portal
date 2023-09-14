@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import cls from './Filters.module.scss';
-import { ReviewSortFieldEnums, ReviewTypeEnums } from '@/entities/Review';
+import { ReviewSortFieldEnums } from '@/entities/Review';
 import { SortOrderT } from '@/shared/types/sort.type';
 import { Card } from '@/shared/UI-kit/Card';
 import { VStack } from '@/shared/UI-kit/Stack';
@@ -11,17 +11,18 @@ import { Icon } from '@/shared/UI-kit/Icon';
 import SearchIcon from '@/shared/assets/ui/icons/search.svg';
 import { TypeTabs } from '@/features/UI/TypeTabs';
 import { SortSelector } from '@/features/UI/SortSelector';
+import { WorkTypeEnums } from '@/entities/Work';
 
 interface FiltersProps {
     className?: string;
     sort: ReviewSortFieldEnums;
     order: SortOrderT;
-    type: ReviewTypeEnums;
+    type: WorkTypeEnums;
     search: string;
     onChangeSearch: (value: string) => void;
     onChangeOrder: (newOrder: SortOrderT) => void;
     onChangeSort: (newSort: ReviewSortFieldEnums) => void;
-    onChangeType: (type: ReviewTypeEnums) => void;
+    onChangeType: (type: WorkTypeEnums) => void;
 }
 
 export const Filters = memo((props: FiltersProps) => {

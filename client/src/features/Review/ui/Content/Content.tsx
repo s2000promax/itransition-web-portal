@@ -17,7 +17,7 @@ export const Content = memo(() => {
                 size="l"
                 bold
             />
-            <Text title={review?.subtitle} />
+            <Text title={review?.workTitle} />
             <AppImage
                 fallback={
                     <Skeleton

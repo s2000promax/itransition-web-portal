@@ -3,9 +3,9 @@ import { SortOrderT } from '@/shared/types/sort.type';
 import {
     ReviewI,
     ReviewSortFieldEnums,
-    ReviewTypeEnums,
     ReviewViewEnums,
 } from '@/entities/Review';
+import { WorkTypeEnums } from '@/entities/Work';
 
 export interface ReviewsPageSchemaI extends EntityState<ReviewI> {
     isLoading?: boolean;
@@ -21,7 +21,7 @@ export interface ReviewsPageSchemaI extends EntityState<ReviewI> {
     order: SortOrderT;
     sort: ReviewSortFieldEnums;
     search: string;
-    type: ReviewTypeEnums;
+    type: WorkTypeEnums;
 
     _inited: boolean;
 }

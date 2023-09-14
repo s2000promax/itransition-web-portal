@@ -8,10 +8,6 @@ import cls from './Navbar.module.scss';
 import { useSelector } from 'react-redux';
 import { AvatarDropdown } from '@/features/UI/AvatarDropdown';
 import { NotificationButton } from '@/features/UI/Notification';
-import { AppLink } from '@/shared/UI-kit/AppLink';
-import CreateIcon from '@/shared/assets/ui/icons/edit.svg';
-import { Icon } from '@/shared/UI-kit/Icon';
-import { getRouteReviewCreate } from '@/shared/routes/routes.patterns';
 import { getAuthDataSelector } from '@/entities/Auth';
 import { getUserDataSelector } from '@/entities/User';
 import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
@@ -56,9 +52,6 @@ export const Navbar = memo(({ className }: NavbarProps) => {
                     gap="16"
                     className={cls.actions}
                 >
-                    <AppLink to={getRouteReviewCreate()}>
-                        <Icon Svg={CreateIcon} />
-                    </AppLink>
                     <NotificationButton />
                     <AvatarDropdown />
                 </HStack>

@@ -7,7 +7,11 @@ export const getUserRolesSelector = (state: StateSchemaI) =>
 
 export const isUserRoleAdminSelector = createSelector(
     getUserRolesSelector,
-    (roles) => Boolean(roles?.includes(UserRolesEnums.ADMIN)),
+    (roles) =>
+        Boolean(
+            roles?.includes(UserRolesEnums.ADMIN) ||
+                roles?.includes(UserRolesEnums.SA),
+        ),
 );
 
 export const isUserRoleUserSelector = createSelector(

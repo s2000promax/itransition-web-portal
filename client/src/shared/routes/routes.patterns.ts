@@ -24,7 +24,7 @@ export const AppRouteByPathPattern: Record<string, AppRoutesEnums> = {
     [getRouteWorkList()]: AppRoutesEnums.WORK_LIST,
     [getRouteReviews()]: AppRoutesEnums.REVIEW_LIST,
     [getRouteReviewDetails(':id')]: AppRoutesEnums.REVIEW_DETAILS,
-    [getRouteReviewEdit('id')]: AppRoutesEnums.REVIEW_EDIT,
+    [getRouteReviewEdit(':id')]: AppRoutesEnums.REVIEW_EDIT,
     [getRouteReviewCreate()]: AppRoutesEnums.REVIEW_CREATE,
     [getRouteAdmin()]: AppRoutesEnums.ADMIN_DASHBOARD,
     [getRouteForbidden()]: AppRoutesEnums.FORBIDDEN,

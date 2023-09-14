@@ -10,7 +10,8 @@ import {
 } from '../types/review.interface';
 import { fetchReviewByIdService } from '../services/fetchReviewById/fetchReviewById.service';
 import { Partial } from '@react-spring/web';
-import { ReviewBlockTypeEnums, ReviewTypeEnums } from '@/entities/Review';
+import { ReviewBlockTypeEnums } from '@/entities/Review';
+import { WorkTypeEnums } from '@/entities/Work';
 
 const initialState: ReviewSchemaI = {
     readonly: true,
@@ -22,19 +23,14 @@ const initialState: ReviewSchemaI = {
 
 const initialForm: Omit<
     ReviewI,
-    | 'id'
-    | 'createdAt'
-    | 'updatedAt'
-    | 'tags'
-    | 'viewCount'
-    | 'likesCount'
-    | 'averageRating'
+    'id' | 'createdAt' | 'updatedAt' | 'tags' | 'viewCount'
 > = {
+    workId: '',
     ownerId: '',
     title: '',
-    subtitle: '',
+    workTitle: '',
     cover: '',
-    type: 'ALL' as ReviewTypeEnums,
+    type: 'ALL' as WorkTypeEnums,
     blocks: [],
     ownerRating: 0,
 };
@@ -50,7 +46,7 @@ const reviewSlice = createSlice({
         cancelEdit: (state) => {
             state.readonly = true;
             state.validateErrors = undefined;
-            // state.form = state.data;
+            state.form = state.data;
         },
         updateFormReview: (state, action: PayloadAction<Partial<ReviewI>>) => {
             state.form = {
