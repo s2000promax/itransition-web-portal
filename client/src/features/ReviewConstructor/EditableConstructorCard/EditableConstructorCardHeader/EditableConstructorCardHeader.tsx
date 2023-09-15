@@ -1,12 +1,11 @@
-import { memo, useCallback, useEffect } from 'react';
+import { memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import cls from './EditableConstructorCardHeader.module.scss';
 import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
 import { getUserDataSelector } from '@/entities/User';
-import { getProfileData } from '@/entities/Profile';
-import { HStack, VStack } from '@/shared/UI-kit/Stack';
+import { HStack } from '@/shared/UI-kit/Stack';
 import { Text } from '@/shared/UI-kit/Text';
 import { Button } from '@/shared/UI-kit/Button';
 import { Card } from '@/shared/UI-kit/Card';
@@ -26,10 +25,11 @@ import {
     ReviewImageBlockI,
     ReviewTextBlockI,
 } from '@/entities/Review';
-import { TypeSelector } from '@/features/UI/TypeSelector';
-import { useInitialEffect } from '@/shared/libs/hooks/useInitialEffect/useInitialEffect';
 import { WorkI } from '@/entities/Work';
-import { Input } from '@/shared/UI-kit/Input';
+import { BackButton } from '@/shared/UI-kit/BackButton';
+import { AddTextBlockButton } from '@/shared/UI-kit/AddTextBlockButton';
+import { AddImageBlockButton } from '@/shared/UI-kit/AddImageBlockButton';
+import { AddCodeBlockButton } from '@/shared/UI-kit/AddCodeBlockButton';
 
 interface EditableProfileCardHeaderProps {
     className?: string;
@@ -114,11 +114,15 @@ export const EditableConstructorCardHeader = memo(
                 padding="24"
                 fullWidth
                 border="partial"
+                className={classNames(cls.EditableConstructorCardHeader, {}, [
+                    className,
+                ])}
             >
+                <BackButton className={cls.backButton} />
                 <HStack
                     max
                     justify="between"
-                    className={classNames('', {}, [className])}
+                    className={cls.header}
                 >
                     <Text title={t('Create new review')} />
                     {canEdit && (
@@ -154,24 +158,9 @@ export const EditableConstructorCardHeader = memo(
                             gap="16"
                             justify="center"
                         >
-                            <Button
-                                variant="clear"
-                                onClick={onAddTextBlock}
-                            >
-                                <Icon Svg={AddTextBlockIcon} />
-                            </Button>
-                            <Button
-                                variant="clear"
-                                onClick={onAddImageBlock}
-                            >
-                                <Icon Svg={AddImageBlockIcon} />
-                            </Button>
-                            <Button
-                                variant="clear"
-                                onClick={onAddCodeBlock}
-                            >
-                                <Icon Svg={AddCodeBlockIcon} />
-                            </Button>
+                            <AddTextBlockButton onAdd={onAddTextBlock} />
+                            <AddImageBlockButton onAdd={onAddImageBlock} />
+                            <AddCodeBlockButton onAdd={onAddCodeBlock} />
                         </HStack>
                     </HStack>
                 )}

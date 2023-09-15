@@ -44,7 +44,7 @@ export type FormDataI = Omit<
     | 'createdAt'
     | 'updatedAt'
     | 'tags'
-    | 'viewCount'
+    | 'viewCounter'
     | 'likesCount'
     | 'averageRating'
 >;
@@ -62,7 +62,7 @@ export interface ReviewI {
     createdAt: Date;
     updatedAt: Date;
     ownerRating: number;
-    viewCount: number;
+    viewCounter: number;
     user?: UserI;
 }
 

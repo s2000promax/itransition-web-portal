@@ -53,7 +53,7 @@ export const ListItem = memo((props: ListItemProps) => {
         <HStack gap="8">
             <Icon Svg={EyeIcon} />
             <Text
-                text={String(review.viewCount ?? 0)}
+                text={String(review.viewCounter ?? 0)}
                 className={cls.views}
             />
         </HStack>

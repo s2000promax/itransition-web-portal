@@ -17,8 +17,6 @@ export const Like = memo((props: LikeProps) => {
     const [hovered, isHovered] = useState<Array<string | undefined>>([]);
 
     const onHover = () => () => {
-        console.log('hover');
-
         if (!isLiked) {
             isHovered(() => [cls.hovered]);
         }

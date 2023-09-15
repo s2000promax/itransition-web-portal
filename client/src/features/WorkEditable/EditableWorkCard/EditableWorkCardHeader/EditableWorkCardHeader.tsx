@@ -1,7 +1,8 @@
-import { memo, useCallback } from 'react';
+import React, { memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { classNames } from '@/shared/libs/classNames/classNames';
+import cls from './EditableWorkCardHeader.module.scss';
 import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
 import { getUserDataSelector } from '@/entities/User';
 import { HStack } from '@/shared/UI-kit/Stack';
@@ -13,6 +14,7 @@ import {
     updateWorkDataService,
     workActions,
 } from '@/entities/Work';
+import { BackButton } from '@/shared/UI-kit/BackButton';
 
 interface EditableWorkCardHeaderProps {
     className?: string;
@@ -45,11 +47,15 @@ export const EditableWorkCardHeader = memo(
                 padding="24"
                 fullWidth
                 border="partial"
+                className={classNames(cls.EditableWorkCardHeader, {}, [
+                    className,
+                ])}
             >
+                <BackButton className={cls.backButton} />
                 <HStack
                     max
                     justify="between"
-                    className={classNames('', {}, [className])}
+                    className={cls.header}
                 >
                     <Text title={t('works')} />
                     {canEdit && (

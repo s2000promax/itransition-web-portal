@@ -32,7 +32,6 @@ export const useSidebarItems = () => {
             path: getRouteWorkList(),
             Icon: WorksIcon,
             text: 'Works',
-            authOnly: true,
         },
     ];
 

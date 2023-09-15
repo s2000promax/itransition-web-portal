@@ -21,6 +21,7 @@ import { Text } from '@/shared/UI-kit/Text';
 import { fetchWorkDataService } from '@/entities/Work/model/services/fetchWorkData/fetchWorkData.service';
 import { useInitialEffect } from '@/shared/libs/hooks/useInitialEffect/useInitialEffect';
 import { workReducer } from '@/entities/Work';
+import { BackButton } from '@/shared/UI-kit/BackButton';
 
 interface WorkProps {
     className?: string;

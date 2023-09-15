@@ -23,7 +23,7 @@ const initialState: ReviewSchemaI = {
 
 const initialForm: Omit<
     ReviewI,
-    'id' | 'createdAt' | 'updatedAt' | 'tags' | 'viewCount'
+    'id' | 'createdAt' | 'updatedAt' | 'tags' | 'viewCounter'
 > = {
     workId: '',
     ownerId: '',

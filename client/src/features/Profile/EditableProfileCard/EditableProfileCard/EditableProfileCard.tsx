@@ -76,9 +76,6 @@ export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
 
     const onChangeAvatar = useCallback(
         (file: File) => {
-            console.log('AVATAR!!!', file);
-            // dispatch(profileActions.updateProfile({ avatar: value || '' }));
-
             dispatch(uploadService(file)).then((response) => {
                 if (response.meta.requestStatus === 'fulfilled') {
                     const url = Object.values(

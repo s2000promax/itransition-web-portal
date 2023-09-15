@@ -18,6 +18,7 @@ export interface UserI {
     avatar: string;
     createdAt: Date;
     updatedAt: Date;
+    likesCounter: number;
     roles: UserRolesEnums[];
     settings: UserSettingsI;
     userSettings: UserSettingsI;
