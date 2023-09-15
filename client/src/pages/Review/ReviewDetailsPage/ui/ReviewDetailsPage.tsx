@@ -12,12 +12,14 @@ import { StickyContentLayout } from '@/shared/layouts/StickyContentLayout';
 import { VStack } from '@/shared/UI-kit/Stack';
 
 import {
-    AdditionalInfoContainer,
+    UserOwnerReviewInfoContainer,
     CommentsContainer,
     ReviewDetailsContainer,
+    WorkInfoContainer,
 } from '@/features/ReviewDetailsPage';
 import { ReviewRating } from '@/features/ReviewRating';
 import { RecommendationsList } from '@/features/RecommendationsList';
+import { workReducer } from '@/entities/Work';
 
 export interface ReviewDetailsPageProps {
     className?: string;
@@ -25,6 +27,7 @@ export interface ReviewDetailsPageProps {
 
 const reducers: ReducersList = {
     reviewDetailsPage: reviewDetailsPageReducer,
+    work: workReducer,
 };
 
 const ReviewDetailsPage = (props: ReviewDetailsPageProps) => {
@@ -58,7 +61,12 @@ const ReviewDetailsPage = (props: ReviewDetailsPageProps) => {
                         </VStack>
                     </Page>
                 }
-                right={<AdditionalInfoContainer />}
+                right={
+                    <VStack gap="24">
+                        <UserOwnerReviewInfoContainer />
+                        <WorkInfoContainer />
+                    </VStack>
+                }
             />
         </DynamicModuleLoader>
     );

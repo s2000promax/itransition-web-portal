@@ -5,7 +5,7 @@ import { BrowserView, MobileView } from 'react-device-detect';
 import { HStack, VStack } from '@/shared/UI-kit/Stack';
 
 import { Text } from '@/shared/UI-kit/Text';
-import { StarRating } from '@/shared/UI-kit/StarRating';
+import { StarRate } from '@/shared/UI-kit/StarRate';
 import { Modal } from '@/shared/UI-kit/Modal';
 
 import { Drawer } from '@/shared/UI-kit/Drawer';
@@ -81,7 +81,7 @@ export const RatingCard = memo((props: RatingCardProps) => {
                 max
             >
                 <Text title={starsCount ? t('Thanks for rate') : title} />
-                <StarRating
+                <StarRate
                     selectedStars={starsCount}
                     size={40}
                     onSelect={onSelectStars}

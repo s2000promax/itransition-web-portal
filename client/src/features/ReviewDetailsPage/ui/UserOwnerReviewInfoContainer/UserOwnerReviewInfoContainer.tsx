@@ -3,29 +3,28 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getReviewDataSelector } from '@/entities/Review';
 import { Card } from '@/shared/UI-kit/Card';
-import { AdditionalInfo } from './AdditionalInfo/AdditionalInfo';
+import { UserOwnerReviewInfo } from '@/features/ReviewDetailsPage/ui/UserOwnerReviewInfoContainer/UserOwnerReviewInfo/UserOwnerReviewInfo';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import { getRouteReviewEdit } from '@/shared/routes/routes.patterns';
+import { Skeleton } from '@/shared/UI-kit/Skeleton';
 
-interface AdditionalInfoContainerProps {
+interface UserOwnerReviewInfoContainerProps {
     className?: string;
 }
 
-export const AdditionalInfoContainer = memo(
-    (props: AdditionalInfoContainerProps) => {
+export const UserOwnerReviewInfoContainer = memo(
+    (props: UserOwnerReviewInfoContainerProps) => {
         const { className } = props;
         const review = useSelector(getReviewDataSelector);
 
-        const navigate = useNavigate();
-
-        const onEditArticle = useCallback(() => {
-            if (review) {
-                navigate(getRouteReviewEdit(review.id));
-            }
-        }, [review, navigate]);
-
-        if (!review) {
-            return null;
+        if (!review?.user) {
+            return (
+                <Skeleton
+                    width="100%"
+                    height={120}
+                    border="16px"
+                />
+            );
         }
 
         return (
@@ -34,11 +33,11 @@ export const AdditionalInfoContainer = memo(
                 border="partial"
                 className={classNames('', {}, [className])}
             >
-                <AdditionalInfo
-                    onEdit={onEditArticle}
-                    author={review.user!}
+                <UserOwnerReviewInfo
+                    authorReview={review.user}
                     createdAt={review.createdAt}
                     views={review.viewCount}
+                    likes={0}
                 />
             </Card>
         );

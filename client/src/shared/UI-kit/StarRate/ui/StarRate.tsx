@@ -1,6 +1,6 @@
 import React, { memo, useState } from 'react';
 import { classNames } from '@/shared/libs/classNames/classNames';
-import cls from './StarRating.module.scss';
+import cls from './StarRate.module.scss';
 import StarIcon from '@/shared/assets/ui/icons/star.svg';
 import { Icon } from '../../Icon';
 import { HStack } from '@/shared/UI-kit/Stack';
@@ -13,7 +13,7 @@ interface StarRatingProps {
     stars?: number[];
 }
 
-export const StarRating = memo((props: StarRatingProps) => {
+export const StarRate = memo((props: StarRatingProps) => {
     const {
         className,
         size = 30,
@@ -45,7 +45,7 @@ export const StarRating = memo((props: StarRatingProps) => {
     };
 
     return (
-        <HStack className={classNames(cls.StarRating, {}, [className])}>
+        <HStack className={classNames(cls.StarRate, {}, [className])}>
             {stars.map((starNumber) => {
                 const commonProps = {
                     className: classNames(
@@ -64,7 +64,7 @@ export const StarRating = memo((props: StarRatingProps) => {
                     onMouseLeave: onLeave,
                     onMouseEnter: onHover(starNumber),
                     onClick: onClick(starNumber),
-                    'data-testid': `StarRating.${starNumber}`,
+                    'data-testid': `StarRate.${starNumber}`,
                     'data-selected': currentStarsCount >= starNumber,
                 };
                 return (

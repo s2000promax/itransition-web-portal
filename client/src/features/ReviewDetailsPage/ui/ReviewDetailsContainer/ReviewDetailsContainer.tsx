@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Card } from '@/shared/UI-kit/Card';
 import { Review } from '@/features/Review';
 
@@ -10,6 +10,7 @@ interface DetailsContainterProps {
 export const ReviewDetailsContainer = memo((props: DetailsContainterProps) => {
     const { className } = props;
     const { id } = useParams<{ id: string }>();
+    const navigate = useNavigate();
 
     return (
         <Card

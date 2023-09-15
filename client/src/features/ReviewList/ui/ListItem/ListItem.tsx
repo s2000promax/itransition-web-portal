@@ -19,6 +19,7 @@ import {
     ReviewBlockTypeEnums,
 } from '@/entities/Review';
 import { getRouteReviewDetails } from '@/shared/routes/routes.patterns';
+import { DateFormatter } from '@/shared/libs/dateFormetter/dateFormatter';
 
 interface ListItemProps {
     className?: string;
@@ -32,23 +33,27 @@ export const ListItem = memo((props: ListItemProps) => {
     const { t } = useTranslation('review_list');
 
     const userInfo = (
-        <>
+        <HStack gap="8">
             <Avatar
                 size={32}
                 src={review.user?.avatar}
                 className={cls.avatar}
             />
             <Text
+                text={review.user?.firstName}
                 bold
-                text={review.user?.email || 'userEmail'}
             />
-        </>
+            <Text
+                text={review.user?.lastName}
+                bold
+            />
+        </HStack>
     );
     const views = (
         <HStack gap="8">
             <Icon Svg={EyeIcon} />
             <Text
-                text={String(review.viewCount)}
+                text={String(review.viewCount ?? 0)}
                 className={cls.views}
             />
         </HStack>
@@ -73,16 +78,7 @@ export const ListItem = memo((props: ListItemProps) => {
                     max
                     gap="16"
                 >
-                    <HStack
-                        gap="8"
-                        max
-                    >
-                        {userInfo}
-                        <Text
-                            // text={review.createdAt.toDateString()}
-                            text={'Data User info'}
-                        />
-                    </HStack>
+                    {userInfo}
                     <Text
                         title={review.title}
                         bold
@@ -90,6 +86,7 @@ export const ListItem = memo((props: ListItemProps) => {
                     <Text
                         title={review.workTitle}
                         size="s"
+                        bold
                     />
                     <AppImage
                         fallback={
@@ -105,7 +102,10 @@ export const ListItem = memo((props: ListItemProps) => {
                     {textBlock?.paragraphs && (
                         <Text
                             className={cls.textBlock}
-                            text={textBlock.paragraphs.slice(0, 2).join(' ')}
+                            text={textBlock.paragraphs
+                                .slice(0, 2)
+                                .map((p) => p.content)
+                                .join(' ')}
                         />
                     )}
                     <HStack
@@ -157,7 +157,8 @@ export const ListItem = memo((props: ListItemProps) => {
                 >
                     <Text
                         title={review.title}
-                        className={cls.title}
+                        bold
+                        // className={cls.title}
                     />
                     <VStack
                         gap="4"
@@ -168,11 +169,7 @@ export const ListItem = memo((props: ListItemProps) => {
                             justify="between"
                             max
                         >
-                            <Text
-                                // text={review.createdAt.toDateString()}
-                                text={'Data'}
-                                className={cls.date}
-                            />
+                            <Text text={DateFormatter(review.createdAt)} />
                             {views}
                         </HStack>
                         <HStack gap="4">{userInfo}</HStack>

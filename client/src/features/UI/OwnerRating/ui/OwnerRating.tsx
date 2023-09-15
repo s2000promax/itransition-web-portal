@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import cls from './OwnerRating.module.scss';
 import { useTranslation } from 'react-i18next';
-import { StarRating } from '@/shared/UI-kit/StarRating';
+import { StarRate } from '@/shared/UI-kit/StarRate';
 import { HStack, VStack } from '@/shared/UI-kit/Stack';
 
 interface OwnerRatingProps {
@@ -30,7 +30,7 @@ export const OwnerRating = (props: OwnerRatingProps) => {
     }, []);
 
     return (
-        <StarRating
+        <StarRate
             className={classNames('', {}, [className])}
             stars={stars}
             selectedStars={starsCount}

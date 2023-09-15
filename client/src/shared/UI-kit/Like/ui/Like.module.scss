@@ -1,0 +1,21 @@
+.Like {
+    .normal {
+        fill: none;
+    }
+
+    .hovered {
+        fill: var(--like);
+    }
+}
+
+.normal {
+    fill: none;
+}
+
+.icon {
+    cursor: pointer;
+}
+
+.selected {
+    cursor: auto;
+}
