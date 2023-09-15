@@ -1,8 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UISchemaI } from '../types/ui.interface';
+import { LanguageEnums } from '@/shared/enums/language.enums';
+import { languageChangeService } from '@/entities/UI/UI';
+import { ThemeEnums } from '@/shared/enums/theme.enums';
+import { colorThemeChangeService } from '@/entities/UI/UI/model/services/colorThemeChange/colorThemeChange.service';
 
 const initialState: UISchemaI = {
     scroll: {},
+    language: LanguageEnums.ENG,
+    theme: ThemeEnums.LIGHT,
 };
 
 const uiSlice = createSlice({
@@ -15,6 +21,15 @@ const uiSlice = createSlice({
         ) => {
             state.scroll[payload.path] = payload.position;
         },
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(languageChangeService.fulfilled, (state, action) => {
+                state.language = action.payload;
+            })
+            .addCase(colorThemeChangeService.fulfilled, (state, action) => {
+                state.theme = action.payload;
+            });
     },
 });
 

@@ -1,5 +1,5 @@
 export enum LanguageEnums {
-    ENG = 'en',
+    ENG = 'us',
     BEL = 'be',
     PL = 'pl',
     GE = 'ge',
