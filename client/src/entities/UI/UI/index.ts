@@ -7,3 +7,4 @@ export { getColorThemeSelector } from './model/selectors/getColorTheme/getColorT
 export { uiReducer, uiActions } from './model/slices/ui.slice';
 
 export { languageChangeService } from './model/services/languageChange/languageChange.service';
+export { colorThemeChangeService } from './model/services/colorThemeChange/colorThemeChange.service';

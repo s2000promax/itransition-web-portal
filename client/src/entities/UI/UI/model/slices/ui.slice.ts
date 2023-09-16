@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UISchemaI } from '../types/ui.interface';
 import { LanguageEnums } from '@/shared/enums/language.enums';
-import { languageChangeService } from '@/entities/UI/UI';
+import { languageChangeService } from '../services/languageChange/languageChange.service';
 import { ThemeEnums } from '@/shared/enums/theme.enums';
-import { colorThemeChangeService } from '@/entities/UI/UI/model/services/colorThemeChange/colorThemeChange.service';
+import { colorThemeChangeService } from '../services/colorThemeChange/colorThemeChange.service';
 
 const initialState: UISchemaI = {
     scroll: {},

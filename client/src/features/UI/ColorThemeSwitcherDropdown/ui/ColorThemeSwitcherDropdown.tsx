@@ -3,17 +3,17 @@ import { classNames } from '@/shared/libs/classNames/classNames';
 import { Dropdown } from '@/shared/UI-kit/Popups';
 import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
 import { useTranslation } from 'react-i18next';
-import { colorThemeChangeService } from '@/entities/UI/UI/model/services/colorThemeChange/colorThemeChange.service';
+import { colorThemeChangeService } from '@/entities/UI/UI';
 import { ThemeEnums } from '@/shared/enums/theme.enums';
 import { ColorThemeInfoCard } from '@/features/UI/ColorThemeInfoCard';
 import { ThemeContext } from '@/shared/libs/context/ThemeContext';
 
-interface ThemeSwitcherDropdownProps {
+interface ColorThemeSwitcherDropdownProps {
     className?: string;
 }
 
-export const ThemeSwitcherDropdown = memo(
-    (props: ThemeSwitcherDropdownProps) => {
+export const ColorThemeSwitcherDropdown = memo(
+    (props: ColorThemeSwitcherDropdownProps) => {
         const { className } = props;
         const { t } = useTranslation('theme');
         const dispatch = useAppDispatch();

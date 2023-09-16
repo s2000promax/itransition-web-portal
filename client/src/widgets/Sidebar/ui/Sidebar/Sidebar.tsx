@@ -8,7 +8,7 @@ import { AppLogo } from '@/shared/UI-kit/AppLogo';
 import { Icon } from '@/shared/UI-kit/Icon';
 import ArrowIcon from '@/shared/assets/ui/icons/arrow-bottom.svg';
 import { LanguageDropdown } from '@/features/UI/LanguageDropdown';
-import { ThemeSwitcherDropdown } from '@/features/UI/ThemeSwitcherDropdown';
+import { ColorThemeSwitcherDropdown } from '@/features/UI/ColorThemeSwitcherDropdown';
 
 interface SidebarProps {
     className?: string;
@@ -60,7 +60,7 @@ export const Sidebar = memo(({ className }: SidebarProps) => {
                 clickable
             />
             <div className={cls.switchers}>
-                <ThemeSwitcherDropdown />
+                <ColorThemeSwitcherDropdown />
 
                 <LanguageDropdown />
             </div>
