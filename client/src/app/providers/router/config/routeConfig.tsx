@@ -1,7 +1,7 @@
 import { MainPage } from '@/pages/MainPage';
 import { AboutPage } from '@/pages/AboutPage';
 import { ProfilePage } from '@/pages/ProfilePage';
-import { ReviewsPage } from '@/pages/Review/ReviewsPage';
+import { ReviewListPage } from '@/pages/Review/ReviewsPage';
 import { ReviewDetailsPage } from '@/pages/Review/ReviewDetailsPage';
 import { ReviewEditPage } from '@/pages/Review/ReviewEditPage';
 import { AdminDashboardPage } from '@/pages/AdminDashboardPage';
@@ -63,7 +63,7 @@ export const routeConfig: Record<AppRoutesEnums, AppRoutesPropsT> = {
     },
     [AppRoutesEnums.REVIEW_LIST]: {
         path: getRouteReviews(),
-        element: <ReviewsPage />,
+        element: <ReviewListPage />,
         authOnly: true,
     },
     [AppRoutesEnums.REVIEW_DETAILS]: {

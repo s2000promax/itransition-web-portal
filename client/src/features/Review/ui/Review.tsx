@@ -14,8 +14,8 @@ import {
     getReviewIsLoadingSelector,
     reviewReducer,
 } from '@/entities/Review';
-import { ContentSkeleton } from '@/features/Review/ui/ContentSkeleton/ContentSkeleton';
-import { Content } from '@/features/Review/ui/Content/Content';
+import { ContentSkeleton } from './ContentSkeleton/ContentSkeleton';
+import { Content } from './Content/Content';
 import { VStack } from '@/shared/UI-kit/Stack';
 import { Text } from '@/shared/UI-kit/Text';
 

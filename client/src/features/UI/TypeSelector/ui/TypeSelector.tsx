@@ -19,7 +19,7 @@ interface TypeSelectorProps {
 
 export const TypeSelector = (props: TypeSelectorProps) => {
     const { className, value, onChangeType } = props;
-    const { t } = useTranslation('review_types');
+    const { t } = useTranslation('ui');
 
     const typeItems = useMemo<TabItem[]>(
         () => [

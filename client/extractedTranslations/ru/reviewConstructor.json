@@ -1,6 +1,22 @@
 {
+  "An error occurred while loading the review": "An error occurred while loading the review",
   "Create new review": "Create new review",
+  "Title": "Title",
+  "Try refreshing the page": "Try refreshing the page",
   "cancel": "cancel",
+  "code": "code",
+  "code description": "code description",
   "edit": "edit",
-  "save": "save"
+  "error": {
+    "incorrect_data": "incorrect_data",
+    "no_data": "no_data",
+    "save": "save"
+  },
+  "image description": "image description",
+  "paragraph": "paragraph",
+  "save": "save",
+  "title": "title",
+  "type": "type",
+  "workTitle": "workTitle",
+  "you_rate": "you_rate"
 }

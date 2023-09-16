@@ -13,7 +13,7 @@ interface RecommendationsListProps {
 
 export const RecommendationsList = memo((props: RecommendationsListProps) => {
     const { className } = props;
-    const { t } = useTranslation('recommendations_list');
+    const { t } = useTranslation('recommendationsList');
     // const dispatch = useAppDispatch();
     const { isLoading, data: reviews, error } = useReviewRecommendationsList(3);
 

@@ -9,10 +9,6 @@ import { HStack } from '@/shared/UI-kit/Stack';
 import { Text } from '@/shared/UI-kit/Text';
 import { Button } from '@/shared/UI-kit/Button';
 import { Card } from '@/shared/UI-kit/Card';
-import AddTextBlockIcon from '@/shared/assets/ui/icons/add-text.svg';
-import AddImageBlockIcon from '@/shared/assets/ui/icons/add-image.svg';
-import AddCodeBlockIcon from '@/shared/assets/ui/icons/add-code.svg';
-import { Icon } from '@/shared/UI-kit/Icon';
 import {
     createReviewService,
     getReviewFormReviewTypeSelector,

@@ -1,9 +1,7 @@
 {
-  "Avatar": "Avatar",
   "Dashboard": "Dashboard",
   "Login": "Login",
   "Logout": "Logout",
-  "Notification": "Notification",
   "Profile": "Profile",
   "Register": "Register",
   "Settings": "Settings"

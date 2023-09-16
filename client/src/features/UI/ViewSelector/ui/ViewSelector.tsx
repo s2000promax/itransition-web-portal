@@ -1,26 +1,26 @@
 import { memo } from 'react';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import cls from './ViewSelector.module.scss';
-import { ReviewViewEnums } from '@/entities/Review';
 import { Card } from '@/shared/UI-kit/Card';
 import { HStack } from '@/shared/UI-kit/Stack';
 import { Icon } from '@/shared/UI-kit/Icon';
 import ListIcon from '@/shared/assets/ui/icons/burger.svg';
 import TiledIcon from '@/shared/assets/ui/icons/tile.svg';
+import { ViewEnums } from '@/entities/UI/UI';
 
 interface ViewSelectorProps {
     className?: string;
-    view: ReviewViewEnums;
-    onViewClick?: (view: ReviewViewEnums) => void;
+    view: ViewEnums;
+    onViewClick?: (view: ViewEnums) => void;
 }
 
 const viewTypes = [
     {
-        view: ReviewViewEnums.SMALL,
+        view: ViewEnums.SMALL,
         icon: TiledIcon,
     },
     {
-        view: ReviewViewEnums.BIG,
+        view: ViewEnums.BIG,
         icon: ListIcon,
     },
 ];
@@ -28,7 +28,7 @@ const viewTypes = [
 export const ViewSelector = memo((props: ViewSelectorProps) => {
     const { className, view, onViewClick } = props;
 
-    const onClick = (newView: ReviewViewEnums) => () => {
+    const onClick = (newView: ViewEnums) => () => {
         onViewClick?.(newView);
     };
 

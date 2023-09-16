@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { memo, useEffect } from 'react';
+import { memo } from 'react';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import cls from './Work.module.scss';
 import { useSelector } from 'react-redux';
@@ -9,19 +9,16 @@ import {
     ReducersList,
 } from '@/shared/libs/components/DynamicModuleLoader';
 import {
-    fetchReviewByIdService,
     getReviewErrorSelector,
     getReviewIsLoadingSelector,
-    reviewReducer,
 } from '@/entities/Review';
-import { ContentSkeleton } from '@/features/Review/ui/ContentSkeleton/ContentSkeleton';
+import { ContentSkeleton } from '../ui/ContentSkeleton/ContentSkeleton';
 import { Content } from '../ui/Content/Content';
 import { VStack } from '@/shared/UI-kit/Stack';
 import { Text } from '@/shared/UI-kit/Text';
-import { fetchWorkDataService } from '@/entities/Work/model/services/fetchWorkData/fetchWorkData.service';
+
 import { useInitialEffect } from '@/shared/libs/hooks/useInitialEffect/useInitialEffect';
-import { workReducer } from '@/entities/Work';
-import { BackButton } from '@/shared/UI-kit/BackButton';
+import { fetchWorkDataService, workReducer } from '@/entities/Work';
 
 interface WorkProps {
     className?: string;

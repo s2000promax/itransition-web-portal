@@ -25,7 +25,7 @@ interface ReviewCodeBlockComponentProps {
 export const EditableCodeBlock = memo(
     (props: ReviewCodeBlockComponentProps) => {
         const { className, block } = props;
-        const { t } = useTranslation('reviewEdit');
+        const { t } = useTranslation('reviewConstructor');
         const dispatch = useAppDispatch();
         const readonly = useSelector(getReviewReadonlySelector);
 

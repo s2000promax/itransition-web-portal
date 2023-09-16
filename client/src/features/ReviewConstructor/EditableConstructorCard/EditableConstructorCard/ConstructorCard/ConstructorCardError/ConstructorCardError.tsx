@@ -4,7 +4,7 @@ import { HStack } from '@/shared/UI-kit/Stack';
 import { Text } from '@/shared/UI-kit/Text';
 
 export const ConstructorCardError = () => {
-    const { t } = useTranslation('editReview');
+    const { t } = useTranslation('reviewConstructor');
 
     return (
         <HStack

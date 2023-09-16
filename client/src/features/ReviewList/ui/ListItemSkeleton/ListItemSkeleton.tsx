@@ -1,13 +1,13 @@
 import { memo } from 'react';
 import { classNames } from '@/shared/libs/classNames/classNames';
+import cls from './ListItemSkeleton.module.scss';
 import { Card } from '@/shared/UI-kit/Card';
 import { Skeleton } from '@/shared/UI-kit/Skeleton';
-import { ReviewViewEnums } from '@/entities/Review';
-import cls from './ListItemSkeleton.module.scss';
+import { ViewEnums } from '@/entities/UI/UI';
 
 interface ListItemSkeletonProps {
     className?: string;
-    view: ReviewViewEnums;
+    view: ViewEnums;
 }
 
 export const ListItemSkeleton = memo((props: ListItemSkeletonProps) => {
@@ -15,7 +15,7 @@ export const ListItemSkeleton = memo((props: ListItemSkeletonProps) => {
 
     const mainClass = cls.ListItem;
 
-    if (view === ReviewViewEnums.BIG) {
+    if (view === ViewEnums.BIG) {
         const cardContent = (
             <>
                 <div className={cls.header}>

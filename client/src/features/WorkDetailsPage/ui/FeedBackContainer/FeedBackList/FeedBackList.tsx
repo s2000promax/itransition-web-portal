@@ -14,7 +14,7 @@ interface FeedBackListProps {
 
 export const FeedBackList = memo((props: FeedBackListProps) => {
     const { className, isLoading, comments } = props;
-    const { t } = useTranslation('comment');
+    const { t } = useTranslation('workDetailsPage');
 
     if (isLoading) {
         return (

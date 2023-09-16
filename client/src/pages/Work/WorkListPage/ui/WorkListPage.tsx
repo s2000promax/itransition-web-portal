@@ -17,7 +17,7 @@ import { StickyContentLayout } from '@/shared/layouts/StickyContentLayout';
 import {
     FiltersContainer,
     ViewSelectorContainer,
-} from '@/features/ReviewsPage';
+} from '@/features/ReviewListPage';
 import { useSelector } from 'react-redux';
 import { useCallback } from 'react';
 import { useDebounce } from '@/shared/libs/hooks/useDebounce/useDebounce';

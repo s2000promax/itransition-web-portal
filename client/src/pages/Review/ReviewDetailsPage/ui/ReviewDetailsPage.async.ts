@@ -1,6 +1,3 @@
-import { FC, lazy } from 'react';
-import { ReviewDetailsPageProps } from './ReviewDetailsPage';
+import { lazy } from 'react';
 
-export const ReviewDetailsPageAsync = lazy<FC<ReviewDetailsPageProps>>(
-    () => import('./ReviewDetailsPage'),
-);
+export const ReviewDetailsPageAsync = lazy(() => import('./ReviewDetailsPage'));

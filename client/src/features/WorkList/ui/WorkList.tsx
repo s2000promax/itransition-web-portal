@@ -6,37 +6,35 @@ import { Text } from '@/shared/UI-kit/Text';
 import { HStack } from '@/shared/UI-kit/Stack';
 import { ListItemSkeleton } from './ListItemSkeleton/ListItemSkeleton';
 import { ListItem } from './ListItem/ListItem';
-import { ReviewViewEnums } from '@/entities/Review';
 import { WorkI } from '@/entities/Work';
+import { ViewEnums } from '@/entities/UI/UI';
 
 interface WorkListProps {
     className?: string;
     workList?: WorkI[];
     isLoading?: boolean;
     target?: HTMLAttributeAnchorTarget;
-    view?: ReviewViewEnums;
+    view?: ViewEnums;
 }
 
-const getSkeletons = (view: ReviewViewEnums) =>
-    new Array(view === ReviewViewEnums.SMALL ? 9 : 3)
-        .fill(0)
-        .map((_, index) => (
-            <ListItemSkeleton
-                className={cls.card}
-                key={index}
-                view={view}
-            />
-        ));
+const getSkeletons = (view: ViewEnums) =>
+    new Array(view === ViewEnums.SMALL ? 9 : 3).fill(0).map((_, index) => (
+        <ListItemSkeleton
+            className={cls.card}
+            key={index}
+            view={view}
+        />
+    ));
 
 export const WorkList = memo((props: WorkListProps) => {
     const {
         className,
         workList,
-        view = ReviewViewEnums.SMALL,
+        view = ViewEnums.SMALL,
         isLoading,
         target,
     } = props;
-    const { t } = useTranslation('work');
+    const { t } = useTranslation('workList');
 
     if (!isLoading && !workList?.length) {
         return (

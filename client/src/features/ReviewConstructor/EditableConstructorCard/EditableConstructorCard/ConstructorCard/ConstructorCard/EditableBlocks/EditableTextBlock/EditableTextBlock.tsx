@@ -25,7 +25,7 @@ interface ReviewTextBlockComponentProps {
 export const EditableTextBlock = memo(
     (props: ReviewTextBlockComponentProps) => {
         const { className, block } = props;
-        const { t } = useTranslation('reviewEdit');
+        const { t } = useTranslation('reviewConstructor');
         const dispatch = useAppDispatch();
         const readonly = useSelector(getReviewReadonlySelector);
 

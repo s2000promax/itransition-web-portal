@@ -7,12 +7,12 @@ export const languageChangeService = createAsyncThunk<
     LanguageEnums,
     LanguageEnums,
     ThunkConfig<string>
->('ui/languageChange', async (arg, thunkApi) => {
+>('ui/languageChange', async (newLanguage, thunkApi) => {
     const { extra, dispatch, rejectWithValue, getState } = thunkApi;
     try {
-        await i18n.changeLanguage(arg);
+        await i18n.changeLanguage(newLanguage);
 
-        return arg;
+        return newLanguage;
     } catch (e) {
         return rejectWithValue('Error to change language');
     }

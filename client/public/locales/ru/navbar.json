@@ -1,5 +1,8 @@
 {
-  "Avatar": "Avatar",
-  "Login": "Войти",
-  "Notification": "Уведомления"
+  "Dashboard": "Dashboard",
+  "Login": "Login",
+  "Logout": "Logout",
+  "Profile": "Profile",
+  "Register": "Register",
+  "Settings": "Settings"
 }

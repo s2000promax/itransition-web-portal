@@ -1,7 +1,4 @@
 {
-  "": "",
-  "An unexpected error has occurred": "An unexpected error has occurred",
-  "Refresh the page": "Refresh the page",
-  "message": "An unexpected error has occurred",
-  "refresh": "Refresh the page"
+  "message": "message",
+  "refresh": "refresh"
 }

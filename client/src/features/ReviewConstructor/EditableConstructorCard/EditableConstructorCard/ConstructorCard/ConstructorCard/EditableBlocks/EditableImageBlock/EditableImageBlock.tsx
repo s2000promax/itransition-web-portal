@@ -26,7 +26,7 @@ interface ReviewImageBlockComponentProps {
 export const EditableImageBlock = memo(
     (props: ReviewImageBlockComponentProps) => {
         const { className, block } = props;
-        const { t } = useTranslation('reviewEdit');
+        const { t } = useTranslation('reviewConstructor');
         const dispatch = useAppDispatch();
         const readonly = useSelector(getReviewReadonlySelector);
 

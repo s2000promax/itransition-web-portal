@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import { useSelector } from 'react-redux';
@@ -18,26 +18,18 @@ import {
     fetchReviewByIdService,
     getReviewDataSelector,
     getReviewErrorSelector,
-    getReviewFormSelector,
     getReviewIsLoadingSelector,
-    getReviewReadonlySelector,
     getReviewValidateErrorsSelector,
-    reviewActions,
     reviewReducer,
     ValidateReviewEnums,
 } from '@/entities/Review';
+import { getUserExtendDataSelector } from '@/entities/User';
+import { fetchProfileData, getProfileData } from '@/entities/Profile';
 import {
-    getUserDataSelector,
-    getUserExtendDataSelector,
-    userActions,
-} from '@/entities/User';
-import {
-    fetchProfileData,
-    getProfileData,
-    profileActions,
-} from '@/entities/Profile';
-import { getWorkDataSelector, workReducer } from '@/entities/Work';
-import { fetchWorkDataService } from '@/entities/Work/model/services/fetchWorkData/fetchWorkData.service';
+    getWorkDataSelector,
+    workReducer,
+    fetchWorkDataService,
+} from '@/entities/Work';
 
 interface EditableProfileCardProps {
     className?: string;
@@ -52,7 +44,7 @@ const reducers: ReducersList = {
 export const EditableConstructorCard = memo(
     (props: EditableProfileCardProps) => {
         const { className, id } = props;
-        const { t } = useTranslation('reviewEdit');
+        const { t } = useTranslation('reviewConstructor');
         const dispatch = useAppDispatch();
         const isLoading = useSelector(getReviewIsLoadingSelector);
         const error = useSelector(getReviewErrorSelector);

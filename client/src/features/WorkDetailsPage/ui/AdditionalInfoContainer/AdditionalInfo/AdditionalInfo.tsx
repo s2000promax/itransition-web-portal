@@ -18,7 +18,7 @@ interface AdditionalInfoProps {
 
 export const AdditionalInfo = memo((props: AdditionalInfoProps) => {
     const { className, author, createdAt, views, onEdit } = props;
-    const { t } = useTranslation();
+    const { t } = useTranslation('workDetailsPage');
 
     return (
         <VStack

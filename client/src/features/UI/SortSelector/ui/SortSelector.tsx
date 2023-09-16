@@ -3,23 +3,23 @@ import { useTranslation } from 'react-i18next';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import cls from './SortSelector.module.scss';
 import { SortOrderT } from '@/shared/types/sort.type';
-import { ReviewSortFieldEnums } from '@/entities/Review';
 import { ListBox } from '@/shared/UI-kit/Popups';
 import { VStack } from '@/shared/UI-kit/Stack';
 import { Text } from '@/shared/UI-kit/Text';
 import { SelectOptionsT } from '@/shared/types/selectOptions.type';
+import { SortFieldEnums } from '@/entities/UI/UI';
 
 interface SortSelectorProps {
     className?: string;
-    sort: ReviewSortFieldEnums;
+    sort: SortFieldEnums;
     order: SortOrderT;
     onChangeOrder: (newOrder: SortOrderT) => void;
-    onChangeSort: (newSort: ReviewSortFieldEnums) => void;
+    onChangeSort: (newSort: SortFieldEnums) => void;
 }
 
 export const SortSelector = memo((props: SortSelectorProps) => {
     const { className, onChangeOrder, onChangeSort, order, sort } = props;
-    const { t } = useTranslation('features_ui');
+    const { t } = useTranslation('ui');
 
     const orderOptions = useMemo<SelectOptionsT<SortOrderT>[]>(
         () => [
@@ -35,18 +35,18 @@ export const SortSelector = memo((props: SortSelectorProps) => {
         [t],
     );
 
-    const sortFieldOptions = useMemo<SelectOptionsT<ReviewSortFieldEnums>[]>(
+    const sortFieldOptions = useMemo<SelectOptionsT<SortFieldEnums>[]>(
         () => [
             {
-                value: ReviewSortFieldEnums.CREATED,
+                value: SortFieldEnums.CREATED,
                 content: t('created_at'),
             },
             {
-                value: ReviewSortFieldEnums.TITLE,
+                value: SortFieldEnums.TITLE,
                 content: t('name'),
             },
             {
-                value: ReviewSortFieldEnums.VIEWS,
+                value: SortFieldEnums.VIEWS,
                 content: t('views'),
             },
         ],

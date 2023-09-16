@@ -6,36 +6,35 @@ import { Text } from '@/shared/UI-kit/Text';
 import { HStack } from '@/shared/UI-kit/Stack';
 import { ListItemSkeleton } from './ListItemSkeleton/ListItemSkeleton';
 import { ListItem } from './ListItem/ListItem';
-import { ReviewI, ReviewViewEnums } from '@/entities/Review';
+import { ReviewI } from '@/entities/Review';
+import { ViewEnums } from '@/entities/UI/UI';
 
 interface ReviewListProps {
     className?: string;
     reviewsList: ReviewI[];
     isLoading?: boolean;
     target?: HTMLAttributeAnchorTarget;
-    view?: ReviewViewEnums;
+    view?: ViewEnums;
 }
 
-const getSkeletons = (view: ReviewViewEnums) =>
-    new Array(view === ReviewViewEnums.SMALL ? 9 : 3)
-        .fill(0)
-        .map((_, index) => (
-            <ListItemSkeleton
-                className={cls.card}
-                key={index}
-                view={view}
-            />
-        ));
+const getSkeletons = (view: ViewEnums) =>
+    new Array(view === ViewEnums.SMALL ? 9 : 3).fill(0).map((_, index) => (
+        <ListItemSkeleton
+            className={cls.card}
+            key={index}
+            view={view}
+        />
+    ));
 
 export const ReviewList = memo((props: ReviewListProps) => {
     const {
         className,
         reviewsList,
-        view = ReviewViewEnums.SMALL,
+        view = ViewEnums.SMALL,
         isLoading,
         target,
     } = props;
-    const { t } = useTranslation('reviews_list');
+    const { t } = useTranslation('reviewList');
 
     if (!isLoading && !reviewsList.length) {
         return (

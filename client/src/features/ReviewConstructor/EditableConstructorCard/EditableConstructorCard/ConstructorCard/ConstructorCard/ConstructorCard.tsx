@@ -43,7 +43,7 @@ export const ConstructorCard = (props: ProfileCardProps) => {
         // onChangeOwnerRating,
     } = props;
 
-    const { t } = useTranslation('reviewEdit');
+    const { t } = useTranslation('reviewConstructor');
     const dispatch = useAppDispatch();
     const formData = useSelector(getReviewFormSelector);
     const readonly = useSelector(getReviewReadonlySelector);

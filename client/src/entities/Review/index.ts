@@ -22,10 +22,6 @@ export { reviewReducer, reviewActions } from './model/slice/review.slice';
 export { fetchReviewByIdService } from './model/services/fetchReviewById/fetchReviewById.service';
 export { createReviewService } from './model/services/createReview/createReview.service';
 
-export {
-    ReviewSortFieldEnums,
-    ReviewBlockTypeEnums,
-    ReviewViewEnums,
-} from './model/enums/review.enums';
+export { ReviewBlockTypeEnums } from './model/enums/review.enums';
 
 export { ValidateReviewEnums } from './model/enums/validateReview.enums';

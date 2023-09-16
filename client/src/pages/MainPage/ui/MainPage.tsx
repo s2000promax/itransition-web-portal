@@ -7,10 +7,10 @@ import {
     ReducersList,
 } from '@/shared/libs/components/DynamicModuleLoader';
 import {
-    fetchNextReviewsPageService,
-    initReviewsPageService,
-    reviewsPageReducer,
-} from '@/entities/UI/ReviewsPage';
+    fetchNextReviewListPageService,
+    initReviewListPageService,
+    reviewListPageReducer,
+} from '@/entities/UI/ReviewListPage';
 import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
 import { useSearchParams } from 'react-router-dom';
 import { useInitialEffect } from '@/shared/libs/hooks/useInitialEffect/useInitialEffect';
@@ -19,7 +19,7 @@ import {
     FiltersContainer,
     ReviewInfiniteList,
     ViewSelectorContainer,
-} from '@/features/ReviewsPage';
+} from '@/features/ReviewListPage';
 import { Page } from '@/widgets/Page';
 
 import { Greeting } from '@/features/UI/Greeting';
@@ -29,7 +29,7 @@ interface MainPageProps {
 }
 
 const reducers: ReducersList = {
-    reviewsPage: reviewsPageReducer,
+    reviewListPage: reviewListPageReducer,
 };
 
 const MainPage = (props: MainPageProps) => {
@@ -39,11 +39,11 @@ const MainPage = (props: MainPageProps) => {
     const [searchParams] = useSearchParams();
 
     const onLoadNextPart = useCallback(() => {
-        dispatch(fetchNextReviewsPageService());
+        dispatch(fetchNextReviewListPageService());
     }, [dispatch]);
 
     useInitialEffect(() => {
-        dispatch(initReviewsPageService(searchParams));
+        dispatch(initReviewListPageService(searchParams));
     });
 
     const content = (

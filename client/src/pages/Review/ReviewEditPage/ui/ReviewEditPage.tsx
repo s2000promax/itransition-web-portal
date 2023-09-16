@@ -6,13 +6,13 @@ import { useParams } from 'react-router-dom';
 import { VStack } from '@/shared/UI-kit/Stack';
 import { EditableConstructorCard } from '@/features/ReviewConstructor/EditableConstructorCard';
 
-interface ReviewEditPageProps {
+export interface ReviewEditPageProps {
     className?: string;
 }
 
 const ReviewEditPage = memo((props: ReviewEditPageProps) => {
     const { className } = props;
-    const { t } = useTranslation('review_edit');
+    const { t } = useTranslation('reviewEditPage');
     const { id } = useParams<{ id: string }>();
     const isEdit = Boolean(id);
 

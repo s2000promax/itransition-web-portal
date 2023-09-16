@@ -11,7 +11,7 @@ import { UserSchemaI } from '@/entities/User';
 import { UISchemaI } from '@/entities/UI/UI';
 import { ProfileSchemaI } from '@/entities/Profile';
 import { ReviewSchemaI } from '@/entities/Review';
-import { ReviewsPageSchemaI } from 'src/entities/UI/ReviewsPage';
+import { ReviewListPageSchemaI } from 'src/entities/UI/ReviewListPage';
 import { ReviewDetailsPageSchemaI } from '@/entities/UI/ReviewDetailsPage';
 import { CommentFormSchemaI } from '@/entities/UI/CommentForm';
 import { AuthSchemaI, LoginSchemaI, RegisterSchemaI } from '@/entities/Auth';
@@ -31,7 +31,7 @@ export interface StateSchemaI {
     review?: ReviewSchemaI;
 
     reviewDetailsPage?: ReviewDetailsPageSchemaI;
-    reviewsPage?: ReviewsPageSchemaI;
+    reviewListPage?: ReviewListPageSchemaI;
     commentForm?: CommentFormSchemaI;
 }
 

@@ -1,1 +1,1 @@
-export { ReviewsPageAsync as ReviewsPage } from './ui/ReviewsPage.async';
+export { ReviewListPageAsync as ReviewListPage } from './ui/ReviewListPage.async';

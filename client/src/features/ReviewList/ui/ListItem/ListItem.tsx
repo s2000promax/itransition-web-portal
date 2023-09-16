@@ -11,26 +11,26 @@ import { AppLink } from '@/shared/UI-kit/AppLink';
 import { Button } from '@/shared/UI-kit/Button';
 import { HStack, VStack } from '@/shared/UI-kit/Stack';
 import { Icon } from '@/shared/UI-kit/Icon';
-import EyeIcon from '@/shared/assets/ui/icons/eye.svg';
 import {
     ReviewI,
-    ReviewViewEnums,
     ReviewTextBlockI,
     ReviewBlockTypeEnums,
 } from '@/entities/Review';
 import { getRouteReviewDetails } from '@/shared/routes/routes.patterns';
 import { DateFormatter } from '@/shared/libs/dateFormetter/dateFormatter';
+import EyeIcon from '@/shared/assets/ui/icons/eye.svg';
+import { ViewEnums } from '@/entities/UI/UI';
 
 interface ListItemProps {
     className?: string;
     review: ReviewI;
-    view: ReviewViewEnums;
+    view: ViewEnums;
     target?: HTMLAttributeAnchorTarget;
 }
 
 export const ListItem = memo((props: ListItemProps) => {
     const { className, review, view, target } = props;
-    const { t } = useTranslation('review_list');
+    const { t } = useTranslation('reviewList');
 
     const userInfo = (
         <HStack gap="8">
@@ -59,7 +59,7 @@ export const ListItem = memo((props: ListItemProps) => {
         </HStack>
     );
 
-    if (view === ReviewViewEnums.BIG) {
+    if (view === ViewEnums.BIG) {
         const textBlock = review.blocks.find(
             (block) => block.type === ReviewBlockTypeEnums.TEXT,
         ) as ReviewTextBlockI;
@@ -158,7 +158,6 @@ export const ListItem = memo((props: ListItemProps) => {
                     <Text
                         title={review.title}
                         bold
-                        // className={cls.title}
                     />
                     <VStack
                         gap="4"

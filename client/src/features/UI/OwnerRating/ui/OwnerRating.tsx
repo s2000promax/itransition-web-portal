@@ -1,9 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { classNames } from '@/shared/libs/classNames/classNames';
-import cls from './OwnerRating.module.scss';
 import { useTranslation } from 'react-i18next';
 import { StarRate } from '@/shared/UI-kit/StarRate';
-import { HStack, VStack } from '@/shared/UI-kit/Stack';
 
 interface OwnerRatingProps {
     className?: string;
@@ -13,7 +11,7 @@ interface OwnerRatingProps {
 
 export const OwnerRating = (props: OwnerRatingProps) => {
     const { className, rate = 0, onChangeOwnerRating } = props;
-    const { t } = useTranslation('owner_rating');
+    const { t } = useTranslation('ratingCard');
     const stars = Array(10)
         .fill(0)
         .map((_, index) => index + 1);
