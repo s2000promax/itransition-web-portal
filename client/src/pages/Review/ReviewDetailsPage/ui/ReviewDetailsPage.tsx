@@ -12,9 +12,9 @@ import { StickyContentLayout } from '@/shared/layouts/StickyContentLayout';
 import { VStack } from '@/shared/UI-kit/Stack';
 
 import {
-    UserOwnerReviewInfoContainer,
     CommentsContainer,
     ReviewDetailsContainer,
+    UserOwnerReviewInfoContainer,
     WorkInfoContainer,
 } from '@/features/ReviewDetailsPage';
 import { ReviewRating } from '@/features/ReviewRating';
@@ -59,7 +59,7 @@ const ReviewDetailsPage = (props: ReviewDetailsPageProps) => {
                         >
                             <ReviewDetailsContainer />
                             {isAuth && <ReviewRating reviewId={id} />}
-                            <RecommendationsList />
+                            <RecommendationsList reviewId={id} />
                             <CommentsContainer id={id} />
                         </VStack>
                     </Page>

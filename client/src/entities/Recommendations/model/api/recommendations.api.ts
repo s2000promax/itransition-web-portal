@@ -3,12 +3,12 @@ import { ReviewI } from '@/entities/Review';
 
 const recommendationsApi = rtkApi.injectEndpoints({
     endpoints: (build) => ({
-        getReviewRecommendationsList: build.query<ReviewI[], number>({
-            query: (limit) => ({
-                url: 'review/reviewList',
+        getReviewRecommendationsList: build.query<ReviewI[], string>({
+            query: (reviewId) => ({
+                url: 'review/recommendation/list',
                 params: {
-                    _limit: limit,
-                    _expand: 'user',
+                    _reviewId: reviewId,
+                    _limit: 3,
                     _page: 1,
                 },
             }),

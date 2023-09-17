@@ -1,0 +1,13 @@
+{
+  "cancel": "cancel",
+  "edit": "edit",
+  "error": {
+    "no_data": "no_data",
+    "save": "save",
+    "user_data": "user_data"
+  },
+  "firstName": "firstName",
+  "lastName": "lastName",
+  "profile": "profile",
+  "save": "save"
+}

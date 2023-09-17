@@ -9,6 +9,7 @@ import { Card } from '@/shared/UI-kit/Card';
 import { AppLink } from '@/shared/UI-kit/AppLink';
 import { Avatar } from '@/shared/UI-kit/Avatar';
 import { getRouteProfile } from '@/shared/routes/routes.patterns';
+import { DateFormatter } from '@/shared/libs/dateFormetter/dateFormatter';
 
 interface CommentCardProps {
     className?: string;
@@ -67,18 +68,24 @@ export const CommentCard = memo((props: CommentCardProps) => {
                 max
                 className={classNames(cls.CommentCard, {}, [className])}
             >
-                <AppLink to={getRouteProfile(comment.user.id)}>
+                <AppLink to={getRouteProfile(comment?.user?.id!)}>
                     <HStack gap="8">
-                        {comment.user.avatar ? (
-                            <Avatar
-                                size={30}
-                                src={comment.user.avatar}
-                            />
-                        ) : null}
-                        <Text
-                            text={comment.user.firstName}
-                            bold
+                        <Avatar
+                            size={30}
+                            src={comment?.user?.avatar!}
                         />
+
+                        <HStack gap="8">
+                            <Text
+                                text={comment?.user?.firstName}
+                                bold
+                            />
+                            <Text
+                                text={comment?.user?.lastName}
+                                bold
+                            />
+                            <Text text={DateFormatter(comment.createdAt!)} />
+                        </HStack>
                     </HStack>
                 </AppLink>
                 <Text text={comment.content} />

@@ -1,9 +1,18 @@
 import { UserI } from '@/entities/User';
 
 export interface CommentI {
-    id: string;
-    ownerId: string;
+    id?: string;
+    userId: string;
+    reviewId: string;
+    createdAt?: Date;
     content: string;
-    date: Date;
-    user: UserI;
+    user?: UserI;
+}
+
+export interface CommentSchemaI {
+    data?: CommentI;
+    form?: CommentI;
+    commentList?: CommentI[];
+    isLoading: boolean;
+    error?: string;
 }

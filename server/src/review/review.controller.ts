@@ -42,6 +42,35 @@ export class ReviewController {
 
     @Public()
     @UseInterceptors(ClassSerializerInterceptor)
+    @Get('recommendation/list')
+    async getReviewRecommendationList(
+        @Query('_reviewId') reviewId: string,
+        @Query('_limit') limit: string,
+        @Query('_page') page: string,
+    ) {
+        console.log(reviewId, limit, page);
+        try {
+            const foundedReviewRecommendationList =
+                await this.reviewService.findReviewRecommendationList(
+                    reviewId,
+                    limit,
+                    page,
+                );
+
+            const reviewListResponse = foundedReviewRecommendationList.map(
+                (review) => new ReviewResponse(review, review.owner),
+            );
+
+            return reviewListResponse;
+        } catch (e) {
+            throw new BadRequestException(
+                'Failed to get review recommendation list',
+            );
+        }
+    }
+
+    @Public()
+    @UseInterceptors(ClassSerializerInterceptor)
     @Get('reviewList')
     async getReviewList(
         @Query('_limit') limit: string,
@@ -51,32 +80,39 @@ export class ReviewController {
         @Query('q') search: string,
         @Query('type') type: ReviewTypeEnum,
     ) {
-        console.log(limit, page, sort, order, type);
-        const foundedReviewList = await this.reviewService.findReviewList(
-            limit,
-            page,
-            sort,
-            order,
-            search,
-            type,
-        );
+        try {
+            const foundedReviewList = await this.reviewService.findReviewList(
+                limit,
+                page,
+                sort,
+                order,
+                search,
+                type,
+            );
 
-        const reviewListResponse = foundedReviewList.map(
-            (review) => new ReviewResponse(review, review.owner),
-        );
+            const reviewListResponse = foundedReviewList.map(
+                (review) => new ReviewResponse(review, review.owner),
+            );
 
-        return reviewListResponse;
+            return reviewListResponse;
+        } catch (e) {
+            throw new BadRequestException('Failed to get review list');
+        }
     }
 
     @Public()
     @UseInterceptors(ClassSerializerInterceptor)
     @Get(':id')
     async findOneReview(@Param('id') reviewId: string) {
-        const review = await this.reviewService.findById(reviewId);
+        try {
+            const review = await this.reviewService.findById(reviewId);
 
-        const reviewResponse = new ReviewResponse(review, review.owner);
+            const reviewResponse = new ReviewResponse(review, review.owner);
 
-        return reviewResponse;
+            return reviewResponse;
+        } catch (e) {
+            throw new BadRequestException('Failed to get review');
+        }
     }
 
     @ApiBody({ type: ViewCounterDto })

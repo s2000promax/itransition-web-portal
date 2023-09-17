@@ -18,8 +18,7 @@ export const fetchCommentsByReviewIdService = createAsyncThunk<
             'comment/commentList',
             {
                 params: {
-                    reviewId,
-                    _expand: 'user',
+                    _reviewId: reviewId,
                 },
             },
         );

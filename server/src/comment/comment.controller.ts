@@ -24,7 +24,6 @@ export class CommentController {
     @Post('add')
     @ApiBody({ type: CreateCommentDto })
     async addComment(@Body() body: CreateCommentDto, @Res() res: Response) {
-        console.log(body);
         try {
             await this.commentService.createComment(body);
 
@@ -37,16 +36,10 @@ export class CommentController {
     @Public()
     @UseInterceptors(ClassSerializerInterceptor)
     @Get('commentList')
-    async getCommentCommentList(
-        @Query('reviewId') reviewId: string,
-        @Query('_expand') expand: string,
-    ) {
+    async getCommentCommentList(@Query('_reviewId') reviewId: string) {
         try {
             const foundedCommentList =
-                await this.commentService.findCommentsByReviewId(
-                    reviewId,
-                    expand,
-                );
+                await this.commentService.findCommentsByReviewId(reviewId);
 
             const commentListResponse = foundedCommentList.map(
                 (comment) => new CommentResponse(comment, comment.user),

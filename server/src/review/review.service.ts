@@ -140,6 +140,66 @@ export class ReviewService {
         }
     }
 
+    async findReviewRecommendationList(
+        reviewId: string,
+        limit: string,
+        page: string,
+    ) {
+        const _limit = Number(limit);
+        const _page = Number(page);
+        const _skip = (_page - 1) * _limit;
+
+        try {
+            const currentReview = await this.prismaService.review.findUnique({
+                where: { id: reviewId },
+                select: { workId: true },
+            });
+
+            const currentWorkId = currentReview.workId;
+
+            const foundedReviewsRecommendation =
+                await this.prismaService.review.findMany({
+                    where: {
+                        workId: currentWorkId,
+                        id: {
+                            not: reviewId,
+                        },
+                    },
+                    skip: _skip,
+                    take: _limit,
+                    include: {
+                        owner: true,
+                        blocks: {
+                            orderBy: {
+                                sortId: 'asc',
+                            },
+                            include: {
+                                paragraphs: {
+                                    orderBy: {
+                                        sortId: 'asc',
+                                    },
+                                },
+                            },
+                        },
+                        work: {
+                            select: {
+                                averageUsersRating: true,
+                            },
+                        },
+                    },
+                    orderBy: {
+                        work: {
+                            averageUsersRating: 'desc',
+                        },
+                    },
+                });
+
+            return foundedReviewsRecommendation;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     async updateViewCounter(reviewId: string, user: JwtPayload) {
         try {
             const foundedReview = await this.prismaService.review.findFirst({

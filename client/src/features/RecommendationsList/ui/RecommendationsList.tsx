@@ -5,17 +5,21 @@ import { useReviewRecommendationsList } from '@/entities/Recommendations';
 import { VStack } from '@/shared/UI-kit/Stack';
 import { Text } from '@/shared/UI-kit/Text';
 import { ReviewList } from '@/features/ReviewList';
-import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
 
 interface RecommendationsListProps {
     className?: string;
+    reviewId: string;
 }
 
 export const RecommendationsList = memo((props: RecommendationsListProps) => {
-    const { className } = props;
+    const { className, reviewId } = props;
     const { t } = useTranslation('recommendationsList');
-    // const dispatch = useAppDispatch();
-    const { isLoading, data: reviews, error } = useReviewRecommendationsList(3);
+
+    const {
+        isLoading,
+        data: reviews,
+        error,
+    } = useReviewRecommendationsList(reviewId);
 
     if (isLoading || error || !reviews) {
         return null;

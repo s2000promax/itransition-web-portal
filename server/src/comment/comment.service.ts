@@ -23,14 +23,14 @@ export class CommentService {
         }
     }
 
-    async findCommentsByReviewId(reviewId: string, expand: string) {
+    async findCommentsByReviewId(reviewId: string) {
         try {
             const foundedComments = await this.prisma.comment.findMany({
                 where: {
                     reviewId: reviewId,
                 },
                 include: {
-                    user: expand === 'user',
+                    user: true,
                 },
                 orderBy: {
                     createdAt: 'desc',
