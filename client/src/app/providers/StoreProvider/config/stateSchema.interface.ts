@@ -17,6 +17,8 @@ import { CommentFormSchemaI } from '@/entities/UI/CommentForm';
 import { AuthSchemaI, LoginSchemaI, RegisterSchemaI } from '@/entities/Auth';
 import { WorkSchemaI } from '@/entities/Work';
 import { WorkListPageSchemaI } from '@/entities/UI/WorkListPage';
+import { RatingSchemaI } from '@/entities/Rating';
+import { LikeSchemaI } from '@/entities/Like';
 
 export interface StateSchemaI {
     authData: AuthSchemaI;
@@ -30,6 +32,8 @@ export interface StateSchemaI {
     profile?: ProfileSchemaI;
     work?: WorkSchemaI;
     review?: ReviewSchemaI;
+    rating?: RatingSchemaI;
+    like?: LikeSchemaI;
 
     workListPage?: WorkListPageSchemaI;
     reviewDetailsPage?: ReviewDetailsPageSchemaI;

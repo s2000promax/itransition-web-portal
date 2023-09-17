@@ -47,6 +47,7 @@ export class ReviewController {
         @Query('q') search: string,
         @Query('type') type: ReviewTypeEnum,
     ) {
+        console.log(limit, page, sort, order, type);
         const foundedReviewList = await this.reviewService.findReviewList(
             limit,
             page,
@@ -68,10 +69,9 @@ export class ReviewController {
     @Get(':id')
     async findOneReview(
         @Param('id') id: string,
-        @Query('_expand') expand: string,
         @CurrentUser() user: JwtPayload,
     ) {
-        const review = await this.reviewService.findById(id, expand, user);
+        const review = await this.reviewService.findById(id, user);
 
         const reviewResponse = new ReviewResponse(review, review.owner);
 

@@ -20,6 +20,8 @@ import { Skeleton } from '@/shared/UI-kit/Skeleton';
 import { useSelector } from 'react-redux';
 import { getUserDataSelector } from '@/entities/User';
 import { EditButton } from '@/shared/UI-kit/EditButton';
+import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
+import { likeUserByReviewService } from '@/entities/Like';
 
 interface UserInfoCardProps {
     className?: string;
@@ -28,11 +30,19 @@ interface UserInfoCardProps {
 
 export const UserOwnerReviewInfoCard = (props: UserInfoCardProps) => {
     const { className, review } = props;
+    const dispatch = useAppDispatch();
     const currentUser = useSelector(getUserDataSelector);
 
     const onLike = useCallback(() => {
-        console.log('Like!');
-    }, []);
+        if (currentUser?.id && review?.id) {
+            dispatch(
+                likeUserByReviewService({
+                    userId: currentUser.id,
+                    reviewId: review.id,
+                }),
+            );
+        }
+    }, [review, currentUser?.id]);
 
     if (review) {
         return (

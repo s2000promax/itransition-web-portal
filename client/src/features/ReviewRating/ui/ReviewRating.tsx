@@ -1,11 +1,16 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 import { getUserDataSelector } from '@/entities/User';
 import { Skeleton } from '@/shared/UI-kit/Skeleton';
-import { useGetRating, useRate } from '@/entities/Rating';
 import { RatingCard } from '@/features/UI/RatingCard';
+import { getWorkDataSelector } from '@/entities/Work';
+import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
+import {
+    getRatingIsLoadingSelector,
+    rateWorkByUserService,
+} from '@/entities/Rating';
 
 export interface ReviewRatingProps {
     className?: string;
@@ -14,29 +19,26 @@ export interface ReviewRatingProps {
 
 const ReviewRating = memo((props: ReviewRatingProps) => {
     const { className, reviewId } = props;
-    const { t } = useTranslation('review_rating');
+    const { t } = useTranslation('workRating');
+    const dispatch = useAppDispatch();
+    const isLoading = useSelector(getRatingIsLoadingSelector);
     const userData = useSelector(getUserDataSelector);
-
-    const { data, isLoading } = useGetRating({
-        reviewId: reviewId,
-        userId: userData?.id ?? '',
-    });
-    const [rateReviewMutation] = useRate();
+    const workData = useSelector(getWorkDataSelector);
+    const [rating, setRating] = useState(0);
 
     const handleRateReview = useCallback(
         (starsCount: number, feedback?: string) => {
-            try {
-                rateReviewMutation({
-                    userId: userData?.id ?? '',
-                    reviewId: reviewId,
+            setRating(starsCount);
+            dispatch(
+                rateWorkByUserService({
+                    userId: userData?.id!,
+                    workId: workData?.id!,
                     rate: starsCount,
                     feedback,
-                });
-            } catch (e) {
-                console.log(e);
-            }
+                }),
+            );
         },
-        [reviewId, rateReviewMutation, userData?.id],
+        [reviewId, workData?.id, userData?.id],
     );
 
     const onAccept = useCallback(
@@ -62,13 +64,11 @@ const ReviewRating = memo((props: ReviewRatingProps) => {
         );
     }
 
-    const rating = data?.[0];
-
     return (
         <RatingCard
             onCancel={onCancel}
             onAccept={onAccept}
-            rate={rating?.rate}
+            rate={rating}
             className={className}
             title={t('rate the review')}
             feedbackTitle={t('left your feedback')}
@@ -77,4 +77,4 @@ const ReviewRating = memo((props: ReviewRatingProps) => {
     );
 });
 
-export default ReviewRating;
+export default memo(ReviewRating);

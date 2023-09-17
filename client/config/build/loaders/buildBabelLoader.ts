@@ -19,7 +19,7 @@ export function buildBabelLoader({ isDev, isTsx }: BuildBabelLoaderProps) {
                     [
                         'i18next-extract',
                         {
-                            locales: ['ru', 'en'],
+                            locales: ['us', 'be', 'pl', 'ge', 'ru'],
                             keyAsDefaultValue: true,
                         },
                     ],
@@ -30,13 +30,13 @@ export function buildBabelLoader({ isDev, isTsx }: BuildBabelLoaderProps) {
                         },
                     ],
                     '@babel/plugin-transform-runtime',
-                    isTsx
-                        && isProd && [
-                        babelRemovePropsPlugin,
-                        {
-                            props: ['data-testid'],
-                        },
-                    ],
+                    isTsx &&
+                        isProd && [
+                            babelRemovePropsPlugin,
+                            {
+                                props: ['data-testid'],
+                            },
+                        ],
                     isDev && require.resolve('react-refresh/babel'),
                 ].filter(Boolean),
             },

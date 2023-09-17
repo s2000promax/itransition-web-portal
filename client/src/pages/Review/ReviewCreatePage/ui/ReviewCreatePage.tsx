@@ -12,15 +12,9 @@ export interface ReviewCreatePageProps {
 
 const ReviewCreatePage = memo((props: ReviewCreatePageProps) => {
     const { className } = props;
-    const { t } = useTranslation('reviewCretePage');
     const { id } = useParams<{ id: string }>();
-    const isEdit = Boolean(id);
 
     return (
-        // <Page className={classNames(cls.ReviewEditPage, {}, [className])}>
-        //     {isEdit ? t('Edit review by ID ') + id : t('Create new review')}
-        //     <CreateReview />
-        // </Page>
         <Page
             data-testid="ReviewCreatePage"
             className={classNames('', {}, [className])}

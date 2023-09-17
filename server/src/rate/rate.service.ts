@@ -5,27 +5,12 @@ import { Like, UsersRating } from '@prisma/client';
 
 @Injectable()
 export class RateService {
-    constructor(private prisma: PrismaService) {}
+    constructor(private prismaService: PrismaService) {}
 
-    async findReviewRateById(workId: string, userId: string) {
-        try {
-            const foundedReviewRate = await this.prisma.usersRating.findFirst({
-                where: {
-                    workId,
-                    userId,
-                },
-            });
-
-            return foundedReviewRate;
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
-    async updateReviewRate(body: RateDto) {
+    async updateWorkRate(body: RateDto) {
         const { rate, feedback, userId, workId } = body;
         try {
-            await this.prisma.usersRating.upsert({
+            await this.prismaService.usersRating.upsert({
                 where: {
                     userId_workId: {
                         workId,
@@ -48,14 +33,76 @@ export class RateService {
         }
     }
 
-    async addLike(likeDto: LikeDto): Promise<Like> {
-        const { userId, reviewId } = likeDto;
+    async updateReviewLike(body: LikeDto) {
+        const { userId, reviewId } = body;
+        try {
+            const q = await this.prismaService.like.upsert({
+                where: {
+                    userId_reviewId: {
+                        userId,
+                        reviewId,
+                    },
+                },
+                update: {
+                    userId,
+                    reviewId,
+                },
+                create: {
+                    userId,
+                    reviewId,
+                },
+            });
+            console.log(q);
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
-        return this.prisma.like.create({
-            data: {
-                userId,
-                reviewId,
-            },
-        });
+    async updateAverageUsersRating(workId: string) {
+        try {
+            const ratings = await this.prismaService.usersRating.findMany({
+                where: { workId },
+                select: { rate: true },
+            });
+
+            const totalRating = ratings.reduce(
+                (sum, rating) => sum + rating.rate,
+                0,
+            );
+            const averageRating = ratings.length
+                ? totalRating / ratings.length
+                : 0;
+
+            await this.prismaService.work.update({
+                where: { id: workId },
+                data: { averageUsersRating: averageRating },
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    async updateAverageReviewsRating(workId: string) {
+        try {
+            const reviews = await this.prismaService.review.findMany({
+                where: { workId },
+                select: { ownerRating: true },
+            });
+
+            const totalReviewRating = reviews.reduce(
+                (sum, review) => sum + (review.ownerRating || 0),
+                0,
+            );
+            const averageReviewRating = reviews.length
+                ? totalReviewRating / reviews.length
+                : 0;
+
+            await this.prismaService.work.update({
+                where: { id: workId },
+                data: { averageReviewsRating: averageReviewRating },
+            });
+        } catch (e) {
+            console.log(e);
+        }
     }
 }

@@ -68,8 +68,10 @@ export class ReviewService {
         }
     }
 
-    async findById(reviewId: string, expand: string, user: JwtPayload) {
+    async findById(reviewId: string, user: JwtPayload) {
         try {
+            await this.updateUserLikesByReview(reviewId);
+
             const foundedReview = await this.prismaService.review.findFirst({
                 where: {
                     id: reviewId,
@@ -87,7 +89,7 @@ export class ReviewService {
                             },
                         },
                     },
-                    owner: expand === 'user',
+                    owner: true,
                 },
             });
 
@@ -139,8 +141,8 @@ export class ReviewService {
         const _limit = Number(limit);
         const _page = Number(page);
         const _skip = (_page - 1) * _limit;
-        const _sort = sort;
-        const _order = order;
+        const _sort = sort ?? 'createdAt';
+        const _order = order ?? 'asc';
         const _search = search;
         const _type = type === ReviewTypeEnum.ALL ? undefined : type;
 
@@ -174,6 +176,35 @@ export class ReviewService {
             return foundedReviews;
         } catch (error) {
             console.log(error);
+        }
+    }
+
+    private async updateUserLikesByReview(reviewId: string) {
+        try {
+            const review = await this.prismaService.review.findUnique({
+                where: { id: reviewId },
+                select: { ownerId: true },
+            });
+
+            if (review) {
+                const ownerId = review.ownerId;
+
+                const likesCount = await this.prismaService.like.count({
+                    where: {
+                        reviewId: reviewId,
+                        review: {
+                            ownerId: ownerId,
+                        },
+                    },
+                });
+
+                await this.prismaService.user.update({
+                    where: { id: ownerId },
+                    data: { likesCounter: likesCount },
+                });
+            }
+        } catch (e) {
+            console.log(e);
         }
     }
 }
