@@ -11,5 +11,5 @@ const defaultUserSettings: UserSettingsI = {
 };
 
 export const [useUserSettings, getUserSettings] = buildSelector(
-    (state) => state.user.userData?.userSettings || defaultUserSettings,
+    (state) => state.user.userData?.settings || defaultUserSettings,
 );

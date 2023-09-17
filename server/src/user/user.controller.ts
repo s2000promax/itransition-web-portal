@@ -100,6 +100,7 @@ export class UserController {
         @Body() body: Settings,
         @Res() res: Response,
     ) {
+        console.log(body);
         try {
             await this.userService.updateUserSettings(userId, body);
 

@@ -4,7 +4,7 @@ import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { authActions, AuthSchemaI } from '@/entities/Auth';
 import { PersistenceService } from '@/shared/services/persistence.service';
 import { LocalStorageEnums } from '@/shared/enums/localStorage.enums';
-import { initUserData } from '@/entities/User/model/services/user.service';
+import { initUserDataService } from '@/entities/User/model/services/initUserData.service';
 
 type LoginByEmailProps = Pick<UserI, 'email' | 'password'>;
 
@@ -32,7 +32,7 @@ export const loginByEmail = createAsyncThunk<
 
         dispatch(authActions.setAuthData(response.data));
 
-        dispatch(initUserData());
+        dispatch(initUserDataService());
 
         return response.data;
     } catch (e) {

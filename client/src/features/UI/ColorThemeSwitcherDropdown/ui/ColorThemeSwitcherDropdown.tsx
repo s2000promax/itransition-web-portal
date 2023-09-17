@@ -7,6 +7,9 @@ import { colorThemeChangeService } from '@/entities/UI/UI';
 import { ThemeEnums } from '@/shared/enums/theme.enums';
 import { ColorThemeInfoCard } from '@/features/UI/ColorThemeInfoCard';
 import { ThemeContext } from '@/shared/libs/context/ThemeContext';
+import { useInitialEffect } from '@/shared/libs/hooks/useInitialEffect/useInitialEffect';
+import { PersistenceService } from '@/shared/services/persistence.service';
+import { LocalStorageEnums } from '@/shared/enums/localStorage.enums';
 
 interface ColorThemeSwitcherDropdownProps {
     className?: string;
@@ -18,6 +21,13 @@ export const ColorThemeSwitcherDropdown = memo(
         const { t } = useTranslation('theme');
         const dispatch = useAppDispatch();
         const { theme, setTheme } = useContext(ThemeContext);
+
+        useInitialEffect(() => {
+            const localTheme = PersistenceService.get(LocalStorageEnums.THEME);
+            if (localTheme) {
+                dispatch(colorThemeChangeService(localTheme));
+            }
+        });
 
         const onColorThemeChange = useCallback(
             (newTheme: ThemeEnums) => {

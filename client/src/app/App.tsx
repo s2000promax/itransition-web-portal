@@ -9,18 +9,22 @@ import { useAppToolbar } from '@/shared/libs/hooks/useAppToolbar/useAppToolbar';
 import { MainLayout } from '@/shared/layouts/MainLayout';
 import { Navbar } from '@/widgets/Navbar';
 import { Sidebar } from '@/widgets/Sidebar';
-import { getUserInitedSelector, initUserData } from '@/entities/User';
+import {
+    getUserInitedSelector,
+    getUserSettings,
+    initUserDataService,
+} from '@/entities/User';
 import { AppLoaderLayout } from '@/shared/layouts/AppLoaderLayout';
 import { useDebounce } from '@/shared/libs/hooks/useDebounce/useDebounce';
 
 const App = memo(() => {
-    const { theme } = useTheme();
     const dispatch = useAppDispatch();
     const inited = useSelector(getUserInitedSelector);
+    const { theme } = useSelector(getUserSettings);
     const toolbar = useAppToolbar();
 
     const handleInited = useCallback(() => {
-        dispatch(initUserData());
+        dispatch(initUserDataService());
     }, [dispatch]);
 
     const debouncedInited = useDebounce(handleInited, 300);

@@ -22,6 +22,10 @@ import {
 } from '@/features/ReviewListPage';
 import { Greeting } from '@/features/UI/Greeting';
 import { useDebounce } from '@/shared/libs/hooks/useDebounce/useDebounce';
+import { useSelector } from 'react-redux';
+import { getUserSettings } from '@/entities/User';
+import { PersistenceService } from '@/shared/services/persistence.service';
+import { LocalStorageEnums } from '@/shared/enums/localStorage.enums';
 
 export interface ReviewListPageProps {
     className?: string;
@@ -35,6 +39,10 @@ const ReviewListPage = (props: ReviewListPageProps) => {
     const { className } = props;
     const dispatch = useAppDispatch();
     const [searchParams] = useSearchParams();
+    const { isReviewsPageWasOpened } = useSelector(getUserSettings);
+    const localIsReviewsPageWasOpened = PersistenceService.get(
+        LocalStorageEnums.IS_REVIEW_PAGE_WAS_OPEN,
+    );
 
     const handleInitReviewListPageService = useCallback(() => {
         dispatch(initReviewListPageService(searchParams));
@@ -65,7 +73,8 @@ const ReviewListPage = (props: ReviewListPageProps) => {
                     className={classNames('', {}, [className])}
                 >
                     <ReviewInfiniteList className={className} />
-                    <Greeting />
+                    {!isReviewsPageWasOpened &&
+                        !localIsReviewsPageWasOpened && <Greeting />}
                 </Page>
             }
         />

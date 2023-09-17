@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { UserSchemaI, UserI, UserSettingsI } from '../types/user.interface';
-import { initUserData, saveUserSettings } from '../services/user.service';
+import { UserSchemaI, UserSettingsI } from '../types/user.interface';
+import { initUserDataService } from '../services/initUserData.service';
 
 const initialState: UserSchemaI = {
-    userData: null,
+    userData: undefined,
     _inited: false,
     isLoading: false,
     error: undefined,
@@ -14,36 +14,36 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         removeUserData: (state) => {
-            state.userData = null;
+            state.userData = undefined;
         },
         updateExtendUserData: (state, action: PayloadAction<string>) => {
             state.extendData = action.payload;
         },
+        updateUserSettings: (state, action: PayloadAction<UserSettingsI>) => {
+            if (state.userData) {
+                state.userData.settings = {
+                    ...state.userData.settings,
+                    ...action.payload,
+                };
+            }
+        },
     },
     extraReducers: (builder) => {
         builder
-            .addCase(initUserData.pending, (state) => {
+            .addCase(initUserDataService.pending, (state) => {
                 state.isLoading = true;
                 state.error = undefined;
             })
-            .addCase(initUserData.fulfilled, (state, action) => {
+            .addCase(initUserDataService.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.userData = action.payload;
                 state._inited = true;
             })
-            .addCase(initUserData.rejected, (state, action) => {
+            .addCase(initUserDataService.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
                 state._inited = true;
-            })
-            .addCase(
-                saveUserSettings.fulfilled,
-                (state, { payload }: PayloadAction<UserSettingsI>) => {
-                    if (state.userData) {
-                        state.userData.userSettings = payload;
-                    }
-                },
-            );
+            });
     },
 });
 

@@ -30,7 +30,6 @@ const ThemeProvider = (props: ThemeProviderProps) => {
 
     useEffect(() => {
         document.body.className = theme;
-        PersistenceService.set(LocalStorageEnums.THEME, theme);
     }, [theme]);
 
     const defaultProps = useMemo(

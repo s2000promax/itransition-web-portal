@@ -3,10 +3,10 @@ import { ThemeEnums } from '@/shared/enums/theme.enums';
 import { LanguageEnums } from '@/shared/enums/language.enums';
 
 export interface UserSettingsI {
-    theme: ThemeEnums;
-    language: LanguageEnums;
-    isFirstVisit: boolean;
-    isReviewsPageWasOpened: boolean;
+    theme?: ThemeEnums;
+    language?: LanguageEnums;
+    isFirstVisit?: boolean;
+    isReviewsPageWasOpened?: boolean;
 }
 
 export interface UserI {
@@ -21,11 +21,10 @@ export interface UserI {
     likesCounter: number;
     roles: UserRolesEnums[];
     settings: UserSettingsI;
-    userSettings: UserSettingsI;
 }
 
 export interface UserSchemaI {
-    userData: UserI | null;
+    userData?: UserI;
     _inited: boolean;
     extendData?: string;
     isLoading: boolean;

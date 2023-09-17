@@ -5,7 +5,9 @@ import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatc
 import { LanguageInfoCard } from '@/features/UI/LanguageInfoCard';
 import { languageChangeService } from '@/entities/UI/UI';
 import { LanguageEnums } from '@/shared/enums/language.enums';
-import { useTranslation } from 'react-i18next';
+import { useInitialEffect } from '@/shared/libs/hooks/useInitialEffect/useInitialEffect';
+import { PersistenceService } from '@/shared/services/persistence.service';
+import { LocalStorageEnums } from '@/shared/enums/localStorage.enums';
 
 interface LanguageDropdownProps {
     className?: string;
@@ -14,6 +16,15 @@ interface LanguageDropdownProps {
 export const LanguageDropdown = memo((props: LanguageDropdownProps) => {
     const { className } = props;
     const dispatch = useAppDispatch();
+
+    useInitialEffect(() => {
+        const localLanguage = PersistenceService.get(
+            LocalStorageEnums.LANGUAGE,
+        );
+        if (localLanguage) {
+            dispatch(languageChangeService(localLanguage));
+        }
+    });
 
     const items = [
         {

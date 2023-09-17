@@ -20,6 +20,7 @@ export { getUserExtendDataSelector } from './model/selectors/getUserExtendData/g
 
 export { userReducer, userActions } from './model/slice/user.slice';
 
-export { initUserData, saveUserSettings } from './model/services/user.service';
+export { initUserDataService } from './model/services/initUserData.service';
+export { saveUserSettingsService } from './model/services/saveUserSettings.service';
 
 export { UserRolesEnums } from './model/enums/userRoles.enums';
