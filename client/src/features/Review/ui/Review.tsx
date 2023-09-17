@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { memo } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import cls from './Review.module.scss';
 import { useSelector } from 'react-redux';
@@ -13,12 +13,14 @@ import {
     getReviewErrorSelector,
     getReviewIsLoadingSelector,
     reviewReducer,
+    updateReviewViewCounterService,
 } from '@/entities/Review';
 import { ContentSkeleton } from './ContentSkeleton/ContentSkeleton';
 import { Content } from './Content/Content';
 import { VStack } from '@/shared/UI-kit/Stack';
 import { Text } from '@/shared/UI-kit/Text';
 import { useInitialEffect } from '@/shared/libs/hooks/useInitialEffect/useInitialEffect';
+import { useDebounce } from '@/shared/libs/hooks/useDebounce/useDebounce';
 
 interface ReviewProps {
     className?: string;
@@ -36,8 +38,16 @@ export const Review = memo((props: ReviewProps) => {
     const isLoading = useSelector(getReviewIsLoadingSelector);
     const error = useSelector(getReviewErrorSelector);
 
+    const handleInit = useCallback(() => {
+        if (id) {
+            dispatch(fetchReviewByIdService(id));
+            dispatch(updateReviewViewCounterService({ reviewId: id }));
+        }
+    }, [dispatch, id]);
+    const debouncedInit = useDebounce(handleInit, 300);
+
     useInitialEffect(() => {
-        dispatch(fetchReviewByIdService(id));
+        debouncedInit();
     });
 
     let content;

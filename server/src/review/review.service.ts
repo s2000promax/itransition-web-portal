@@ -1,15 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import {
-    BlockTypeEnum,
-    Review,
-    ReviewTypeEnum,
-    ReviewBlock,
-    RolesEnum,
-    User,
-} from '@prisma/client';
+import { BlockTypeEnum, ReviewTypeEnum } from '@prisma/client';
 import { ReviewDto } from './dto';
-import { ReviewResponse } from './transformers';
 import { JwtPayload } from '../config/types/auth/jwtPayload';
 
 @Injectable()
@@ -68,7 +60,7 @@ export class ReviewService {
         }
     }
 
-    async findById(reviewId: string, user: JwtPayload) {
+    async findById(reviewId: string) {
         try {
             await this.updateUserLikesByReview(reviewId);
 
@@ -92,37 +84,6 @@ export class ReviewService {
                     owner: true,
                 },
             });
-
-            if (user && user.id !== foundedReview.ownerId) {
-                try {
-                    const uniqueView =
-                        await this.prismaService.uniqueViews.findUnique({
-                            where: {
-                                userId_reviewId: {
-                                    userId: user.id,
-                                    reviewId: reviewId,
-                                },
-                            },
-                        });
-
-                    if (!uniqueView) {
-                        await this.prismaService.$transaction([
-                            this.prismaService.uniqueViews.create({
-                                data: {
-                                    userId: user.id,
-                                    reviewId: reviewId,
-                                },
-                            }),
-                            this.prismaService.review.update({
-                                where: { id: reviewId },
-                                data: { viewCounter: { increment: 1 } },
-                            }),
-                        ]);
-                    }
-                } catch (e) {
-                    console.error(e);
-                }
-            }
 
             return foundedReview;
         } catch (e) {
@@ -176,6 +137,48 @@ export class ReviewService {
             return foundedReviews;
         } catch (error) {
             console.log(error);
+        }
+    }
+
+    async updateViewCounter(reviewId: string, user: JwtPayload) {
+        try {
+            const foundedReview = await this.prismaService.review.findFirst({
+                where: {
+                    id: reviewId,
+                },
+                include: {
+                    owner: true,
+                },
+            });
+
+            if (user && user.id !== foundedReview.owner.id) {
+                const uniqueView =
+                    await this.prismaService.uniqueViews.findUnique({
+                        where: {
+                            userId_reviewId: {
+                                userId: user.id,
+                                reviewId: reviewId,
+                            },
+                        },
+                    });
+
+                if (!uniqueView) {
+                    await this.prismaService.$transaction([
+                        this.prismaService.uniqueViews.create({
+                            data: {
+                                userId: user.id,
+                                reviewId: reviewId,
+                            },
+                        }),
+                        this.prismaService.review.update({
+                            where: { id: reviewId },
+                            data: { viewCounter: { increment: 1 } },
+                        }),
+                    ]);
+                }
+            }
+        } catch (e) {
+            console.log(e);
         }
     }
 

@@ -1,22 +1,26 @@
 import {
+    BadRequestException,
     Body,
     ClassSerializerInterceptor,
     Controller,
     Get,
+    HttpStatus,
     Param,
     Post,
     Put,
     Query,
+    Res,
     UseInterceptors,
 } from '@nestjs/common';
 import { ReviewService } from './review.service';
 import { ApiBody } from '@nestjs/swagger';
-import { ReviewDto } from './dto';
+import { ReviewDto, ViewCounterDto } from './dto';
 import { ReviewTypeEnum } from '@prisma/client';
 import { ReviewResponse } from './transformers';
 
 import { CurrentUser, Public } from '../libs/decorators';
 import { JwtPayload } from '../config/types/auth/jwtPayload';
+import { Response } from 'express';
 
 @Controller('review')
 export class ReviewController {
@@ -67,14 +71,26 @@ export class ReviewController {
     @Public()
     @UseInterceptors(ClassSerializerInterceptor)
     @Get(':id')
-    async findOneReview(
-        @Param('id') id: string,
-        @CurrentUser() user: JwtPayload,
-    ) {
-        const review = await this.reviewService.findById(id, user);
+    async findOneReview(@Param('id') reviewId: string) {
+        const review = await this.reviewService.findById(reviewId);
 
         const reviewResponse = new ReviewResponse(review, review.owner);
 
         return reviewResponse;
+    }
+
+    @ApiBody({ type: ViewCounterDto })
+    @Post('counter')
+    async updateViewCounter(
+        @Body() body: ViewCounterDto,
+        @CurrentUser() user: JwtPayload,
+        @Res() res: Response,
+    ) {
+        try {
+            await this.reviewService.updateViewCounter(body.reviewId, user);
+            res.status(HttpStatus.OK).send();
+        } catch (e) {
+            throw new BadRequestException('Failed to update view counter');
+        }
     }
 }

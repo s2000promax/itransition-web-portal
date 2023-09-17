@@ -1,14 +1,10 @@
 import {
     BadRequestException,
     Body,
-    ClassSerializerInterceptor,
     Controller,
-    Get,
     HttpStatus,
     Post,
-    Query,
     Res,
-    UseInterceptors,
 } from '@nestjs/common';
 import { RateService } from './rate.service';
 import { LikeDto, RateDto } from './dto';

@@ -63,12 +63,6 @@ const reviewSlice = createSlice({
                 sortId: state.form!.blocks?.length ?? 0,
             };
             state.form!.blocks?.push(newBlock);
-            /*
-            state.form!.blocks
-                ? state.form!.blocks.push(newBlock)
-                : (state.form!.blocks = [newBlock]);
-
-             */
         },
         removeReviewBlock: (state, action: PayloadAction<{ id: number }>) => {
             if (state.form?.blocks?.length) {
