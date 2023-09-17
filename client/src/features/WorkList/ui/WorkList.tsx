@@ -4,14 +4,14 @@ import { classNames } from '@/shared/libs/classNames/classNames';
 import cls from './WorkList.module.scss';
 import { Text } from '@/shared/UI-kit/Text';
 import { HStack } from '@/shared/UI-kit/Stack';
-import { ListItemSkeleton } from './ListItemSkeleton/ListItemSkeleton';
-import { ListItem } from './ListItem/ListItem';
+import { WorkListItemSkeleton } from '@/features/WorkList/ui/WorkListItemSkeleton/WorkListItemSkeleton';
+import { WorkListItem } from '@/features/WorkList/ui/WorkListItem/WorkListItem';
 import { WorkI } from '@/entities/Work';
 import { ViewEnums } from '@/entities/UI/UI';
 
 interface WorkListProps {
     className?: string;
-    workList?: WorkI[];
+    workList: WorkI[];
     isLoading?: boolean;
     target?: HTMLAttributeAnchorTarget;
     view?: ViewEnums;
@@ -19,7 +19,7 @@ interface WorkListProps {
 
 const getSkeletons = (view: ViewEnums) =>
     new Array(view === ViewEnums.SMALL ? 9 : 3).fill(0).map((_, index) => (
-        <ListItemSkeleton
+        <WorkListItemSkeleton
             className={cls.card}
             key={index}
             view={view}
@@ -36,11 +36,9 @@ export const WorkList = memo((props: WorkListProps) => {
     } = props;
     const { t } = useTranslation('workList');
 
-    if (!isLoading && !workList?.length) {
+    if (!isLoading && !workList.length) {
         return (
-            <div
-                className={classNames(cls.WorkList, {}, [className, cls[view]])}
-            >
+            <div>
                 <Text
                     size="l"
                     text={t('work_no_found')}
@@ -53,19 +51,18 @@ export const WorkList = memo((props: WorkListProps) => {
         <HStack
             wrap="wrap"
             gap="16"
-            className={classNames(cls.WorkList, {}, [])}
+            className={classNames('', {}, [className, cls[view]])}
             data-testid="WorkList"
         >
-            {workList &&
-                workList.map((item) => (
-                    <ListItem
-                        work={item}
-                        view={view}
-                        target={target}
-                        key={item.id}
-                        className={cls.card}
-                    />
-                ))}
+            {workList.map((item) => (
+                <WorkListItem
+                    work={item}
+                    view={view}
+                    target={target}
+                    key={item.id}
+                    className={cls.card}
+                />
+            ))}
             {isLoading && getSkeletons(view)}
         </HStack>
     );

@@ -40,22 +40,20 @@ export class ReviewController {
     @UseInterceptors(ClassSerializerInterceptor)
     @Get('reviewList')
     async getReviewList(
-        @Query('_expand') expand: string,
         @Query('_limit') limit: string,
         @Query('_page') page: string,
-        @Query('_sort') order: string,
+        @Query('_sort') sort: string,
+        @Query('_order') order: string,
         @Query('q') search: string,
         @Query('type') type: ReviewTypeEnum,
     ) {
-        console.log('ReviewList', type);
         const foundedReviewList = await this.reviewService.findReviewList(
-            expand,
             limit,
             page,
+            sort,
             order,
             search,
             type,
-            'asc',
         );
 
         const reviewListResponse = foundedReviewList.map(

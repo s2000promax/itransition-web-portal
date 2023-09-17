@@ -129,13 +129,12 @@ export class ReviewService {
     }
 
     async findReviewList(
-        expand: string,
         limit: string,
         page: string,
+        sort: string,
         order: string,
         search: string,
         type: ReviewTypeEnum,
-        sort: string,
     ) {
         const _limit = Number(limit);
         const _page = Number(page);
@@ -153,7 +152,7 @@ export class ReviewService {
                     type: _type,
                 },
                 include: {
-                    owner: expand === 'user',
+                    owner: true,
                     blocks: {
                         orderBy: {
                             sortId: 'asc',
@@ -166,6 +165,9 @@ export class ReviewService {
                             },
                         },
                     },
+                },
+                orderBy: {
+                    [_sort]: _order === 'asc' ? 'asc' : 'desc',
                 },
             });
 

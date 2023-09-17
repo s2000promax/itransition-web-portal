@@ -5,8 +5,9 @@ import { Text } from '@/shared/UI-kit/Text';
 import { AppImage } from '@/shared/UI-kit/AppImage';
 import { Skeleton } from '@/shared/UI-kit/Skeleton';
 import { getWorkDataSelector } from '@/entities/Work';
-import { HStack } from '@/shared/UI-kit/Stack';
+import { HStack, VStack } from '@/shared/UI-kit/Stack';
 import { DateFormatter } from '@/shared/libs/dateFormetter/dateFormatter';
+import { useTranslation } from 'react-i18next';
 
 interface ContentProps {
     id?: string;
@@ -14,9 +15,13 @@ interface ContentProps {
 
 export const Content = memo((props: ContentProps) => {
     const work = useSelector(getWorkDataSelector);
+    const { t } = useTranslation('work');
 
     return (
-        <>
+        <VStack
+            gap="8"
+            max
+        >
             <Text
                 title={work?.title}
                 size="l"
@@ -42,10 +47,27 @@ export const Content = memo((props: ContentProps) => {
                 alt={work?.title}
                 className={cls.img}
             />
-            <Text
-                title={work?.description}
-                size="s"
-            />
-        </>
+            <VStack
+                gap="32"
+                max
+            >
+                <Text
+                    title={work?.description}
+                    size="s"
+                />
+                <VStack gap="8">
+                    <Text
+                        text={`${t(
+                            'averageReviewsRating',
+                        )}: ${work?.averageReviewsRating}`}
+                    />
+                    <Text
+                        text={`${t(
+                            'averageUsersRating',
+                        )}: ${work?.averageUsersRating}`}
+                    />
+                </VStack>
+            </VStack>
+        </VStack>
     );
 });

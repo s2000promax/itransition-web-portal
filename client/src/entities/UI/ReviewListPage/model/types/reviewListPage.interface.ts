@@ -1,6 +1,7 @@
 import { EntityState } from '@reduxjs/toolkit';
 import { ReviewI } from '@/entities/Review';
 import { UIEntityViewI } from '@/entities/UI/UI';
+import { ReviewSortFieldEnums } from '@/entities/UI/ReviewListPage';
 
 export interface ReviewListPageSchemaI
     extends UIEntityViewI,
@@ -8,17 +9,7 @@ export interface ReviewListPageSchemaI
     isLoading?: boolean;
     error?: string;
 
-    /*
-    page: number;
-    limit: number;
-    hasMore: boolean;
-
-    view: ViewEnums;
-    order: SortOrderT;
-    sort: SortFieldEnums;
-    search: string;
-    type: WorkTypeEnums;
-     */
+    sort: ReviewSortFieldEnums;
 
     _inited: boolean;
 }

@@ -5,7 +5,7 @@ import { WorkTypeEnums } from '@/entities/Work';
 import { getReviewListPageInitedSelector } from '../../selectors/getReviewListPageInited/getReviewListPageInited.selector';
 import { reviewListPageActions } from '../../slices/reviewListPage.slice';
 import { fetchReviewListService } from '../../services/fetchReviewList/fetchReviewListService';
-import { SortFieldEnums } from '@/entities/UI/UI';
+import { ReviewSortFieldEnums } from '../../enums/ReviewSortField.enums';
 
 export const initReviewListPageService = createAsyncThunk<
     void,
@@ -17,7 +17,7 @@ export const initReviewListPageService = createAsyncThunk<
 
     if (!inited) {
         const orderFromUrl = searchParams.get('order') as SortOrderT;
-        const sortFromUrl = searchParams.get('sort') as SortFieldEnums;
+        const sortFromUrl = searchParams.get('sort') as ReviewSortFieldEnums;
         const searchFromUrl = searchParams.get('search');
         const typeFromUrl = searchParams.get('type') as WorkTypeEnums;
 

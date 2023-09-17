@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { useReviewFilters } from '../../libs/hooks/useReviewFilters';
-import { Filters } from '@/features/UI/Filters';
+import { ReviewFilters } from './ReviewFilters/ReviewFilters';
 
 interface FiltersContainerProps {
     className?: string;
@@ -20,7 +20,7 @@ export const FiltersContainer = memo((props: FiltersContainerProps) => {
     } = useReviewFilters();
 
     return (
-        <Filters
+        <ReviewFilters
             type={type}
             onChangeSearch={onChangeSearch}
             order={order}

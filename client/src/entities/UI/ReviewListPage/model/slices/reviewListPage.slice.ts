@@ -6,12 +6,13 @@ import {
 import { StateSchemaI } from '@/app/providers/StoreProvider';
 import { WorkTypeEnums } from '@/entities/Work';
 import { ReviewI } from '@/entities/Review';
-import { SortFieldEnums, ViewEnums } from '@/entities/UI/UI';
+import { ViewEnums } from '@/entities/UI/UI';
 import { SortOrderT } from '@/shared/types/sort.type';
 import { LocalStorageEnums } from '@/shared/enums/localStorage.enums';
 import { ReviewListPageSchemaI } from '../types/reviewListPage.interface';
 import { fetchReviewListService } from '../services/fetchReviewList/fetchReviewListService';
 import { PersistenceService } from '@/shared/services/persistence.service';
+import { ReviewSortFieldEnums } from '../enums/ReviewSortField.enums';
 
 const reviewListAdapter = createEntityAdapter<ReviewI>({
     selectId: (review) => review.id,
@@ -33,7 +34,7 @@ const reviewListPageSlice = createSlice({
         hasMore: true,
         _inited: false,
         limit: 9,
-        sort: SortFieldEnums.CREATED,
+        sort: ReviewSortFieldEnums.CREATED_AT,
         search: '',
         order: 'asc',
         type: WorkTypeEnums.ALL,
@@ -52,7 +53,7 @@ const reviewListPageSlice = createSlice({
         setOrder: (state, action: PayloadAction<SortOrderT>) => {
             state.order = action.payload;
         },
-        setSort: (state, action: PayloadAction<SortFieldEnums>) => {
+        setSort: (state, action: PayloadAction<ReviewSortFieldEnums>) => {
             state.sort = action.payload;
         },
         setType: (state, action: PayloadAction<WorkTypeEnums>) => {

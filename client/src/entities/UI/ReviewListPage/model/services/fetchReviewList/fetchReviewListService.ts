@@ -42,7 +42,7 @@ export const fetchReviewListService = createAsyncThunk<
                 _sort: sort,
                 _order: order,
                 q: search,
-                type: type === WorkTypeEnums.ALL ? undefined : type,
+                type: type,
             },
         });
 

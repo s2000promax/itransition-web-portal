@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { memo, useEffect } from 'react';
+import { memo } from 'react';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import cls from './Review.module.scss';
 import { useSelector } from 'react-redux';
@@ -18,6 +18,7 @@ import { ContentSkeleton } from './ContentSkeleton/ContentSkeleton';
 import { Content } from './Content/Content';
 import { VStack } from '@/shared/UI-kit/Stack';
 import { Text } from '@/shared/UI-kit/Text';
+import { useInitialEffect } from '@/shared/libs/hooks/useInitialEffect/useInitialEffect';
 
 interface ReviewProps {
     className?: string;
@@ -35,11 +36,9 @@ export const Review = memo((props: ReviewProps) => {
     const isLoading = useSelector(getReviewIsLoadingSelector);
     const error = useSelector(getReviewErrorSelector);
 
-    useEffect(() => {
-        if (__PROJECT__ !== 'storybook' && __PROJECT__ !== 'jest') {
-            dispatch(fetchReviewByIdService(id));
-        }
-    }, [dispatch, id]);
+    useInitialEffect(() => {
+        dispatch(fetchReviewByIdService(id));
+    });
 
     let content;
 

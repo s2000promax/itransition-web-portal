@@ -20,6 +20,8 @@ import {
 import { ReviewRating } from '@/features/ReviewRating';
 import { RecommendationsList } from '@/features/RecommendationsList';
 import { workReducer } from '@/entities/Work';
+import { useSelector } from 'react-redux';
+import { getUserDataSelector } from '@/entities/User';
 
 export interface ReviewDetailsPageProps {
     className?: string;
@@ -33,6 +35,7 @@ const reducers: ReducersList = {
 const ReviewDetailsPage = (props: ReviewDetailsPageProps) => {
     const { className } = props;
     const { id } = useParams<{ id: string }>();
+    const isAuth = useSelector(getUserDataSelector);
 
     if (!id) {
         return null;
@@ -55,7 +58,7 @@ const ReviewDetailsPage = (props: ReviewDetailsPageProps) => {
                             max
                         >
                             <ReviewDetailsContainer />
-                            <ReviewRating reviewId={id} />
+                            {isAuth && <ReviewRating reviewId={id} />}
                             <RecommendationsList />
                             <CommentsContainer id={id} />
                         </VStack>

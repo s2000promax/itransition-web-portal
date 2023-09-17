@@ -1,7 +1,8 @@
 import { classNames } from '@/shared/libs/classNames/classNames';
-import { VStack } from '@/shared/UI-kit/Stack';
+import cls from './WorkDetailsPage.module.scss';
 import { Page } from '@/widgets/Page';
 import { WorkDetailsContainer } from '@/features/WorkDetailsPage';
+import { memo } from 'react';
 
 export interface WorkDetailsPageProps {
     className?: string;
@@ -11,16 +12,11 @@ const WorkDetailsPage = ({ className }: WorkDetailsPageProps) => {
     return (
         <Page
             data-testid="WorkDetailsPage"
-            className={classNames('', {}, [className])}
+            className={classNames(cls.WorkDetailsPage, {}, [className])}
         >
-            <VStack
-                gap="16"
-                max
-            >
-                <WorkDetailsContainer />
-            </VStack>
+            <WorkDetailsContainer />
         </Page>
     );
 };
 
-export default WorkDetailsPage;
+export default memo(WorkDetailsPage);

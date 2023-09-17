@@ -9,7 +9,7 @@ import {
     getRouteAbout,
     getRouteMain,
     getRouteProfile,
-    getRouteReviews,
+    getRouteReviewList,
     getRouteWorkList,
 } from '@/shared/routes/routes.patterns';
 import { useSelector } from 'react-redux';

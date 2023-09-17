@@ -25,7 +25,7 @@ import {
     workActions,
     workReducer,
 } from '@/entities/Work';
-import { fetchWorkDataService } from '@/entities/Work/model/services/fetchWorkData/fetchWorkData.service';
+import { fetchWorkByIdService } from '@/entities/Work/model/services/fetchWorkData/fetchWorkById.service';
 
 interface EditableWorkCardProps {
     className?: string;
@@ -55,7 +55,7 @@ export const EditableWorkCard = memo((props: EditableWorkCardProps) => {
 
     useInitialEffect(() => {
         if (id) {
-            dispatch(fetchWorkDataService(id));
+            dispatch(fetchWorkByIdService(id));
         }
     });
 

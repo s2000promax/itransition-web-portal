@@ -1,5 +1,5 @@
 import { StateSchemaI } from '@/app/providers/StoreProvider';
-import { SortFieldEnums } from '@/entities/UI/UI';
+import { ReviewSortFieldEnums } from '@/entities/UI/ReviewListPage';
 
 export const getReviewListPageSortSelector = (state: StateSchemaI) =>
-    state.reviewListPage?.sort ?? SortFieldEnums.CREATED;
+    state.reviewListPage?.sort ?? ReviewSortFieldEnums.CREATED_AT;

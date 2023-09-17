@@ -69,13 +69,12 @@ export class WorkService {
     }
 
     async findWorkList(
-        expand: string,
         limit: string,
         page: string,
+        sort: string,
         order: string,
         search: string,
         type: ReviewTypeEnum,
-        sort: string,
     ) {
         const _limit = Number(limit);
         const _page = Number(page);
@@ -87,8 +86,13 @@ export class WorkService {
 
         try {
             const foundedWorkList = await this.prismaService.work.findMany({
+                skip: _skip,
+                take: _limit,
                 where: {
                     type: _type,
+                },
+                orderBy: {
+                    [_sort]: _order === 'asc' ? 'asc' : 'desc',
                 },
             });
 

@@ -16,7 +16,6 @@ export interface UIEntityViewI {
     // filters
     view: ViewEnums;
     order: SortOrderT;
-    sort: SortFieldEnums;
     search: string;
     type: WorkTypeEnums;
 }

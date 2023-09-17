@@ -1,8 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { WorkI, WorkSchemaI } from '../types/work.interface';
-import { fetchWorkListDataService } from '@/entities/Work/model/services/fetchWorkListData/fetchWorkListData.service';
 import { updateWorkDataService } from '../services/updateWorkData/updateWorkData.service';
-import { fetchWorkDataService } from '@/entities/Work/model/services/fetchWorkData/fetchWorkData.service';
+import { fetchWorkByIdService } from '../services/fetchWorkData/fetchWorkById.service';
 
 const initialState: WorkSchemaI = {
     readonly: true,
@@ -34,18 +33,18 @@ const workSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchWorkDataService.pending, (state) => {
+            .addCase(fetchWorkByIdService.pending, (state) => {
                 state.error = undefined;
                 state.isLoading = true;
             })
             .addCase(
-                fetchWorkDataService.fulfilled,
+                fetchWorkByIdService.fulfilled,
                 (state, action: PayloadAction<WorkI>) => {
                     state.isLoading = false;
                     state.data = action.payload;
                 },
             )
-            .addCase(fetchWorkDataService.rejected, (state, action) => {
+            .addCase(fetchWorkByIdService.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
             })
@@ -66,22 +65,6 @@ const workSlice = createSlice({
             .addCase(updateWorkDataService.rejected, (state, action) => {
                 state.isLoading = false;
                 state.validateErrors = action.payload;
-            })
-
-            .addCase(fetchWorkListDataService.pending, (state) => {
-                state.error = undefined;
-                state.isLoading = true;
-            })
-            .addCase(
-                fetchWorkListDataService.fulfilled,
-                (state, action: PayloadAction<WorkI[]>) => {
-                    state.isLoading = false;
-                    state.entities = action.payload;
-                },
-            )
-            .addCase(fetchWorkListDataService.rejected, (state, action) => {
-                state.isLoading = false;
-                state.error = action.payload;
             });
     },
 });

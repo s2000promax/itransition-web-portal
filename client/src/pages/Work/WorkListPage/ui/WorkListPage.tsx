@@ -1,14 +1,8 @@
+import { memo, useCallback } from 'react';
 import { classNames } from '@/shared/libs/classNames/classNames';
-import { VStack } from '@/shared/UI-kit/Stack';
 import { Page } from '@/widgets/Page';
-import { WorkList } from '@/features/WorkList';
 import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
 import { useInitialEffect } from '@/shared/libs/hooks/useInitialEffect/useInitialEffect';
-import {
-    fetchWorkListDataService,
-    getWorkListDataSelector,
-    workReducer,
-} from '@/entities/Work';
 import {
     DynamicModuleLoader,
     ReducersList,
@@ -17,25 +11,30 @@ import { StickyContentLayout } from '@/shared/layouts/StickyContentLayout';
 import {
     FiltersContainer,
     ViewSelectorContainer,
-} from '@/features/ReviewListPage';
-import { useSelector } from 'react-redux';
-import { useCallback } from 'react';
+    WorkInfiniteListPage,
+} from '@/features/WorkListPage';
 import { useDebounce } from '@/shared/libs/hooks/useDebounce/useDebounce';
+import { useSearchParams } from 'react-router-dom';
+import {
+    fetchNextWorkListPageService,
+    initWorkListPageService,
+    workListPageReducer,
+} from '@/entities/UI/WorkListPage';
 
 export interface WorkListPageProps {
     className?: string;
 }
 
 const reducers: ReducersList = {
-    work: workReducer,
+    workListPage: workListPageReducer,
 };
 
 const WorkListPage = ({ className }: WorkListPageProps) => {
     const dispatch = useAppDispatch();
-    const workList = useSelector(getWorkListDataSelector);
+    const [searchParams] = useSearchParams();
 
     const handleFetchWorkListData = useCallback(() => {
-        dispatch(fetchWorkListDataService());
+        // dispatch(fetchWorkListDataService());
     }, [dispatch]);
 
     const debouncedFetchWorkListData = useDebounce(
@@ -44,8 +43,13 @@ const WorkListPage = ({ className }: WorkListPageProps) => {
     );
 
     useInitialEffect(() => {
-        debouncedFetchWorkListData();
+        // debouncedFetchWorkListData();
+        dispatch(initWorkListPageService(searchParams));
     });
+
+    const onLoadNextPart = useCallback(() => {
+        dispatch(fetchNextWorkListPageService());
+    }, [dispatch]);
 
     const content = (
         <StickyContentLayout
@@ -54,14 +58,10 @@ const WorkListPage = ({ className }: WorkListPageProps) => {
             content={
                 <Page
                     data-testid="WorkListPage"
+                    onScrollEnd={onLoadNextPart}
                     className={classNames('', {}, [className])}
                 >
-                    <VStack
-                        gap="16"
-                        max
-                    >
-                        <WorkList workList={workList} />
-                    </VStack>
+                    <WorkInfiniteListPage className={className} />
                 </Page>
             }
         />
@@ -77,4 +77,4 @@ const WorkListPage = ({ className }: WorkListPageProps) => {
     );
 };
 
-export default WorkListPage;
+export default memo(WorkListPage);

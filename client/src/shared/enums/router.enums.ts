@@ -1,6 +1,5 @@
 export enum AppRoutesEnums {
     MAIN = 'main',
-    SETTINGS = 'settings',
     ABOUT = 'about',
     PROFILE = 'profile',
     WORK_EDIT = 'work_edit',

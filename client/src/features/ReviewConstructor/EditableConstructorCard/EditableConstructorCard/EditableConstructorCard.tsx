@@ -28,7 +28,7 @@ import { fetchProfileData, getProfileData } from '@/entities/Profile';
 import {
     getWorkDataSelector,
     workReducer,
-    fetchWorkDataService,
+    fetchWorkByIdService,
 } from '@/entities/Work';
 
 interface EditableProfileCardProps {
@@ -62,7 +62,7 @@ export const EditableConstructorCard = memo(
 
         useInitialEffect(() => {
             if (workId) {
-                dispatch(fetchWorkDataService(workId));
+                dispatch(fetchWorkByIdService(workId));
             }
 
             if (id) {

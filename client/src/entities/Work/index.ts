@@ -10,8 +10,7 @@ export { getWorkListDataSelector } from './model/selectors/getWorkListData/getWo
 
 export { workActions, workReducer } from './model/slice/work.slice';
 
-export { fetchWorkDataService } from './model/services/fetchWorkData/fetchWorkData.service';
-export { fetchWorkListDataService } from './model/services/fetchWorkListData/fetchWorkListData.service';
+export { fetchWorkByIdService } from './model/services/fetchWorkData/fetchWorkById.service';
 export { updateWorkDataService } from './model/services/updateWorkData/updateWorkData.service';
 export { validateWorkDataService } from './model/services/validateWorkData/validateWorkData.service';
 

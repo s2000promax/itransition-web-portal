@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { getReviewDataSelector } from '@/entities/Review';
 import { getWorkDataSelector } from '@/entities/Work';
 import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
-import { fetchWorkDataService } from '@/entities/Work/model/services/fetchWorkData/fetchWorkData.service';
+import { fetchWorkByIdService } from '@/entities/Work/model/services/fetchWorkData/fetchWorkById.service';
 import { WorkInfoCard } from '@/features/WorkInfoCard';
 
 interface WorkInfoContainerProps {
@@ -18,7 +18,7 @@ export const WorkInfoContainer = memo((props: WorkInfoContainerProps) => {
 
     useEffect(() => {
         if (review) {
-            dispatch(fetchWorkDataService(review.workId));
+            dispatch(fetchWorkByIdService(review.workId));
         }
     }, [dispatch, review]);
 

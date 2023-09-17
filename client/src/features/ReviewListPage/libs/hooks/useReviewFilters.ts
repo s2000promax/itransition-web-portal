@@ -1,19 +1,20 @@
 import { useSelector } from 'react-redux';
 import { useCallback } from 'react';
 import {
+    fetchReviewListService,
     getReviewListPageOrderSelector,
     getReviewListPageSearchSelector,
     getReviewListPageSortSelector,
     getReviewListPageTypeSelector,
     getReviewListPageViewSelector,
     reviewListPageActions,
-    fetchReviewListService,
+    ReviewSortFieldEnums,
 } from '@/entities/UI/ReviewListPage';
 import { SortOrderT } from '@/shared/types/sort.type';
 import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
 import { useDebounce } from '@/shared/libs/hooks/useDebounce/useDebounce';
 import { WorkTypeEnums } from '@/entities/Work';
-import { SortFieldEnums, ViewEnums } from '@/entities/UI/UI';
+import { ViewEnums } from '@/entities/UI/UI';
 
 export function useReviewFilters() {
     const view = useSelector(getReviewListPageViewSelector);
@@ -38,7 +39,7 @@ export function useReviewFilters() {
     );
 
     const onChangeSort = useCallback(
-        (newSort: SortFieldEnums) => {
+        (newSort: ReviewSortFieldEnums) => {
             dispatch(reviewListPageActions.setSort(newSort));
             dispatch(reviewListPageActions.setPage(1));
             fetchData();

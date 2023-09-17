@@ -40,13 +40,7 @@ export type ReviewBlockT =
 
 export type FormDataI = Omit<
     ReviewI,
-    | 'id'
-    | 'createdAt'
-    | 'updatedAt'
-    | 'tags'
-    | 'viewCounter'
-    | 'likesCount'
-    | 'averageRating'
+    'id' | 'createdAt' | 'updatedAt' | 'tags' | 'viewCounter'
 >;
 
 export interface ReviewI {

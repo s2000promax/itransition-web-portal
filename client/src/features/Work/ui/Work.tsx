@@ -18,7 +18,7 @@ import { VStack } from '@/shared/UI-kit/Stack';
 import { Text } from '@/shared/UI-kit/Text';
 
 import { useInitialEffect } from '@/shared/libs/hooks/useInitialEffect/useInitialEffect';
-import { fetchWorkDataService, workReducer } from '@/entities/Work';
+import { fetchWorkByIdService, workReducer } from '@/entities/Work';
 
 interface WorkProps {
     className?: string;
@@ -38,7 +38,7 @@ export const Work = memo((props: WorkProps) => {
 
     useInitialEffect(() => {
         if (id) {
-            dispatch(fetchWorkDataService(id));
+            dispatch(fetchWorkByIdService(id));
         }
     });
 

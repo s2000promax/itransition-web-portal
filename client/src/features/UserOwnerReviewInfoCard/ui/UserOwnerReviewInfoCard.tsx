@@ -13,6 +13,7 @@ import { DateFormatter } from '@/shared/libs/dateFormetter/dateFormatter';
 import { Like } from '@/shared/UI-kit/Like';
 import { Icon } from '@/shared/UI-kit/Icon';
 import EyeIcon from '@/shared/assets/ui/icons/eye.svg';
+import LikeIcon from '@/shared/assets/ui/icons/like-heart.svg';
 import { ReviewI } from '@/entities/Review';
 import { Card } from '@/shared/UI-kit/Card';
 import { Skeleton } from '@/shared/UI-kit/Skeleton';
@@ -76,7 +77,16 @@ export const UserOwnerReviewInfoCard = (props: UserInfoCardProps) => {
                         max
                     >
                         <HStack gap="8">
-                            <Like onLike={onLike} />
+                            {currentUser ? (
+                                <Like onLike={onLike} />
+                            ) : (
+                                <Icon
+                                    Svg={LikeIcon}
+                                    width={26}
+                                    height={24}
+                                />
+                            )}
+
                             <Text
                                 text={String(review.user?.likesCounter ?? 0)}
                             />

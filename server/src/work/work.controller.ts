@@ -40,22 +40,21 @@ export class WorkController {
     @UseInterceptors(ClassSerializerInterceptor)
     @Get('workList')
     async getReviewList(
-        @Query('_expand') expand: string,
         @Query('_limit') limit: string,
         @Query('_page') page: string,
-        @Query('_sort') order: string,
+        @Query('_sort') sort: string,
+        @Query('_order') order: string,
         @Query('q') search: string,
         @Query('type') type: ReviewTypeEnum,
     ) {
         try {
             const foundedWorkList = await this.workService.findWorkList(
-                expand,
                 limit,
                 page,
+                sort,
                 order,
                 search,
                 type,
-                'asc',
             );
 
             return foundedWorkList;

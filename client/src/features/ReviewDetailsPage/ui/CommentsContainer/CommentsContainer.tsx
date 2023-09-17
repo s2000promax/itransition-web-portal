@@ -15,6 +15,7 @@ import { VStack } from '@/shared/UI-kit/Stack';
 import { Loader } from '@/shared/UI-kit/Loader';
 import { CommentList } from '@/features/Comment';
 import { CommentForm } from '@/features/UI/CommentForm';
+import { getUserDataSelector } from '@/entities/User';
 
 interface CommentsContainerProps {
     className?: string;
@@ -24,6 +25,7 @@ interface CommentsContainerProps {
 export const CommentsContainer = memo((props: CommentsContainerProps) => {
     const { className, id } = props;
     const { t } = useTranslation();
+    const isAuth = useSelector(getUserDataSelector);
     const comments = useSelector(getReviewComments.selectAll);
     const commentsIsLoading = useSelector(getCommentsIsLoadingSelector);
     const dispatch = useAppDispatch();
@@ -49,9 +51,11 @@ export const CommentsContainer = memo((props: CommentsContainerProps) => {
                 size="l"
                 title={t('comments')}
             />
-            <Suspense fallback={<Loader />}>
-                <CommentForm onSendComment={onSendComment} />
-            </Suspense>
+            {isAuth && (
+                <Suspense fallback={<Loader />}>
+                    <CommentForm onSendComment={onSendComment} />
+                </Suspense>
+            )}
             <CommentList
                 isLoading={commentsIsLoading}
                 comments={comments}

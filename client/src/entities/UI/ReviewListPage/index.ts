@@ -22,3 +22,5 @@ export {
 export { initReviewListPageService } from '@/entities/UI/ReviewListPage/model/services/initReviewListPage/initReviewListPage.service';
 export { fetchReviewListService } from '@/entities/UI/ReviewListPage/model/services/fetchReviewList/fetchReviewListService';
 export { fetchNextReviewListPageService } from '@/entities/UI/ReviewListPage/model/services/fetchNextReviewListPage/fetchNextReviewListPage.service';
+
+export { ReviewSortFieldEnums } from './model/enums/ReviewSortField.enums';
