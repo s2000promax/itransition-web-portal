@@ -30,3 +30,4 @@ export { getLoginErrorSelector } from './model/selectors/Login/getLoginError/get
 export { loginReducer, loginActions } from './model/slice/login.slice';
 
 export { loginByEmail } from './model/services/login.service';
+export { loginWithProviderService } from './model/services/loginWithProviderService';

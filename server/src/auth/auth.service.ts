@@ -136,7 +136,6 @@ export class AuthService {
     async providerAuth(email: string, provider: ProvidersEnums) {
         try {
             const userExists = await this.userService.findByEmail(email);
-
             if (userExists) {
                 const user: User = await this.userService.save({
                     email,

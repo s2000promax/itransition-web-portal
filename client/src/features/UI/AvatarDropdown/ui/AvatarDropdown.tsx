@@ -8,7 +8,6 @@ import { Avatar } from '@/shared/UI-kit/Avatar';
 import {
     getRouteAdmin,
     getRouteProfile,
-    getRouteSettings,
 } from '@/shared/routes/routes.patterns';
 import { removeAuthData } from '@/entities/Auth';
 import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
@@ -43,10 +42,6 @@ export const AvatarDropdown = memo((props: AvatarDropdownProps) => {
                   },
               ]
             : []),
-        {
-            content: t('Settings'),
-            href: getRouteSettings(),
-        },
         {
             content: t('Profile'),
             href: getRouteProfile(userData.id),

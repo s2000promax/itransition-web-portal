@@ -14,14 +14,14 @@ import { HStack, VStack } from '@/shared/UI-kit/Stack';
 import cls from './LoginForm.module.scss';
 import {
     getLoginEmailSelector,
-    getLoginPasswordSelector,
-    getLoginIsLoadingSelector,
     getLoginErrorSelector,
+    getLoginIsLoadingSelector,
+    getLoginPasswordSelector,
     loginActions,
-    loginReducer,
     loginByEmail,
+    loginReducer,
 } from '@/entities/Auth';
-import { AppLink } from '@/shared/UI-kit/AppLink';
+import { ProviderEnums } from '@/shared/enums/provider.enums';
 
 export interface LoginFormProps {
     className?: string;
@@ -67,6 +67,18 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
             onSuccess();
         }
     }, [dispatch, onSuccess, password, email]);
+
+    const handleGoogleLogin = async () => {
+        window.location.href = `${__API__}/auth/${ProviderEnums.GOOGLE}`;
+    };
+
+    const handleFacebookLogin = async () => {
+        window.location.href = `${__API__}/auth/${ProviderEnums.FACEBOOK}`;
+    };
+
+    const handleYandexLogin = async () => {
+        window.location.href = `${__API__}/auth/${ProviderEnums.YANDEX}`;
+    };
 
     return (
         <DynamicModuleLoader
@@ -131,14 +143,21 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
                     <HStack gap="8">
                         <Button
                             className={cls.loginBtn}
-                            onClick={onLogin}
+                            onClick={handleGoogleLogin}
                             disabled={isLoading}
                         >
                             {t('Google')}
                         </Button>
                         <Button
                             className={cls.loginBtn}
-                            onClick={onLogin}
+                            onClick={handleFacebookLogin}
+                            disabled={isLoading}
+                        >
+                            {t('Facebook')}
+                        </Button>
+                        <Button
+                            className={cls.loginBtn}
+                            onClick={handleYandexLogin}
                             disabled={isLoading}
                         >
                             {t('Yandex')}

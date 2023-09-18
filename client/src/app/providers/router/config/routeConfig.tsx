@@ -19,6 +19,7 @@ import {
     getRouteReviewDetails,
     getRouteReviewEdit,
     getRouteReviewList,
+    getRouteSuccessAuthProvider,
     getRouteWorkDetails,
     getRouteWorkEdit,
     getRouteWorkList,
@@ -26,6 +27,7 @@ import {
 import { WorkDetailsPage } from '@/pages/Work/WorkDetailsPage';
 import { WorkEditPage } from '@/pages/Work/WorkEditPage';
 import { WorkListPage } from '@/pages/Work/WorkListPage';
+import { SuccessAuthProviderPage } from '@/pages/SuccessAuthProviderPage';
 
 export const routeConfig: Record<AppRoutesEnums, AppRoutesPropsT> = {
     [AppRoutesEnums.MAIN]: {
@@ -77,6 +79,10 @@ export const routeConfig: Record<AppRoutesEnums, AppRoutesPropsT> = {
         element: <AdminDashboardPage />,
         authOnly: true,
         roles: [UserRolesEnums.ADMIN],
+    },
+    [AppRoutesEnums.SUCCESS_AUTH_PROVIDER]: {
+        path: getRouteSuccessAuthProvider(),
+        element: <SuccessAuthProviderPage />,
     },
     [AppRoutesEnums.FORBIDDEN]: {
         path: getRouteForbidden(),

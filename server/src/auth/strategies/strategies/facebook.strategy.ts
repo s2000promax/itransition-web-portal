@@ -1,17 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
-import { Strategy, Profile } from 'passport-google-oauth20';
+import { Strategy, Profile } from 'passport-facebook';
 import appConfig from '../../../config/app/appConfig';
 
 @Injectable()
-export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
+export class FacebookStrategy extends PassportStrategy(Strategy, 'facebook') {
     constructor(private readonly configService: ConfigService) {
         super({
-            clientID: configService.get('GOOGLE_CLIENT_ID'),
-            clientSecret: configService.get('GOOGLE_CLIENT_SECRET'),
-            callbackURL: `${appConfig().serverDomain}/api/auth/google/callback`,
-            scope: ['email', 'profile'],
+            clientID: configService.get('FACEBOOK_CLIENT_ID'),
+            clientSecret: configService.get('FACEBOOK_CLIENT_SECRET'),
+            callbackURL: `${
+                appConfig().serverDomain
+            }/api/auth/facebook/callback`,
+            scope: 'email',
+            profileFields: ['emails', 'name', 'photos'],
         });
     }
 
@@ -24,9 +27,9 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
         const { name, emails, photos } = profile;
         const user = {
             email: emails[0].value,
-            firstName: name?.givenName,
-            lastName: name?.familyName,
-            photo: photos?.[0]?.value,
+            firstName: name.givenName,
+            lastName: name.familyName,
+            photo: photos[0].value,
         };
         const payload = {
             ...user,

@@ -1,5 +1,5 @@
 export enum AppRoutesEnums {
-    MAIN = 'main',
+    MAIN = '/',
     ABOUT = 'about',
     PROFILE = 'profile',
     WORK_EDIT = 'work_edit',
@@ -10,6 +10,7 @@ export enum AppRoutesEnums {
     REVIEW_CREATE = 'review_create',
     REVIEW_EDIT = 'review_edit',
     ADMIN_DASHBOARD = 'admin_dashboard',
+    SUCCESS_AUTH_PROVIDER = 'success_auth_provider',
     FORBIDDEN = 'forbidden',
     NOT_FOUND = 'not_found',
 }

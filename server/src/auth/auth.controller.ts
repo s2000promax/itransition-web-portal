@@ -27,9 +27,11 @@ import { CookiesEnums } from '../config/enums/cookies.enums';
 import { ProvidersEnums } from '../config/enums/providers.enums';
 import { TokensInterface } from '../config/types/auth/tokens.interface';
 import { ApiTags } from '@nestjs/swagger';
-import { GoogleGuard, YandexGuard } from './guards';
+import { FacebookGuard, GoogleGuard, YandexGuard } from './guards';
 
 import { handleTimeoutAndErrors } from '../libs/helpers';
+import appConfig from '../config/app/appConfig';
+import { UserService } from '../user/user.service';
 
 @ApiTags('auth')
 @Public()
@@ -37,6 +39,7 @@ import { handleTimeoutAndErrors } from '../libs/helpers';
 export class AuthController {
     constructor(
         private readonly authService: AuthService,
+        private readonly userService: UserService,
         private readonly configService: ConfigService,
         private readonly httpService: HttpService,
     ) {}
@@ -152,22 +155,152 @@ export class AuthController {
     @Get('google/callback')
     googleAuthCallback(@Req() req: Request, @Res() res: Response) {
         const token = req.user['accessToken'];
+
         return res.redirect(
-            `http://localhost:8002/api/auth/success?token=${token}`,
+            `${
+                appConfig().clientDomain
+            }/success_auth_provider?provider=google&token=${token}`,
         );
     }
 
     @Get('success-google')
-    successGoogle(@Query('token') token: string, @Res() res: Response) {
+    async successGoogle(@Query('token') token: string, @Res() res: Response) {
         return this.httpService
             .get(
                 `https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=${token}`,
             )
             .pipe(
-                mergeMap(({ data: { email } }) =>
-                    this.authService.providerAuth(email, ProvidersEnums.GOOGLE),
-                ),
-                map((data) => this.setRefreshTokenToCookies(data, res)),
+                mergeMap(async ({ data }) => {
+                    if (!data.email || !data.sub) {
+                        throw new BadRequestException('Email is required');
+                    }
+
+                    const profileResponse = await this.httpService
+                        .get(
+                            `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${token}`,
+                        )
+                        .toPromise();
+
+                    const profileData = profileResponse.data;
+
+                    const authResult = await this.authService.providerAuth(
+                        data.email,
+                        ProvidersEnums.GOOGLE,
+                    );
+
+                    await this.userService.save({
+                        email: data.email,
+                        firstName: profileData?.given_name,
+                        lastName: profileData?.family_name,
+                        avatar: profileData?.picture,
+                    });
+
+                    return authResult;
+                }),
+                map((data) => {
+                    this.setRefreshTokenToCookies(data, res);
+                }),
+                handleTimeoutAndErrors(),
+            );
+    }
+
+    @UseGuards(FacebookGuard)
+    @Get('facebook')
+    faceBookAuth() {}
+
+    @UseGuards(FacebookGuard)
+    @Get('facebook/callback')
+    faceBookAuthCallback(@Req() req: Request, @Res() res: Response) {
+        const token = req.user['accessToken'];
+
+        return res.redirect(
+            `${
+                appConfig().clientDomain
+            }/success_auth_provider?provider=facebook&token=${token}`,
+        );
+    }
+
+    @Get('success-facebook')
+    async successFaceBook(@Query('token') token: string, @Res() res: Response) {
+        const appAccessToken = `${process.env.FACEBOOK_CLIENT_ID}|${process.env.FACEBOOK_CLIENT_SECRET}`;
+        return this.httpService
+            .get(`https://graph.facebook.com/debug_token`, {
+                params: {
+                    input_token: token,
+                    access_token: appAccessToken,
+                },
+            })
+            .pipe(
+                mergeMap(({ data: { data } }) => {
+                    if (data.is_valid) {
+                        return this.httpService
+                            .get(`https://graph.facebook.com/me`, {
+                                params: { access_token: token },
+                            })
+                            .pipe(
+                                mergeMap(({ data }) => {
+                                    if (data.id) {
+                                        const userId = data.id;
+                                        return this.httpService
+                                            .get(
+                                                `https://graph.facebook.com/${userId}`,
+                                                {
+                                                    params: {
+                                                        fields: 'email,first_name,last_name,picture.type(large)',
+                                                        access_token: token,
+                                                    },
+                                                },
+                                            )
+                                            .pipe(
+                                                mergeMap(
+                                                    async ({
+                                                        data: userData,
+                                                    }) => {
+                                                        const authData =
+                                                            await this.authService.providerAuth(
+                                                                userData.email,
+                                                                ProvidersEnums.FACEBOOK,
+                                                            );
+
+                                                        const user =
+                                                            await this.userService.save(
+                                                                {
+                                                                    email: userData.email,
+                                                                    firstName:
+                                                                        userData?.first_name,
+                                                                    lastName:
+                                                                        userData?.last_name,
+                                                                    avatar: userData
+                                                                        ?.picture
+                                                                        ?.data
+                                                                        ?.url,
+                                                                },
+                                                            );
+
+                                                        return {
+                                                            authData,
+                                                            user,
+                                                        };
+                                                    },
+                                                ),
+                                                map((data) => {
+                                                    this.setRefreshTokenToCookies(
+                                                        data.authData,
+                                                        res,
+                                                    );
+                                                }),
+                                            );
+                                    } else {
+                                        throw new UnauthorizedException(
+                                            'Invalid token',
+                                        );
+                                    }
+                                }),
+                            );
+                    } else {
+                        throw new UnauthorizedException('Invalid token');
+                    }
+                }),
                 handleTimeoutAndErrors(),
             );
     }
@@ -181,12 +314,13 @@ export class AuthController {
     yandexAuthCallback(@Req() req: Request, @Res() res: Response) {
         const token = req.user['accessToken'];
         return res.redirect(
-            `http://localhost:3000/api/auth/success-yandex?token=${token}`,
+            `${
+                appConfig().clientDomain
+            }/success_auth_provider?provider=yandex&token=${token}`,
         );
     }
 
     @Get('success-yandex')
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     successYandex(@Query('token') token: string, @Res() res: Response) {
         return this.httpService
             .get(

@@ -8,7 +8,7 @@ import appConfig from './config/app/appConfig';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
-    console.log(appConfig().origins);
+
     app.enableCors({
         allowedHeaders: [
             'content-type',
