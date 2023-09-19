@@ -67,47 +67,49 @@ export const ReviewListItem = memo((props: ReviewItemProps) => {
         return (
             <Card
                 padding="24"
-                fullWidth
                 data-testid="ReviewListItem"
-                className={classNames(cls.ReviewListItem, {}, [
-                    className,
-                    cls[view],
-                ])}
+                className={classNames('', {}, [className, cls[view]])}
             >
                 <VStack
                     max
-                    gap="16"
+                    className={cls.container}
+                    justify="between"
                 >
-                    {userInfo}
-                    <Text
-                        title={review.title}
-                        bold
-                    />
-                    <Text
-                        title={review.workTitle}
-                        size="s"
-                        bold
-                    />
-                    <AppImage
-                        fallback={
-                            <Skeleton
-                                width="100%"
-                                height={250}
-                            />
-                        }
-                        src={review.cover}
-                        className={cls.img}
-                        alt={review.title}
-                    />
-                    {textBlock?.paragraphs && (
+                    <VStack
+                        gap="8"
+                        max
+                    >
+                        {userInfo}
                         <Text
-                            className={cls.textBlock}
-                            text={textBlock.paragraphs
-                                .slice(0, 2)
-                                .map((p) => p.content)
-                                .join(' ')}
+                            title={review.title}
+                            bold
                         />
-                    )}
+                        <Text
+                            title={review.workTitle}
+                            size="s"
+                            bold
+                        />
+                        <AppImage
+                            fallback={
+                                <Skeleton
+                                    width="100%"
+                                    height={250}
+                                />
+                            }
+                            src={review.cover}
+                            className={cls.img}
+                            alt={review.title}
+                        />
+                        {textBlock?.paragraphs && (
+                            <Text
+                                className={cls.textBlock}
+                                text={textBlock.paragraphs
+                                    .slice(0, 2)
+                                    .map((p) => p.content)
+                                    .join(' ')}
+                            />
+                        )}
+                    </VStack>
                     <HStack
                         max
                         justify="between"
