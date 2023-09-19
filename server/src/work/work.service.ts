@@ -90,6 +90,11 @@ export class WorkService {
                 take: _limit,
                 where: {
                     type: _type,
+                    OR: [
+                        { title: { contains: _search } },
+                        { author: { contains: _search } },
+                        { description: { contains: _search } },
+                    ],
                 },
                 orderBy: {
                     [_sort]: _order === 'asc' ? 'asc' : 'desc',

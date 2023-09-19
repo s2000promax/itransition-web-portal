@@ -113,6 +113,41 @@ export class ReviewService {
                 take: _limit,
                 where: {
                     type: _type,
+                    OR: [
+                        { title: { contains: _search } },
+                        { workTitle: { contains: _search } },
+                        {
+                            owner: {
+                                OR: [
+                                    { firstName: { contains: _search } },
+                                    { lastName: { contains: _search } },
+                                ],
+                            },
+                        },
+                        {
+                            blocks: {
+                                some: {
+                                    OR: [
+                                        { title: { contains: _search } },
+                                        {
+                                            paragraphs: {
+                                                some: {
+                                                    content: {
+                                                        contains: _search,
+                                                    },
+                                                },
+                                            },
+                                        },
+                                    ],
+                                },
+                            },
+                        },
+                        {
+                            comments: {
+                                some: { content: { contains: _search } },
+                            },
+                        },
+                    ],
                 },
                 include: {
                     owner: true,
