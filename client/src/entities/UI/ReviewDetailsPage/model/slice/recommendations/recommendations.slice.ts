@@ -2,13 +2,13 @@ import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import { StateSchemaI } from '@/app/providers/StoreProvider';
 import { ReviewI } from '@/entities/Review';
 import { RecommendationsReviewsSchemaI } from '../../types/reviewDetailsPage.interface';
-import { fetchRecommendationsService } from '@/entities/UI/ReviewDetailsPage/model/services/recommendations/fetchRecommendations/fetchRecommendations.service';
+import { fetchRecommendationsService } from '../../services/recommendations/fetchRecommendations/fetchRecommendations.service';
 
 const recommendationsAdapter = createEntityAdapter<ReviewI>({
-    selectId: (article) => article.id,
+    selectId: (review) => review.id,
 });
 
-export const getArticleRecommendations =
+export const getREviewsRecommendations =
     recommendationsAdapter.getSelectors<StateSchemaI>(
         (state) =>
             state.reviewDetailsPage?.recommendations ||

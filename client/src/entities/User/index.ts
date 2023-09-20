@@ -4,20 +4,23 @@ export type {
     UserSettingsI,
 } from './model/types/user.interface';
 
-export { getUserInited } from './model/selectors/getUserInited.selector';
-export { getUserAuthData } from './model/selectors/getUserAuthData.selector';
+export { getUserInitedSelector } from './model/selectors/getUserInited/getUserInited.selector';
+export { getIsLoadingUserDataSelector } from './model/selectors/getIsLoadingUserData/getIsLoadingUserData.selector';
+export { getUserDataSelector } from './model/selectors/getUserData/getUserAuthData.selector';
 export {
     getUserSettings,
     useUserSettings,
-} from './model/selectors/getUserSettings.selector';
+} from './model/selectors/getUserSettings/getUserSettings.selector';
 export {
-    getUserRoles,
-    isUserRoleAdmin,
-    isUserRoleUser,
-} from './model/selectors/getUserRoles.selector';
+    getUserRolesSelector,
+    isUserRoleAdminSelector,
+    isUserRoleUserSelector,
+} from './model/selectors/getUserRoles/getUserRoles.selector';
+export { getUserExtendDataSelector } from './model/selectors/getUserExtendData/getUserExtendData.selector';
 
 export { userReducer, userActions } from './model/slice/user.slice';
 
-export { initAuthData, saveUserSettings } from './model/services/user.service';
+export { initUserDataService } from './model/services/initUserData.service';
+export { saveUserSettingsService } from './model/services/saveUserSettings.service';
 
 export { UserRolesEnums } from './model/enums/userRoles.enums';

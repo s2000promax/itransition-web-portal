@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { memo, useEffect } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import cls from './Review.module.scss';
 import { useSelector } from 'react-redux';
@@ -10,14 +10,17 @@ import {
 } from '@/shared/libs/components/DynamicModuleLoader';
 import {
     fetchReviewByIdService,
-    getReviewDataErrorSelector,
-    getReviewDataLoadingSelector,
+    getReviewErrorSelector,
+    getReviewIsLoadingSelector,
     reviewReducer,
+    updateReviewViewCounterService,
 } from '@/entities/Review';
-import { ContentSkeleton } from '@/features/Review/ui/ContentSkeleton/ContentSkeleton';
-import { Content } from '@/features/Review/ui/Content/Content';
+import { ContentSkeleton } from './ContentSkeleton/ContentSkeleton';
+import { Content } from './Content/Content';
 import { VStack } from '@/shared/UI-kit/Stack';
 import { Text } from '@/shared/UI-kit/Text';
+import { useInitialEffect } from '@/shared/libs/hooks/useInitialEffect/useInitialEffect';
+import { useDebounce } from '@/shared/libs/hooks/useDebounce/useDebounce';
 
 interface ReviewProps {
     className?: string;
@@ -32,14 +35,20 @@ export const Review = memo((props: ReviewProps) => {
     const { className, id } = props;
     const { t } = useTranslation('review');
     const dispatch = useAppDispatch();
-    const isLoading = useSelector(getReviewDataLoadingSelector);
-    const error = useSelector(getReviewDataErrorSelector);
+    const isLoading = useSelector(getReviewIsLoadingSelector);
+    const error = useSelector(getReviewErrorSelector);
 
-    useEffect(() => {
-        if (__PROJECT__ !== 'storybook' && __PROJECT__ !== 'jest') {
+    const handleInit = useCallback(() => {
+        if (id) {
             dispatch(fetchReviewByIdService(id));
+            dispatch(updateReviewViewCounterService({ reviewId: id }));
         }
     }, [dispatch, id]);
+    const debouncedInit = useDebounce(handleInit, 300);
+
+    useInitialEffect(() => {
+        debouncedInit();
+    });
 
     let content;
 
@@ -49,7 +58,7 @@ export const Review = memo((props: ReviewProps) => {
         content = (
             <Text
                 align="center"
-                text={t('An error occurred while loading the article')}
+                text={t('An error occurred while loading the review')}
             />
         );
     } else {

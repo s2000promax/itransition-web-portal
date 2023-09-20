@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
-import { Strategy } from 'passport-yandex';
+import { Strategy, Profile } from 'passport-yandex';
+import appConfig from '../../../config/app/appConfig';
 
 @Injectable()
 export class YandexStrategy extends PassportStrategy(Strategy, 'yandex') {
@@ -9,14 +10,14 @@ export class YandexStrategy extends PassportStrategy(Strategy, 'yandex') {
         super({
             clientID: configService.get('YANDEX_CLIENT_ID'),
             clientSecret: configService.get('YANDEX_CLIENT_SECRET'),
-            callbackURL: 'http://localhost:8002/api/auth/yandex/callback',
+            callbackURL: `${appConfig().serverDomain}/api/auth/yandex/callback`,
         });
     }
 
     async validate(
         accessToken: string,
         refreshToken: string,
-        profile,
+        profile: Profile,
         done: (err: any, user: any, info?: any) => void,
     ): Promise<any> {
         const { id, displayName, emails, photos } = profile;

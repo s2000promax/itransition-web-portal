@@ -17,7 +17,7 @@ export const Content = memo(() => {
                 size="l"
                 bold
             />
-            <Text title={review?.subtitle} />
+            <Text title={review?.workTitle} />
             <AppImage
                 fallback={
                     <Skeleton
@@ -26,7 +26,7 @@ export const Content = memo(() => {
                         border="16px"
                     />
                 }
-                src={review?.img}
+                src={review?.cover}
                 className={cls.img}
             />
             {review?.blocks.map(renderBlocks)}

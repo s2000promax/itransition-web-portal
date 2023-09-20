@@ -1,0 +1,58 @@
+.TextAreaWrapper {
+    display: flex;
+    align-items: center;
+    border-radius: 24px;
+    padding: 0px 16px;
+    border: 2px solid var(--icon);
+    width: 100%;
+}
+
+.s {
+    height: 128px;
+}
+
+.m {
+    height: 134px;
+}
+
+.l {
+    height: 140px;
+}
+
+.addonLeft, .addonRight {
+    display: flex;
+}
+
+.withAddonLeft {
+    padding-left: 8px;
+}
+
+.withAddonRight {
+    padding-right: 8px;
+}
+
+.focused {
+    border: 2px solid var(--accent);
+
+    .addonLeft svg, .addonRight svg {
+        color: var(--accent);
+    }
+}
+
+.textArea {
+    border: none;
+    outline: none;
+    width: 100%;
+    color: var(--text);
+    background: none;
+    resize: none;
+
+    &::placeholder {
+       color: var(--hint);
+    }
+}
+
+
+.readonly {
+    opacity: 0.7;
+}

@@ -6,20 +6,22 @@ export const fetchCommentsByReviewIdService = createAsyncThunk<
     CommentI[],
     string | undefined,
     ThunkConfig<string>
->('articleDetails/fetchCommentsByArticleId', async (articleId, thunkApi) => {
+>('reviewDetailsPage/fetchCommentsByReviewId', async (reviewId, thunkApi) => {
     const { extra, rejectWithValue } = thunkApi;
 
-    if (!articleId) {
+    if (!reviewId) {
         return rejectWithValue('error');
     }
 
     try {
-        const response = await extra.api.get<CommentI[]>('/comments', {
-            params: {
-                articleId,
-                _expand: 'user',
+        const response = await extra.api.get<CommentI[]>(
+            'comment/commentList',
+            {
+                params: {
+                    _reviewId: reviewId,
+                },
             },
-        });
+        );
 
         if (!response.data) {
             throw new Error();

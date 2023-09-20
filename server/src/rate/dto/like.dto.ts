@@ -1,12 +1,6 @@
 import { Like } from '@prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
-export class LikeDto implements Partial<Like> {
-    @ApiProperty({
-        type: Boolean,
-        description: 'Review Like',
-    })
-    like: boolean;
-
+export class LikeDto implements Like {
     @ApiProperty({
         required: true,
         type: String,
@@ -20,4 +14,6 @@ export class LikeDto implements Partial<Like> {
         description: 'Review ID',
     })
     reviewId: string;
+
+    createdAt: Date;
 }

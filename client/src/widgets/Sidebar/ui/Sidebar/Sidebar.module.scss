@@ -10,7 +10,7 @@
     }
 
     .items {
-        margin-top: 40px;
+        margin-top: 20px;
     }
 
     .collapseBtn {
@@ -26,8 +26,9 @@
         bottom: 40px;
         display: flex;
         justify-content: center;
+        align-items: center;
         width: 100%;
-        gap: 16px;
+        gap: 24px;
     }
 }
 

@@ -6,15 +6,19 @@ export const fetchRecommendationsService = createAsyncThunk<
     ReviewI[],
     void,
     ThunkConfig<string>
->('articleDetailsPage/fetchArticleRecommendations', async (props, thunkApi) => {
+>('reviewDetailsPage/fetchReviewsRecommendations', async (props, thunkApi) => {
     const { extra, rejectWithValue } = thunkApi;
 
     try {
-        const response = await extra.api.get<ReviewI[]>('/articles', {
-            params: {
-                _limit: 4,
+        const response = await extra.api.get<ReviewI[]>(
+            'review/recommendations',
+            {
+                params: {
+                    _limit: 4,
+                    _expand: 'user',
+                },
             },
-        });
+        );
 
         if (!response.data) {
             throw new Error();

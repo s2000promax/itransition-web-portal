@@ -26,6 +26,8 @@ import {
 import { EditableProfileCardHeader } from '../EditableProfileCardHeader/EditableProfileCardHeader';
 import { VStack } from '@/shared/UI-kit/Stack';
 import { Text } from '@/shared/UI-kit/Text';
+import { uploadService } from '@/entities/Upload';
+import { reviewActions } from '@/entities/Review';
 interface EditableProfileCardProps {
     className?: string;
     id?: string;
@@ -58,30 +60,35 @@ export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
         }
     });
 
-    const onChangeFirstname = useCallback(
+    const onChangeFirstName = useCallback(
         (value?: string) => {
-            dispatch(profileActions.updateProfile({ first: value || '' }));
+            dispatch(profileActions.updateProfile({ firstName: value || '' }));
         },
         [dispatch],
     );
 
-    const onChangeLastname = useCallback(
+    const onChangeLastName = useCallback(
         (value?: string) => {
-            dispatch(profileActions.updateProfile({ lastname: value || '' }));
-        },
-        [dispatch],
-    );
-
-    const onChangeUsername = useCallback(
-        (value?: string) => {
-            dispatch(profileActions.updateProfile({ username: value || '' }));
+            dispatch(profileActions.updateProfile({ lastName: value || '' }));
         },
         [dispatch],
     );
 
     const onChangeAvatar = useCallback(
-        (value?: string) => {
-            dispatch(profileActions.updateProfile({ avatar: value || '' }));
+        (file: File) => {
+            dispatch(uploadService(file)).then((response) => {
+                if (response.meta.requestStatus === 'fulfilled') {
+                    const url = Object.values(
+                        response.payload as { url: string },
+                    ).join();
+
+                    dispatch(
+                        profileActions.updateProfile({
+                            avatar: url || '',
+                        }),
+                    );
+                }
+            });
         },
         [dispatch],
     );
@@ -108,9 +115,8 @@ export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
                     isLoading={isLoading}
                     error={error}
                     readonly={readonly}
-                    onChangeFirstname={onChangeFirstname}
-                    onChangeLastname={onChangeLastname}
-                    onChangeUsername={onChangeUsername}
+                    onChangeFirstName={onChangeFirstName}
+                    onChangeLastName={onChangeLastName}
                     onChangeAvatar={onChangeAvatar}
                 />
             </VStack>

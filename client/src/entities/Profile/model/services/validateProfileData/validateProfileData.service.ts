@@ -6,11 +6,11 @@ export const validateProfileData = (profile?: ProfileI) => {
         return [ValidateProfileEnums.NO_DATA];
     }
 
-    const { first, lastname } = profile;
+    const { firstName, lastName } = profile;
 
     const errors: ValidateProfileEnums[] = [];
 
-    if (!first || !lastname) {
+    if (!firstName || !lastName) {
         errors.push(ValidateProfileEnums.INCORRECT_USER_DATA);
     }
 

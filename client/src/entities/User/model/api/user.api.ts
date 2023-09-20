@@ -8,18 +8,18 @@ interface SetUserSettingsArg {
 
 const userApi = rtkApi.injectEndpoints({
     endpoints: (build) => ({
-        setJsonSettings: build.mutation<UserI, SetUserSettingsArg>({
+        setUserSettings: build.mutation<UserI, SetUserSettingsArg>({
             query: ({ userId, userSettings }) => ({
-                url: `/users/${userId}`,
+                url: `user/${userId}`,
                 method: 'PATCH',
                 body: {
-                    userSettings,
+                    ...userSettings,
                 },
             }),
         }),
-        getUserDataById: build.query<UserI, string>({
-            query: (userId) => ({
-                url: `/users/${userId}`,
+        getUserData: build.query<UserI, void>({
+            query: () => ({
+                url: 'user/me',
                 method: 'GET',
             }),
         }),
@@ -27,6 +27,6 @@ const userApi = rtkApi.injectEndpoints({
 });
 
 export const setUserSettingsMutation =
-    userApi.endpoints.setJsonSettings.initiate;
+    userApi.endpoints.setUserSettings.initiate;
 
-export const getUserDataByIdQuery = userApi.endpoints.getUserDataById.initiate;
+export const getUserDataQuery = userApi.endpoints.getUserData.initiate;

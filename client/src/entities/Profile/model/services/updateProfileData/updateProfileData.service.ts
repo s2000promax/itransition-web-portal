@@ -21,13 +21,10 @@ export const updateProfileData = createAsyncThunk<
     }
 
     try {
-        const response = await extra.api.put<ProfileI>(
-            `/profile/${formData?.id}`,
-            formData,
-        );
+        const response = await extra.api.put<ProfileI>('user', formData);
 
-        if (!response.data) {
-            throw new Error();
+        if (response.status !== 200) {
+            return rejectWithValue([ValidateProfileEnums.SERVER_ERROR]);
         }
 
         return response.data;

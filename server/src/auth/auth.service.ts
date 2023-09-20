@@ -1,6 +1,7 @@
 import {
     ConflictException,
-    HttpException, HttpStatus,
+    HttpException,
+    HttpStatus,
     Injectable,
     UnauthorizedException,
 } from '@nestjs/common';
@@ -27,61 +28,65 @@ export class AuthService {
     ) {}
 
     async register(dto: RegisterDto) {
-        const user: User = await this.userService
-            .findByEmail(dto.email)
-            .catch(() => {
-                return null;
-            });
+        try {
+            const user = await this.userService.findByEmail(dto.email);
 
-        if (user) {
-            throw new ConflictException(
-                'User with the same email is already registered',
-            );
+            if (user) {
+                throw new ConflictException(
+                    'User with the same email is already registered',
+                );
+            }
+
+            await this.userService.create(dto);
+        } catch (e) {
+            console.log(e);
         }
-
-        return this.userService.create(dto).catch(() => {
-            return null;
-        });
     }
 
     async login(dto: LoginDto): Promise<TokensInterface> {
-        const user: User = await this.userService
-            .findByEmail(dto.email)
-            .catch(() => {
-                return null;
-            });
+        try {
+            const user = await this.userService.findByEmail(dto.email);
 
-        if (!user || !compareSync(dto.password, user.password)) {
-            throw new UnauthorizedException('Wrong login or password');
+            if (!user || !compareSync(dto.password, user.password)) {
+                throw new UnauthorizedException('Wrong login or password');
+            }
+
+            return await this.generateTokens(user.id, user.email);
+        } catch (e) {
+            console.log(e);
         }
-
-        return this.generateTokens(user);
     }
 
     async refreshTokens(refreshToken: string): Promise<TokensInterface> {
-        const token = await this.prismaService.token
-            .delete({
+        try {
+            const token = await this.prismaService.token.delete({
                 where: { token: refreshToken },
-            })
-            .catch(() => {
-                throw new HttpException('Invalid Token', 498);
             });
 
-        if (!token || new Date(token.expired) < new Date()) {
-            throw new UnauthorizedException();
+            if (!token || new Date(token.expired) < new Date()) {
+                throw new UnauthorizedException();
+            }
+
+            const user = await this.userService.findById(token.userId);
+
+            return await this.generateTokens(user.id, user.email);
+        } catch (e) {
+            console.log(e);
+            throw new HttpException('Invalid Token', 498);
         }
-        const user = await this.userService.findById(token.userId);
-        return this.generateTokens(user);
     }
 
-    private async generateTokens(user: User): Promise<TokensInterface> {
+    private async generateTokens(
+        userId: string,
+        userEmail: string,
+    ): Promise<TokensInterface> {
         const jwtPayload: JwtPayload = {
-            id: user.id,
-            email: user.email,
+            id: userId,
+            email: userEmail,
         };
         const accessToken = 'Bearer ' + this.jwtService.sign(jwtPayload);
 
-        const refreshToken = await this.getRefreshToken(user.id);
+        const refreshToken = await this.getRefreshToken(userId);
 
         return {
             accessToken,
@@ -90,57 +95,67 @@ export class AuthService {
     }
 
     private async getRefreshToken(userId: string): Promise<Token> {
-        const _token = await this.prismaService.token.findFirst({
-            where: {
-                userId,
-            },
-        });
+        try {
+            const _token = await this.prismaService.token.findFirst({
+                where: {
+                    userId,
+                },
+            });
 
-        const token = _token?.token ?? '';
+            const token = _token?.token ?? '';
 
-        return this.prismaService.token.upsert({
-            where: { token },
-            update: {
-                token: v4(),
-                expired: add(new Date(), { months: 1 }),
-            },
-            create: {
-                token: v4(),
-                expired: add(new Date(), { months: 1 }),
-                userId,
-            },
-        });
+            return await this.prismaService.token.upsert({
+                where: { token },
+                update: {
+                    token: v4(),
+                    expired: add(new Date(), { months: 1 }),
+                },
+                create: {
+                    token: v4(),
+                    expired: add(new Date(), { months: 1 }),
+                    userId,
+                },
+            });
+        } catch (e) {
+            console.log(e);
+        }
     }
 
-    deleteRefreshToken(token: string) {
-        return this.prismaService.token.delete({
-            where: {
-                token,
-            },
-        });
+    async deleteRefreshToken(token: string) {
+        try {
+            return await this.prismaService.token.delete({
+                where: {
+                    token,
+                },
+            });
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     async providerAuth(email: string, provider: ProvidersEnums) {
-        const userExists = await this.userService.findByEmail(email);
-        if (userExists) {
-            const user = await this.userService
-                .save({ email, provider })
-                .catch((err) => {
-                    return null;
+        try {
+            const userExists = await this.userService.findByEmail(email);
+            if (userExists) {
+                const user: User = await this.userService.save({
+                    email,
+                    provider,
                 });
-            return this.generateTokens(user);
+
+                return await this.generateTokens(user.id, user.email);
+            }
+            const user: User = await this.userService.save({ email, provider });
+
+            if (!user) {
+                throw new HttpException(
+                    `Failed to create user with email: ${email} in ${provider} Auth`,
+                    HttpStatus.BAD_REQUEST,
+                );
+            }
+
+            return await this.generateTokens(user.id, user.email);
+        } catch (e) {
+            console.log(e);
         }
-        const user = await this.userService
-            .save({ email, provider })
-            .catch((err) => {
-                return null;
-            });
-        if (!user) {
-            throw new HttpException(
-                `Failed to create user with email: ${email} in ${provider} Auth`,
-                HttpStatus.BAD_REQUEST,
-            );
-        }
-        return this.generateTokens(user);
     }
 }

@@ -2,13 +2,13 @@ import { memo, useMemo, useState } from 'react';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import cls from './Sidebar.module.scss';
 import { useSidebarItems } from '@/entities/UI/Sidebar';
-import { ThemeSwitcher } from '@/features/UI/ThemeSwitcher';
-import { LangSwitcher } from '@/features/UI/LangSwitcher';
 import { VStack } from '@/shared/UI-kit/Stack';
 import { SidebarItem } from '../SidebarItem/SidebarItem';
 import { AppLogo } from '@/shared/UI-kit/AppLogo';
 import { Icon } from '@/shared/UI-kit/Icon';
 import ArrowIcon from '@/shared/assets/ui/icons/arrow-bottom.svg';
+import { LanguageDropdown } from '@/features/UI/LanguageDropdown';
+import { ColorThemeSwitcherDropdown } from '@/features/UI/ColorThemeSwitcherDropdown';
 
 interface SidebarProps {
     className?: string;
@@ -42,7 +42,7 @@ export const Sidebar = memo(({ className }: SidebarProps) => {
             ])}
         >
             <AppLogo
-                size={collapsed ? 30 : 50}
+                size={collapsed ? 25 : 50}
                 className={cls.appLogo}
             />
             <VStack
@@ -60,11 +60,9 @@ export const Sidebar = memo(({ className }: SidebarProps) => {
                 clickable
             />
             <div className={cls.switchers}>
-                <ThemeSwitcher />
-                <LangSwitcher
-                    short={collapsed}
-                    className={cls.lang}
-                />
+                <ColorThemeSwitcherDropdown />
+
+                <LanguageDropdown />
             </div>
         </aside>
     );

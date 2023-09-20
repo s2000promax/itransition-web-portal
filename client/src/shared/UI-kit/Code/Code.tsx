@@ -17,9 +17,7 @@ export const Code = memo((props: CodeProps) => {
     }, [text]);
 
     return (
-        <div
-            className={classNames(cls.CodeRedesigned, {}, [className])}
-        >
+        <div className={classNames(cls.Code, {}, [className])}>
             <Icon
                 clickable
                 onClick={onCopy}

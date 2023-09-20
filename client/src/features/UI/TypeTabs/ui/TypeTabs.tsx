@@ -1,8 +1,8 @@
 import { memo, ReactNode, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { classNames } from '@/shared/libs/classNames/classNames';
-import { ReviewTypeEnums } from '@/entities/Review';
 import { Tabs } from '@/shared/UI-kit/Tabs';
+import { WorkTypeEnums } from '@/entities/Work';
 
 interface TabItem {
     value: string;
@@ -11,34 +11,34 @@ interface TabItem {
 
 interface TypeTabsProps {
     className?: string;
-    value: ReviewTypeEnums;
-    onChangeType: (type: ReviewTypeEnums) => void;
+    value: WorkTypeEnums;
+    onChangeType: (type: WorkTypeEnums) => void;
 }
 
 export const TypeTabs = memo((props: TypeTabsProps) => {
     const { className, value, onChangeType } = props;
-    const { t } = useTranslation();
+    const { t } = useTranslation('ui');
 
     const typeTabs = useMemo<TabItem[]>(
         () => [
             {
-                value: ReviewTypeEnums.ALL,
+                value: WorkTypeEnums.ALL,
                 content: t('all'),
             },
             {
-                value: ReviewTypeEnums.IT,
+                value: WorkTypeEnums.IT,
                 content: t('it'),
             },
             {
-                value: ReviewTypeEnums.MUSIC,
+                value: WorkTypeEnums.MUSIC,
                 content: t('music'),
             },
             {
-                value: ReviewTypeEnums.MOVIES,
+                value: WorkTypeEnums.MOVIES,
                 content: t('movies'),
             },
             {
-                value: ReviewTypeEnums.SCIENCE,
+                value: WorkTypeEnums.SCIENCE,
                 content: t('science'),
             },
         ],
@@ -47,7 +47,7 @@ export const TypeTabs = memo((props: TypeTabsProps) => {
 
     const onTabClick = useCallback(
         (tab: TabItem) => {
-            onChangeType(tab.value as ReviewTypeEnums);
+            onChangeType(tab.value as WorkTypeEnums);
         },
         [onChangeType],
     );

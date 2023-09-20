@@ -10,7 +10,7 @@ import { CommentsSchemaI } from '../../types/reviewDetailsPage.interface';
 import { fetchCommentsByReviewIdService } from '../../services/comments/fetchCommentsByReviewId/fetchCommentsByReviewId.service';
 
 const commentsAdapter = createEntityAdapter<CommentI>({
-    selectId: (comment) => comment.id,
+    selectId: (comment) => comment.id!,
 });
 
 export const getReviewComments = commentsAdapter.getSelectors<StateSchemaI>(

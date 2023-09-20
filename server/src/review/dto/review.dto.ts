@@ -1,8 +1,20 @@
-import { Review } from '@prisma/client';
+import { Paragraph, Review, ReviewBlock, ReviewTypeEnum } from '@prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
+
+interface ReviewBlockI extends ReviewBlock {
+    paragraphs: Paragraph[];
+}
 
 export class ReviewDto implements Review {
     id: string;
+    workId: string;
+
+    @ApiProperty({
+        required: true,
+        type: String,
+        description: 'Review owner ID',
+    })
+    ownerId: string;
 
     @ApiProperty({
         required: true,
@@ -14,9 +26,9 @@ export class ReviewDto implements Review {
     @ApiProperty({
         required: true,
         type: String,
-        description: 'Review subtitle',
+        description: 'Work title',
     })
-    subtitle: string;
+    workTitle: string;
 
     @ApiProperty({
         required: true,
@@ -28,20 +40,28 @@ export class ReviewDto implements Review {
     @ApiProperty({
         required: true,
         type: String,
-        description: 'Review text preview',
+        description: 'Review type',
     })
-    preview: string;
-
-    createdAt: Date;
-    updatedAt: Date;
-    likesCount: number;
-    averageRating: number;
-    viewCount: number;
+    type: ReviewTypeEnum;
 
     @ApiProperty({
         required: true,
         type: String,
-        description: 'Review owner ID',
+        description: 'Owner Review rate',
     })
-    ownerUserId: string;
+    ownerRating: number;
+
+    @ApiProperty({
+        required: true,
+        type: [],
+        description: 'Review blocks - ReviewBlock[]',
+    })
+    blocks: ReviewBlockI[];
+
+    createdAt: Date;
+    updatedAt: Date;
+
+    viewCounter: bigint;
+
+    tags: string[];
 }

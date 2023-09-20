@@ -2,8 +2,9 @@ import { memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { classNames } from '@/shared/libs/classNames/classNames';
+import cls from './EditableProfileCardHeader.module.scss';
 import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
-import { getUserAuthData } from '@/entities/User';
+import { getUserDataSelector } from '@/entities/User';
 import {
     profileActions,
     getProfileData,
@@ -14,6 +15,7 @@ import { HStack } from '@/shared/UI-kit/Stack';
 import { Text } from '@/shared/UI-kit/Text';
 import { Button } from '@/shared/UI-kit/Button';
 import { Card } from '@/shared/UI-kit/Card';
+import { BackButton } from '@/shared/UI-kit/BackButton';
 
 interface EditableProfileCardHeaderProps {
     className?: string;
@@ -22,9 +24,8 @@ interface EditableProfileCardHeaderProps {
 export const EditableProfileCardHeader = memo(
     (props: EditableProfileCardHeaderProps) => {
         const { className } = props;
-
         const { t } = useTranslation('profile');
-        const authData = useSelector(getUserAuthData);
+        const authData = useSelector(getUserDataSelector);
         const profileData = useSelector(getProfileData);
         const canEdit = authData?.id === profileData?.id;
         const readonly = useSelector(getProfileReadonly);
@@ -47,11 +48,15 @@ export const EditableProfileCardHeader = memo(
                 padding="24"
                 fullWidth
                 border="partial"
+                className={classNames(cls.EditableProfileCardHeader, {}, [
+                    className,
+                ])}
             >
+                <BackButton className={cls.backButton} />
                 <HStack
                     max
                     justify="between"
-                    className={classNames('', {}, [className])}
+                    className={cls.header}
                 >
                     <Text title={t('profile')} />
                     {canEdit && (

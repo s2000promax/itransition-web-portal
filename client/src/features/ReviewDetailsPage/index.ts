@@ -1,3 +1,5 @@
 export { ReviewDetailsContainer } from './ui/ReviewDetailsContainer/ReviewDetailsContainer';
 export { CommentsContainer } from './ui/CommentsContainer/CommentsContainer';
-export { AdditionalInfoContainer } from './ui/AdditionalInfoContainer/AdditionalInfoContainer';
+export { UserOwnerReviewInfoContainer } from '@/features/ReviewDetailsPage/ui/UserOwnerReviewInfoContainer/UserOwnerReviewInfoContainer';
+export { WorkInfoContainer } from './ui/WorkInfoContainer/WorkInfoContainer';
+export { TagsContainer } from './ui/TagsContainer/TagsContainer';

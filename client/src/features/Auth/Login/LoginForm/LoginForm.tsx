@@ -10,17 +10,18 @@ import { classNames } from '@/shared/libs/classNames/classNames';
 import { Text } from '@/shared/UI-kit/Text';
 import { Button } from '@/shared/UI-kit/Button';
 import { Input } from '@/shared/UI-kit/Input';
-import { VStack } from '@/shared/UI-kit/Stack';
+import { HStack, VStack } from '@/shared/UI-kit/Stack';
 import cls from './LoginForm.module.scss';
 import {
-    getLoginError,
-    getLoginIsLoading,
-    getLoginPassword,
-    getLoginUsername,
+    getLoginEmailSelector,
+    getLoginErrorSelector,
+    getLoginIsLoadingSelector,
+    getLoginPasswordSelector,
     loginActions,
+    loginByEmail,
     loginReducer,
 } from '@/entities/Auth';
-import { loginByEmail } from '@/entities/Auth/model/services/login.service';
+import { ProviderEnums } from '@/shared/enums/provider.enums';
 
 export interface LoginFormProps {
     className?: string;
@@ -35,14 +36,14 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
     const { t } = useTranslation('auth');
 
     const dispatch = useAppDispatch();
-    const username = useSelector(getLoginUsername);
-    const password = useSelector(getLoginPassword);
-    const isLoading = useSelector(getLoginIsLoading);
-    const error = useSelector(getLoginError);
+    const email = useSelector(getLoginEmailSelector);
+    const password = useSelector(getLoginPasswordSelector);
+    const isLoading = useSelector(getLoginIsLoadingSelector);
+    const error = useSelector(getLoginErrorSelector);
 
-    const onChangeUsername = useCallback(
+    const onChangeEmail = useCallback(
         (value: string) => {
-            dispatch(loginActions.setUsername(value));
+            dispatch(loginActions.setEmail(value));
         },
         [dispatch],
     );
@@ -54,13 +55,30 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
         [dispatch],
     );
 
-    const onLoginClick = useCallback(async () => {
-        const result = await dispatch(loginByEmail({ username, password }));
+    const onLogin = useCallback(async () => {
+        const loginData = {
+            email,
+            password,
+        };
+
+        const result = await dispatch(loginByEmail(loginData));
+
         if (result.meta.requestStatus === 'fulfilled') {
             onSuccess();
-            // forceUpdate();
         }
-    }, [dispatch, onSuccess, password, username]);
+    }, [dispatch, onSuccess, password, email]);
+
+    const handleGoogleLogin = async () => {
+        window.location.href = `${__API__}/auth/${ProviderEnums.GOOGLE}`;
+    };
+
+    const handleFacebookLogin = async () => {
+        window.location.href = `${__API__}/auth/${ProviderEnums.FACEBOOK}`;
+    };
+
+    const handleYandexLogin = async () => {
+        window.location.href = `${__API__}/auth/${ProviderEnums.YANDEX}`;
+    };
 
     return (
         <DynamicModuleLoader
@@ -71,7 +89,16 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
                 gap="16"
                 className={classNames(cls.LoginForm, {}, [className])}
             >
-                <Text title={t('Login')} />
+                <VStack
+                    max
+                    align={'center'}
+                >
+                    <Text title={t('Welcome')} />
+                    <Text
+                        title={t('Sign in to continue')}
+                        size={'s'}
+                    />
+                </VStack>
                 {error && (
                     <Text
                         text={t('Wrong login or password')}
@@ -83,8 +110,8 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
                     type="text"
                     className={cls.input}
                     placeholder={t('Email')}
-                    onChange={onChangeUsername}
-                    value={username}
+                    onChange={onChangeEmail}
+                    value={email}
                 />
                 <Input
                     type="text"
@@ -95,11 +122,48 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
                 />
                 <Button
                     className={cls.loginBtn}
-                    onClick={onLoginClick}
+                    onClick={onLogin}
                     disabled={isLoading}
                 >
                     {t('Login')}
                 </Button>
+                <VStack
+                    max
+                    align={'center'}
+                >
+                    <Text
+                        title={t('Sign in with')}
+                        size={'s'}
+                    />
+                </VStack>
+                <VStack
+                    max
+                    align={'center'}
+                >
+                    <HStack gap="8">
+                        <Button
+                            className={cls.loginBtn}
+                            onClick={handleGoogleLogin}
+                            disabled={isLoading}
+                        >
+                            {t('Google')}
+                        </Button>
+                        <Button
+                            className={cls.loginBtn}
+                            onClick={handleFacebookLogin}
+                            disabled={isLoading}
+                        >
+                            {t('Facebook')}
+                        </Button>
+                        <Button
+                            className={cls.loginBtn}
+                            onClick={handleYandexLogin}
+                            disabled={isLoading}
+                        >
+                            {t('Yandex')}
+                        </Button>
+                    </HStack>
+                </VStack>
             </VStack>
         </DynamicModuleLoader>
     );

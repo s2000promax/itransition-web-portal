@@ -1,0 +1,9 @@
+.TagsViewCard {
+    width: 240px;
+    display: flex;
+    //flex-direction: column;
+
+    .card {
+        flex-wrap: wrap;
+    }
+}

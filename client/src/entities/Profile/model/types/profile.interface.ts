@@ -2,9 +2,8 @@ import { ValidateProfileEnums } from '../enums/validateProfileEnums';
 
 export interface ProfileI {
     id?: string;
-    first?: string;
-    lastname?: string;
-    username?: string;
+    firstName?: string;
+    lastName?: string;
     avatar?: string;
 }
 

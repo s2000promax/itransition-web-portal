@@ -27,8 +27,8 @@ export const TextBlockComponent = memo(
                 )}
                 {block.paragraphs.map((paragraph, index) => (
                     <Text
-                        key={paragraph}
-                        text={paragraph}
+                        key={`Paragraph_${block.sortId}_${paragraph.sortId}`}
+                        text={paragraph.content}
                         className={cls.paragraph}
                     />
                 ))}

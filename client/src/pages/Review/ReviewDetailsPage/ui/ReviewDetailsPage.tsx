@@ -1,0 +1,80 @@
+import { memo } from 'react';
+import { useParams } from 'react-router-dom';
+import { classNames } from '@/shared/libs/classNames/classNames';
+import cls from './ReviewDetailsPage.module.scss';
+import {
+    DynamicModuleLoader,
+    ReducersList,
+} from '@/shared/libs/components/DynamicModuleLoader';
+import { reviewDetailsPageReducer } from '@/entities/UI/ReviewDetailsPage';
+import { Page } from '@/widgets/Page';
+import { StickyContentLayout } from '@/shared/layouts/StickyContentLayout';
+import { VStack } from '@/shared/UI-kit/Stack';
+
+import {
+    CommentsContainer,
+    ReviewDetailsContainer,
+    TagsContainer,
+    UserOwnerReviewInfoContainer,
+    WorkInfoContainer,
+} from '@/features/ReviewDetailsPage';
+import { ReviewRating } from '@/features/ReviewRating';
+import { RecommendationsList } from '@/features/RecommendationsList';
+import { workReducer } from '@/entities/Work';
+import { useSelector } from 'react-redux';
+import { getUserDataSelector } from '@/entities/User';
+
+export interface ReviewDetailsPageProps {
+    className?: string;
+}
+
+const reducers: ReducersList = {
+    reviewDetailsPage: reviewDetailsPageReducer,
+    work: workReducer,
+};
+
+const ReviewDetailsPage = (props: ReviewDetailsPageProps) => {
+    const { className } = props;
+    const { id } = useParams<{ id: string }>();
+    const isAuth = useSelector(getUserDataSelector);
+
+    if (!id) {
+        return null;
+    }
+
+    return (
+        <DynamicModuleLoader
+            reducers={reducers}
+            removeAfterUnmount
+        >
+            <StickyContentLayout
+                content={
+                    <Page
+                        className={classNames(cls.ReviewDetailsPage, {}, [
+                            className,
+                        ])}
+                    >
+                        <VStack
+                            gap="16"
+                            max
+                        >
+                            <ReviewDetailsContainer />
+                            {isAuth && <ReviewRating reviewId={id} />}
+                            <RecommendationsList reviewId={id} />
+                            <CommentsContainer id={id} />
+                        </VStack>
+                    </Page>
+                }
+                right={
+                    <VStack gap="24">
+                        <UserOwnerReviewInfoContainer />
+                        <WorkInfoContainer />
+                        <TagsContainer />
+                    </VStack>
+                }
+            />
+        </DynamicModuleLoader>
+    );
+};
+
+export default memo(ReviewDetailsPage);

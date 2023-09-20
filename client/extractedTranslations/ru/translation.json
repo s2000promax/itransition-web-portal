@@ -1,22 +1,5 @@
 {
-  "App": "App",
-  "AppRouter": "AppRouter",
-  "Email": "Email",
-  "Login": "Login",
-  "Navbar": "Navbar",
-  "Password": "Password",
-  "Sidebar": "Sidebar",
-  "Wrong login or password": "Wrong login or password",
-  "all": "all",
   "comments": "comments",
-  "edit": "edit",
-  "it": "it",
-  "movies": "movies",
-  "music": "music",
-  "science": "science",
-  "{{count}} views_0": "{{count}} views_0",
-  "{{count}} views_1": "{{count}} views_1",
-  "{{count}} views_2": "{{count}} views_2",
   "Попробуйте обновить страницу": "Попробуйте обновить страницу",
   "Произошла ошибка при загрузке профиля": "Произошла ошибка при загрузке профиля"
 }

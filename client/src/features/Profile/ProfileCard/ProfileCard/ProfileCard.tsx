@@ -7,6 +7,7 @@ import { Card } from '@/shared/UI-kit/Card';
 import { HStack, VStack } from '@/shared/UI-kit/Stack';
 import { Input } from '@/shared/UI-kit/Input';
 import { Avatar } from '@/shared/UI-kit/Avatar';
+import { ImageDragDropUploader } from '@/features/UI/ImageDragDropUploader';
 
 export interface ProfileCardProps {
     className?: string;
@@ -14,12 +15,9 @@ export interface ProfileCardProps {
     error?: string;
     isLoading?: boolean;
     readonly?: boolean;
-    onChangeLastname?: (value?: string) => void;
-    onChangeFirstname?: (value?: string) => void;
-    onChangeCity?: (value?: string) => void;
-    onChangeAge?: (value?: string) => void;
-    onChangeUsername?: (value?: string) => void;
-    onChangeAvatar?: (value?: string) => void;
+    onChangeLastName?: (value?: string) => void;
+    onChangeFirstName?: (value?: string) => void;
+    onChangeAvatar: (file: File) => void;
 }
 
 export const ProfileCard = (props: ProfileCardProps) => {
@@ -29,10 +27,9 @@ export const ProfileCard = (props: ProfileCardProps) => {
         isLoading,
         error,
         readonly,
-        onChangeFirstname,
-        onChangeLastname,
+        onChangeFirstName,
+        onChangeLastName,
         onChangeAvatar,
-        onChangeUsername,
     } = props;
 
     const { t } = useTranslation('profile');
@@ -64,6 +61,11 @@ export const ProfileCard = (props: ProfileCardProps) => {
                         />
                     </HStack>
                 )}
+
+                {!readonly && (
+                    <ImageDragDropUploader onUpload={onChangeAvatar} />
+                )}
+
                 <HStack
                     gap="24"
                     max
@@ -73,35 +75,18 @@ export const ProfileCard = (props: ProfileCardProps) => {
                         max
                     >
                         <Input
-                            value={data?.first}
+                            value={data?.firstName}
                             label={t('firstName')}
-                            onChange={onChangeFirstname}
+                            onChange={onChangeFirstName}
                             readonly={readonly}
                             data-testid="ProfileCard.firstname"
                         />
                         <Input
-                            value={data?.lastname}
+                            value={data?.lastName}
                             label={t('lastName')}
-                            onChange={onChangeLastname}
+                            onChange={onChangeLastName}
                             readonly={readonly}
                             data-testid="ProfileCard.lastname"
-                        />
-                    </VStack>
-                    <VStack
-                        gap="16"
-                        max
-                    >
-                        <Input
-                            value={data?.username}
-                            label={t('userName')}
-                            onChange={onChangeUsername}
-                            readonly={readonly}
-                        />
-                        <Input
-                            value={data?.avatar}
-                            label={t('link')}
-                            onChange={onChangeAvatar}
-                            readonly={readonly}
                         />
                     </VStack>
                 </HStack>

@@ -1,6 +1,7 @@
-import React, { memo, Suspense, useEffect } from 'react';
+import React, { memo, Suspense, useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import AppRouter from '@/app/providers/router/ui/AppRouter';
+import { BrowserView, MobileView } from 'react-device-detect';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import { useTheme } from '@/shared/libs/hooks/useTheme/useTheme';
 import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
@@ -8,20 +9,31 @@ import { useAppToolbar } from '@/shared/libs/hooks/useAppToolbar/useAppToolbar';
 import { MainLayout } from '@/shared/layouts/MainLayout';
 import { Navbar } from '@/widgets/Navbar';
 import { Sidebar } from '@/widgets/Sidebar';
-import { getUserInited, initAuthData } from '@/entities/User';
+import {
+    getUserInitedSelector,
+    getUserSettings,
+    initUserDataService,
+} from '@/entities/User';
 import { AppLoaderLayout } from '@/shared/layouts/AppLoaderLayout';
+import { useDebounce } from '@/shared/libs/hooks/useDebounce/useDebounce';
 
 const App = memo(() => {
-    const { theme } = useTheme();
     const dispatch = useAppDispatch();
-    const inited = useSelector(getUserInited);
+    const inited = useSelector(getUserInitedSelector);
+    const { theme } = useSelector(getUserSettings);
     const toolbar = useAppToolbar();
+
+    const handleInited = useCallback(() => {
+        dispatch(initUserDataService());
+    }, [dispatch]);
+
+    const debouncedInited = useDebounce(handleInited, 300);
 
     useEffect(() => {
         if (!inited) {
-            dispatch(initAuthData());
+            debouncedInited();
         }
-    }, [dispatch, inited]);
+    }, [inited]);
 
     if (!inited) {
         return (
@@ -40,12 +52,17 @@ const App = memo(() => {
             className={classNames('app', {}, [theme])}
         >
             <Suspense fallback="">
-                <MainLayout
-                    header={<Navbar />}
-                    content={<AppRouter />}
-                    sidebar={<Sidebar />}
-                    toolbar={toolbar}
-                />
+                <BrowserView>
+                    <MainLayout
+                        header={<Navbar />}
+                        content={<AppRouter />}
+                        sidebar={<Sidebar />}
+                        toolbar={toolbar}
+                    />
+                </BrowserView>
+                <MobileView>
+                    <div>Mobile</div>
+                </MobileView>
             </Suspense>
         </div>
     );

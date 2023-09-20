@@ -1,0 +1,22 @@
+.WorkInfoCard {
+
+    .card {
+        width: 240px;
+        height: 350px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .img {
+        width: 100%;
+        object-fit: cover;
+        min-height: 140px;
+        max-height: 140px;
+    }
+
+    .info {
+        padding: 16px 16px;
+        height: 100%;
+    }
+}

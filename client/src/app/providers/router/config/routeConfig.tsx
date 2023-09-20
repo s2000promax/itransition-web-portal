@@ -1,11 +1,9 @@
-import { MainPage } from '@/pages/MainPage';
 import { AboutPage } from '@/pages/AboutPage';
 import { ProfilePage } from '@/pages/ProfilePage';
-import { ReviewsPage } from '@/pages/ReviewsPage';
-import { ReviewDetailsPage } from '@/pages/ReviewDetailsPage';
-import { ReviewEditPage } from '@/pages/ReviewEditPage';
+import { ReviewListPage } from '@/pages/Review/ReviewListPage';
+import { ReviewDetailsPage } from '@/pages/Review/ReviewDetailsPage';
+import { ReviewEditPage } from '@/pages/Review/ReviewEditPage';
 import { AdminDashboardPage } from '@/pages/AdminDashboardPage';
-import { SettingsPage } from '@/pages/SettingsPage';
 import { ForbiddenPage } from '@/pages/ForbiddenPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import { AppRoutesEnums } from '@/shared/enums/router.enums';
@@ -20,18 +18,21 @@ import {
     getRouteReviewCreate,
     getRouteReviewDetails,
     getRouteReviewEdit,
-    getRouteReviews,
-    getRouteSettings,
+    getRouteReviewList,
+    getRouteSuccessAuthProvider,
+    getRouteWorkDetails,
+    getRouteWorkEdit,
+    getRouteWorkList,
 } from '@/shared/routes/routes.patterns';
+import { WorkDetailsPage } from '@/pages/Work/WorkDetailsPage';
+import { WorkEditPage } from '@/pages/Work/WorkEditPage';
+import { WorkListPage } from '@/pages/Work/WorkListPage';
+import { SuccessAuthProviderPage } from '@/pages/SuccessAuthProviderPage';
 
 export const routeConfig: Record<AppRoutesEnums, AppRoutesPropsT> = {
     [AppRoutesEnums.MAIN]: {
         path: getRouteMain(),
-        element: <MainPage />,
-    },
-    [AppRoutesEnums.SETTINGS]: {
-        path: getRouteSettings(),
-        element: <SettingsPage />,
+        element: <ReviewListPage />,
     },
     [AppRoutesEnums.ABOUT]: {
         path: getRouteAbout(),
@@ -42,15 +43,26 @@ export const routeConfig: Record<AppRoutesEnums, AppRoutesPropsT> = {
         element: <ProfilePage />,
         authOnly: true,
     },
-    [AppRoutesEnums.REVIEWS]: {
-        path: getRouteReviews(),
-        element: <ReviewsPage />,
+    [AppRoutesEnums.WORK_DETAILS]: {
+        path: getRouteWorkDetails(':id'),
+        element: <WorkDetailsPage />,
+    },
+    [AppRoutesEnums.WORK_EDIT]: {
+        path: getRouteWorkEdit(':id'),
+        element: <WorkEditPage />,
         authOnly: true,
+    },
+    [AppRoutesEnums.WORK_LIST]: {
+        path: getRouteWorkList(),
+        element: <WorkListPage />,
+    },
+    [AppRoutesEnums.REVIEW_LIST]: {
+        path: getRouteReviewList(),
+        element: <ReviewListPage />,
     },
     [AppRoutesEnums.REVIEW_DETAILS]: {
         path: getRouteReviewDetails(':id'),
         element: <ReviewDetailsPage />,
-        authOnly: true,
     },
     [AppRoutesEnums.REVIEW_CREATE]: {
         path: getRouteReviewCreate(),
@@ -67,6 +79,10 @@ export const routeConfig: Record<AppRoutesEnums, AppRoutesPropsT> = {
         element: <AdminDashboardPage />,
         authOnly: true,
         roles: [UserRolesEnums.ADMIN],
+    },
+    [AppRoutesEnums.SUCCESS_AUTH_PROVIDER]: {
+        path: getRouteSuccessAuthProvider(),
+        element: <SuccessAuthProviderPage />,
     },
     [AppRoutesEnums.FORBIDDEN]: {
         path: getRouteForbidden(),

@@ -4,16 +4,22 @@ import { classNames } from '@/shared/libs/classNames/classNames';
 import { useReviewRecommendationsList } from '@/entities/Recommendations';
 import { VStack } from '@/shared/UI-kit/Stack';
 import { Text } from '@/shared/UI-kit/Text';
-import { ReviewsList } from '@/features/ReviewsList';
+import { ReviewList } from '@/features/ReviewList';
 
 interface RecommendationsListProps {
     className?: string;
+    reviewId: string;
 }
 
 export const RecommendationsList = memo((props: RecommendationsListProps) => {
-    const { className } = props;
-    const { t } = useTranslation('recommendations_list');
-    const { isLoading, data: reviews, error } = useReviewRecommendationsList(3);
+    const { className, reviewId } = props;
+    const { t } = useTranslation('recommendationsList');
+
+    const {
+        isLoading,
+        data: reviews,
+        error,
+    } = useReviewRecommendationsList(reviewId);
 
     if (isLoading || error || !reviews) {
         return null;
@@ -21,7 +27,7 @@ export const RecommendationsList = memo((props: RecommendationsListProps) => {
 
     return (
         <VStack
-            data-testid="ArticleRecommendationsList"
+            data-testid="ReviewsRecommendationsList"
             gap="8"
             className={classNames('', {}, [className])}
         >
@@ -29,7 +35,7 @@ export const RecommendationsList = memo((props: RecommendationsListProps) => {
                 size="l"
                 title={t('Recommended')}
             />
-            <ReviewsList
+            <ReviewList
                 reviewsList={reviews}
                 target="_blank"
             />
