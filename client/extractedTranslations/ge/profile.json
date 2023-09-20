@@ -8,6 +8,8 @@
   },
   "firstName": "firstName",
   "lastName": "lastName",
+  "link": "link",
   "profile": "profile",
-  "save": "save"
+  "save": "save",
+  "userName": "userName"
 }
