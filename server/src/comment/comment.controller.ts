@@ -14,7 +14,7 @@ import { CommentService } from './comment.service';
 import { ApiBody } from '@nestjs/swagger';
 import { CreateCommentDto } from './dto';
 import { Response } from 'express';
-import { CommentResponse } from './iterseptors';
+import { CommentResponse } from './transformers';
 import { Public } from '../libs/decorators';
 
 @Controller('comment')

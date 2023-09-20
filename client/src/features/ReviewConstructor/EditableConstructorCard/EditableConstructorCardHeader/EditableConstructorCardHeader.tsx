@@ -11,7 +11,6 @@ import { Button } from '@/shared/UI-kit/Button';
 import { Card } from '@/shared/UI-kit/Card';
 import {
     createReviewService,
-    getReviewFormReviewTypeSelector,
     getReviewFormSelector,
     getReviewReadonlySelector,
     reviewActions,
@@ -26,6 +25,7 @@ import { BackButton } from '@/shared/UI-kit/BackButton';
 import { AddTextBlockButton } from '@/shared/UI-kit/AddTextBlockButton';
 import { AddImageBlockButton } from '@/shared/UI-kit/AddImageBlockButton';
 import { AddCodeBlockButton } from '@/shared/UI-kit/AddCodeBlockButton';
+import { fetchTagListService, getTagCurrentDataSelector } from '@/entities/Tag';
 
 interface EditableProfileCardHeaderProps {
     className?: string;
@@ -40,13 +40,12 @@ export const EditableConstructorCardHeader = memo(
         const { className, reviewData, workData, ownerId, isNewReview } = props;
 
         const { t } = useTranslation('reviewConstructor');
-        const formData = useSelector(getReviewFormSelector);
+        const formReviewData = useSelector(getReviewFormSelector);
         const currentUser = useSelector(getUserDataSelector);
 
         const canEdit = true; // authData?.id === profileData?.id;
         const readonly = useSelector(getReviewReadonlySelector);
         const dispatch = useAppDispatch();
-        const reviewType = useSelector(getReviewFormReviewTypeSelector);
 
         const onEdit = useCallback(() => {
             dispatch(reviewActions.setReadonly(false));
@@ -58,6 +57,7 @@ export const EditableConstructorCardHeader = memo(
                     type: workData?.type,
                 }),
             );
+            dispatch(fetchTagListService());
         }, [dispatch, workData]);
 
         const onCancelEdit = useCallback(() => {
@@ -65,10 +65,10 @@ export const EditableConstructorCardHeader = memo(
         }, [dispatch]);
 
         const onSave = useCallback(() => {
-            if (formData) {
-                dispatch(createReviewService(formData));
+            if (formReviewData) {
+                dispatch(createReviewService(formReviewData));
             }
-        }, [dispatch, formData]);
+        }, [dispatch, formReviewData]);
 
         const onAddTextBlock = useCallback(() => {
             const newTextBlock: ReviewTextBlockI = {

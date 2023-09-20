@@ -5,27 +5,19 @@ import { HStack } from '@/shared/UI-kit/Stack';
 import { Icon } from '@/shared/UI-kit/Icon';
 import DeleteCrossIcon from '@/shared/assets/ui/icons/delete-cross.svg';
 import { Text } from '@/shared/UI-kit/Text';
+import { Button } from '@/shared/UI-kit/Button';
 
-interface TagProps {
+interface EditableTagProps {
     className?: string;
     tagName: string;
-    onDelete: (value: string) => void;
+    onClick: (value: string) => void;
 }
 
-export const Tag = memo((props: TagProps) => {
-    const { className, tagName, onDelete } = props;
+export const Tag = memo((props: EditableTagProps) => {
+    const { className, tagName, onClick } = props;
 
-    const onClick = () => () => {
-        onDelete(tagName);
-    };
-
-    const commonProps = {
-        className: classNames(cls.icon, {}, []),
-        Svg: DeleteCrossIcon,
-
-        width: 16,
-        height: 16,
-        onClick: onClick(),
+    const handleClick = (tag: string) => {
+        onClick(tag);
     };
 
     if (!tagName) {
@@ -33,20 +25,15 @@ export const Tag = memo((props: TagProps) => {
     }
 
     return (
-        <HStack
-            justify="between"
-            align="center"
-            className={classNames(cls.Tag, {}, [className])}
+        <Button
+            className={className}
+            variant="filled"
+            onClick={() => handleClick(tagName)}
         >
             <Text
                 text={tagName}
                 bold
-                className={cls.tag}
             />
-            <Icon
-                clickable={true}
-                {...commonProps}
-            />
-        </HStack>
+        </Button>
     );
 });

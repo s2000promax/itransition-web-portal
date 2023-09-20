@@ -62,4 +62,6 @@ export class ReviewDto implements Review {
     updatedAt: Date;
 
     viewCounter: bigint;
+
+    tags: string[];
 }

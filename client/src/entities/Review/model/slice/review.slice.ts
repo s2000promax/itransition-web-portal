@@ -23,7 +23,7 @@ const initialState: ReviewSchemaI = {
 
 const initialForm: Omit<
     ReviewI,
-    'id' | 'createdAt' | 'updatedAt' | 'tags' | 'viewCounter'
+    'id' | 'createdAt' | 'updatedAt' | 'viewCounter'
 > = {
     workId: '',
     ownerId: '',
@@ -33,6 +33,7 @@ const initialForm: Omit<
     type: 'ALL' as WorkTypeEnums,
     blocks: [],
     ownerRating: 0,
+    tags: [],
 };
 
 const reviewSlice = createSlice({
@@ -173,6 +174,18 @@ const reviewSlice = createSlice({
                     indexBlock
                 ] as ReviewImageBlockI;
                 codeBlock.src = action.payload.src;
+            }
+        },
+        addTag: (state, action: PayloadAction<string>) => {
+            if (action.payload && !state.form?.tags.includes(action.payload)) {
+                state.form?.tags.push(action.payload);
+            }
+        },
+        deleteTag: (state, action: PayloadAction<string>) => {
+            if (state?.form?.tags?.length && action.payload) {
+                state.form.tags = state.form.tags.filter(
+                    (tag) => tag !== action.payload,
+                );
             }
         },
     },

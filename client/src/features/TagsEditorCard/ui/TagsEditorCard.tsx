@@ -1,29 +1,24 @@
 import React, { memo, useCallback } from 'react';
 import { classNames } from '@/shared/libs/classNames/classNames';
-import cls from './TagsViewCard.module.scss';
+import cls from './TagsEditorCard.module.scss';
 import { useSelector } from 'react-redux';
-import {
-    getTagCurrentDataSelector,
-    getTagFormDataSelector,
-    tagActions,
-} from '@/entities/Tag';
-import { Card } from '@/shared/UI-kit/Card';
 import { HStack } from '@/shared/UI-kit/Stack';
-import { Tag } from '@/shared/UI-kit/Tag';
+import { EditableTag } from '@/shared/UI-kit/EditableTag';
 import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
+import { getReviewFormTagsSelector, reviewActions } from '@/entities/Review';
 
-interface TagsViewCardProps {
+interface TagsEditorCardProps {
     className?: string;
 }
 
-export const TagsViewCard = memo((props: TagsViewCardProps) => {
+export const TagsEditorCard = memo((props: TagsEditorCardProps) => {
     const { className } = props;
     const dispatch = useAppDispatch();
-    const tags = useSelector(getTagCurrentDataSelector);
+    const tags = useSelector(getReviewFormTagsSelector);
 
     const onTagDelete = useCallback(
         (tag: string) => {
-            dispatch(tagActions.deleteTag(tag));
+            dispatch(reviewActions.deleteTag(tag));
         },
         [dispatch],
     );
@@ -40,7 +35,7 @@ export const TagsViewCard = memo((props: TagsViewCardProps) => {
             justify="center"
         >
             {tags.map((tag) => (
-                <Tag
+                <EditableTag
                     key={tag}
                     tagName={tag}
                     onDelete={onTagDelete}

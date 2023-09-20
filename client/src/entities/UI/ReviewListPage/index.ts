@@ -12,6 +12,7 @@ export { getReviewListPageSortSelector } from '@/entities/UI/ReviewListPage/mode
 export { getReviewListPageTypeSelector } from '@/entities/UI/ReviewListPage/model/selectors/getReviewListPageType/getReviewListPageType.selector';
 export { getReviewListPageViewSelector } from '@/entities/UI/ReviewListPage/model/selectors/getReviewListPageView/getReviewListPageView.selector';
 export { useReviewItemByIdSelector } from './model/selectors/useReviewItemById/useReviewItemById.selector';
+export { getReviewListPageSearchTagsSelector } from './model/selectors/getReviewListPageSearchTags/getReviewListPageSearchTags.selector';
 
 export {
     reviewListPageReducer,

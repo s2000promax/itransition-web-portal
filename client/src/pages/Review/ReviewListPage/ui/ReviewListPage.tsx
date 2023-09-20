@@ -26,6 +26,7 @@ import { useSelector } from 'react-redux';
 import { getUserSettings } from '@/entities/User';
 import { PersistenceService } from '@/shared/services/persistence.service';
 import { LocalStorageEnums } from '@/shared/enums/localStorage.enums';
+import { tagReducer } from '@/entities/Tag';
 
 export interface ReviewListPageProps {
     className?: string;
@@ -33,6 +34,7 @@ export interface ReviewListPageProps {
 
 const reducers: ReducersList = {
     reviewListPage: reviewListPageReducer,
+    tag: tagReducer,
 };
 
 const ReviewListPage = (props: ReviewListPageProps) => {
@@ -83,7 +85,7 @@ const ReviewListPage = (props: ReviewListPageProps) => {
     return (
         <DynamicModuleLoader
             reducers={reducers}
-            removeAfterUnmount={false}
+            removeAfterUnmount
         >
             {content}
         </DynamicModuleLoader>

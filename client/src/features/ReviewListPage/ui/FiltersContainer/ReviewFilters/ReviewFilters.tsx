@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { classNames } from '@/shared/libs/classNames/classNames';
+import cls from './ReviewFilters.module.scss';
 import { SortOrderT } from '@/shared/types/sort.type';
 import { Card } from '@/shared/UI-kit/Card';
 import { VStack } from '@/shared/UI-kit/Stack';
@@ -11,6 +12,7 @@ import { TypeTabs } from '@/features/UI/TypeTabs';
 import { WorkTypeEnums } from '@/entities/Work';
 import { ReviewSortFieldEnums } from '@/entities/UI/ReviewListPage';
 import { ReviewSortSelector } from './ReviewSortSelector/ReviewSortSelector';
+import { ReviewTagSelector } from '@/features/ReviewListPage/ui/FiltersContainer/ReviewFilters/ReviewTagSelector/ReviewTagSelector';
 
 interface FiltersProps {
     className?: string;
@@ -40,7 +42,7 @@ export const ReviewFilters = memo((props: FiltersProps) => {
 
     return (
         <Card
-            className={classNames('', {}, [className])}
+            className={classNames(cls.ReviewFilters, {}, [className])}
             padding="24"
         >
             <VStack gap="32">
@@ -55,6 +57,7 @@ export const ReviewFilters = memo((props: FiltersProps) => {
                     value={type}
                     onChangeType={onChangeType}
                 />
+                <ReviewTagSelector />
                 <ReviewSortSelector
                     order={order}
                     sort={sort}

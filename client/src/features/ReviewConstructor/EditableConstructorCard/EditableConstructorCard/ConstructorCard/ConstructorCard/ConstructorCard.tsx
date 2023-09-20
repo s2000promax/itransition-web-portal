@@ -21,28 +21,16 @@ import {
 import { OwnerRating } from '@/features/UI/OwnerRating';
 import { ImageDragDropUploader } from '@/features/UI/ImageDragDropUploader';
 import { TagSelector } from '@/features/UI/TagSelector';
-import { TagsViewCard } from '@/features/UI/TagsViewCard';
-import { getTagCurrentDataSelector } from '@/entities/Tag';
+import { TagsEditorCard } from '@/features/TagsEditorCard';
 
-export interface ProfileCardProps {
+export interface ConstructorCardProps {
     className?: string;
-    // data?: Partial<ReviewI>;
     error?: string;
     isLoading?: boolean;
-    // readonly?: boolean;
 }
 
-export const ConstructorCard = (props: ProfileCardProps) => {
-    const {
-        className,
-        // data,
-        isLoading,
-        error,
-        // readonly,
-        // onChangeTitle,
-        // onChangeSubtitle,
-        // onChangeOwnerRating,
-    } = props;
+export const ConstructorCard = (props: ConstructorCardProps) => {
+    const { className, isLoading, error } = props;
 
     const { t } = useTranslation('reviewConstructor');
     const dispatch = useAppDispatch();
@@ -145,7 +133,7 @@ export const ConstructorCard = (props: ProfileCardProps) => {
                     align="center"
                     className={cls.tagsContainer}
                 >
-                    <TagsViewCard />
+                    <TagsEditorCard />
                     <TagSelector />
                 </VStack>
             )}

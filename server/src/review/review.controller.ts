@@ -28,17 +28,35 @@ export class ReviewController {
 
     @Post('create')
     @ApiBody({ type: ReviewDto })
-    async createReview(@Body() reviewDto: ReviewDto) {
-        await this.reviewService.create(reviewDto);
+    async createReview(@Body() reviewDto: ReviewDto, @Res() res: Response) {
+        try {
+            await this.reviewService.create(reviewDto);
+
+            res.status(HttpStatus.OK).send();
+        } catch (e) {
+            throw new BadRequestException('Failed to create review');
+        }
     }
 
     @Put('update')
     @ApiBody({ type: ReviewDto })
-    async updateReview(@Body() reviewDto: ReviewDto) {}
+    async updateReview(@Body() reviewDto: ReviewDto, @Res() res: Response) {
+        try {
+            res.status(HttpStatus.OK).send();
+        } catch (e) {
+            throw new BadRequestException('Failed to update review');
+        }
+    }
 
     @Put('delete')
     @ApiBody({ type: ReviewDto })
-    async deleteReview(@Body() reviewDto: ReviewDto) {}
+    async deleteReview(@Body() reviewDto: ReviewDto, @Res() res: Response) {
+        try {
+            res.status(HttpStatus.OK).send();
+        } catch (e) {
+            throw new BadRequestException('Failed to delete review');
+        }
+    }
 
     @Public()
     @UseInterceptors(ClassSerializerInterceptor)
@@ -79,6 +97,7 @@ export class ReviewController {
         @Query('_order') order: string,
         @Query('q') search: string,
         @Query('type') type: ReviewTypeEnum,
+        @Query('tags') tags: string,
     ) {
         try {
             const foundedReviewList = await this.reviewService.findReviewList(
@@ -88,6 +107,7 @@ export class ReviewController {
                 order,
                 search,
                 type,
+                tags,
             );
 
             const reviewListResponse = foundedReviewList.map(
@@ -107,7 +127,11 @@ export class ReviewController {
         try {
             const review = await this.reviewService.findById(reviewId);
 
-            const reviewResponse = new ReviewResponse(review, review.owner);
+            const reviewResponse = new ReviewResponse(
+                review,
+                review.owner,
+                review.tags,
+            );
 
             return reviewResponse;
         } catch (e) {

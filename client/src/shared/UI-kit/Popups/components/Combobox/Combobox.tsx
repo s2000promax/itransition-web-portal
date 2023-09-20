@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { Combobox as HCombobox } from '@headlessui/react';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import cls from './Combobox.module.scss';
@@ -15,24 +15,33 @@ interface ComboboxProps<T extends string> {
     readonly?: boolean;
     direction?: DropdownDirection;
     label?: string;
+    doNotClean?: boolean;
 }
 
 export function Combobox<T extends string>(props: ComboboxProps<T>) {
-    const { className, items = [], readonly, onAddValue } = props;
+    const { className, items, readonly, onAddValue, doNotClean, value } = props;
 
     const [inputValue, setInputValue] = useState('');
     const [query, setQuery] = useState('');
 
+    useEffect(() => {
+        if (value) {
+            setInputValue(value);
+        }
+    }, [value]);
+
     const filteredItems =
         query === ''
             ? items
-            : items.filter((item) => {
+            : items?.filter((item) => {
                   return item.toLowerCase().includes(query.toLowerCase());
               });
 
     const handleAddFounded = (value: T) => {
         handleAddValue(value);
-        setInputValue(() => '');
+        if (!doNotClean) {
+            setInputValue(() => '');
+        }
     };
 
     const handleAddValue = (value: T) => {
@@ -58,7 +67,9 @@ export function Combobox<T extends string>(props: ComboboxProps<T>) {
                 onKeyUp={(event) => {
                     if (event.code === 'Enter' || event.code == 'NumpadEnter') {
                         handleAddValue(inputValue as T);
-                        setInputValue('');
+                        if (!doNotClean) {
+                            setInputValue('');
+                        }
                     }
                 }}
             >
@@ -68,7 +79,7 @@ export function Combobox<T extends string>(props: ComboboxProps<T>) {
                     className={cls.trigger}
                 />
                 <HCombobox.Options className={cls.options}>
-                    {filteredItems.map((item) => (
+                    {filteredItems?.map((item) => (
                         <HCombobox.Option
                             key={item}
                             value={item}

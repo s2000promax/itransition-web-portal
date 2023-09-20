@@ -18,10 +18,12 @@ export interface UIEntityViewI {
     order: SortOrderT;
     search: string;
     type: WorkTypeEnums;
+    tags: string;
 }
 
 export interface UISchemaI {
     scroll: ScrollSchemaT;
     language: LanguageEnums;
     theme: ThemeEnums;
+    tags: string;
 }

@@ -18,10 +18,9 @@ import { AuthService } from './auth.service';
 import { ConfigService } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
 
-import { Response, Request } from 'express';
+import { Request, Response } from 'express';
 
 import { Cookie, Public } from '../libs/decorators';
-import { UserResponse } from '../user/transformers';
 import { LoginDto, RegisterDto } from './dto';
 import { CookiesEnums } from '../config/enums/cookies.enums';
 import { ProvidersEnums } from '../config/enums/providers.enums';

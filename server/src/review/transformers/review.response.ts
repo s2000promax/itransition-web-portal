@@ -1,4 +1,9 @@
-import { Review as OriginalReview, ReviewTypeEnum, User } from '@prisma/client';
+import {
+    Review as OriginalReview,
+    ReviewTag,
+    ReviewTypeEnum,
+    User,
+} from '@prisma/client';
 import { TransformUserI, UserResponse } from '../../libs/transformers';
 import { Exclude } from 'class-transformer';
 
@@ -21,13 +26,15 @@ export class ReviewResponse implements Review {
     viewCounter: string;
 
     user: UserResponse;
+    tags: string[];
 
     @Exclude()
     owner: User;
 
-    constructor(review: OriginalReview, user: User) {
+    constructor(review: OriginalReview, user: User, tags?: ReviewTag[]) {
         Object.assign(this, review);
         this.viewCounter = review.viewCounter.toString();
         this.user = new UserResponse(user);
+        this.tags = tags?.map((tag) => tag.tagId) || [];
     }
 }

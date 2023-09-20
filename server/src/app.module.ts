@@ -13,6 +13,7 @@ import { RateModule } from './rate/rate.module';
 import { ReviewModule } from './review/review.module';
 import { AwsS3Module } from './aws-s3/aws-s3.module';
 import { WorkModule } from './work/work.module';
+import { TagModule } from './tag/tag.module';
 
 @Module({
     imports: [
@@ -28,6 +29,7 @@ import { WorkModule } from './work/work.module';
         CommentModule,
         RateModule,
         AwsS3Module,
+        TagModule,
     ],
     controllers: [AppController],
     providers: [

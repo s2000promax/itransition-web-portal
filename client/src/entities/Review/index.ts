@@ -16,6 +16,8 @@ export { getReviewValidateErrorsSelector } from './model/selectors/getReviewVali
 export { getReviewFormSelector } from './model/selectors/getReviewForm/getReviewForm.selector';
 export { getReviewFormBlocksSelector } from './model/selectors/getReviewFormBlocks/getReviewFormBlocks.selector';
 export { getReviewFormReviewTypeSelector } from './model/selectors/getReviewFormReviewType/getReviewFormReviewType.selector';
+export { getReviewFormTagsSelector } from './model/selectors/getReviewFormTags/getReviewFormTags.selector';
+export { getReviewDataTagsSelector } from './model/selectors/getReviewDataTags/getReviewDataTags.selector';
 
 export { reviewReducer, reviewActions } from './model/slice/review.slice';
 

@@ -14,6 +14,7 @@ import { VStack } from '@/shared/UI-kit/Stack';
 import {
     CommentsContainer,
     ReviewDetailsContainer,
+    TagsContainer,
     UserOwnerReviewInfoContainer,
     WorkInfoContainer,
 } from '@/features/ReviewDetailsPage';
@@ -68,6 +69,7 @@ const ReviewDetailsPage = (props: ReviewDetailsPageProps) => {
                     <VStack gap="24">
                         <UserOwnerReviewInfoContainer />
                         <WorkInfoContainer />
+                        <TagsContainer />
                     </VStack>
                 }
             />

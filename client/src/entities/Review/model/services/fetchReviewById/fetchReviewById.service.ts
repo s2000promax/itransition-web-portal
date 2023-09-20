@@ -6,7 +6,7 @@ export const fetchReviewByIdService = createAsyncThunk<
     ReviewI,
     string | undefined,
     ThunkConfig<string>
->('reviewDetails/fetchReviewById', async (reviewId, thunkApi) => {
+>('review/fetchReviewById', async (reviewId, thunkApi) => {
     const { extra, rejectWithValue } = thunkApi;
 
     if (!reviewId) {

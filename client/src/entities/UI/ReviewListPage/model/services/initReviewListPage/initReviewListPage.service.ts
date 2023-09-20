@@ -20,6 +20,7 @@ export const initReviewListPageService = createAsyncThunk<
         const sortFromUrl = searchParams.get('sort') as ReviewSortFieldEnums;
         const searchFromUrl = searchParams.get('search');
         const typeFromUrl = searchParams.get('type') as WorkTypeEnums;
+        const tagsFromUrl = searchParams.get('tags') as string;
 
         if (orderFromUrl) {
             dispatch(reviewListPageActions.setOrder(orderFromUrl));
@@ -32,6 +33,10 @@ export const initReviewListPageService = createAsyncThunk<
         }
         if (typeFromUrl) {
             dispatch(reviewListPageActions.setType(typeFromUrl));
+        }
+
+        if (typeFromUrl) {
+            dispatch(reviewListPageActions.setTagsSearch(tagsFromUrl));
         }
 
         dispatch(reviewListPageActions.initState());

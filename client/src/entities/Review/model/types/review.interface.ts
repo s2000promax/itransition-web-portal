@@ -40,7 +40,7 @@ export type ReviewBlockT =
 
 export type FormDataI = Omit<
     ReviewI,
-    'id' | 'createdAt' | 'updatedAt' | 'tags' | 'viewCounter'
+    'id' | 'createdAt' | 'updatedAt' | 'viewCounter'
 >;
 
 export interface ReviewI {
@@ -51,7 +51,7 @@ export interface ReviewI {
     workTitle: string;
     cover: string;
     type: WorkTypeEnums;
-    tags: [];
+    tags: string[];
     blocks: ReviewBlockT[];
     createdAt: Date;
     updatedAt: Date;

@@ -38,6 +38,7 @@ const reviewListPageSlice = createSlice({
         search: '',
         order: 'asc',
         type: WorkTypeEnums.ALL,
+        tags: '',
     }),
     reducers: {
         setView: (state, action: PayloadAction<ViewEnums>) => {
@@ -61,6 +62,9 @@ const reviewListPageSlice = createSlice({
         },
         setSearch: (state, action: PayloadAction<string>) => {
             state.search = action.payload;
+        },
+        setTagsSearch: (state, action: PayloadAction<string>) => {
+            state.tags = action.payload;
         },
         initState: (state) => {
             const view = PersistenceService.get(

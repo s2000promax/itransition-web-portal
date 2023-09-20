@@ -9,6 +9,7 @@ const initialState: UISchemaI = {
     scroll: {},
     language: LanguageEnums.ENG,
     theme: ThemeEnums.LIGHT,
+    tags: '',
 };
 
 const uiSlice = createSlice({
@@ -20,6 +21,9 @@ const uiSlice = createSlice({
             { payload }: PayloadAction<{ path: string; position: number }>,
         ) => {
             state.scroll[payload.path] = payload.position;
+        },
+        setTagsSearch: (state, action: PayloadAction<string>) => {
+            state.tags = action.payload;
         },
     },
     extraReducers: (builder) => {

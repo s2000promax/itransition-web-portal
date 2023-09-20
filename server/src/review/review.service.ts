@@ -54,6 +54,21 @@ export class ReviewService {
                     },
                 },
             });
+
+            for (const tagName of review.tags || []) {
+                const tag = await this.prismaService.tag.upsert({
+                    where: { name: tagName },
+                    update: {},
+                    create: { name: tagName },
+                });
+
+                await this.prismaService.reviewTag.create({
+                    data: {
+                        reviewId: createdReview.id,
+                        tagId: tag.name,
+                    },
+                });
+            }
         } catch (e) {
             console.log(e);
             return null;
@@ -82,6 +97,11 @@ export class ReviewService {
                         },
                     },
                     owner: true,
+                    tags: {
+                        include: {
+                            tag: true,
+                        },
+                    },
                 },
             });
 
@@ -98,6 +118,7 @@ export class ReviewService {
         order: string,
         search: string,
         type: ReviewTypeEnum,
+        tags: string,
     ) {
         const _limit = Number(limit);
         const _page = Number(page);
@@ -106,48 +127,78 @@ export class ReviewService {
         const _order = order ?? 'asc';
         const _search = search;
         const _type = type === ReviewTypeEnum.ALL ? undefined : type;
+        const _tags = tags;
 
         try {
+            const searchConditions = [];
+
+            if (_search) {
+                searchConditions.push(
+                    { title: { contains: _search } },
+                    { workTitle: { contains: _search } },
+                    {
+                        owner: {
+                            OR: [
+                                { firstName: { contains: _search } },
+                                { lastName: { contains: _search } },
+                            ],
+                        },
+                    },
+                    {
+                        blocks: {
+                            some: {
+                                OR: [
+                                    { title: { contains: _search } },
+                                    {
+                                        paragraphs: {
+                                            some: {
+                                                content: {
+                                                    contains: _search,
+                                                },
+                                            },
+                                        },
+                                    },
+                                ],
+                            },
+                        },
+                    },
+                    {
+                        comments: {
+                            some: { content: { contains: _search } },
+                        },
+                    },
+                    {
+                        tags: {
+                            some: {
+                                tag: {
+                                    name: {
+                                        contains: _search,
+                                    },
+                                },
+                            },
+                        },
+                    },
+                );
+            }
+
+            if (_tags) {
+                searchConditions.push({
+                    tags: {
+                        some: {
+                            tag: {
+                                name: { contains: _tags },
+                            },
+                        },
+                    },
+                });
+            }
+
             const foundedReviews = await this.prismaService.review.findMany({
                 skip: _skip,
                 take: _limit,
                 where: {
                     type: _type,
-                    OR: [
-                        { title: { contains: _search } },
-                        { workTitle: { contains: _search } },
-                        {
-                            owner: {
-                                OR: [
-                                    { firstName: { contains: _search } },
-                                    { lastName: { contains: _search } },
-                                ],
-                            },
-                        },
-                        {
-                            blocks: {
-                                some: {
-                                    OR: [
-                                        { title: { contains: _search } },
-                                        {
-                                            paragraphs: {
-                                                some: {
-                                                    content: {
-                                                        contains: _search,
-                                                    },
-                                                },
-                                            },
-                                        },
-                                    ],
-                                },
-                            },
-                        },
-                        {
-                            comments: {
-                                some: { content: { contains: _search } },
-                            },
-                        },
-                    ],
+                    OR: searchConditions.length ? searchConditions : undefined,
                 },
                 include: {
                     owner: true,

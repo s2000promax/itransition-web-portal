@@ -37,6 +37,7 @@ const workListPageSlice = createSlice({
         search: '',
         order: 'asc',
         type: WorkTypeEnums.ALL,
+        tags: '',
     }),
     reducers: {
         setView: (state, action: PayloadAction<ViewEnums>) => {

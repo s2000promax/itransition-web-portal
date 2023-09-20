@@ -8,7 +8,7 @@ export const createReviewService = createAsyncThunk<
     void,
     CreateReviewServiceProps,
     ThunkConfig<string>
->('register', async (reviewFormData, thunkApi) => {
+>('review/create', async (reviewFormData, thunkApi) => {
     const { extra, rejectWithValue } = thunkApi;
 
     try {

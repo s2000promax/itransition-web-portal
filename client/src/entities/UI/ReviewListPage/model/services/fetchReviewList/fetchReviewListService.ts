@@ -8,7 +8,7 @@ import { getReviewListPageOrderSelector } from '../../selectors/getReviewListPag
 import { getReviewListPageSearchSelector } from '../../selectors/getReviewListPageSearch/getReviewListPageSearch.selector';
 import { getReviewListPageNumberSelector } from '../../selectors/getReviewListPageNumber/getReviewListPageNumber.selector';
 import { getReviewListPageTypeSelector } from '../../selectors/getReviewListPageType/getReviewListPageType.selector';
-import { WorkTypeEnums } from '@/entities/Work';
+import { getTagsSearchSelector } from '@/entities/UI/UI';
 
 interface FetchReviewListProps {
     replace?: boolean;
@@ -26,6 +26,7 @@ export const fetchReviewListService = createAsyncThunk<
     const search = getReviewListPageSearchSelector(getState());
     const page = getReviewListPageNumberSelector(getState());
     const type = getReviewListPageTypeSelector(getState());
+    const tags = getTagsSearchSelector(getState());
 
     try {
         addQueryParams({
@@ -33,6 +34,7 @@ export const fetchReviewListService = createAsyncThunk<
             order,
             search,
             type,
+            tags,
         });
         const response = await extra.api.get<ReviewI[]>('review/reviewList', {
             params: {
@@ -43,6 +45,7 @@ export const fetchReviewListService = createAsyncThunk<
                 _order: order,
                 q: search,
                 type: type,
+                tags,
             },
         });
 

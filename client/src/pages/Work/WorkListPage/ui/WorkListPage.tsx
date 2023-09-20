@@ -70,7 +70,7 @@ const WorkListPage = ({ className }: WorkListPageProps) => {
     return (
         <DynamicModuleLoader
             reducers={reducers}
-            removeAfterUnmount={false}
+            removeAfterUnmount
         >
             {content}
         </DynamicModuleLoader>
