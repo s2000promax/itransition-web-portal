@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import cls from './ConstructorCard.module.scss';
@@ -8,7 +8,6 @@ import { Card } from '@/shared/UI-kit/Card';
 import { HStack, VStack } from '@/shared/UI-kit/Stack';
 import { Input } from '@/shared/UI-kit/Input';
 import { Text } from '@/shared/UI-kit/Text';
-import { FileUploader } from 'react-drag-drop-files';
 import { AppImage } from '@/shared/UI-kit/AppImage';
 import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
 import { uploadService } from '@/entities/Upload';
@@ -18,10 +17,12 @@ import {
     getReviewFormSelector,
     getReviewReadonlySelector,
     reviewActions,
-    ReviewI,
 } from '@/entities/Review';
 import { OwnerRating } from '@/features/UI/OwnerRating';
 import { ImageDragDropUploader } from '@/features/UI/ImageDragDropUploader';
+import { TagSelector } from '@/features/UI/TagSelector';
+import { TagsViewCard } from '@/features/UI/TagsViewCard';
+import { getTagCurrentDataSelector } from '@/entities/Tag';
 
 export interface ProfileCardProps {
     className?: string;
@@ -134,6 +135,18 @@ export const ConstructorCard = (props: ProfileCardProps) => {
                     gap="32"
                 >
                     {blocks.map(renderEditableBlocks)}
+                </VStack>
+            )}
+
+            {!readonly && (
+                <VStack
+                    gap="16"
+                    max
+                    align="center"
+                    className={cls.tagsContainer}
+                >
+                    <TagsViewCard />
+                    <TagSelector />
                 </VStack>
             )}
 

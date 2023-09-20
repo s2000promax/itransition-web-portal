@@ -30,6 +30,7 @@ import {
     workReducer,
     fetchWorkByIdService,
 } from '@/entities/Work';
+import { tagReducer } from '@/entities/Tag';
 
 interface EditableProfileCardProps {
     className?: string;
@@ -39,6 +40,7 @@ interface EditableProfileCardProps {
 const reducers: ReducersList = {
     review: reviewReducer,
     work: workReducer,
+    tag: tagReducer,
 };
 
 export const EditableConstructorCard = memo(
