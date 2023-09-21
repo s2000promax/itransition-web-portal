@@ -6,7 +6,7 @@
     "start": "webpack serve --env port=3000",
     "start:dev": "webpack serve --env port=3000 mode=development",
     "build:dev": "webpack --env mode=development",
-    "build:prod": "webpack --env mode=production",
+    "build:prod": "webpack --env mode=production apiUrl=https://itransition-web-portal-server.vercel.app/api",
     "lint:ts": "eslint \"**/*.{ts,tsx}\"",
     "prettier": "npx prettier \"**/*.{ts,tsx}\" --write",
     "lint:ts:fix": "eslint \"**/*.{ts,tsx}\" --fix\n",
