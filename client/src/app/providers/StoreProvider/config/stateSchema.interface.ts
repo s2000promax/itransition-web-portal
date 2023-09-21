@@ -21,6 +21,7 @@ import { RatingSchemaI } from '@/entities/Rating';
 import { LikeSchemaI } from '@/entities/Like';
 import { CommentSchemaI } from '@/entities/Comment';
 import { TagSchemaI } from '@/entities/Tag';
+import { DashboardSchemaI } from '@/entities/Dashboard';
 
 export interface StateSchemaI {
     authData: AuthSchemaI;
@@ -38,6 +39,7 @@ export interface StateSchemaI {
     like?: LikeSchemaI;
     comment?: CommentSchemaI;
     tag?: TagSchemaI;
+    dashboard?: DashboardSchemaI;
 
     workListPage?: WorkListPageSchemaI;
     reviewDetailsPage?: ReviewDetailsPageSchemaI;

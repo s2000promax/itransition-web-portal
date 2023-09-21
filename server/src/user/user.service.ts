@@ -121,6 +121,16 @@ export class UserService {
         }
     }
 
+    async findAll(): Promise<User[]> {
+        try {
+            const foundedUsers = await this.prismaService.user.findMany();
+
+            return foundedUsers;
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     async getUserRoles(userId: string): Promise<RolesEnum[]> {
         try {
             const userRoles = await this.prismaService.userRole.findMany({
