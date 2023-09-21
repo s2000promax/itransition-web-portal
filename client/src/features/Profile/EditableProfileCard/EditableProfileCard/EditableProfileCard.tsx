@@ -12,22 +12,22 @@ import {
 } from '@/shared/libs/components/DynamicModuleLoader';
 
 import {
-    ValidateProfileEnums,
+    fetchProfileData,
+    getProfileError,
     getProfileForm,
     getProfileIsLoading,
-    getProfileError,
     getProfileReadonly,
     getProfileValidateErrors,
-    fetchProfileData,
-    profileReducer,
     profileActions,
+    profileReducer,
+    ValidateProfileEnums,
 } from '@/entities/Profile';
 
 import { EditableProfileCardHeader } from '../EditableProfileCardHeader/EditableProfileCardHeader';
 import { VStack } from '@/shared/UI-kit/Stack';
 import { Text } from '@/shared/UI-kit/Text';
 import { uploadService } from '@/entities/Upload';
-import { reviewActions } from '@/entities/Review';
+
 interface EditableProfileCardProps {
     className?: string;
     id?: string;
@@ -49,9 +49,9 @@ export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
     const validateErrors = useSelector(getProfileValidateErrors);
 
     const validateErrorTranslates = {
-        [ValidateProfileEnums.SERVER_ERROR]: t('error.save'),
-        [ValidateProfileEnums.NO_DATA]: t('error.no_data'),
-        [ValidateProfileEnums.INCORRECT_USER_DATA]: t('error.user_data'),
+        [ValidateProfileEnums.SERVER_ERROR]: t('validator.server'),
+        [ValidateProfileEnums.NO_DATA]: t('validator.empty'),
+        [ValidateProfileEnums.INCORRECT_USER_DATA]: t('validator.incorrect'),
     };
 
     useInitialEffect(() => {

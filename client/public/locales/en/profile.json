@@ -1,13 +1,15 @@
 {
-  "cancel": "cancel",
-  "edit": "edit",
-  "error": {
-    "no_data": "no_data",
-    "save": "save",
-    "user_data": "user_data"
-  },
-  "firstName": "firstName",
-  "lastName": "lastName",
-  "profile": "profile",
-  "save": "save"
+  "Cancel": "Cancel",
+  "Edit": "Edit",
+  "First Name": "First Name",
+  "Last Name": "Last Name",
+  "Profile": "Profile",
+  "Save": "Save",
+  "message": "An error occurred while loading the Profile",
+  "refresh": "Try refreshing the page",
+  "validator": {
+    "empty": "Empty data",
+    "incorrect": "Incorrect data",
+    "server": "Server error"
+  }
 }

@@ -11,7 +11,7 @@ import SearchIcon from '@/shared/assets/ui/icons/search.svg';
 import { TypeTabs } from '@/features/UI/TypeTabs';
 import { WorkTypeEnums } from '@/entities/Work';
 import { WorkSortFieldEnums } from '@/entities/UI/WorkListPage';
-import { WorkSortSelector } from '@/features/WorkListPage/ui/FiltersContainer/WorkFilters/WorkSortSelector/WorkSortSelector';
+import { WorkSortSelector } from './WorkSortSelector/WorkSortSelector';
 
 interface FiltersProps {
     className?: string;
@@ -37,7 +37,7 @@ export const WorkFilters = memo((props: FiltersProps) => {
         order,
         type,
     } = props;
-    const { t } = useTranslation('workListPage');
+    const { t } = useTranslation('workList');
 
     return (
         <Card

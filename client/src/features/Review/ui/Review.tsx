@@ -58,7 +58,7 @@ export const Review = memo((props: ReviewProps) => {
         content = (
             <Text
                 align="center"
-                text={t('An error occurred while loading the review')}
+                text={t('error')}
             />
         );
     } else {

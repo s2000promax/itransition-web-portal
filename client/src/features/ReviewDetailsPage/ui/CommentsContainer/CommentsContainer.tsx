@@ -24,7 +24,7 @@ interface CommentsContainerProps {
 
 export const CommentsContainer = memo((props: CommentsContainerProps) => {
     const { className, id } = props;
-    const { t } = useTranslation();
+    const { t } = useTranslation('comment');
     const isAuth = useSelector(getUserDataSelector);
     const comments = useSelector(getReviewComments.selectAll);
     const commentsIsLoading = useSelector(getCommentsIsLoadingSelector);
@@ -49,7 +49,7 @@ export const CommentsContainer = memo((props: CommentsContainerProps) => {
         >
             <Text
                 size="l"
-                title={t('comments')}
+                title={t('Comments')}
             />
             {isAuth && (
                 <Suspense fallback={<Loader />}>

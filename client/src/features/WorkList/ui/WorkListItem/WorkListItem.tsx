@@ -24,7 +24,7 @@ interface ListItemProps {
 
 export const WorkListItem = memo((props: ListItemProps) => {
     const { className, work, view, target } = props;
-    const { t } = useTranslation('workListPage');
+    const { t } = useTranslation('workList');
 
     if (view === ViewEnums.BIG) {
         return (
@@ -74,7 +74,7 @@ export const WorkListItem = memo((props: ListItemProps) => {
                             target={target}
                             to={getRouteWorkDetails(work?.id!)}
                         >
-                            <Button variant="outline">{t('read_more')}</Button>
+                            <Button variant="outline">{t('more')}</Button>
                         </AppLink>
                     </HStack>
                 </VStack>

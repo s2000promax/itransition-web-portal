@@ -1,22 +1,22 @@
 {
-  "An error occurred while loading the review": "An error occurred while loading the review",
-  "Create new review": "Create new review",
-  "Title": "Title",
-  "Try refreshing the page": "Try refreshing the page",
-  "cancel": "cancel",
-  "code": "code",
-  "code description": "code description",
-  "edit": "edit",
-  "error": {
-    "incorrect_data": "incorrect_data",
-    "no_data": "no_data",
-    "save": "save"
+  "Cancel": "Отмена",
+  "Edit": "Редактировать",
+  "Save": "Сохранить",
+  "Title": "Заголовок",
+  "code": "Блок кода",
+  "code description": "Описание кода",
+  "create": "Создать",
+  "image description": "Описание изображения",
+  "message": "Произошла ошибка при загрузке обзора",
+  "paragraph": "Параграф",
+  "refresh": "Попробуйте обновить страницу",
+  "title": "Создать новый обзор",
+  "type": "Тип",
+  "validator": {
+    "empty": "Данные не заполнены",
+    "incorrect": "Некорректные данные",
+    "server": "Ошибка сервера"
   },
-  "image description": "image description",
-  "paragraph": "paragraph",
-  "save": "save",
-  "title": "title",
-  "type": "type",
-  "workTitle": "workTitle",
-  "you_rate": "you_rate"
+  "workTitle": "Название произведения",
+  "you_rate": "Ваша оценка произведению"
 }

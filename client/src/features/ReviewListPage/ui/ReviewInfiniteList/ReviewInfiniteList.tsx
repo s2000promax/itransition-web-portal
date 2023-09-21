@@ -26,7 +26,7 @@ export const ReviewInfiniteList = memo((props: ReviewInfiniteListProps) => {
         return (
             <Text
                 size="l"
-                text={t('An error occurred while loading the reviews')}
+                text={t('error')}
             />
         );
     }

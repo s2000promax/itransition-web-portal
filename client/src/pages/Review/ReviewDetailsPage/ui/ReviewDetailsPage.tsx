@@ -18,7 +18,7 @@ import {
     UserOwnerReviewInfoContainer,
     WorkInfoContainer,
 } from '@/features/ReviewDetailsPage';
-import { ReviewRating } from '@/features/ReviewRating';
+import { WorkRating } from '@/features/WorkRating';
 import { RecommendationsList } from '@/features/RecommendationsList';
 import { workReducer } from '@/entities/Work';
 import { useSelector } from 'react-redux';
@@ -59,7 +59,7 @@ const ReviewDetailsPage = (props: ReviewDetailsPageProps) => {
                             max
                         >
                             <ReviewDetailsContainer />
-                            {isAuth && <ReviewRating reviewId={id} />}
+                            {isAuth && <WorkRating reviewId={id} />}
                             <RecommendationsList reviewId={id} />
                             <CommentsContainer id={id} />
                         </VStack>

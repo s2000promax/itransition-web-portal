@@ -1,5 +1,4 @@
 import React, { memo } from 'react';
-import { useTranslation } from 'react-i18next';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import { Page } from '@/widgets/Page';
 import { useParams } from 'react-router-dom';
@@ -10,7 +9,7 @@ export interface ReviewCreatePageProps {
     className?: string;
 }
 
-const ReviewCreatePage = memo((props: ReviewCreatePageProps) => {
+const ReviewCreatePage = (props: ReviewCreatePageProps) => {
     const { className } = props;
     const { id } = useParams<{ id: string }>();
 
@@ -27,6 +26,6 @@ const ReviewCreatePage = memo((props: ReviewCreatePageProps) => {
             </VStack>
         </Page>
     );
-});
+};
 
-export default ReviewCreatePage;
+export default memo(ReviewCreatePage);

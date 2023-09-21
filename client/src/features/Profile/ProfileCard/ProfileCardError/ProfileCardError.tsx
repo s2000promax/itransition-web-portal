@@ -4,7 +4,7 @@ import { HStack } from '@/shared/UI-kit/Stack';
 import { Text } from '@/shared/UI-kit/Text';
 
 export const ProfileCardError = () => {
-    const { t } = useTranslation();
+    const { t } = useTranslation('profile');
 
     return (
         <HStack
@@ -13,8 +13,8 @@ export const ProfileCardError = () => {
         >
             <Text
                 variant="error"
-                title={t('Произошла ошибка при загрузке профиля')}
-                text={t('Попробуйте обновить страницу')}
+                title={t('message')}
+                text={t('refresh')}
                 align="center"
             />
         </HStack>

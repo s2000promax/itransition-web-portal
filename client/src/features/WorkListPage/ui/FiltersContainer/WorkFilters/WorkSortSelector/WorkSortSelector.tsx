@@ -19,7 +19,7 @@ interface SortSelectorProps {
 
 export const WorkSortSelector = memo((props: SortSelectorProps) => {
     const { className, onChangeOrder, onChangeSort, order, sort } = props;
-    const { t } = useTranslation('workListPage');
+    const { t } = useTranslation('workList');
 
     const orderOptions = useMemo<SelectOptionsT<SortOrderT>[]>(
         () => [
@@ -47,11 +47,11 @@ export const WorkSortSelector = memo((props: SortSelectorProps) => {
             },
             {
                 value: WorkSortFieldEnums.AVERAGE_REVIEWS_RATING,
-                content: t('reviews_rating'),
+                content: t('averageReviewsRating'),
             },
             {
                 value: WorkSortFieldEnums.AVERAGE_USERS_RATING,
-                content: t('users_rating'),
+                content: t('averageUsersRating'),
             },
         ],
         [t],

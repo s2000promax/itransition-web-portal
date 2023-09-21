@@ -1,19 +1,23 @@
 {
-  "An error occurred while loading the work": "An error occurred while loading the work",
-  "Try refreshing the page": "Try refreshing the page",
-  "author": "author",
-  "averageReviewsRating": "averageReviewsRating",
-  "averageUsersRating": "averageUsersRating",
-  "cancel": "cancel",
-  "description": "description",
-  "edit": "edit",
-  "error": {
-    "no_data": "no_data",
-    "save": "save",
-    "work_data": "work_data"
-  },
-  "releaseDate": "releaseDate",
-  "save": "save",
-  "title": "title",
-  "works": "works"
+  "Cancel": "Отмена",
+  "Edit": "Редактировать",
+  "Feedbacks": "Отзывы",
+  "Save": "Сохранить",
+  "Works": "Произведения",
+  "author": "Автор",
+  "averageReviewsRating": "Рейтинг по обзорам",
+  "averageUsersRating": "Пользовательский рейтинг",
+  "description": "Описание",
+  "error": "Произошла ошибка при загрузке произведения",
+  "feedback": "Отзывы",
+  "no_feedback": "Нет отзывов",
+  "rate": "Ваша оценка произведению",
+  "refresh": "Попробуйте обновить страницу",
+  "releaseDate": "Дата выхода",
+  "title": "Название",
+  "validator": {
+    "empty": "Данные не заполнены",
+    "incorrect": "Некорректные данные",
+    "server": "Ошибка сервера"
+  }
 }

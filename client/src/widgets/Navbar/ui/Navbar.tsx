@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import { Button } from '@/shared/UI-kit/Button';
 import { HStack } from '@/shared/UI-kit/Stack';
@@ -8,9 +8,7 @@ import cls from './Navbar.module.scss';
 import { useSelector } from 'react-redux';
 import { AvatarDropdown } from '@/features/UI/AvatarDropdown';
 import { NotificationButton } from '@/features/UI/Notification';
-import { getAuthDataSelector } from '@/entities/Auth';
 import { getUserDataSelector } from '@/entities/User';
-import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
 
 interface NavbarProps {
     className?: string;
@@ -20,15 +18,7 @@ export const Navbar = memo(({ className }: NavbarProps) => {
     const { t } = useTranslation('navbar');
     const [isLoginModal, setIsLoginModal] = useState(false);
     const [isRegisterModal, setIsRegisterModal] = useState(false);
-    const dispatch = useAppDispatch();
-    const authData = useSelector(getAuthDataSelector);
     const userData = useSelector(getUserDataSelector);
-
-    useEffect(() => {
-        if (userData) {
-            // dispatch(initAuthData());
-        }
-    }, [userData]);
 
     const onCloseModal = useCallback(() => {
         setIsLoginModal(false);

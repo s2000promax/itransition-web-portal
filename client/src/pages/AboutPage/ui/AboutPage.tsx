@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Page } from '@/widgets/Page';
+import { VStack } from '@/shared/UI-kit/Stack';
+import { Text } from '@/shared/UI-kit/Text';
 
 const AboutPage = () => {
-    const { t } = useTranslation('about');
+    const { t } = useTranslation('aboutPage');
 
-    return <div data-testid="AboutPage">{t('About the portal')}</div>;
+    return (
+        <Page>
+            <VStack gap="16">
+                <Text title={t('title')} />
+            </VStack>
+        </Page>
+    );
 };
 
-export default AboutPage;
+export default memo(AboutPage);

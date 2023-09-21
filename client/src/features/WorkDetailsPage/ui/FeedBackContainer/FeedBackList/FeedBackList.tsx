@@ -14,7 +14,7 @@ interface FeedBackListProps {
 
 export const FeedBackList = memo((props: FeedBackListProps) => {
     const { className, isLoading, comments } = props;
-    const { t } = useTranslation('workDetailsPage');
+    const { t } = useTranslation('work');
 
     if (isLoading) {
         return (
@@ -45,7 +45,7 @@ export const FeedBackList = memo((props: FeedBackListProps) => {
                     />
                 ))
             ) : (
-                <Text text={t('no feedback yet')} />
+                <Text text={t('no_feedback')} />
             )}
         </VStack>
     );

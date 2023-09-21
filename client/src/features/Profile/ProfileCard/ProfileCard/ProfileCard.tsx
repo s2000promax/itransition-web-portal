@@ -76,14 +76,14 @@ export const ProfileCard = (props: ProfileCardProps) => {
                     >
                         <Input
                             value={data?.firstName}
-                            label={t('firstName')}
+                            label={t('First Name')}
                             onChange={onChangeFirstName}
                             readonly={readonly}
                             data-testid="ProfileCard.firstname"
                         />
                         <Input
                             value={data?.lastName}
-                            label={t('lastName')}
+                            label={t('Last Name')}
                             onChange={onChangeLastName}
                             readonly={readonly}
                             data-testid="ProfileCard.lastname"

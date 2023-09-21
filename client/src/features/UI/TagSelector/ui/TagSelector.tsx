@@ -15,7 +15,7 @@ interface TagSelectorProps {
 
 export const TagSelector = memo((props: TagSelectorProps) => {
     const { className } = props;
-    const { t } = useTranslation('tagSelector');
+    const { t } = useTranslation('filters');
     const dispatch = useAppDispatch();
     const tagList = useSelector(getTagListSelector) || [];
 
@@ -28,7 +28,7 @@ export const TagSelector = memo((props: TagSelectorProps) => {
             gap="8"
             className={classNames('', {}, [className])}
         >
-            <Text text={t('select tag')} />
+            <Text text={t('select')} />
             <Combobox
                 items={tagList}
                 onAddValue={onChangeTag}

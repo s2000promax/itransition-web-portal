@@ -1,19 +1,23 @@
 {
-  "An error occurred while loading the work": "An error occurred while loading the work",
-  "Try refreshing the page": "Try refreshing the page",
-  "author": "author",
-  "averageReviewsRating": "averageReviewsRating",
-  "averageUsersRating": "averageUsersRating",
-  "cancel": "cancel",
-  "description": "description",
-  "edit": "edit",
-  "error": {
-    "no_data": "no_data",
-    "save": "save",
-    "work_data": "work_data"
-  },
-  "releaseDate": "releaseDate",
-  "save": "save",
-  "title": "title",
-  "works": "works"
+  "Cancel": "Cancel",
+  "Edit": "Edit",
+  "Feedbacks": "Feedbacks",
+  "Save": "Save",
+  "Works": "Works",
+  "author": "Author",
+  "averageReviewsRating": "Avg Review Rating",
+  "averageUsersRating": "Avg Users Rating",
+  "description": "Description",
+  "error": "An error occurred while loading the work",
+  "feedback": "Feedback",
+  "no_feedback": "No feedbacks yet",
+  "rate": "Your rating of the work",
+  "refresh": "Try refreshing the page",
+  "releaseDate": "Release Date",
+  "title": "Title",
+  "validator": {
+    "empty": "Empty data",
+    "incorrect": "Incorrect data",
+    "server": "Server error"
+  }
 }

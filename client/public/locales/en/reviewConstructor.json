@@ -1,22 +1,22 @@
 {
-  "An error occurred while loading the review": "An error occurred while loading the review",
-  "Create new review": "Create new review",
+  "Cancel": "Cancel",
+  "Edit": "Edit",
+  "Save": "Save",
   "Title": "Title",
-  "Try refreshing the page": "Try refreshing the page",
-  "cancel": "cancel",
-  "code": "code",
-  "code description": "code description",
-  "edit": "edit",
-  "error": {
-    "incorrect_data": "incorrect_data",
-    "no_data": "no_data",
-    "save": "save"
+  "code": "Code",
+  "code description": "Code description",
+  "create": "Create",
+  "image description": "Image description",
+  "message": "An error occurred while loading the review",
+  "paragraph": "Paragraph",
+  "refresh": "Try refreshing the page",
+  "title": "Create new review",
+  "type": "Type",
+  "validator": {
+    "empty": "Empty data",
+    "incorrect": "Incorrect data",
+    "server": "Server error"
   },
-  "image description": "image description",
-  "paragraph": "paragraph",
-  "save": "save",
-  "title": "title",
-  "type": "type",
-  "workTitle": "workTitle",
-  "you_rate": "you_rate"
+  "workTitle": "Work title",
+  "you_rate": "Your rating of the work"
 }

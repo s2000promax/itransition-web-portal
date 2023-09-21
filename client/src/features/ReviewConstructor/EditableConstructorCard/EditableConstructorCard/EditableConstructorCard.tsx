@@ -57,9 +57,9 @@ export const EditableConstructorCard = memo(
         const validateErrors = useSelector(getReviewValidateErrorsSelector);
 
         const validateErrorTranslates = {
-            [ValidateReviewEnums.SERVER_ERROR]: t('error.save'),
-            [ValidateReviewEnums.NO_DATA]: t('error.no_data'),
-            [ValidateReviewEnums.INCORRECT_DATA]: t('error.incorrect_data'),
+            [ValidateReviewEnums.SERVER_ERROR]: t('validator.server'),
+            [ValidateReviewEnums.NO_DATA]: t('validator.empty'),
+            [ValidateReviewEnums.INCORRECT_DATA]: t('validator.incorrect'),
         };
 
         useInitialEffect(() => {

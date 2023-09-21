@@ -101,7 +101,7 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
                 </VStack>
                 {error && (
                     <Text
-                        text={t('Wrong login or password')}
+                        text={t('error')}
                         variant="error"
                     />
                 )}

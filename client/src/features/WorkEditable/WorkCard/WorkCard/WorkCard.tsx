@@ -1,15 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ProfileI } from '@/entities/Profile';
-import { WorkCardError } from '@/features/WorkEditable/WorkCard/WorkCardError/WorkCardError';
-import { WorkCardSkeleton } from '@/features/WorkEditable/WorkCard/WorkCardSkeleton/WorkCardSkeleton';
+import { WorkCardError } from '../WorkCardError/WorkCardError';
+import { WorkCardSkeleton } from '../WorkCardSkeleton/WorkCardSkeleton';
 import { Card } from '@/shared/UI-kit/Card';
 import { HStack, VStack } from '@/shared/UI-kit/Stack';
 import { Input } from '@/shared/UI-kit/Input';
-import { Avatar } from '@/shared/UI-kit/Avatar';
 import { ImageDragDropUploader } from '@/features/UI/ImageDragDropUploader';
 import { WorkI } from '@/entities/Work';
-import cls from '@/features/ReviewConstructor/EditableConstructorCard/EditableConstructorCard/ConstructorCard/ConstructorCard/EditableBlocks/EditableImageBlock/EditableImageBlock.module.scss';
+import cls from './WorkCard.module.scss';
 import { AppImage } from '@/shared/UI-kit/AppImage';
 import { TextArea } from '@/shared/UI-kit/TextArea';
 

@@ -1,5 +1,15 @@
 {
-  "An error occurred while loading the reviews": "An error occurred while loading the reviews",
-  "read_more": "read_more",
-  "reviews_no_found": "reviews_no_found"
+  "ascending": "Ascending",
+  "create_at": "Date",
+  "descending": "Descending",
+  "error": "An error occurred while loading the reviews",
+  "likes": "Likes",
+  "more": "Read more",
+  "no_found": "Reviews not found",
+  "search": "search",
+  "sort_by": "Sort by",
+  "tag_search": "Search by tag",
+  "title": "Title",
+  "views": "Views",
+  "work_title": "Work title"
 }

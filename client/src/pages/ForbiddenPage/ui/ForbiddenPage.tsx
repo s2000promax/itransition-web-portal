@@ -8,14 +8,14 @@ interface ForbiddenProps {
 }
 
 export const ForbiddenPage = ({ className }: ForbiddenProps) => {
-    const { t } = useTranslation('forbidden');
+    const { t } = useTranslation('forbiddenPage');
 
     return (
         <div
             className={classNames(cls.ForbiddenPage, {}, [className])}
             data-testid="ForbiddenPage"
         >
-            {t('forbidden')}
+            {t('message')}
         </div>
     );
 };

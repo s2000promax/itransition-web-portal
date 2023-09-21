@@ -20,7 +20,7 @@ export function buildBabelLoader({ isDev, isTsx }: BuildBabelLoaderProps) {
                         'i18next-extract',
                         {
                             locales: ['us', 'be', 'pl', 'ge', 'ru'],
-                            keyAsDefaultValue: true,
+                            keyAsDefaultValue: false,
                         },
                     ],
                     [

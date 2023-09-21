@@ -1,7 +1,5 @@
 import { memo } from 'react';
-import { useInitialEffect } from '@/shared/libs/hooks/useInitialEffect/useInitialEffect';
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import { Text } from '@/shared/UI-kit/Text';
 import { VStack } from '@/shared/UI-kit/Stack';
@@ -15,14 +13,9 @@ interface FeedBackContainerProps {
 
 export const FeedBackContainer = memo((props: FeedBackContainerProps) => {
     const { className, id } = props;
-    const { t } = useTranslation('workDetailsPage');
+    const { t } = useTranslation('work');
     const feedbackList: CommentI[] = [];
     const feedbackListIsLoading = false;
-    const dispatch = useAppDispatch();
-
-    useInitialEffect(() => {
-        // dispatch(fetchCommentsByReviewIdService(id));
-    });
 
     return (
         <VStack
@@ -32,7 +25,7 @@ export const FeedBackContainer = memo((props: FeedBackContainerProps) => {
         >
             <Text
                 size="l"
-                title={t('comments')}
+                title={t('Feedbacks')}
             />
 
             <FeedBackList

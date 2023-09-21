@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo } from 'react';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import cls from './BackButton.module.scss';
 import BackIcon from '@/shared/assets/ui/icons/back.svg';

@@ -59,7 +59,7 @@ const SuccessAuthProviderPage = (props: SuccessAuthPageProps) => {
 
     return (
         <VStack className={classNames('', {}, [className])}>
-            <Text title={t('await authorization')} />
+            <Text title={t('message')} />
             <Skeleton
                 width={200}
                 height={20}

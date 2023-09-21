@@ -1,3 +1,13 @@
 {
-  "work_no_found": "work_no_found"
+  "ascending": "Ascending",
+  "averageReviewsRating": "Avg Reviews Rating",
+  "averageUsersRating": "Avg Users Rating",
+  "descending": "Descending",
+  "error": "An error occurred while loading the works",
+  "more": "Read more",
+  "name": "Name",
+  "no_found": "Works no found",
+  "release_date": "Release Date",
+  "search": "search",
+  "sort_by": "Sort by"
 }
