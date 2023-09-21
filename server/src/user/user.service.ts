@@ -4,7 +4,7 @@ import { genSaltSync, hashSync } from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service';
 import { JwtPayload } from '../config/types/auth/jwtPayload';
 import { TransformUserI } from './transformers';
-import { ExtendUserI } from './types/extendUser.interface';
+import { ExtendUserI } from '../config/types/user/extendUser.interface';
 
 @Injectable()
 export class UserService {
@@ -123,7 +123,15 @@ export class UserService {
 
     async findAll(): Promise<User[]> {
         try {
-            const foundedUsers = await this.prismaService.user.findMany();
+            const foundedUsers = await this.prismaService.user.findMany({
+                include: {
+                    roles: {
+                        include: {
+                            role: true,
+                        },
+                    },
+                },
+            });
 
             return foundedUsers;
         } catch (e) {

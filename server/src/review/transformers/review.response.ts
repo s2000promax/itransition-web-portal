@@ -4,7 +4,7 @@ import {
     ReviewTypeEnum,
     User,
 } from '@prisma/client';
-import { TransformUserI, UserResponse } from '../../libs/transformers';
+import { UserResponse } from '../../libs/transformers';
 import { Exclude } from 'class-transformer';
 
 interface Review extends Omit<OriginalReview, 'viewCounter'> {

@@ -21,7 +21,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { JwtPayload } from '../config/types/auth/jwtPayload';
 import { RolesEnum, Settings, User } from '@prisma/client';
 import { Response } from 'express';
-import { ExtendUserI } from './types/extendUser.interface';
+import { ExtendUserI } from '../config/types/user/extendUser.interface';
 
 @ApiTags('user')
 @Controller('user')

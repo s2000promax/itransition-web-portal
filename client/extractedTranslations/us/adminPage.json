@@ -1,5 +1,12 @@
 {
+  "avatar": "Avatar",
+  "created_at": "Registration",
+  "email": "Email",
+  "fullName": "Full Name",
   "message": "An error occurred while loading the Users",
+  "provider": "Provider",
   "refresh": "Try refreshing the page",
+  "roles": "Roles",
+  "status": "Status",
   "title": "Administrator Dashboard"
 }

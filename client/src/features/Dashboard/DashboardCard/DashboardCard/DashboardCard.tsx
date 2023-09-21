@@ -10,6 +10,7 @@ import {
     getDashboardIsLoadingSelector,
     getDashboardUserListSelector,
 } from '@/entities/Dashboard';
+import { AdminTable } from '@/features/Dashboard/DashboardCard/AdminTable/AdminTable';
 
 export interface DashboardCardProps {
     className?: string;
@@ -17,10 +18,8 @@ export interface DashboardCardProps {
 
 export const DashboardCard = (props: DashboardCardProps) => {
     const { className } = props;
-    const { t } = useTranslation('adminPage');
     const isLoading = useSelector(getDashboardIsLoadingSelector);
     const error = useSelector(getDashboardErrorSelector);
-    const userList = useSelector(getDashboardUserListSelector);
 
     if (isLoading) {
         return <DashboardCardSkeleton />;
@@ -38,7 +37,7 @@ export const DashboardCard = (props: DashboardCardProps) => {
             className={className}
         >
             <VStack gap="32">
-                <p>Content</p>
+                <AdminTable />
             </VStack>
         </Card>
     );

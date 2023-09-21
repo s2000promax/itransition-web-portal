@@ -10,6 +10,9 @@ import { ApiTags } from '@nestjs/swagger';
 import { JwtPayload } from '../config/types/auth/jwtPayload';
 import { RolesEnum } from '@prisma/client';
 import { UserService } from '../user/user.service';
+import { UserResponse } from './transformers';
+import { ExtendUserI } from '../config/types/user/extendUser.interface';
+import { classToPlain } from 'class-transformer';
 
 @ApiTags('admin')
 @Controller('admin')
@@ -28,10 +31,16 @@ export class AdminController {
                 currentUserRole.includes(RolesEnum.ADMIN) ||
                 currentUserRole.includes(RolesEnum.SA)
             ) {
-                const foundedUserList = await this.userService.findAll();
+                const foundedUserList =
+                    (await this.userService.findAll()) as ExtendUserI[];
 
-                console.log(foundedUserList);
-                // return foundedUserList;
+                const userListResponse = foundedUserList.map((user) => {
+                    return {
+                        ...classToPlain(new UserResponse(user, user.roles)),
+                    };
+                });
+
+                return userListResponse;
             } else {
                 throw new BadRequestException('You do not have Admin roles');
             }

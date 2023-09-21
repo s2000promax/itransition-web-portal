@@ -19,6 +19,8 @@ export interface UserI {
     createdAt: Date;
     updatedAt: Date;
     likesCounter: number;
+    isBlocked?: boolean;
+    provider?: string;
     roles: UserRolesEnums[];
     settings: UserSettingsI;
 }

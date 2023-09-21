@@ -1,0 +1,14 @@
+.UsersListTable {
+    width: 100%;
+    border-collapse: collapse;
+
+    .row {
+        border: 1px solid var(--card-bg);
+    }
+
+    .cell, td, th {
+        border: 1px solid var(--card-bg);
+        text-align: center;
+        padding: 8px;
+    }
+}

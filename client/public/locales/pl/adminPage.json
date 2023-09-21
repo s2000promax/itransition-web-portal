@@ -1,5 +1,12 @@
 {
+  "avatar": "Awatar",
+  "created_at": "Rejestracja",
+  "email": "E-mail",
+  "fullName": "Imię i nazwisko",
   "message": "Wystąpił błąd podczas ładowania użytkowników",
+  "provider": "Dostawca",
   "refresh": "Spróbuj odświeżyć stronę",
+  "roles": "Role",
+  "status": "Status",
   "title": "Panel administratora"
 }
