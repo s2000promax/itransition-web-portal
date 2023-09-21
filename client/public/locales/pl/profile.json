@@ -1,0 +1,15 @@
+{
+  "Cancel": "Anulować",
+  "Edit": "Edytować",
+  "First Name": "Imię",
+  "Last Name": "Nazwisko",
+  "Profile": "Profil",
+  "Save": "Ratować",
+  "message": "Wystąpił błąd podczas ładowania profilu",
+  "refresh": "Spróbuj odświeżyć stronę",
+  "validator": {
+    "empty": "Puste dane",
+    "incorrect": "Nieprawidłowe dane",
+    "server": "Błąd serwera"
+  }
+}

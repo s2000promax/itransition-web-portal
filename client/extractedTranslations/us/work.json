@@ -1,0 +1,23 @@
+{
+  "Cancel": "Cancel",
+  "Edit": "Edit",
+  "Feedbacks": "Feedbacks",
+  "Save": "Save",
+  "Works": "Works",
+  "author": "Author",
+  "averageReviewsRating": "Avg Review Rating",
+  "averageUsersRating": "Avg Users Rating",
+  "description": "Description",
+  "error": "An error occurred while loading the work",
+  "feedback": "Feedback",
+  "no_feedback": "No feedbacks yet",
+  "rate": "Your rating of the work",
+  "refresh": "Try refreshing the page",
+  "releaseDate": "Release Date",
+  "title": "Title",
+  "validator": {
+    "empty": "Empty data",
+    "incorrect": "Incorrect data",
+    "server": "Server error"
+  }
+}

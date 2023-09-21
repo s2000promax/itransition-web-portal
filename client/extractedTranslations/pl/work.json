@@ -1,0 +1,23 @@
+{
+  "Cancel": "Anulować",
+  "Edit": "Edytować",
+  "Feedbacks": "Informacje zwrotne",
+  "Save": "Ratować",
+  "Works": "Pracuje",
+  "author": "Autor",
+  "averageReviewsRating": "Średnia ocena recenzji",
+  "averageUsersRating": "Średnia ocena użytkowników",
+  "description": "Opis",
+  "error": "Wystąpił błąd podczas ładowania pracy",
+  "feedback": "Informacja zwrotna",
+  "no_feedback": "Nie ma jeszcze żadnych informacji zwrotnych",
+  "rate": "Twoja ocena pracy",
+  "refresh": "Spróbuj odświeżyć stronę",
+  "releaseDate": "Data wydania",
+  "title": "Tytuł",
+  "validator": {
+    "empty": "Puste dane",
+    "incorrect": "Nieprawidłowe dane",
+    "server": "Błąd serwera"
+  }
+}

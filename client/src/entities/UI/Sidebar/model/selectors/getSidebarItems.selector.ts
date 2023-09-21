@@ -9,7 +9,6 @@ import {
     getRouteAbout,
     getRouteMain,
     getRouteProfile,
-    getRouteReviewList,
     getRouteWorkList,
 } from '@/shared/routes/routes.patterns';
 import { useSelector } from 'react-redux';
@@ -26,7 +25,7 @@ export const useSidebarItems = () => {
         {
             path: getRouteAbout(),
             Icon: AboutIcon,
-            text: 'About the portal',
+            text: 'About',
         },
         {
             path: getRouteWorkList(),

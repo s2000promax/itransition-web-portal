@@ -1,0 +1,22 @@
+{
+  "Cancel": "Cancel",
+  "Edit": "Edit",
+  "Save": "Save",
+  "Title": "Title",
+  "code": "Code",
+  "code description": "Code description",
+  "create": "Create",
+  "image description": "Image description",
+  "message": "An error occurred while loading the review",
+  "paragraph": "Paragraph",
+  "refresh": "Try refreshing the page",
+  "title": "Create new review",
+  "type": "Type",
+  "validator": {
+    "empty": "Empty data",
+    "incorrect": "Incorrect data",
+    "server": "Server error"
+  },
+  "workTitle": "Work title",
+  "you_rate": "Your rating of the work"
+}

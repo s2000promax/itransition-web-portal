@@ -103,7 +103,7 @@ const RegisterForm = memo(({ className, onSuccess }: RegisterFormProps) => {
                 <Text title={t('Register')} />
                 {error && (
                     <Text
-                        text={t('Wrong login or password')}
+                        text={t('error')}
                         variant="error"
                     />
                 )}

@@ -1,0 +1,15 @@
+{
+  "ascending": "Rosnąco",
+  "create_at": "Data",
+  "descending": "Malejąco",
+  "error": "Wystąpił błąd podczas ładowania recenzji",
+  "likes": "Lubi",
+  "more": "Czytaj więcej",
+  "no_found": "Nie znaleziono recenzji",
+  "search": "szukaj",
+  "sort_by": "Sortuj według",
+  "tag_search": "Szukaj według tagu",
+  "title": "Tytuł",
+  "views": "Wyświetlenia",
+  "work_title": "Tytuł pracy"
+}

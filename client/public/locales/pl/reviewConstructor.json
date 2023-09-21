@@ -1,0 +1,22 @@
+{
+  "Cancel": "Anulować",
+  "Edit": "Edytować",
+  "Save": "Ratować",
+  "Title": "Tytuł",
+  "code": "Kod",
+  "code description": "Opis kodu",
+  "create": "Tworzyć",
+  "image description": "opis obrazu",
+  "message": "Wystąpił błąd podczas ładowania recenzji",
+  "paragraph": "Ustęp",
+  "refresh": "Spróbuj odświeżyć stronę",
+  "title": "Utwórz nową recenzję",
+  "type": "Typ",
+  "validator": {
+    "empty": "Puste dane",
+    "incorrect": "Nieprawidłowe dane",
+    "server": "Błąd serwera"
+  },
+  "workTitle": "Tytuł pracy",
+  "you_rate": "Twoja ocena pracy"
+}

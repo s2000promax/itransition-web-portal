@@ -1,0 +1,15 @@
+{
+  "Cancel": "Cancel",
+  "Edit": "Edit",
+  "First Name": "First Name",
+  "Last Name": "Last Name",
+  "Profile": "Profile",
+  "Save": "Save",
+  "message": "An error occurred while loading the Profile",
+  "refresh": "Try refreshing the page",
+  "validator": {
+    "empty": "Empty data",
+    "incorrect": "Incorrect data",
+    "server": "Server error"
+  }
+}

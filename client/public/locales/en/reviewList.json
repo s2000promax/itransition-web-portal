@@ -1,0 +1,15 @@
+{
+  "ascending": "Ascending",
+  "create_at": "Date",
+  "descending": "Descending",
+  "error": "An error occurred while loading the reviews",
+  "likes": "Likes",
+  "more": "Read more",
+  "no_found": "Reviews not found",
+  "search": "search",
+  "sort_by": "Sort by",
+  "tag_search": "Search by tag",
+  "title": "Title",
+  "views": "Views",
+  "work_title": "Work title"
+}

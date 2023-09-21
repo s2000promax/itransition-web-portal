@@ -6,6 +6,7 @@ import CopyPlugin from 'copy-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import { type BuildOptions } from './types/config';
+import CircularDependencyPlugin from 'circular-dependency-plugin';
 
 export function buildPlugins({
     paths,
@@ -25,8 +26,8 @@ export function buildPlugins({
             __PROJECT__: JSON.stringify(project),
         }),
         // new CircularDependencyPlugin({
-        //   exclude: /node_modules/,
-        //   failOnError: false,
+        //     exclude: /node_modules/,
+        //     failOnError: false,
         // }),
         new ForkTsCheckerWebpackPlugin({
             typescript: {

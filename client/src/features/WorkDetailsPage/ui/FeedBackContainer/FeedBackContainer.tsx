@@ -1,7 +1,5 @@
 import { memo } from 'react';
-import { useInitialEffect } from '@/shared/libs/hooks/useInitialEffect/useInitialEffect';
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import { Text } from '@/shared/UI-kit/Text';
 import { VStack } from '@/shared/UI-kit/Stack';
