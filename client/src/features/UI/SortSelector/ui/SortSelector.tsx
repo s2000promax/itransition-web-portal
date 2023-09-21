@@ -19,7 +19,7 @@ interface SortSelectorProps {
 
 export const SortSelector = memo((props: SortSelectorProps) => {
     const { className, onChangeOrder, onChangeSort, order, sort } = props;
-    const { t } = useTranslation('ui');
+    const { t } = useTranslation('filters');
 
     const orderOptions = useMemo<SelectOptionsT<SortOrderT>[]>(
         () => [

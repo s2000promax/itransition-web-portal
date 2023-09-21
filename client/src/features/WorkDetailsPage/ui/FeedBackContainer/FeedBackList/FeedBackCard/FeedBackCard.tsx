@@ -7,13 +7,13 @@ import { Skeleton } from '@/shared/UI-kit/Skeleton';
 import { VStack } from '@/shared/UI-kit/Stack';
 import { Card } from '@/shared/UI-kit/Card';
 
-interface CommentCardProps {
+interface FeedBackCardProps {
     className?: string;
     feedback?: CommentI;
     isLoading?: boolean;
 }
 
-export const FeedBackCard = memo((props: CommentCardProps) => {
+export const FeedBackCard = memo((props: FeedBackCardProps) => {
     const { className, feedback, isLoading } = props;
 
     if (isLoading) {
@@ -62,22 +62,8 @@ export const FeedBackCard = memo((props: CommentCardProps) => {
                 data-testid="CommentCard.Content"
                 gap="8"
                 max
-                className={classNames(cls.CommentCard, {}, [className])}
+                className={classNames(cls.FeedBackCard, {}, [className])}
             >
-                {/*<AppLink to={getRouteProfile(comment.user.id)}>*/}
-                {/*    <HStack gap="8">*/}
-                {/*        {comment.user.avatar ? (*/}
-                {/*            <Avatar*/}
-                {/*                size={30}*/}
-                {/*                src={comment.user.avatar}*/}
-                {/*            />*/}
-                {/*        ) : null}*/}
-                {/*        <Text*/}
-                {/*            text={comment.user.firstName}*/}
-                {/*            bold*/}
-                {/*        />*/}
-                {/*    </HStack>*/}
-                {/*</AppLink>*/}
                 <Text text={feedback.content} />
             </VStack>
         </Card>

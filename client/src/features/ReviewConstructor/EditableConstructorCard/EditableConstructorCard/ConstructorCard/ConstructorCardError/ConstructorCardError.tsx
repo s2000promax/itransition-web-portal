@@ -13,8 +13,8 @@ export const ConstructorCardError = () => {
         >
             <Text
                 variant="error"
-                title={t('An error occurred while loading the review')}
-                text={t('Try refreshing the page')}
+                title={t('message')}
+                text={t('refresh')}
                 align="center"
             />
         </HStack>

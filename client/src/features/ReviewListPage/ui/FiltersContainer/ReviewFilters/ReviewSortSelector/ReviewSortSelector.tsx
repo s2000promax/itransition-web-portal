@@ -19,7 +19,7 @@ interface SortSelectorProps {
 
 export const ReviewSortSelector = memo((props: SortSelectorProps) => {
     const { className, onChangeOrder, onChangeSort, order, sort } = props;
-    const { t } = useTranslation('ReviewListPage');
+    const { t } = useTranslation('reviewList');
 
     const orderOptions = useMemo<SelectOptionsT<SortOrderT>[]>(
         () => [

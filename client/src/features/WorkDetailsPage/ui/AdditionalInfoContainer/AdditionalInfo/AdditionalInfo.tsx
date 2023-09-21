@@ -7,6 +7,7 @@ import { HStack, VStack } from '@/shared/UI-kit/Stack';
 import { Avatar } from '@/shared/UI-kit/Avatar';
 import { Text } from '@/shared/UI-kit/Text';
 import { Button } from '@/shared/UI-kit/Button';
+import { DateFormatter } from '@/shared/libs/dateFormetter/dateFormatter';
 
 interface AdditionalInfoProps {
     className?: string;
@@ -18,7 +19,7 @@ interface AdditionalInfoProps {
 
 export const AdditionalInfo = memo((props: AdditionalInfoProps) => {
     const { className, author, createdAt, views, onEdit } = props;
-    const { t } = useTranslation('workDetailsPage');
+    const { t } = useTranslation('work');
 
     return (
         <VStack
@@ -34,13 +35,10 @@ export const AdditionalInfo = memo((props: AdditionalInfoProps) => {
                     text={author.firstName}
                     bold
                 />
-                <Text
-                    // text={createdAt.toDateString()}
-                    text={'Data'}
-                />
+                <Text text={DateFormatter(createdAt)} />
             </HStack>
-            <Button onClick={onEdit}>{t('edit')}</Button>
-            <Text text={t('{{count}} views', { count: views })} />
+            <Button onClick={onEdit}>{t('Edit')}</Button>
+            <Text text={t('views', { count: views })} />
         </VStack>
     );
 });

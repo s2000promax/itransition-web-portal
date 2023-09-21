@@ -31,3 +31,4 @@ export { loginReducer, loginActions } from './model/slice/login.slice';
 
 export { loginByEmail } from './model/services/login.service';
 export { loginWithProviderService } from './model/services/loginWithProviderService';
+export { register } from './model/services/register.service';

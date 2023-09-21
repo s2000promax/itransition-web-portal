@@ -48,9 +48,9 @@ export const EditableWorkCard = memo((props: EditableWorkCardProps) => {
     const validateErrors = useSelector(getWorkValidateErrorsSelector);
 
     const validateErrorTranslates = {
-        [ValidateWorkEnums.SERVER_ERROR]: t('error.save'),
-        [ValidateWorkEnums.NO_DATA]: t('error.no_data'),
-        [ValidateWorkEnums.INCORRECT_WORK_DATA]: t('error.work_data'),
+        [ValidateWorkEnums.SERVER_ERROR]: t('validator.server'),
+        [ValidateWorkEnums.NO_DATA]: t('validator.empty'),
+        [ValidateWorkEnums.INCORRECT_WORK_DATA]: t('validator.incorrect'),
     };
 
     useInitialEffect(() => {

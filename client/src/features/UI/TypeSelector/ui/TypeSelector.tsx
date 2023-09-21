@@ -19,41 +19,41 @@ interface TypeSelectorProps {
 
 export const TypeSelector = (props: TypeSelectorProps) => {
     const { className, value, onChangeType } = props;
-    const { t } = useTranslation('ui');
+    const { t } = useTranslation('filters');
 
     const typeItems = useMemo<TabItem[]>(
         () => [
             {
                 value: WorkTypeEnums.ALL,
-                content: t('all'),
+                content: t('All'),
             },
             {
                 value: WorkTypeEnums.IT,
-                content: t('it'),
+                content: t('It'),
             },
             {
                 value: WorkTypeEnums.MUSIC,
-                content: t('music'),
+                content: t('Music'),
             },
             {
                 value: WorkTypeEnums.MOVIES,
-                content: t('movies'),
+                content: t('Movies'),
             },
             {
                 value: WorkTypeEnums.GAMES,
-                content: t('games'),
+                content: t('Games'),
             },
             {
                 value: WorkTypeEnums.TECHNOLOGY,
-                content: t('technology'),
+                content: t('Technology'),
             },
             {
                 value: WorkTypeEnums.STARTUPS,
-                content: t('startups'),
+                content: t('Startups'),
             },
             {
                 value: WorkTypeEnums.SCIENCE,
-                content: t('science'),
+                content: t('Science'),
             },
         ],
         [t],

@@ -30,7 +30,7 @@ const reducers: ReducersList = {
 
 const CommentForm = memo((props: CommentFormProps) => {
     const { className, onSendComment } = props;
-    const { t } = useTranslation('commentForm');
+    const { t } = useTranslation('comment');
     const text = useSelector(getCommentFormText);
     const error = useSelector(getCommentFormError);
     const dispatch = useAppDispatch();
@@ -63,7 +63,7 @@ const CommentForm = memo((props: CommentFormProps) => {
                 >
                     <Input
                         className={cls.input}
-                        placeholder={t('Enter comment text')}
+                        placeholder={t('text')}
                         value={text}
                         data-testid="AddCommentForm.Input"
                         onChange={onCommentTextChange}

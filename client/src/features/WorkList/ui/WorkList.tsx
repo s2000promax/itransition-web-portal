@@ -41,7 +41,7 @@ export const WorkList = memo((props: WorkListProps) => {
             <div>
                 <Text
                     size="l"
-                    text={t('work_no_found')}
+                    text={t('no_found')}
                 />
             </div>
         );

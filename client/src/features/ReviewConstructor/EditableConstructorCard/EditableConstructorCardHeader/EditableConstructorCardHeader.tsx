@@ -120,24 +120,24 @@ export const EditableConstructorCardHeader = memo(
                     justify="between"
                     className={cls.header}
                 >
-                    <Text title={t('Create new review')} />
+                    <Text title={t('create')} />
                     {canEdit && (
                         <div>
                             {readonly ? (
-                                <Button onClick={onEdit}>{t('edit')}</Button>
+                                <Button onClick={onEdit}>{t('Edit')}</Button>
                             ) : (
                                 <HStack gap="8">
                                     <Button
                                         onClick={onCancelEdit}
                                         color="error"
                                     >
-                                        {t('cancel')}
+                                        {t('Cancel')}
                                     </Button>
                                     <Button
                                         onClick={onSave}
                                         color="success"
                                     >
-                                        {t('save')}
+                                        {t('Save')}
                                     </Button>
                                 </HStack>
                             )}

@@ -28,8 +28,8 @@ export const Greeting = memo(() => {
 
     const text = (
         <Text
-            title={t('Welcome to Reviews Page')}
-            text={t('Here you can search and view reviews on various topics')}
+            title={t('welcome')}
+            text={t('message')}
         />
     );
 

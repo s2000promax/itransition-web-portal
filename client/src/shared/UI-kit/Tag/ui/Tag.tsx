@@ -1,9 +1,4 @@
 import React, { memo } from 'react';
-import { classNames } from '@/shared/libs/classNames/classNames';
-import cls from './Tag.module.scss';
-import { HStack } from '@/shared/UI-kit/Stack';
-import { Icon } from '@/shared/UI-kit/Icon';
-import DeleteCrossIcon from '@/shared/assets/ui/icons/delete-cross.svg';
 import { Text } from '@/shared/UI-kit/Text';
 import { Button } from '@/shared/UI-kit/Button';
 

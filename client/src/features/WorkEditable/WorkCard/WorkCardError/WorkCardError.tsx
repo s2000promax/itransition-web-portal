@@ -13,8 +13,8 @@ export const WorkCardError = () => {
         >
             <Text
                 variant="error"
-                title={t('An error occurred while loading the work')}
-                text={t('Try refreshing the page')}
+                title={t('error')}
+                text={t('refresh')}
                 align="center"
             />
         </HStack>

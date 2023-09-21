@@ -1,13 +1,15 @@
 {
-  "cancel": "cancel",
-  "edit": "edit",
-  "error": {
-    "no_data": "no_data",
-    "save": "save",
-    "user_data": "user_data"
-  },
-  "firstName": "firstName",
-  "lastName": "lastName",
-  "profile": "profile",
-  "save": "save"
+  "Cancel": "Отмена",
+  "Edit": "Редактировать",
+  "First Name": "Имя",
+  "Last Name": "Фамилия",
+  "Profile": "Профиль",
+  "Save": "Сохранить",
+  "message": "Произошла ошибка при загрузке профиля.",
+  "refresh": "Попробуйте обновить страницу",
+  "validator": {
+    "empty": "Данные не заполнены",
+    "incorrect": "Некорректные данные",
+    "server": "Ошибка сервера"
+  }
 }

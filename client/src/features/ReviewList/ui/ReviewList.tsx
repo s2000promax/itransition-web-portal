@@ -4,8 +4,8 @@ import { classNames } from '@/shared/libs/classNames/classNames';
 import cls from './ReviewsList.module.scss';
 import { Text } from '@/shared/UI-kit/Text';
 import { HStack } from '@/shared/UI-kit/Stack';
-import { ReviewItemSkeleton } from '@/features/ReviewList/ui/ReviewItemSkeleton/ReviewItemSkeleton';
-import { ReviewListItem } from '@/features/ReviewList/ui/ReviewListItem/ReviewListItem';
+import { ReviewItemSkeleton } from './ReviewItemSkeleton/ReviewItemSkeleton';
+import { ReviewListItem } from './ReviewListItem/ReviewListItem';
 import { ReviewI } from '@/entities/Review';
 import { ViewEnums } from '@/entities/UI/UI';
 
@@ -41,7 +41,7 @@ export const ReviewList = memo((props: ReviewListProps) => {
             <div>
                 <Text
                     size="l"
-                    text={t('reviews_no_found')}
+                    text={t('no_found')}
                 />
             </div>
         );

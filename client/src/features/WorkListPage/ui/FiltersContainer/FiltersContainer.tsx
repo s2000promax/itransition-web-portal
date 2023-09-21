@@ -1,6 +1,5 @@
 import { memo } from 'react';
 import { useWorkFilters } from '../../libs/hooks/useWorkFilters';
-import { Filters } from '@/features/UI/Filters';
 import { WorkFilters } from '@/features/WorkListPage/ui/FiltersContainer/WorkFilters/WorkFilters';
 
 interface FiltersContainerProps {
