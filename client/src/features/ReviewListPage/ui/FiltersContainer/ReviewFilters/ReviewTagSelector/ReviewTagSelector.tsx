@@ -18,7 +18,7 @@ interface ReviewTagSelectorProps {
 
 export const ReviewTagSelector = memo((props: ReviewTagSelectorProps) => {
     const { className } = props;
-    const { t } = useTranslation('tagSelector');
+    const { t } = useTranslation('reviewList');
     const dispatch = useAppDispatch();
     const tagList = useSelector(getTagListSelector) || [];
     const tagFilter = useSelector(getTagsSearchSelector);
@@ -43,7 +43,7 @@ export const ReviewTagSelector = memo((props: ReviewTagSelectorProps) => {
             gap="8"
             className={classNames('', {}, [className])}
         >
-            <Text text={t('search by tag')} />
+            <Text text={t('tag_search')} />
             <Combobox
                 items={tagList}
                 onAddValue={onChangeTag}

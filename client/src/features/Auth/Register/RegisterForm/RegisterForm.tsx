@@ -22,7 +22,7 @@ import {
     registerActions,
     registerReducer,
 } from '@/entities/Auth';
-import { register } from '@/entities/Auth/model/services/register.service';
+import { register } from '@/entities/Auth';
 
 export interface RegisterFormProps {
     className?: string;

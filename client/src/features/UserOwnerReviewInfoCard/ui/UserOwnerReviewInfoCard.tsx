@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { memo, useCallback } from 'react';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import cls from './UserOwnerReviewInfoCard.module.scss';
 import { AppLink } from '@/shared/UI-kit/AppLink';
@@ -28,7 +28,7 @@ interface UserInfoCardProps {
     review?: ReviewI;
 }
 
-export const UserOwnerReviewInfoCard = (props: UserInfoCardProps) => {
+export const UserOwnerReviewInfoCard = memo((props: UserInfoCardProps) => {
     const { className, review } = props;
     const dispatch = useAppDispatch();
     const currentUser = useSelector(getUserDataSelector);
@@ -120,4 +120,4 @@ export const UserOwnerReviewInfoCard = (props: UserInfoCardProps) => {
             </>
         );
     }
-};
+});

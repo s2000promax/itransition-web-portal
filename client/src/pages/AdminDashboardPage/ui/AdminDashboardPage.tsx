@@ -5,12 +5,12 @@ import { VStack } from '@/shared/UI-kit/Stack';
 import { Text } from '@/shared/UI-kit/Text';
 
 const AdminDashboardPage = () => {
-    const { t } = useTranslation('admin');
+    const { t } = useTranslation('adminPage');
 
     return (
         <Page>
             <VStack gap="16">
-                <Text title={t('Admin dashboard')} />
+                <Text title={t('title')} />
             </VStack>
         </Page>
     );

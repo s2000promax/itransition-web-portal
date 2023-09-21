@@ -3,22 +3,10 @@ import { classNames } from '@/shared/libs/classNames/classNames';
 import cls from './TagsViewCard.module.scss';
 import { useSelector } from 'react-redux';
 import { HStack } from '@/shared/UI-kit/Stack';
-import { EditableTag } from '@/shared/UI-kit/EditableTag';
 import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
-import {
-    getReviewDataTagsSelector,
-    getReviewFormTagsSelector,
-    reviewActions,
-} from '@/entities/Review';
+import { getReviewDataTagsSelector } from '@/entities/Review';
 import { Tag } from '@/shared/UI-kit/Tag';
-import { getRouteReviewList } from '@/shared/routes/routes.patterns';
-import { AppLink } from '@/shared/UI-kit/AppLink';
 import { Card } from '@/shared/UI-kit/Card';
-import {
-    fetchReviewListService,
-    reviewListPageActions,
-    reviewListPageReducer,
-} from '@/entities/UI/ReviewListPage';
 import { useNavigate } from 'react-router-dom';
 import { AppRoutesEnums } from '@/shared/enums/router.enums';
 import { uiActions } from '@/entities/UI/UI';

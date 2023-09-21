@@ -118,7 +118,7 @@ export const ReviewListItem = memo((props: ReviewItemProps) => {
                             target={target}
                             to={getRouteReviewDetails(review.id)}
                         >
-                            <Button variant="outline">{t('read_more')}</Button>
+                            <Button variant="outline">{t('more')}</Button>
                         </AppLink>
                         {views}
                     </HStack>

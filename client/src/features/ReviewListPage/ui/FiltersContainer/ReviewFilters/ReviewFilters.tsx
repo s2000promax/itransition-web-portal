@@ -38,7 +38,7 @@ export const ReviewFilters = memo((props: FiltersProps) => {
         order,
         type,
     } = props;
-    const { t } = useTranslation('reviewListPage');
+    const { t } = useTranslation('reviewList');
 
     return (
         <Card

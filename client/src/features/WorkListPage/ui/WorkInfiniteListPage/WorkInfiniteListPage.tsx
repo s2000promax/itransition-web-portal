@@ -20,13 +20,13 @@ export const WorkInfiniteListPage = memo((props: ReviewInfiniteListProps) => {
     const isLoading = useSelector(getWorkListPageIsLoadingSelector);
     const view = useSelector(getWorkListPageViewSelector);
     const error = useSelector(getWorkListPageErrorSelector);
-    const { t } = useTranslation('workListPage');
+    const { t } = useTranslation('workList');
 
     if (error) {
         return (
             <Text
                 size="l"
-                text={t('An error occurred while loading the works')}
+                text={t('error')}
             />
         );
     }

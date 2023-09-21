@@ -14,7 +14,7 @@ interface SidebarItemProps {
 }
 
 export const SidebarItem = memo(({ item, collapsed }: SidebarItemProps) => {
-    const { t } = useTranslation();
+    const { t } = useTranslation('sidebar');
     const isAuth = useSelector(getUserDataSelector);
 
     if (item.authOnly && !isAuth) {

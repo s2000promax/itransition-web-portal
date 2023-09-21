@@ -12,7 +12,7 @@ interface ImageDragDropUploaderProps {
 export const ImageDragDropUploader = memo(
     (props: ImageDragDropUploaderProps) => {
         const { className, onUpload } = props;
-        const { t } = useTranslation('imageUploader');
+        const { t } = useTranslation('uploader');
 
         const fileTypes = ['JPG', 'PNG', 'GIF', 'JPEG'];
 
@@ -30,7 +30,7 @@ export const ImageDragDropUploader = memo(
                 gap="8"
                 className={className}
             >
-                <Text text={t('upload your image')} />
+                <Text text={t('upload')} />
                 <FileUploader
                     multiple={false}
                     handleChange={handleChange}
@@ -38,11 +38,7 @@ export const ImageDragDropUploader = memo(
                     types={fileTypes}
                 />
                 <Text
-                    text={
-                        file
-                            ? `File name: ${file.name}`
-                            : t('no files uploaded yet')
-                    }
+                    text={file ? `${t('file')}: ${file.name}` : t('status')}
                 />
             </VStack>
         );

@@ -15,14 +15,9 @@ interface FeedBackContainerProps {
 
 export const FeedBackContainer = memo((props: FeedBackContainerProps) => {
     const { className, id } = props;
-    const { t } = useTranslation('workDetailsPage');
+    const { t } = useTranslation('work');
     const feedbackList: CommentI[] = [];
     const feedbackListIsLoading = false;
-    const dispatch = useAppDispatch();
-
-    useInitialEffect(() => {
-        // dispatch(fetchCommentsByReviewIdService(id));
-    });
 
     return (
         <VStack
@@ -32,7 +27,7 @@ export const FeedBackContainer = memo((props: FeedBackContainerProps) => {
         >
             <Text
                 size="l"
-                title={t('comments')}
+                title={t('Feedbacks')}
             />
 
             <FeedBackList

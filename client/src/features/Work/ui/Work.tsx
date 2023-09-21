@@ -50,7 +50,7 @@ export const Work = memo((props: WorkProps) => {
         content = (
             <Text
                 align="center"
-                text={t('An error occurred while loading the work')}
+                text={t('error')}
             />
         );
     } else {

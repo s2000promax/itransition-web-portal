@@ -41,7 +41,7 @@ export const Filters = memo((props: FiltersProps) => {
 
     return (
         <Card
-            className={classNames(cls.ArticlesFilters, {}, [className])}
+            className={classNames(cls.Filters, {}, [className])}
             padding="24"
         >
             <VStack gap="32">
@@ -49,7 +49,7 @@ export const Filters = memo((props: FiltersProps) => {
                     onChange={onChangeSearch}
                     value={search}
                     size="s"
-                    placeholder={t('Поиск')}
+                    placeholder={t('search')}
                     addonLeft={<Icon Svg={SearchIcon} />}
                 />
                 <TypeTabs

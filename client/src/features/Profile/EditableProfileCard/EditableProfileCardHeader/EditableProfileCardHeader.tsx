@@ -58,7 +58,7 @@ export const EditableProfileCardHeader = memo(
                     justify="between"
                     className={cls.header}
                 >
-                    <Text title={t('profile')} />
+                    <Text title={t('Profile')} />
                     {canEdit && (
                         <div>
                             {readonly ? (
@@ -75,14 +75,14 @@ export const EditableProfileCardHeader = memo(
                                         data-testid="EditableProfileCardHeader.CancelButton"
                                         color="error"
                                     >
-                                        {t('cancel')}
+                                        {t('Cancel')}
                                     </Button>
                                     <Button
                                         onClick={onSave}
                                         data-testid="EditableProfileCardHeader.SaveButton"
                                         color="success"
                                     >
-                                        {t('save')}
+                                        {t('Save')}
                                     </Button>
                                 </HStack>
                             )}
