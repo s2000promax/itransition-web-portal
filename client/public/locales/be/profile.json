@@ -7,9 +7,17 @@
   "Save": "Захаваць",
   "message": "Падчас загрузкі профілю адбылася памылка",
   "refresh": "Паспрабуйце абнавіць старонку",
+  "reviewAssessment": "Мая ацэнка",
+  "reviewCategory": "Катэгорыя",
+  "reviewCover": "Вокладка",
+  "reviewData": "Створана",
+  "reviewTitle": "Назва",
+  "reviewViews": "Прагляды",
   "validator": {
     "empty": "Пустыя даныя",
     "incorrect": "Няправільныя даныя",
     "server": "Памылка сервера"
-  }
+  },
+  "workTitle": "Твор",
+  "yourReviews": "Вашы Агляды"
 }

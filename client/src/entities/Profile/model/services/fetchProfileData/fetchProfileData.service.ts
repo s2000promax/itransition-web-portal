@@ -11,7 +11,7 @@ export const fetchProfileData = createAsyncThunk<
 
     try {
         const response = await extra.api.get<ProfileI>(`user/${profileId}`);
-        console.log(response);
+
         if (response.status !== 200) {
             return rejectWithValue('error');
         }

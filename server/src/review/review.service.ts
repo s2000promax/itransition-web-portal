@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { BlockTypeEnum, ReviewTypeEnum } from '@prisma/client';
+import { BlockTypeEnum, Review, ReviewTypeEnum } from '@prisma/client';
 import { ReviewDto } from './dto';
 import { JwtPayload } from '../config/types/auth/jwtPayload';
 
@@ -55,20 +55,67 @@ export class ReviewService {
                 },
             });
 
-            for (const tagName of review.tags || []) {
-                const tag = await this.prismaService.tag.upsert({
-                    where: { name: tagName },
-                    update: {},
-                    create: { name: tagName },
-                });
+            await this.tagsUpdate(review.tags, createdReview).catch((e) =>
+                console.log(e),
+            );
+        } catch (e) {
+            console.log(e);
+            return null;
+        }
+    }
 
-                await this.prismaService.reviewTag.create({
-                    data: {
-                        reviewId: createdReview.id,
-                        tagId: tag.name,
+    async updateReview(review: ReviewDto) {
+        try {
+            const updatedReview = await this.prismaService.review.update({
+                where: {
+                    id: review.id,
+                },
+                data: {
+                    ownerId: review.ownerId,
+                    workId: review.workId,
+                    title: review.title,
+                    workTitle: review.workTitle,
+                    cover: review.cover,
+                    type: review.type,
+                    ownerRating: review.ownerRating,
+                    viewCounter: 0,
+                    blocks: {
+                        create:
+                            review.blocks && review.blocks.length > 0
+                                ? review.blocks.map((block) => ({
+                                      sortId: block.sortId,
+                                      type: block.type,
+                                      title: block.title || undefined,
+                                      src:
+                                          block.type === BlockTypeEnum.IMAGE
+                                              ? block.src
+                                              : undefined,
+                                      code:
+                                          block.type === BlockTypeEnum.CODE
+                                              ? block.code
+                                              : undefined,
+                                      paragraphs:
+                                          block.type === BlockTypeEnum.TEXT
+                                              ? {
+                                                    create:
+                                                        block.paragraphs?.map(
+                                                            (paragraph) => ({
+                                                                sortId: paragraph.sortId,
+                                                                content:
+                                                                    paragraph.content,
+                                                            }),
+                                                        ) || [],
+                                                }
+                                              : undefined,
+                                  }))
+                                : [],
                     },
-                });
-            }
+                },
+            });
+
+            await this.tagsUpdate(review.tags, updatedReview).catch((e) =>
+                console.log(e),
+            );
         } catch (e) {
             console.log(e);
             return null;
@@ -221,8 +268,8 @@ export class ReviewService {
             });
 
             return foundedReviews;
-        } catch (error) {
-            console.log(error);
+        } catch (e) {
+            console.log(e);
         }
     }
 
@@ -281,8 +328,8 @@ export class ReviewService {
                 });
 
             return foundedReviewsRecommendation;
-        } catch (error) {
-            console.log(error);
+        } catch (e) {
+            console.log(e);
         }
     }
 
@@ -354,6 +401,33 @@ export class ReviewService {
             }
         } catch (e) {
             console.log(e);
+        }
+    }
+
+    async tagsUpdate(tags: string[], updatedReview: Review) {
+        for (const tagName of tags || []) {
+            const tag = await this.prismaService.tag.upsert({
+                where: { name: tagName },
+                update: {},
+                create: { name: tagName },
+            });
+
+            await this.prismaService.reviewTag.upsert({
+                where: {
+                    reviewId_tagId: {
+                        reviewId: updatedReview.id,
+                        tagId: tag.name,
+                    },
+                },
+                create: {
+                    reviewId: updatedReview.id,
+                    tagId: tag.name,
+                },
+                update: {
+                    reviewId: updatedReview.id,
+                    tagId: tag.name,
+                },
+            });
         }
     }
 }

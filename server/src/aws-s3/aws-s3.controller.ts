@@ -15,7 +15,6 @@ export class AwsS3Controller {
     @Post()
     @UseInterceptors(FileInterceptor('file'))
     async uploadFile(@UploadedFile() file: MulterFileI) {
-        console.log(file);
         try {
             const url = await this.awsS3Service.uploadFile(file);
             return { url };

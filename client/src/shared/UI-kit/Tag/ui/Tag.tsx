@@ -6,10 +6,11 @@ interface EditableTagProps {
     className?: string;
     tagName: string;
     onClick: (value: string) => void;
+    readonly?: boolean;
 }
 
 export const Tag = memo((props: EditableTagProps) => {
-    const { className, tagName, onClick } = props;
+    const { className, tagName, onClick, readonly } = props;
 
     const handleClick = (tag: string) => {
         onClick(tag);
@@ -24,6 +25,7 @@ export const Tag = memo((props: EditableTagProps) => {
             className={className}
             variant="filled"
             onClick={() => handleClick(tagName)}
+            disabled={readonly}
         >
             <Text
                 text={tagName}

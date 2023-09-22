@@ -12,7 +12,6 @@ export const updateReviewViewCounterService = createAsyncThunk<
     const { extra, rejectWithValue } = thunkApi;
 
     try {
-        console.log(body);
         await extra.api.post('review/counter', body);
     } catch (e) {
         console.log(e);

@@ -1,6 +1,6 @@
 import { RolesEnum, Settings as SettingsModel, User } from '@prisma/client';
 import { Exclude } from 'class-transformer';
-import { ExtendUserI } from '../types/extendUser.interface';
+import { ExtendUserI } from '../../config/types/user/extendUser.interface';
 import { RoleRelationI } from '../types/roleRelationI.interface';
 
 export interface TransformUserI extends Omit<User, 'likesCounter'> {

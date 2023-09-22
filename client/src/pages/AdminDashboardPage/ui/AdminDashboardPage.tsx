@@ -1,19 +1,56 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { memo, useCallback } from 'react';
 import { Page } from '@/widgets/Page';
 import { VStack } from '@/shared/UI-kit/Stack';
-import { Text } from '@/shared/UI-kit/Text';
+import { classNames } from '@/shared/libs/classNames/classNames';
+import {
+    DynamicModuleLoader,
+    ReducersList,
+} from '@/shared/libs/components/DynamicModuleLoader';
+import { dashboardReducer, fetchUserListService } from '@/entities/Dashboard';
+import { DashboardCardHeader } from '@/features/Dashboard/DashboardCardHeader';
+import { DashboardCard } from '@/features/Dashboard/DashboardCard';
+import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
+import { useDebounce } from '@/shared/libs/hooks/useDebounce/useDebounce';
+import { useInitialEffect } from '@/shared/libs/hooks/useInitialEffect/useInitialEffect';
 
-const AdminDashboardPage = () => {
-    const { t } = useTranslation('adminPage');
+export interface AdminDashboardPageProps {
+    className?: string;
+}
+
+const reducers: ReducersList = {
+    dashboard: dashboardReducer,
+};
+
+const AdminDashboardPage = (props: AdminDashboardPageProps) => {
+    const { className } = props;
+    const dispatch = useAppDispatch();
+
+    const handleFetchUserList = useCallback(() => {
+        dispatch(fetchUserListService());
+    }, [dispatch]);
+
+    const debouncedFetchUserList = useDebounce(handleFetchUserList, 300);
+
+    useInitialEffect(() => {
+        debouncedFetchUserList();
+    });
 
     return (
-        <Page>
-            <VStack gap="16">
-                <Text title={t('title')} />
-            </VStack>
-        </Page>
+        <DynamicModuleLoader
+            reducers={reducers}
+            removeAfterUnmount
+        >
+            <Page className={classNames('', {}, [className])}>
+                <VStack
+                    gap="16"
+                    max
+                >
+                    <DashboardCardHeader />
+                    <DashboardCard />
+                </VStack>
+            </Page>
+        </DynamicModuleLoader>
     );
 };
 
-export default AdminDashboardPage;
+export default memo(AdminDashboardPage);

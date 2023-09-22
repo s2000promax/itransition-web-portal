@@ -14,6 +14,7 @@ import { ReviewModule } from './review/review.module';
 import { AwsS3Module } from './aws-s3/aws-s3.module';
 import { WorkModule } from './work/work.module';
 import { TagModule } from './tag/tag.module';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
     imports: [
@@ -30,6 +31,7 @@ import { TagModule } from './tag/tag.module';
         RateModule,
         AwsS3Module,
         TagModule,
+        AdminModule,
     ],
     controllers: [AppController],
     providers: [

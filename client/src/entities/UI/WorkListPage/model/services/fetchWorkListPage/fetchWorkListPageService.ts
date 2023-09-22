@@ -7,7 +7,7 @@ import { getWorkListPageOrderSelector } from '@/entities/UI/WorkListPage/model/s
 import { getWorkListPageSearchSelector } from '@/entities/UI/WorkListPage/model/selectors/getWorkListPageSearch/getWorkListPageSearch.selector';
 import { getWorkListPageNumberSelector } from '@/entities/UI/WorkListPage/model/selectors/getWorkListPageNumber/getWorkListPageNumber.selector';
 import { getWorkListPageTypeSelector } from '@/entities/UI/WorkListPage/model/selectors/getWorkListPageType/getWorkListPageType.selector';
-import { WorkI, WorkTypeEnums } from '@/entities/Work';
+import { WorkI } from '@/entities/Work';
 
 interface FetchWorkListPageProps {
     replace?: boolean;

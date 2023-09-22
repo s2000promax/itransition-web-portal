@@ -5,6 +5,7 @@
   "scripts": {
     "start": "webpack serve --env port=3000",
     "start:dev": "webpack serve --env port=3000 mode=development",
+    "start:prod": "webpack serve --env port=3000 mode=production",
     "build:dev": "webpack --env mode=development",
     "build:prod": "webpack --env mode=production apiUrl=https://itransition-web-portal-server.vercel.app/api",
     "lint:ts": "eslint \"**/*.{ts,tsx}\"",

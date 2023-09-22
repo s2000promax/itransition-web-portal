@@ -42,6 +42,7 @@ const workSlice = createSlice({
                 (state, action: PayloadAction<WorkI>) => {
                     state.isLoading = false;
                     state.data = action.payload;
+                    state.form = action.payload;
                 },
             )
             .addCase(fetchWorkByIdService.rejected, (state, action) => {

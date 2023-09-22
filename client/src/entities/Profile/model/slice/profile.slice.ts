@@ -2,12 +2,15 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ProfileI, ProfileSchemaI } from '../types/profile.interface';
 import { fetchProfileData } from '../services/fetchProfileData/fetchProfileData.service';
 import { updateProfileData } from '../services/updateProfileData/updateProfileData.service';
+import { fetchUserReviewListService } from '@/entities/Profile/model/services/fetchUserReviewList/fetchUserReviewList.service';
+import { ReviewI } from '@/entities/Review';
 
 const initialState: ProfileSchemaI = {
     readonly: true,
     isLoading: false,
     error: undefined,
     data: undefined,
+    userReviewList: undefined,
 };
 
 const profileSlice = createSlice({
@@ -64,7 +67,13 @@ const profileSlice = createSlice({
             .addCase(updateProfileData.rejected, (state, action) => {
                 state.isLoading = false;
                 state.validateErrors = action.payload;
-            });
+            })
+            .addCase(
+                fetchUserReviewListService.fulfilled,
+                (state, action: PayloadAction<ReviewI[]>) => {
+                    state.userReviewList = action.payload;
+                },
+            );
     },
 });
 

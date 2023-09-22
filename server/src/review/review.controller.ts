@@ -42,6 +42,8 @@ export class ReviewController {
     @ApiBody({ type: ReviewDto })
     async updateReview(@Body() reviewDto: ReviewDto, @Res() res: Response) {
         try {
+            await this.reviewService.updateReview(reviewDto);
+
             res.status(HttpStatus.OK).send();
         } catch (e) {
             throw new BadRequestException('Failed to update review');
@@ -66,7 +68,6 @@ export class ReviewController {
         @Query('_limit') limit: string,
         @Query('_page') page: string,
     ) {
-        console.log(reviewId, limit, page);
         try {
             const foundedReviewRecommendationList =
                 await this.reviewService.findReviewRecommendationList(

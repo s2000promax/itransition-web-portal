@@ -15,59 +15,32 @@ export const ConstructorCardSkeleton = () => {
                     justify="center"
                 >
                     <Skeleton
-                        border="100%"
-                        width={128}
-                        height={128}
+                        width="100%"
+                        height={200}
                     />
                 </HStack>
-                <HStack
-                    gap="32"
+
+                <VStack
+                    gap="16"
                     max
                 >
-                    <VStack
-                        gap="16"
-                        max
-                    >
-                        <Skeleton
-                            width="100%"
-                            height={38}
-                        />
-                        <Skeleton
-                            width="100%"
-                            height={38}
-                        />
-                        <Skeleton
-                            width="100%"
-                            height={38}
-                        />
-                        <Skeleton
-                            width="100%"
-                            height={38}
-                        />
-                    </VStack>
-
-                    <VStack
-                        gap="16"
-                        max
-                    >
-                        <Skeleton
-                            width="100%"
-                            height={38}
-                        />
-                        <Skeleton
-                            width="100%"
-                            height={38}
-                        />
-                        <Skeleton
-                            width="100%"
-                            height={38}
-                        />
-                        <Skeleton
-                            width="100%"
-                            height={38}
-                        />
-                    </VStack>
-                </HStack>
+                    <Skeleton
+                        width="100%"
+                        height={38}
+                    />
+                    <Skeleton
+                        width="100%"
+                        height={38}
+                    />
+                    <Skeleton
+                        width="100%"
+                        height={38}
+                    />
+                    <Skeleton
+                        width="100%"
+                        height={38}
+                    />
+                </VStack>
             </VStack>
         </Card>
     );

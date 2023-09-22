@@ -23,6 +23,7 @@ export { reviewReducer, reviewActions } from './model/slice/review.slice';
 
 export { fetchReviewByIdService } from './model/services/fetchReviewById/fetchReviewById.service';
 export { createReviewService } from './model/services/createReview/createReview.service';
+export { updateReviewService } from './model/services/updateReview/updateReview.service';
 export { updateReviewViewCounterService } from './model/services/updateReviewViewCounter/updateReviewViewCounter.service';
 
 export { ReviewBlockTypeEnums } from './model/enums/review.enums';

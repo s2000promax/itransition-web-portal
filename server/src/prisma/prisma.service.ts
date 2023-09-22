@@ -22,16 +22,18 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
     }
 
     private async initRoles() {
-        const prisma = new PrismaClient();
-        const roles = [RolesEnum.SA, RolesEnum.ADMIN, RolesEnum.USER];
+        if (process.env.VERCEL_NODE_ENV !== 'production') {
+            const prisma = new PrismaClient();
+            const roles = [RolesEnum.SA, RolesEnum.ADMIN, RolesEnum.USER];
 
-        for (let role of roles) {
-            const existingRole = await prisma.role.findFirst({
-                where: { name: role },
-            });
+            for (let role of roles) {
+                const existingRole = await prisma.role.findFirst({
+                    where: { name: role },
+                });
 
-            if (!existingRole) {
-                await prisma.role.create({ data: { name: role } });
+                if (!existingRole) {
+                    await prisma.role.create({ data: { name: role } });
+                }
             }
         }
     }

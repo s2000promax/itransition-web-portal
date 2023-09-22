@@ -7,9 +7,17 @@
   "Save": "Save",
   "message": "An error occurred while loading the Profile",
   "refresh": "Try refreshing the page",
+  "reviewAssessment": "My assessment",
+  "reviewCategory": "Category",
+  "reviewCover": "Cover",
+  "reviewData": "Created",
+  "reviewTitle": "Title",
+  "reviewViews": "Views",
   "validator": {
     "empty": "Empty data",
     "incorrect": "Incorrect data",
     "server": "Server error"
-  }
+  },
+  "workTitle": "Work Title",
+  "yourReviews": "Your Reviews"
 }

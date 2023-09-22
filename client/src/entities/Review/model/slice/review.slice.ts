@@ -10,7 +10,11 @@ import {
 } from '../types/review.interface';
 import { fetchReviewByIdService } from '../services/fetchReviewById/fetchReviewById.service';
 import { Partial } from '@react-spring/web';
-import { ReviewBlockTypeEnums } from '@/entities/Review';
+import {
+    createReviewService,
+    ReviewBlockTypeEnums,
+    updateReviewService,
+} from '@/entities/Review';
 import { WorkTypeEnums } from '@/entities/Work';
 
 const initialState: ReviewSchemaI = {
@@ -42,7 +46,7 @@ const reviewSlice = createSlice({
     reducers: {
         setReadonly: (state, action: PayloadAction<boolean>) => {
             state.readonly = action.payload;
-            state.form = initialForm;
+            // state.form = initialForm;
         },
         cancelEdit: (state) => {
             state.readonly = true;
@@ -63,6 +67,11 @@ const reviewSlice = createSlice({
                 ...action.payload,
                 sortId: state.form!.blocks?.length ?? 0,
             };
+
+            if (state.form && typeof state.form?.blocks === 'undefined') {
+                state.form.blocks = [];
+            }
+
             state.form!.blocks?.push(newBlock);
         },
         removeReviewBlock: (state, action: PayloadAction<{ id: number }>) => {
@@ -126,12 +135,12 @@ const reviewSlice = createSlice({
                 title: string;
             }>,
         ) => {
-            const indexBlock = state.form!.blocks.findIndex(
+            const indexBlock = state.form!.blocks?.findIndex(
                 (block) => block.sortId === action.payload.sortId,
             );
             if (indexBlock !== -1) {
                 const block = state.form!.blocks[indexBlock] as ReviewBlockT;
-                block.title = action.payload.title;
+                block.title = action.payload?.title;
             }
         },
         editCodeBlock: (
@@ -141,7 +150,7 @@ const reviewSlice = createSlice({
                 code: string;
             }>,
         ) => {
-            const indexBlock = state.form!.blocks.findIndex(
+            const indexBlock = state.form!.blocks?.findIndex(
                 (block) => block.sortId === action.payload.sortId,
             );
             if (
@@ -162,7 +171,7 @@ const reviewSlice = createSlice({
                 src: string;
             }>,
         ) => {
-            const indexBlock = state.form!.blocks.findIndex(
+            const indexBlock = state.form!.blocks?.findIndex(
                 (block) => block.sortId === action.payload.sortId,
             );
             if (
@@ -177,7 +186,13 @@ const reviewSlice = createSlice({
             }
         },
         addTag: (state, action: PayloadAction<string>) => {
-            if (action.payload && !state.form?.tags.includes(action.payload)) {
+            if (action.payload && !state.form?.tags?.includes(action.payload)) {
+                if (state.form && typeof state.form?.tags === 'undefined') {
+                    state.form = {
+                        ...state.form,
+                        tags: [],
+                    };
+                }
                 state.form?.tags.push(action.payload);
             }
         },
@@ -203,6 +218,33 @@ const reviewSlice = createSlice({
                 },
             )
             .addCase(fetchReviewByIdService.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            })
+            .addCase(createReviewService.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(createReviewService.fulfilled, (state) => {
+                state.isLoading = false;
+                state.readonly = true;
+            })
+            .addCase(createReviewService.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            })
+            .addCase(updateReviewService.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(updateReviewService.fulfilled, (state) => {
+                state.isLoading = false;
+                if (state?.form && state?.data) {
+                    state.data = { ...state.data, ...state.form };
+                    state.readonly = true;
+                }
+            })
+            .addCase(updateReviewService.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
             });
