@@ -15,9 +15,7 @@ export const ImageBlockComponent = memo(
 
         return (
             <div
-                className={classNames(cls.ArticleImageBlockComponent, {}, [
-                    className,
-                ])}
+                className={classNames(cls.ImageBlockComponent, {}, [className])}
             >
                 <img
                     src={block.src}
