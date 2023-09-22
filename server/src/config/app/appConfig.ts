@@ -5,6 +5,7 @@ export default () => ({
     origins: [
         process.env.VERCEL_REMOTE_ORIGIN,
         process.env.VERCEL_LOCAL_ORIGIN,
+        process.env.VERCEL_AWS_ORIGIN,
     ],
     serverDomain:
         process.env.VERCEL_NODE_ENV !== 'production'

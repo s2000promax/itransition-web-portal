@@ -28,7 +28,7 @@ export class AwsS3Service {
 
         try {
             const result = await this.s3.send(new PutObjectCommand(params));
-            // Допуская, что у вас есть домен для вашего S3 бакета.
+
             return `https://${params.Bucket}.s3.${this.configService.get(
                 'AWS_REGION',
             )}.amazonaws.com/${params.Key}`;
