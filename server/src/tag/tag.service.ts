@@ -8,7 +8,7 @@ export class TagService {
     async getTagList() {
         try {
             const foundedTagList = await this.prismaService.tag.findMany();
-            console.log(foundedTagList);
+
             return foundedTagList;
         } catch (e) {
             console.log(e);

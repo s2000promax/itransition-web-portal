@@ -1,25 +1,16 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
-import { FormDataI, ReviewSchemaI } from '../../types/review.interface';
-
-type CreateReviewServiceProps = FormDataI;
+import { FormDataI, ReviewI } from '../../types/review.interface';
 
 export const createReviewService = createAsyncThunk<
     void,
-    CreateReviewServiceProps,
+    FormDataI,
     ThunkConfig<string>
 >('review/create', async (reviewFormData, thunkApi) => {
     const { extra, rejectWithValue } = thunkApi;
 
     try {
-        const response = await extra.api.post<ReviewSchemaI>(
-            'review/create',
-            reviewFormData,
-        );
-        console.log('ReviewCreate', response);
-        if (response.status !== 200) {
-            return rejectWithValue('error');
-        }
+        await extra.api.post<ReviewI>('review/create', reviewFormData);
     } catch (e) {
         return rejectWithValue('error');
     }

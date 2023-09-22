@@ -13,10 +13,11 @@ import { uiActions } from '@/entities/UI/UI';
 
 interface TagsViewCardProps {
     className?: string;
+    readonly?: boolean;
 }
 
 export const TagsViewCard = memo((props: TagsViewCardProps) => {
-    const { className } = props;
+    const { className, readonly } = props;
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const tags = useSelector(getReviewDataTagsSelector);
@@ -51,6 +52,7 @@ export const TagsViewCard = memo((props: TagsViewCardProps) => {
                         key={tag}
                         tagName={tag}
                         onClick={onClickTag}
+                        readonly={readonly}
                     />
                 ))}
             </HStack>

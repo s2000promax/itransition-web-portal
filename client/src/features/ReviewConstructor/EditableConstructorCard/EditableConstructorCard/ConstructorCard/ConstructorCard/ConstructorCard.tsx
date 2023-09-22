@@ -13,6 +13,7 @@ import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatc
 import { uploadService } from '@/entities/Upload';
 import { renderEditableBlocks } from './EditableBlocks/RenderEditableBlocks';
 import {
+    getReviewDataSelector,
     getReviewFormBlocksSelector,
     getReviewFormSelector,
     getReviewReadonlySelector,
@@ -22,18 +23,21 @@ import { OwnerRating } from '@/features/UI/OwnerRating';
 import { ImageDragDropUploader } from '@/features/UI/ImageDragDropUploader';
 import { TagSelector } from '@/features/UI/TagSelector';
 import { TagsEditorCard } from '@/features/TagsEditorCard';
+import { TagsViewCard } from '@/features/TagsViewCard';
 
 export interface ConstructorCardProps {
     className?: string;
     error?: string;
     isLoading?: boolean;
+    isNewReview: boolean;
 }
 
 export const ConstructorCard = (props: ConstructorCardProps) => {
-    const { className, isLoading, error } = props;
+    const { className, isLoading, error, isNewReview } = props;
 
     const { t } = useTranslation('reviewConstructor');
     const dispatch = useAppDispatch();
+    const data = useSelector(getReviewDataSelector);
     const formData = useSelector(getReviewFormSelector);
     const readonly = useSelector(getReviewReadonlySelector);
     const blocks = useSelector(getReviewFormBlocksSelector);
@@ -74,84 +78,193 @@ export const ConstructorCard = (props: ConstructorCardProps) => {
         return <ConstructorCardError />;
     }
 
-    return (
-        <Card
-            padding="24"
-            border="partial"
-            fullWidth
-            className={className}
-        >
-            <VStack
-                max
-                align="center"
-                gap="16"
+    if (isNewReview) {
+        return (
+            <Card
+                padding="24"
+                border="partial"
+                fullWidth
+                className={className}
             >
-                <Input
-                    value={formData?.title || ''}
-                    placeholder={t('Title')}
-                    onChange={onChangeTitle}
-                    readonly={readonly}
-                />
-                <Input
-                    value={formData?.workTitle || ''}
-                    placeholder={t('workTitle')}
-                    readonly={true}
-                />
-                <Input
-                    value={formData?.type || ''}
-                    placeholder={t('type')}
-                    readonly={true}
-                />
-
-                {formData?.cover && (
-                    <AppImage
-                        src={formData.cover}
-                        alt={formData.cover}
-                        className={cls.image}
-                    />
-                )}
-                {!readonly && (
-                    <ImageDragDropUploader
-                        onUpload={handleFileUploaderChange}
-                    />
-                )}
-            </VStack>
-
-            {blocks && (
                 <VStack
-                    max
-                    gap="32"
-                >
-                    {blocks.map(renderEditableBlocks)}
-                </VStack>
-            )}
-
-            {!readonly && (
-                <VStack
-                    gap="16"
                     max
                     align="center"
-                    className={cls.tagsContainer}
+                    gap="16"
                 >
-                    <TagsEditorCard />
-                    <TagSelector />
-                </VStack>
-            )}
-
-            {!readonly && (
-                <HStack
-                    justify="center"
-                    gap="8"
-                    className={cls.rateContainer}
-                >
-                    <Text text={t('you_rate')} />
-                    <OwnerRating
-                        onChangeOwnerRating={onChangeOwnerRating}
-                        className={cls.ownerRating}
+                    <Input
+                        value={formData?.title || ''}
+                        placeholder={t('Title')}
+                        onChange={onChangeTitle}
+                        readonly={readonly}
                     />
-                    <Text text={String(formData?.ownerRating ?? 0)} />
-                </HStack>
-            )}
-        </Card>
-    );
+                    <Input
+                        value={formData?.workTitle || ''}
+                        placeholder={t('workTitle')}
+                        readonly={true}
+                    />
+                    <Input
+                        value={formData?.type || ''}
+                        placeholder={t('type')}
+                        readonly={true}
+                    />
+
+                    {formData?.cover && (
+                        <AppImage
+                            src={formData.cover}
+                            alt={formData.cover}
+                            className={cls.image}
+                        />
+                    )}
+                    {!readonly && (
+                        <ImageDragDropUploader
+                            onUpload={handleFileUploaderChange}
+                        />
+                    )}
+                </VStack>
+
+                {blocks && (
+                    <VStack
+                        max
+                        gap="32"
+                    >
+                        {blocks.map(renderEditableBlocks)}
+                    </VStack>
+                )}
+
+                {!readonly && (
+                    <VStack
+                        gap="16"
+                        max
+                        align="center"
+                        className={cls.tagsContainer}
+                    >
+                        <TagsEditorCard />
+                        <TagSelector />
+                    </VStack>
+                )}
+
+                {!readonly && (
+                    <HStack
+                        justify="center"
+                        gap="8"
+                        className={cls.rateContainer}
+                    >
+                        <Text text={t('you_rate')} />
+                        <OwnerRating
+                            onChangeOwnerRating={onChangeOwnerRating}
+                            className={cls.ownerRating}
+                        />
+                        <Text text={String(formData?.ownerRating ?? 0)} />
+                    </HStack>
+                )}
+            </Card>
+        );
+    } else {
+        return (
+            <Card
+                padding="24"
+                border="partial"
+                fullWidth
+                className={className}
+            >
+                <VStack
+                    max
+                    align="center"
+                    gap="16"
+                >
+                    <Input
+                        value={readonly ? data?.title : formData?.title}
+                        placeholder={t('Title')}
+                        onChange={onChangeTitle}
+                        readonly={readonly}
+                    />
+                    <Input
+                        value={data?.workTitle || ''}
+                        placeholder={t('workTitle')}
+                        readonly={true}
+                    />
+                    <Input
+                        value={data?.type || ''}
+                        placeholder={t('type')}
+                        readonly={true}
+                    />
+
+                    {readonly
+                        ? data?.cover && (
+                              <AppImage
+                                  src={data.cover}
+                                  alt={data.cover}
+                                  className={cls.image}
+                              />
+                          )
+                        : formData?.cover && (
+                              <AppImage
+                                  src={formData.cover}
+                                  alt={formData.cover}
+                                  className={cls.image}
+                              />
+                          )}
+                    {!readonly && (
+                        <ImageDragDropUploader
+                            onUpload={handleFileUploaderChange}
+                        />
+                    )}
+                </VStack>
+
+                {readonly
+                    ? data?.blocks && (
+                          <VStack
+                              max
+                              gap="32"
+                          >
+                              {data.blocks.map(renderEditableBlocks)}
+                          </VStack>
+                      )
+                    : formData?.blocks && (
+                          <VStack
+                              max
+                              gap="32"
+                          >
+                              {formData.blocks.map(renderEditableBlocks)}
+                          </VStack>
+                      )}
+
+                {!readonly ? (
+                    <VStack
+                        gap="16"
+                        max
+                        align="center"
+                        className={cls.tagsContainer}
+                    >
+                        <TagsEditorCard />
+                        <TagSelector />
+                    </VStack>
+                ) : (
+                    <VStack
+                        gap="16"
+                        max
+                        align="center"
+                        className={cls.tagsContainer}
+                    >
+                        <TagsViewCard readonly={readonly} />
+                    </VStack>
+                )}
+
+                {!readonly && (
+                    <HStack
+                        justify="center"
+                        gap="8"
+                        className={cls.rateContainer}
+                    >
+                        <Text text={t('you_rate')} />
+                        <OwnerRating
+                            onChangeOwnerRating={onChangeOwnerRating}
+                            className={cls.ownerRating}
+                        />
+                        <Text text={String(formData?.ownerRating ?? 0)} />
+                    </HStack>
+                )}
+            </Card>
+        );
+    }
 };

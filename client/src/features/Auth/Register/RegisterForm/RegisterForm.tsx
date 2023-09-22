@@ -82,7 +82,7 @@ const RegisterForm = memo(({ className, onSuccess }: RegisterFormProps) => {
 
         try {
             const result = await dispatch(register(registerData));
-            console.log(result);
+
             if (result.meta.requestStatus === 'fulfilled') {
                 onSuccess();
             }

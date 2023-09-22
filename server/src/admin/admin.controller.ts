@@ -22,7 +22,6 @@ export class AdminController {
     @UseInterceptors(ClassSerializerInterceptor)
     @Get('getAllUsers')
     async getAllUsers(@CurrentUser() user: JwtPayload) {
-        console.log('admin', user);
         try {
             const currentUserRole = await this.userService.getUserRoles(
                 user.id,

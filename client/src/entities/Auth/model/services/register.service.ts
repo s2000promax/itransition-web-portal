@@ -16,14 +16,7 @@ export const register = createAsyncThunk<
     const { extra, rejectWithValue } = thunkApi;
 
     try {
-        const response = await extra.api.post<RegisterSchemaI>(
-            'auth/register',
-            registerData,
-        );
-        console.log('R', response);
-        if (response.status !== 200) {
-            return rejectWithValue('error');
-        }
+        await extra.api.post<RegisterSchemaI>('auth/register', registerData);
     } catch (e) {
         return rejectWithValue('error');
     }

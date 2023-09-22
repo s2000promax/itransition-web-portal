@@ -1,9 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { userActions, UserI } from '@/entities/User';
+import { userActions } from '@/entities/User';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { PersistenceService } from '@/shared/services/persistence.service';
 import { LocalStorageEnums } from '@/shared/enums/localStorage.enums';
-import { authActions, AuthSchemaI } from '@/entities/Auth';
 
 /*
 export const initAuthData = createAsyncThunk<AuthSchemaI, void, ThunkConfig<string>>(
@@ -36,7 +35,7 @@ export const removeAuthData = createAsyncThunk<void, void, ThunkConfig<string>>(
 
         try {
             const response = await extra.api.get<string>('auth/logout');
-            console.log('Logout', response);
+
             dispatch(userActions.removeUserData());
         } catch (e) {
             return rejectWithValue('error');

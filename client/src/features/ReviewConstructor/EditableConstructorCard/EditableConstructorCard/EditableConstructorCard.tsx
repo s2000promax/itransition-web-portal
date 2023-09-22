@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import { useSelector } from 'react-redux';
@@ -20,19 +20,21 @@ import {
     getReviewErrorSelector,
     getReviewIsLoadingSelector,
     getReviewValidateErrorsSelector,
+    reviewActions,
     reviewReducer,
     ValidateReviewEnums,
 } from '@/entities/Review';
 import { getUserExtendDataSelector } from '@/entities/User';
 import { fetchProfileData, getProfileData } from '@/entities/Profile';
 import {
+    fetchWorkByIdService,
     getWorkDataSelector,
     workReducer,
-    fetchWorkByIdService,
 } from '@/entities/Work';
 import { tagReducer } from '@/entities/Tag';
+import { useDebounce } from '@/shared/libs/hooks/useDebounce/useDebounce';
 
-interface EditableProfileCardProps {
+interface EditableConstructorCardProps {
     className?: string;
     id?: string;
 }
@@ -44,7 +46,7 @@ const reducers: ReducersList = {
 };
 
 export const EditableConstructorCard = memo(
-    (props: EditableProfileCardProps) => {
+    (props: EditableConstructorCardProps) => {
         const { className, id } = props;
         const { t } = useTranslation('reviewConstructor');
         const dispatch = useAppDispatch();
@@ -62,17 +64,38 @@ export const EditableConstructorCard = memo(
             [ValidateReviewEnums.INCORRECT_DATA]: t('validator.incorrect'),
         };
 
+        const handleFetchWorkById = useCallback(() => {
+            dispatch(fetchWorkByIdService(workId!));
+        }, [dispatch]);
+
+        const debounceFetchWorkById = useDebounce(handleFetchWorkById, 300);
+
+        const handleFetchReviewById = useCallback(() => {
+            dispatch(fetchReviewByIdService(id));
+        }, [dispatch]);
+
+        const debounceFetchReviewById = useDebounce(handleFetchReviewById, 300);
+
+        const handleFetchProfileData = useCallback(() => {
+            dispatch(fetchProfileData(reviewData?.ownerId!));
+        }, []);
+
+        const debounceFetchProfileData = useDebounce(
+            handleFetchProfileData,
+            300,
+        );
+
         useInitialEffect(() => {
             if (workId) {
-                dispatch(fetchWorkByIdService(workId));
+                debounceFetchWorkById();
             }
 
             if (id) {
-                dispatch(fetchReviewByIdService(id));
+                debounceFetchReviewById();
             }
 
             if (reviewData) {
-                dispatch(fetchProfileData(reviewData.ownerId));
+                debounceFetchProfileData();
             } else {
             }
         });
@@ -100,6 +123,7 @@ export const EditableConstructorCard = memo(
                             />
                         ))}
                     <ConstructorCard
+                        isNewReview={!id}
                         isLoading={isLoading}
                         error={error}
                     />

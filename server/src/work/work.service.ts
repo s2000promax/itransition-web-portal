@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { ReviewTypeEnum, User, Work } from '@prisma/client';
+import { ReviewTypeEnum, Work } from '@prisma/client';
 import { WorkDto } from './dto';
 
 @Injectable()
@@ -102,8 +102,8 @@ export class WorkService {
             });
 
             return foundedWorkList;
-        } catch (error) {
-            console.log(error);
+        } catch (e) {
+            console.log(e);
         }
     }
 }

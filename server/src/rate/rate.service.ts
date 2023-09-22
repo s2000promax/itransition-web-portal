@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { RateDto, LikeDto } from './dto';
-import { Like, UsersRating } from '@prisma/client';
+import { LikeDto, RateDto } from './dto';
 
 @Injectable()
 export class RateService {
@@ -52,7 +51,6 @@ export class RateService {
                     reviewId,
                 },
             });
-            console.log(q);
         } catch (e) {
             console.log(e);
         }
