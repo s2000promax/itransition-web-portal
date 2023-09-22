@@ -10,6 +10,7 @@ import { WorkI } from '@/entities/Work';
 import cls from './WorkCard.module.scss';
 import { AppImage } from '@/shared/UI-kit/AppImage';
 import { TextArea } from '@/shared/UI-kit/TextArea';
+import { DateFormatter } from '@/shared/libs/dateFormetter/dateFormatter';
 
 export interface WorkCardProps {
     className?: string;
@@ -96,7 +97,7 @@ export const WorkCard = (props: WorkCardProps) => {
                             data-testid="WorkCard.author"
                         />
                         <Input
-                            value={'DAte'}
+                            value={DateFormatter(data?.releaseDate!)}
                             label={t('releaseDate')}
                             // onChange={onChangeReleaseDate}
                             readonly={readonly}
