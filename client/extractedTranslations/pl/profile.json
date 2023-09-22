@@ -7,9 +7,17 @@
   "Save": "Ratować",
   "message": "Wystąpił błąd podczas ładowania profilu",
   "refresh": "Spróbuj odświeżyć stronę",
+  "reviewAssessment": "Mój znak",
+  "reviewCategory": "Kategoria",
+  "reviewCover": "Okładka",
+  "reviewData": "Utworzony",
+  "reviewTitle": "Nazwa",
+  "reviewViews": "Wyświetlenia",
   "validator": {
     "empty": "Puste dane",
     "incorrect": "Nieprawidłowe dane",
     "server": "Błąd serwera"
-  }
+  },
+  "workTitle": "Praca",
+  "yourReviews": "Twoje recenzje"
 }

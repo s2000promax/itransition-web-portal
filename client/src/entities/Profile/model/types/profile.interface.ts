@@ -1,4 +1,5 @@
 import { ValidateProfileEnums } from '../enums/validateProfileEnums';
+import { ReviewI } from '@/entities/Review';
 
 export interface ProfileI {
     id?: string;
@@ -10,6 +11,7 @@ export interface ProfileI {
 export interface ProfileSchemaI {
     data?: ProfileI;
     form?: ProfileI;
+    userReviewList?: ReviewI[];
     isLoading: boolean;
     error?: string;
     readonly: boolean;

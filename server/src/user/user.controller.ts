@@ -16,12 +16,13 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CurrentUser } from '../libs/decorators';
-import { UserResponse } from './transformers';
+import { UserResponse, UserReviewListResponse } from './transformers';
 import { ApiTags } from '@nestjs/swagger';
 import { JwtPayload } from '../config/types/auth/jwtPayload';
 import { RolesEnum, Settings, User } from '@prisma/client';
 import { Response } from 'express';
 import { ExtendUserI } from '../config/types/user/extendUser.interface';
+import { classToPlain } from 'class-transformer';
 
 @ApiTags('user')
 @Controller('user')
@@ -37,6 +38,27 @@ export class UserController {
             return new UserResponse(foundedUser as ExtendUserI);
         } catch (e) {
             throw new BadRequestException('Failed to get user');
+        }
+    }
+
+    @UseInterceptors(ClassSerializerInterceptor)
+    @Get('myReviews')
+    async getUserReviewList(@CurrentUser() user: JwtPayload) {
+        try {
+            const foundedUserReviewList =
+                await this.userService.findUserReviewByUserId(user.id);
+
+            const userReviewListResponse = foundedUserReviewList.map(
+                (review) => {
+                    return {
+                        ...classToPlain(new UserReviewListResponse(review)),
+                    };
+                },
+            );
+
+            return userReviewListResponse;
+        } catch (e) {
+            throw new BadRequestException('Failed to get user reviewList');
         }
     }
 

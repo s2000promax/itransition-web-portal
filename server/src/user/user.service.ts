@@ -1,9 +1,7 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
-import { RolesEnum, Settings, User, UserRole } from '@prisma/client';
+import { Injectable } from '@nestjs/common';
+import { Review, RolesEnum, Settings, User } from '@prisma/client';
 import { genSaltSync, hashSync } from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service';
-import { JwtPayload } from '../config/types/auth/jwtPayload';
-import { TransformUserI } from './transformers';
 import { ExtendUserI } from '../config/types/user/extendUser.interface';
 
 @Injectable()
@@ -134,6 +132,21 @@ export class UserService {
             });
 
             return foundedUsers;
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    async findUserReviewByUserId(userId: string): Promise<Review[]> {
+        try {
+            const foundedUserReviewList =
+                await this.prismaService.review.findMany({
+                    where: {
+                        ownerId: userId,
+                    },
+                });
+
+            return foundedUserReviewList;
         } catch (e) {
             console.log(e);
         }

@@ -7,9 +7,17 @@
   "Save": "Сохранить",
   "message": "Произошла ошибка при загрузке профиля",
   "refresh": "Попробуйте обновить страницу",
+  "reviewAssessment": "Моя оценка",
+  "reviewCategory": "Категория",
+  "reviewCover": "Обложка",
+  "reviewData": "Создано",
+  "reviewTitle": "Название",
+  "reviewViews": "Просмотры",
   "validator": {
     "empty": "Данные не заполнены",
     "incorrect": "Некорректные данные",
     "server": "Ошибка сервера"
-  }
+  },
+  "workTitle": "Произведение",
+  "yourReviews": "Ваши Обзоры"
 }

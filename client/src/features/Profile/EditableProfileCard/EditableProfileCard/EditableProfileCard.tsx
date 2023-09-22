@@ -13,6 +13,7 @@ import {
 
 import {
     fetchProfileData,
+    fetchUserReviewListService,
     getProfileError,
     getProfileForm,
     getProfileIsLoading,
@@ -27,6 +28,7 @@ import { EditableProfileCardHeader } from '../EditableProfileCardHeader/Editable
 import { VStack } from '@/shared/UI-kit/Stack';
 import { Text } from '@/shared/UI-kit/Text';
 import { uploadService } from '@/entities/Upload';
+import { ProfileUserReviewListTable } from '@/features/Profile/ProfileUserReviewListTable/ui/ProfileUserReviewListTable';
 
 interface EditableProfileCardProps {
     className?: string;
@@ -57,6 +59,7 @@ export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
     useInitialEffect(() => {
         if (id) {
             dispatch(fetchProfileData(id));
+            dispatch(fetchUserReviewListService());
         }
     });
 
@@ -119,6 +122,7 @@ export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
                     onChangeLastName={onChangeLastName}
                     onChangeAvatar={onChangeAvatar}
                 />
+                <ProfileUserReviewListTable isLoading={isLoading} />
             </VStack>
         </DynamicModuleLoader>
     );
