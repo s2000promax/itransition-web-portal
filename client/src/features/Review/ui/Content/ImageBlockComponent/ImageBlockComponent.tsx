@@ -3,6 +3,8 @@ import { classNames } from '@/shared/libs/classNames/classNames';
 import cls from './ImageBlockComponent.module.scss';
 import { Text } from '@/shared/UI-kit/Text';
 import { ReviewImageBlockI } from '@/entities/Review';
+import { VStack } from '@/shared/UI-kit/Stack';
+import { AppImage } from '@/shared/UI-kit/AppImage';
 
 interface ReviewImageBlockComponentProps {
     className?: string;
@@ -14,10 +16,13 @@ export const ImageBlockComponent = memo(
         const { className, block } = props;
 
         return (
-            <div
+            <VStack
+                max
+                justify="center"
+                align="center"
                 className={classNames(cls.ImageBlockComponent, {}, [className])}
             >
-                <img
+                <AppImage
                     src={block.src}
                     alt={block.title}
                     className={cls.img}
@@ -28,7 +33,7 @@ export const ImageBlockComponent = memo(
                         align="center"
                     />
                 )}
-            </div>
+            </VStack>
         );
     },
 );
