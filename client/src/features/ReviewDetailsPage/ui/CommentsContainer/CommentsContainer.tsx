@@ -1,14 +1,13 @@
-import { memo, useCallback, Suspense } from 'react';
-import { useInitialEffect } from '@/shared/libs/hooks/useInitialEffect/useInitialEffect';
+import { memo, Suspense, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import {
-    fetchCommentsByReviewIdService,
-    getReviewComments,
-    getCommentsIsLoadingSelector,
     addCommentForReviewService,
+    fetchCommentsByReviewIdService,
+    getCommentsIsLoadingSelector,
+    getReviewComments,
 } from '@/entities/UI/ReviewDetailsPage';
 import { Text } from '@/shared/UI-kit/Text';
 import { VStack } from '@/shared/UI-kit/Stack';
@@ -37,9 +36,17 @@ export const CommentsContainer = memo((props: CommentsContainerProps) => {
         [dispatch],
     );
 
-    useInitialEffect(() => {
+    const handleFetchCommentsByReviewId = useCallback(() => {
         dispatch(fetchCommentsByReviewIdService(id));
-    });
+    }, [dispatch, id]);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            handleFetchCommentsByReviewId();
+        }, 2000);
+
+        return () => clearInterval(interval);
+    }, [handleFetchCommentsByReviewId]);
 
     return (
         <VStack
@@ -57,7 +64,7 @@ export const CommentsContainer = memo((props: CommentsContainerProps) => {
                 </Suspense>
             )}
             <CommentList
-                isLoading={commentsIsLoading}
+                // isLoading={commentsIsLoading}
                 comments={comments}
             />
         </VStack>
