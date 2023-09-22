@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import cls from './EditableProfileCardHeader.module.scss';
 import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
-import { getUserDataSelector } from '@/entities/User';
+import { getUserDataSelector, isUserRoleAdminSelector } from '@/entities/User';
 import {
     profileActions,
     getProfileData,
@@ -27,7 +27,8 @@ export const EditableProfileCardHeader = memo(
         const { t } = useTranslation('profile');
         const authData = useSelector(getUserDataSelector);
         const profileData = useSelector(getProfileData);
-        const canEdit = authData?.id === profileData?.id;
+        const isAdmin = useSelector(isUserRoleAdminSelector);
+        const canEdit = authData?.id === profileData?.id || isAdmin;
         const readonly = useSelector(getProfileReadonly);
         const dispatch = useAppDispatch();
 

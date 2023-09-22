@@ -5,13 +5,17 @@ import { getProfileData } from '@/entities/Profile';
 
 export const fetchUserReviewListService = createAsyncThunk<
     ReviewI[],
-    void,
+    string,
     ThunkConfig<string>
->('profile/fetchUserReviewList', async (_, thunkApi) => {
+>('profile/fetchUserReviewList', async (userProfileId, thunkApi) => {
     const { extra, rejectWithValue, getState } = thunkApi;
 
     try {
-        const response = await extra.api.get<ReviewI[]>('user/myReviews');
+        const response = await extra.api.get<ReviewI[]>('user/myReviews', {
+            params: {
+                _userId: userProfileId,
+            },
+        });
 
         if (response.status !== 200) {
             return rejectWithValue('error');

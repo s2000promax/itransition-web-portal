@@ -29,6 +29,8 @@ import { VStack } from '@/shared/UI-kit/Stack';
 import { Text } from '@/shared/UI-kit/Text';
 import { uploadService } from '@/entities/Upload';
 import { ProfileUserReviewListTable } from '@/features/Profile/ProfileUserReviewListTable/ui/ProfileUserReviewListTable';
+import { getUserDataSelector, isUserRoleAdminSelector } from '@/entities/User';
+import { useDebounce } from '@/shared/libs/hooks/useDebounce/useDebounce';
 
 interface EditableProfileCardProps {
     className?: string;
@@ -45,6 +47,8 @@ export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
 
     const dispatch = useAppDispatch();
     const formData = useSelector(getProfileForm);
+    const currentUser = useSelector(getUserDataSelector);
+    const isAdmin = useSelector(isUserRoleAdminSelector);
     const isLoading = useSelector(getProfileIsLoading);
     const error = useSelector(getProfileError);
     const readonly = useSelector(getProfileReadonly);
@@ -56,10 +60,30 @@ export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
         [ValidateProfileEnums.INCORRECT_USER_DATA]: t('validator.incorrect'),
     };
 
-    useInitialEffect(() => {
+    const handleFetchProfileData = useCallback(() => {
         if (id) {
             dispatch(fetchProfileData(id));
-            dispatch(fetchUserReviewListService());
+        }
+    }, [dispatch, id]);
+    const debounceFetchProfileData = useDebounce(handleFetchProfileData, 300);
+
+    const handleFetchUserReviewList = useCallback(() => {
+        if (id) {
+            dispatch(fetchUserReviewListService(id));
+        }
+    }, [dispatch, id]);
+    const debounceFetchUserReviewList = useDebounce(
+        handleFetchUserReviewList,
+        300,
+    );
+
+    useInitialEffect(() => {
+        if (id) {
+            debounceFetchProfileData();
+
+            if (id === currentUser?.id || isAdmin) {
+                debounceFetchUserReviewList();
+            }
         }
     });
 
@@ -122,7 +146,9 @@ export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
                     onChangeLastName={onChangeLastName}
                     onChangeAvatar={onChangeAvatar}
                 />
-                <ProfileUserReviewListTable isLoading={isLoading} />
+                {(id === currentUser?.id || isAdmin) && (
+                    <ProfileUserReviewListTable isLoading={isLoading} />
+                )}
             </VStack>
         </DynamicModuleLoader>
     );

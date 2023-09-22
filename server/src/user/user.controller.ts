@@ -11,6 +11,7 @@ import {
     ParseUUIDPipe,
     Patch,
     Put,
+    Query,
     Res,
     UseInterceptors,
 } from '@nestjs/common';
@@ -43,10 +44,10 @@ export class UserController {
 
     @UseInterceptors(ClassSerializerInterceptor)
     @Get('myReviews')
-    async getUserReviewList(@CurrentUser() user: JwtPayload) {
+    async getUserReviewList(@Query('_userId') userId: string) {
         try {
             const foundedUserReviewList =
-                await this.userService.findUserReviewByUserId(user.id);
+                await this.userService.findUserReviewByUserId(userId);
 
             const userReviewListResponse = foundedUserReviewList.map(
                 (review) => {
