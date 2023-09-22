@@ -159,6 +159,7 @@ export const ReviewListItem = memo((props: ReviewItemProps) => {
                 >
                     <Text
                         title={review.title}
+                        size="s"
                         bold
                     />
                     <VStack

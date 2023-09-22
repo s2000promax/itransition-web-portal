@@ -3,6 +3,7 @@ import { classNames } from '@/shared/libs/classNames/classNames';
 import cls from './TextBlockComponent.module.scss';
 import { Text } from '@/shared/UI-kit/Text';
 import { ReviewTextBlockI } from '@/entities/Review';
+import { VStack } from '@/shared/UI-kit/Stack';
 
 interface ReviewTextBlockComponentProps {
     className?: string;
@@ -14,7 +15,8 @@ export const TextBlockComponent = memo(
         const { className, block } = props;
 
         return (
-            <div
+            <VStack
+                max
                 className={classNames(cls.ReviewTextBlockComponent, {}, [
                     className,
                 ])}
@@ -32,7 +34,7 @@ export const TextBlockComponent = memo(
                         className={cls.paragraph}
                     />
                 ))}
-            </div>
+            </VStack>
         );
     },
 );

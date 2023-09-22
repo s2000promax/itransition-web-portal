@@ -4,6 +4,7 @@ import cls from './CodeBlockComponent.module.scss';
 import { Code } from '@/shared/UI-kit/Code';
 
 import { ReviewCodeBlockI } from '@/entities/Review';
+import { VStack } from '@/shared/UI-kit/Stack';
 
 interface ReviewCodeBlockComponentProps {
     className?: string;
@@ -15,13 +16,14 @@ export const CodeBlockComponent = memo(
         const { className, block } = props;
 
         return (
-            <div
+            <VStack
+                max
                 className={classNames(cls.ReviewCodeBlockComponent, {}, [
                     className,
                 ])}
             >
                 <Code text={block.code} />
-            </div>
+            </VStack>
         );
     },
 );
