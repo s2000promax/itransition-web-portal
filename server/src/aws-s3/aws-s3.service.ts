@@ -9,17 +9,19 @@ export class AwsS3Service {
 
     constructor(private configService: ConfigService) {
         this.s3 = new S3Client({
-            region: this.configService.get('AWS_REGION'),
+            region: this.configService.get('VERCEL_AWS_REGION'),
             credentials: {
-                accessKeyId: this.configService.get('AWS_ACCESS_KEY_ID'),
-                secretAccessKey: this.configService.get('AWS_ACCESS_KEY'),
+                accessKeyId: this.configService.get('VERCEL_AWS_ACCESS_KEY_ID'),
+                secretAccessKey: this.configService.get(
+                    'VERCEL_AWS_ACCESS_KEY',
+                ),
             },
         });
     }
 
     async uploadFile(@UploadedFile() file: MulterFileI): Promise<string> {
         const params = {
-            Bucket: this.configService.get('AWS_BUCKET_NAME'),
+            Bucket: this.configService.get('VERCEL_AWS_BUCKET_NAME'),
             Key: file.originalname,
             Body: file.buffer,
             ContentType: file.mimetype,
@@ -28,9 +30,8 @@ export class AwsS3Service {
 
         try {
             const result = await this.s3.send(new PutObjectCommand(params));
-            console.log('upload', result);
             return `https://${params.Bucket}.s3.${this.configService.get(
-                'AWS_REGION',
+                'VERCEL_AWS_REGION',
             )}.amazonaws.com/${params.Key}`;
         } catch (err) {
             throw new Error(
