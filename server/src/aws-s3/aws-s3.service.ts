@@ -28,7 +28,7 @@ export class AwsS3Service {
 
         try {
             const result = await this.s3.send(new PutObjectCommand(params));
-
+            console.log('upload', result);
             return `https://${params.Bucket}.s3.${this.configService.get(
                 'AWS_REGION',
             )}.amazonaws.com/${params.Key}`;
