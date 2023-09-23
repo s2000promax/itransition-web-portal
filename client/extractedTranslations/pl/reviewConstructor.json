@@ -6,12 +6,12 @@
   "code": "Kod",
   "code description": "Opis kodu",
   "create": "Tworzyć",
-  "edit": "",
   "image description": "opis obrazu",
   "message": "Wystąpił błąd podczas ładowania recenzji",
   "paragraph": "Ustęp",
   "refresh": "Spróbuj odświeżyć stronę",
   "title": "Utwórz nową recenzję",
+  "titleText": "Nagłówek akapitu",
   "type": "Typ",
   "validator": {
     "empty": "Puste dane",
