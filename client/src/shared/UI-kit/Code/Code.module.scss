@@ -1,5 +1,5 @@
 .Code {
-    padding: 20px;
+    padding: 20px 40px 20px;
     position: relative;
     background: var(--light-bg);
     overflow: auto;
@@ -9,10 +9,14 @@
 
 .copyBtn {
     position: absolute;
-    right: 20px;
-    top: 20px;
+    right: 8px;
+    top: 8px;
 }
 
 .copyIcon path {
     stroke: var(--bg);
+}
+
+.code {
+    white-space: pre-wrap;
 }

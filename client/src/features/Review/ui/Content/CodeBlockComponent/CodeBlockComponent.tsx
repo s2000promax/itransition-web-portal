@@ -18,6 +18,7 @@ export const CodeBlockComponent = memo(
         return (
             <VStack
                 max
+                align="center"
                 className={classNames(cls.ReviewCodeBlockComponent, {}, [
                     className,
                 ])}
