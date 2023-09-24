@@ -15,6 +15,7 @@ import { AwsS3Module } from './aws-s3/aws-s3.module';
 import { WorkModule } from './work/work.module';
 import { TagModule } from './tag/tag.module';
 import { AdminModule } from './admin/admin.module';
+import { AboutContentModule } from './aboutContent/aboutContent.module';
 
 @Module({
     imports: [
@@ -32,6 +33,7 @@ import { AdminModule } from './admin/admin.module';
         AwsS3Module,
         TagModule,
         AdminModule,
+        AboutContentModule,
     ],
     controllers: [AppController],
     providers: [
