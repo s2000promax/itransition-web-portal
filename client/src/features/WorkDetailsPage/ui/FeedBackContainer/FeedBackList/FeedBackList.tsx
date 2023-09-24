@@ -1,19 +1,19 @@
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { classNames } from '@/shared/libs/classNames/classNames';
-import { CommentI } from '@/entities/Comment';
 import { Text } from '@/shared/UI-kit/Text';
 import { VStack } from '@/shared/UI-kit/Stack';
 import { FeedBackCard } from './FeedBackCard/FeedBackCard';
+import { FeedbackI } from '@/entities/FeedBack';
 
 interface FeedBackListProps {
     className?: string;
-    comments?: CommentI[];
+    feedbackList?: FeedbackI[];
     isLoading?: boolean;
 }
 
 export const FeedBackList = memo((props: FeedBackListProps) => {
-    const { className, isLoading, comments } = props;
+    const { className, isLoading, feedbackList } = props;
     const { t } = useTranslation('work');
 
     if (isLoading) {
@@ -36,12 +36,12 @@ export const FeedBackList = memo((props: FeedBackListProps) => {
             max
             className={classNames('', {}, [className])}
         >
-            {comments?.length ? (
-                comments.map((comment) => (
+            {feedbackList?.length ? (
+                feedbackList.map((feedback) => (
                     <FeedBackCard
                         isLoading={isLoading}
-                        feedback={comment}
-                        key={comment.id}
+                        feedback={feedback}
+                        key={feedback.user.id}
                     />
                 ))
             ) : (

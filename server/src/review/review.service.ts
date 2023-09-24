@@ -333,6 +333,37 @@ export class ReviewService {
         }
     }
 
+    async findRecommendationReviewListByWorkId(
+        workId: string,
+        limit: string,
+        page: string,
+    ) {
+        const _limit = Number(limit);
+        const _page = Number(page);
+        const _skip = (_page - 1) * _limit;
+
+        try {
+            const foundedRecommendationReviewListByWorkId =
+                await this.prismaService.review.findMany({
+                    where: {
+                        workId: workId,
+                    },
+                    include: {
+                        owner: true,
+                    },
+                    orderBy: {
+                        ownerRating: 'desc',
+                    },
+                    skip: _skip,
+                    take: _limit,
+                });
+
+            return foundedRecommendationReviewListByWorkId;
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     async updateViewCounter(reviewId: string, user: JwtPayload) {
         try {
             const foundedReview = await this.prismaService.review.findFirst({

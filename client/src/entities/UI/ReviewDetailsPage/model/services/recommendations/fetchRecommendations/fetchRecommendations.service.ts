@@ -6,7 +6,7 @@ export const fetchRecommendationsService = createAsyncThunk<
     ReviewI[],
     void,
     ThunkConfig<string>
->('reviewDetailsPage/fetchReviewsRecommendations', async (props, thunkApi) => {
+>('reviewDetailsPage/fetchReviewsRecommendations', async (_, thunkApi) => {
     const { extra, rejectWithValue } = thunkApi;
 
     try {

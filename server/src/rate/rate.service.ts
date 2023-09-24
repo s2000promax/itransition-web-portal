@@ -103,4 +103,22 @@ export class RateService {
             console.log(e);
         }
     }
+
+    async findFeedbackList(workId: string) {
+        try {
+            const foundedFeedbackList =
+                await this.prismaService.usersRating.findMany({
+                    where: {
+                        workId,
+                    },
+                    include: {
+                        user: true,
+                    },
+                });
+
+            return foundedFeedbackList;
+        } catch (e) {
+            console.log(e);
+        }
+    }
 }

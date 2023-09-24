@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { memo } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import cls from './Work.module.scss';
 import { useSelector } from 'react-redux';
@@ -19,28 +19,33 @@ import { Text } from '@/shared/UI-kit/Text';
 
 import { useInitialEffect } from '@/shared/libs/hooks/useInitialEffect/useInitialEffect';
 import { fetchWorkByIdService, workReducer } from '@/entities/Work';
+import { useDebounce } from '@/shared/libs/hooks/useDebounce/useDebounce';
 
 interface WorkProps {
     className?: string;
-    id?: string;
+    workId?: string;
 }
 
-const reducers: ReducersList = {
-    work: workReducer,
-};
-
 export const Work = memo((props: WorkProps) => {
-    const { className, id } = props;
+    const { className, workId } = props;
     const { t } = useTranslation('work');
     const dispatch = useAppDispatch();
     const isLoading = useSelector(getReviewIsLoadingSelector);
     const error = useSelector(getReviewErrorSelector);
 
-    useInitialEffect(() => {
-        if (id) {
-            dispatch(fetchWorkByIdService(id));
+    const handleFetchWorkById = useCallback(() => {
+        if (workId) {
+            dispatch(fetchWorkByIdService(workId));
         }
-    });
+    }, [dispatch, workId]);
+
+    const debounceFetchWorkById = useDebounce(handleFetchWorkById, 300);
+
+    useEffect(() => {
+        if (workId) {
+            debounceFetchWorkById();
+        }
+    }, [workId]);
 
     let content;
 
@@ -54,21 +59,16 @@ export const Work = memo((props: WorkProps) => {
             />
         );
     } else {
-        content = <Content id={id} />;
+        content = <Content id={workId} />;
     }
 
     return (
-        <DynamicModuleLoader
-            reducers={reducers}
-            removeAfterUnmount
+        <VStack
+            gap="16"
+            max
+            className={classNames(cls.Work, {}, [className])}
         >
-            <VStack
-                gap="16"
-                max
-                className={classNames(cls.Work, {}, [className])}
-            >
-                {content}
-            </VStack>
-        </DynamicModuleLoader>
+            {content}
+        </VStack>
     );
 });

@@ -4,7 +4,7 @@ import { getReviewDataSelector } from '@/entities/Review';
 import { getWorkDataSelector } from '@/entities/Work';
 import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
 import { fetchWorkByIdService } from '@/entities/Work/model/services/fetchWorkData/fetchWorkById.service';
-import { WorkInfoCard } from '@/features/WorkInfoCard';
+import { WorkInfoCard } from '@/features/Cards/WorkInfoCard';
 
 interface WorkInfoContainerProps {
     className?: string;

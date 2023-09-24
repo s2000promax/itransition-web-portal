@@ -90,6 +90,34 @@ export class ReviewController {
 
     @Public()
     @UseInterceptors(ClassSerializerInterceptor)
+    @Get('recommendation/byWorkId')
+    async getRecommendationReviewListByWorkId(
+        @Query('_workId') workId: string,
+        @Query('_limit') limit: string,
+        @Query('_page') page: string,
+    ) {
+        try {
+            const foundedReviewRecommendationList =
+                await this.reviewService.findRecommendationReviewListByWorkId(
+                    workId,
+                    limit,
+                    page,
+                );
+
+            const reviewListResponse = foundedReviewRecommendationList.map(
+                (review) => new ReviewResponse(review, review.owner),
+            );
+
+            return reviewListResponse;
+        } catch (e) {
+            throw new BadRequestException(
+                'Failed to get review recommendation list',
+            );
+        }
+    }
+
+    @Public()
+    @UseInterceptors(ClassSerializerInterceptor)
     @Get('reviewList')
     async getReviewList(
         @Query('_limit') limit: string,
