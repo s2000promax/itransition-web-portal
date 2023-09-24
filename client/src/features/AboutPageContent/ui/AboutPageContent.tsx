@@ -82,8 +82,9 @@ export const AboutPageContent = memo((props: AboutPageContentProps) => {
                 </HStack>
             </VStack>
 
-            {aboutContent?.blocks.map((block) => (
+            {aboutContent?.blocks.map((block, index) => (
                 <VStack
+                    key={`about-text-block-${index}`}
                     gap="16"
                     align="center"
                     className={cls.block}
