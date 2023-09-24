@@ -1,18 +1,13 @@
 import { useTranslation } from 'react-i18next';
-import { memo, useCallback, useEffect } from 'react';
+import { memo, useCallback } from 'react';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import cls from './Review.module.scss';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
 import {
-    DynamicModuleLoader,
-    ReducersList,
-} from '@/shared/libs/components/DynamicModuleLoader';
-import {
     fetchReviewByIdService,
     getReviewErrorSelector,
     getReviewIsLoadingSelector,
-    reviewReducer,
     updateReviewViewCounterService,
 } from '@/entities/Review';
 import { ContentSkeleton } from './ContentSkeleton/ContentSkeleton';
@@ -26,10 +21,6 @@ interface ReviewProps {
     className?: string;
     id?: string;
 }
-
-const reducers: ReducersList = {
-    review: reviewReducer,
-};
 
 export const Review = memo((props: ReviewProps) => {
     const { className, id } = props;
@@ -66,17 +57,12 @@ export const Review = memo((props: ReviewProps) => {
     }
 
     return (
-        <DynamicModuleLoader
-            reducers={reducers}
-            removeAfterUnmount
+        <VStack
+            gap="16"
+            max
+            className={classNames(cls.Review, {}, [className])}
         >
-            <VStack
-                gap="16"
-                max
-                className={classNames(cls.Review, {}, [className])}
-            >
-                {content}
-            </VStack>
-        </DynamicModuleLoader>
+            {content}
+        </VStack>
     );
 });

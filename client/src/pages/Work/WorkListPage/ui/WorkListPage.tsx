@@ -34,17 +34,13 @@ const WorkListPage = ({ className }: WorkListPageProps) => {
     const [searchParams] = useSearchParams();
 
     const handleFetchWorkListData = useCallback(() => {
-        // dispatch(fetchWorkListDataService());
-    }, [dispatch]);
+        dispatch(initWorkListPageService(searchParams));
+    }, [dispatch, searchParams]);
 
-    const debouncedFetchWorkListData = useDebounce(
-        handleFetchWorkListData,
-        300,
-    );
+    const debounceFetchWorkListData = useDebounce(handleFetchWorkListData, 300);
 
     useInitialEffect(() => {
-        // debouncedFetchWorkListData();
-        dispatch(initWorkListPageService(searchParams));
+        debounceFetchWorkListData();
     });
 
     const onLoadNextPart = useCallback(() => {

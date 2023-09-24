@@ -23,6 +23,7 @@ import { RecommendationsList } from '@/features/RecommendationsList';
 import { workReducer } from '@/entities/Work';
 import { useSelector } from 'react-redux';
 import { getUserDataSelector } from '@/entities/User';
+import { reviewReducer } from '@/entities/Review';
 
 export interface ReviewDetailsPageProps {
     className?: string;
@@ -30,6 +31,7 @@ export interface ReviewDetailsPageProps {
 
 const reducers: ReducersList = {
     reviewDetailsPage: reviewDetailsPageReducer,
+    review: reviewReducer,
     work: workReducer,
 };
 

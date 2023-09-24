@@ -1,6 +1,6 @@
 import { HTMLAttributeAnchorTarget, memo } from 'react';
 import { WorkI } from '@/entities/Work';
-import { WorkInfoCard } from '@/features/WorkInfoCard';
+import { WorkInfoCard } from '@/features/Cards/WorkInfoCard';
 import { ViewEnums } from '@/entities/UI/UI';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import cls from './WorkListItem.module.scss';

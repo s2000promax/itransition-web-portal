@@ -12,14 +12,14 @@ import { Button } from '@/shared/UI-kit/Button';
 import { HStack, VStack } from '@/shared/UI-kit/Stack';
 import { Icon } from '@/shared/UI-kit/Icon';
 import {
+    ReviewBlockTypeEnums,
     ReviewI,
     ReviewTextBlockI,
-    ReviewBlockTypeEnums,
 } from '@/entities/Review';
 import { getRouteReviewDetails } from '@/shared/routes/routes.patterns';
-import { DateFormatter } from '@/shared/libs/dateFormetter/dateFormatter';
 import EyeIcon from '@/shared/assets/ui/icons/eye.svg';
 import { ViewEnums } from '@/entities/UI/UI';
+import { ReviewInfoCard } from '@/features/Cards/ReviewInfoCard';
 
 interface ReviewItemProps {
     className?: string;
@@ -128,6 +128,9 @@ export const ReviewListItem = memo((props: ReviewItemProps) => {
         );
     }
 
+    return <ReviewInfoCard review={review} />;
+
+    /*
     return (
         <AppLink
             data-testid="ReviewListItem"
@@ -181,4 +184,5 @@ export const ReviewListItem = memo((props: ReviewItemProps) => {
             </Card>
         </AppLink>
     );
+    */
 });
