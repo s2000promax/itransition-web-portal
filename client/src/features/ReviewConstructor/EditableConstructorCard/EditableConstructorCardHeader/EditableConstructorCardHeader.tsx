@@ -11,7 +11,6 @@ import { Button } from '@/shared/UI-kit/Button';
 import { Card } from '@/shared/UI-kit/Card';
 import {
     createReviewService,
-    getReviewDataSelector,
     getReviewFormSelector,
     getReviewReadonlySelector,
     reviewActions,
@@ -27,12 +26,8 @@ import { BackButton } from '@/shared/UI-kit/BackButton';
 import { AddTextBlockButton } from '@/shared/UI-kit/AddTextBlockButton';
 import { AddImageBlockButton } from '@/shared/UI-kit/AddImageBlockButton';
 import { AddCodeBlockButton } from '@/shared/UI-kit/AddCodeBlockButton';
-import { fetchTagListService, getTagCurrentDataSelector } from '@/entities/Tag';
-import { profileActions } from '@/entities/Profile';
-import {
-    getRouteReviewEdit,
-    getRouteReviewList,
-} from '@/shared/routes/routes.patterns';
+import { fetchTagListService } from '@/entities/Tag';
+import { getRouteReviewList } from '@/shared/routes/routes.patterns';
 import { useNavigate } from 'react-router-dom';
 
 interface EditableProfileCardHeaderProps {
@@ -215,7 +210,7 @@ export const EditableConstructorCardHeader = memo(
                         className={cls.header}
                     >
                         <HStack gap="8">
-                            <Text title={t('edit')} />
+                            <Text title={t('Edit')} />
                             <Text title={reviewData?.title} />
                         </HStack>
 

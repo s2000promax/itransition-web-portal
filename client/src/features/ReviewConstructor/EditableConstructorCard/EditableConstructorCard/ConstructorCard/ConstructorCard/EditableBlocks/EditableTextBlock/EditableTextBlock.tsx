@@ -100,7 +100,7 @@ export const EditableTextBlock = memo(
                 >
                     <Input
                         value={block.title}
-                        placeholder={t('title')}
+                        placeholder={t('titleText')}
                         onChange={onChangeTitle}
                         readonly={readonly}
                         className={cls.title}

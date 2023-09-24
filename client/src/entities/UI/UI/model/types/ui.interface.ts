@@ -2,7 +2,6 @@ import { WorkTypeEnums } from '@/entities/Work';
 import { LanguageEnums } from '@/shared/enums/language.enums';
 import { ThemeEnums } from '@/shared/enums/theme.enums';
 import { SortOrderT } from '@/shared/types/sort.type';
-import { SortFieldEnums } from '../enums/sortField.enums';
 import { ViewEnums } from '../enums/view.enums';
 
 export type ScrollSchemaT = Record<string, number>;

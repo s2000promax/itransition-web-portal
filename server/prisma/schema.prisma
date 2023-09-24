@@ -200,6 +200,28 @@ model Settings {
     @@map("settings")
 }
 
+model AboutContent {
+    language          String           @id @unique
+    appName           String           @map("app_name")
+    header            String           @db.Text
+    headerDescription String           @map("header_description")
+    blocks            AboutItemBlock[]
+
+    @@map("aboutContent")
+}
+
+model AboutItemBlock {
+    block          AboutContent @relation(fields: [language], references: [language], onDelete: Cascade)
+    id             String       @id
+    language       String
+    blockHeader    String       @db.Text
+    blockFirstSrc  String       @db.VarChar(2048)
+    blockSecondSrc String       @db.VarChar(2048)
+    paragraph      String       @db.Text
+
+    @@map("aboutItemBlock")
+}
+
 enum RolesEnum {
     SA
     ADMIN

@@ -24,7 +24,7 @@ export const Code = memo((props: CodeProps) => {
                 className={cls.copyBtn}
                 Svg={CopyIcon}
             />
-            <code>{text}</code>
+            <code className={cls.code}>{text}</code>
         </div>
     );
 });

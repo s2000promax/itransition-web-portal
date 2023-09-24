@@ -83,6 +83,7 @@ export const ReviewListItem = memo((props: ReviewItemProps) => {
                         <Text
                             title={review.title}
                             bold
+                            className={cls.title}
                         />
                         <Text
                             title={review.workTitle}

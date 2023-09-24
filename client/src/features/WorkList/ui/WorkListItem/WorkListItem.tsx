@@ -36,35 +36,42 @@ export const WorkListItem = memo((props: ListItemProps) => {
                 <VStack
                     max
                     gap="16"
+                    justify="between"
+                    className={cls.container}
                 >
-                    <Text
-                        title={work?.title}
-                        bold
-                    />
-                    <HStack gap="8">
+                    <VStack
+                        gap="8"
+                        max
+                    >
                         <Text
-                            title={work?.author}
-                            size="s"
+                            title={work?.title}
                             bold
                         />
-                        <Text text={DateFormatter(work?.releaseDate!)} />
-                    </HStack>
-                    <AppImage
-                        fallback={
-                            <Skeleton
-                                width="100%"
-                                height={250}
+                        <HStack gap="8">
+                            <Text
+                                title={work?.author}
+                                size="s"
+                                bold
                             />
-                        }
-                        src={work?.cover}
-                        className={cls.img}
-                        alt={work?.title}
-                    />
+                            <Text text={DateFormatter(work?.releaseDate!)} />
+                        </HStack>
+                        <AppImage
+                            fallback={
+                                <Skeleton
+                                    width="100%"
+                                    height={250}
+                                />
+                            }
+                            src={work?.cover}
+                            className={cls.img}
+                            alt={work?.title}
+                        />
 
-                    <Text
-                        className={cls.textBlock}
-                        text={work?.description}
-                    />
+                        <Text
+                            className={cls.textBlock}
+                            text={work?.description}
+                        />
+                    </VStack>
 
                     <HStack
                         max
