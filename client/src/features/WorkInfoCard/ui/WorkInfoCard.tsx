@@ -11,6 +11,7 @@ import { DateFormatter } from '@/shared/libs/dateFormetter/dateFormatter';
 import { AppLink } from '@/shared/UI-kit/AppLink';
 import { WorkI } from '@/entities/Work';
 import { useTranslation } from 'react-i18next';
+import { roundedFloat } from '@/shared/libs/roundedFloat/roundedFloat';
 
 interface WorkInfoCardProps {
     className?: string;
@@ -63,14 +64,14 @@ export const WorkInfoCard = (props: WorkInfoCardProps) => {
                         </VStack>
                         <VStack gap="8">
                             <Text
-                                text={`${t('averageReviewsRating')}: ${
-                                    work.averageReviewsRating
-                                }`}
+                                text={`${t(
+                                    'averageReviewsRating',
+                                )}: ${roundedFloat(work.averageReviewsRating)}`}
                             />
                             <Text
-                                text={`${t('averageUsersRating')}: ${
-                                    work.averageUsersRating
-                                }`}
+                                text={`${t(
+                                    'averageUsersRating',
+                                )}: ${roundedFloat(work.averageUsersRating)}`}
                             />
                         </VStack>
                     </VStack>
