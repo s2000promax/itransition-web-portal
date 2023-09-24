@@ -7,6 +7,9 @@ import {
     getRecommendationReviewListDataSelector,
 } from '@/entities/UI/WorkDetailsPage';
 import { useDebounce } from '@/shared/libs/hooks/useDebounce/useDebounce';
+import { VStack } from '@/shared/UI-kit/Stack';
+import { Text } from '@/shared/UI-kit/Text';
+import { useTranslation } from 'react-i18next';
 
 interface RecommendationReviewsContainerProps {
     className?: string;
@@ -17,6 +20,7 @@ export const RecommendationReviewsContainer = memo(
     (props: RecommendationReviewsContainerProps) => {
         const { className, workId } = props;
         const dispatch = useAppDispatch();
+        const { t } = useTranslation('recommendationsList');
 
         const recommendationReviewList = useSelector(
             getRecommendationReviewListDataSelector,
@@ -41,13 +45,17 @@ export const RecommendationReviewsContainer = memo(
 
         if (recommendationReviewList) {
             return (
-                <>
+                <VStack>
+                    <Text
+                        size="m"
+                        title={t('Recommended')}
+                    />
                     {recommendationReviewList.map((review) => (
                         <React.Fragment key={review.id}>
                             <ReviewInfoCard review={review} />
                         </React.Fragment>
                     ))}
-                </>
+                </VStack>
             );
         }
     },
