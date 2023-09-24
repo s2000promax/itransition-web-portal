@@ -45,7 +45,7 @@ export const RecommendationReviewsContainer = memo(
 
         if (recommendationReviewList) {
             return (
-                <VStack>
+                <VStack gap="16">
                     <Text
                         size="m"
                         title={t('Recommended')}

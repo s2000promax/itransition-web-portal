@@ -8,6 +8,7 @@ import { getWorkDataSelector } from '@/entities/Work';
 import { HStack, VStack } from '@/shared/UI-kit/Stack';
 import { DateFormatter } from '@/shared/libs/dateFormetter/dateFormatter';
 import { useTranslation } from 'react-i18next';
+import { roundedFloat } from '@/shared/libs/roundedFloat/roundedFloat';
 
 interface ContentProps {
     id?: string;
@@ -57,14 +58,14 @@ export const Content = memo((props: ContentProps) => {
                 />
                 <VStack gap="8">
                     <Text
-                        text={`${t(
-                            'averageReviewsRating',
-                        )}: ${work?.averageReviewsRating}`}
+                        text={`${t('averageReviewsRating')}: ${roundedFloat(
+                            work?.averageReviewsRating,
+                        )}`}
                     />
                     <Text
-                        text={`${t(
-                            'averageUsersRating',
-                        )}: ${work?.averageUsersRating}`}
+                        text={`${t('averageUsersRating')}: ${roundedFloat(
+                            work?.averageUsersRating,
+                        )}`}
                     />
                 </VStack>
             </VStack>
