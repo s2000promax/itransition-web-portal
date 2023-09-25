@@ -1,10 +1,13 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, Fragment, useEffect, useState } from 'react';
 import { Combobox as HCombobox } from '@headlessui/react';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import cls from './Combobox.module.scss';
 import popupCls from '../../styles/popup.module.scss';
 import { HStack } from '../../../Stack';
-import { DropdownDirection } from '@/shared/UI-kit/Popups/styles/consts';
+import {
+    DropdownDirection,
+    mapDirectionClass,
+} from '@/shared/UI-kit/Popups/styles/consts';
 
 interface ComboboxProps<T extends string> {
     items?: T[];
@@ -13,16 +16,26 @@ interface ComboboxProps<T extends string> {
     onAddValue: (value: string) => void;
     onChange?: (value: T) => void;
     readonly?: boolean;
-    direction?: DropdownDirection;
+    direction: DropdownDirection;
     label?: string;
     doNotClean?: boolean;
 }
 
 export function Combobox<T extends string>(props: ComboboxProps<T>) {
-    const { className, items, readonly, onAddValue, doNotClean, value } = props;
+    const {
+        className,
+        items,
+        readonly,
+        onAddValue,
+        doNotClean,
+        value,
+        direction,
+    } = props;
 
     const [inputValue, setInputValue] = useState('');
     const [query, setQuery] = useState('');
+
+    const optionsClasses = [mapDirectionClass[direction], popupCls.menu];
 
     useEffect(() => {
         if (value) {
@@ -78,14 +91,27 @@ export function Combobox<T extends string>(props: ComboboxProps<T>) {
                     onChange={handleInput}
                     className={cls.trigger}
                 />
-                <HCombobox.Options className={cls.options}>
+                <HCombobox.Options
+                    className={classNames(cls.options, {}, optionsClasses)}
+                >
                     {filteredItems?.map((item) => (
                         <HCombobox.Option
                             key={item}
                             value={item}
-                            className={cls.item}
+                            as={Fragment}
                         >
-                            {item}
+                            {({ active, selected }) => (
+                                <li
+                                    className={classNames(cls.item, {
+                                        [popupCls.active]: active,
+                                        [popupCls.disabled]: item,
+                                        [popupCls.selected]: selected,
+                                    })}
+                                >
+                                    {selected}
+                                    {item}
+                                </li>
+                            )}
                         </HCombobox.Option>
                     ))}
                 </HCombobox.Options>

@@ -2,9 +2,10 @@
     //display: flex;
     //align-items: center;
     border-radius: 48px;
-    padding: 8px 16px;
+    //padding: 2px 16px;
     border: 2px solid var(--icon);
-    width: 100%;
+    //width: 100%;
+    padding: 0;
 }
 
 .trigger {
@@ -13,6 +14,7 @@
     outline: none;
     padding: 0;
     margin: 0;
+    max-width: 100%;
 }
 
 .options {
@@ -22,10 +24,12 @@
     border-radius: 12px;
     border: 2px solid var(--icon);
     box-shadow: 4px 4px 8px var(--dark-bg);
+    max-height: 150px;
+    overflow-y: auto;
 }
 
 .item {
-    padding: 10px 20px;
+    padding: 5px 10px;
 }
 
 .selected {

@@ -46,18 +46,9 @@ const ReviewListPage = (props: ReviewListPageProps) => {
         LocalStorageEnums.IS_REVIEW_PAGE_WAS_OPEN,
     );
 
-    const handleInitReviewListPageService = useCallback(() => {
-        dispatch(initReviewListPageService(searchParams));
-    }, [dispatch]);
-
-    const debouncedInitReviewListPageService = useDebounce(
-        handleInitReviewListPageService,
-        300,
-    );
-
     useEffect(() => {
-        debouncedInitReviewListPageService();
-    }, [searchParams]);
+        dispatch(initReviewListPageService(searchParams));
+    }, []);
 
     const onLoadNextPart = useCallback(() => {
         dispatch(fetchNextReviewListPageService());
