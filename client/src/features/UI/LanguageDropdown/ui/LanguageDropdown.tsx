@@ -11,11 +11,13 @@ import { LocalStorageEnums } from '@/shared/enums/localStorage.enums';
 
 interface LanguageDropdownProps {
     className?: string;
+    isMobile?: boolean;
 }
 
 export const LanguageDropdown = memo((props: LanguageDropdownProps) => {
-    const { className } = props;
+    const { className, isMobile } = props;
     const dispatch = useAppDispatch();
+    const direction = isMobile ? 'bottom left' : 'top right';
 
     useInitialEffect(() => {
         const localLanguage = PersistenceService.get(
@@ -51,7 +53,7 @@ export const LanguageDropdown = memo((props: LanguageDropdownProps) => {
 
     return (
         <Dropdown
-            direction="top right"
+            direction={direction}
             className={classNames('', {}, [className])}
             items={items}
             trigger={<LanguageInfoCard />}

@@ -222,6 +222,19 @@ model AboutItemBlock {
     @@map("aboutItemBlock")
 }
 
+model Notification {
+    id          String   @id
+    language    String
+    title       String   @db.VarChar(255)
+    description String   @db.VarChar(255)
+    href        String?  @db.VarChar(2048)
+    createdAt   DateTime @default(now())
+    type        String?  @db.VarChar(255)
+    isRead      Boolean  @default(false)
+
+    @@map("notifications")
+}
+
 enum RolesEnum {
     SA
     ADMIN

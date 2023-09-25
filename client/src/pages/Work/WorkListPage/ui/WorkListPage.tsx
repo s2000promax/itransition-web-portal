@@ -1,4 +1,5 @@
 import { memo, useCallback } from 'react';
+import { BrowserView, MobileView } from 'react-device-detect';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import { Page } from '@/widgets/Page';
 import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
@@ -48,10 +49,23 @@ const WorkListPage = ({ className }: WorkListPageProps) => {
     }, [dispatch]);
 
     const content = (
-        <StickyContentLayout
-            left={<ViewSelectorContainer />}
-            right={<FiltersContainer />}
-            content={
+        <>
+            <BrowserView>
+                <StickyContentLayout
+                    left={<ViewSelectorContainer />}
+                    right={<FiltersContainer />}
+                    content={
+                        <Page
+                            data-testid="WorkListPage"
+                            onScrollEnd={onLoadNextPart}
+                            className={classNames('', {}, [className])}
+                        >
+                            <WorkInfiniteListPage className={className} />
+                        </Page>
+                    }
+                />
+            </BrowserView>
+            <MobileView>
                 <Page
                     data-testid="WorkListPage"
                     onScrollEnd={onLoadNextPart}
@@ -59,8 +73,8 @@ const WorkListPage = ({ className }: WorkListPageProps) => {
                 >
                     <WorkInfiniteListPage className={className} />
                 </Page>
-            }
-        />
+            </MobileView>
+        </>
     );
 
     return (

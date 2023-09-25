@@ -5,6 +5,8 @@ import { useNotifications } from '@/entities/UI/Notification';
 import { VStack } from '@/shared/UI-kit/Stack';
 import { Skeleton } from '@/shared/UI-kit/Skeleton';
 import { NotificationItem } from '../NotificationItem/NotificationItem';
+import { useSelector } from 'react-redux';
+import { getLanguageSelector } from '@/entities/UI/UI';
 
 interface NotificationListProps {
     className?: string;
@@ -12,7 +14,8 @@ interface NotificationListProps {
 
 export const NotificationList = memo((props: NotificationListProps) => {
     const { className } = props;
-    const { data, isLoading } = useNotifications(null, {
+    const currentLanguage = useSelector(getLanguageSelector);
+    const { data, isLoading } = useNotifications(currentLanguage, {
         pollingInterval: 10000,
     });
 
