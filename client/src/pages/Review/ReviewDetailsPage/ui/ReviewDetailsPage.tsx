@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import { useParams } from 'react-router-dom';
+import { BrowserView, MobileView } from 'react-device-detect';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import cls from './ReviewDetailsPage.module.scss';
 import {
@@ -44,37 +45,62 @@ const ReviewDetailsPage = (props: ReviewDetailsPageProps) => {
         return null;
     }
 
+    const content = (
+        <>
+            <BrowserView>
+                <StickyContentLayout
+                    content={
+                        <Page
+                            className={classNames(cls.ReviewDetailsPage, {}, [
+                                className,
+                            ])}
+                        >
+                            <VStack
+                                gap="16"
+                                max
+                            >
+                                <ReviewDetailsContainer />
+                                {isAuth && <WorkRating reviewId={id} />}
+                                <RecommendationsList reviewId={id} />
+                                <CommentsContainer id={id} />
+                            </VStack>
+                        </Page>
+                    }
+                    right={
+                        <VStack gap="24">
+                            <UserOwnerReviewInfoContainer />
+                            <WorkInfoContainer />
+                            <TagsContainer />
+                        </VStack>
+                    }
+                />
+            </BrowserView>
+            <MobileView>
+                <Page
+                    className={classNames(cls.ReviewDetailsPage, {}, [
+                        className,
+                    ])}
+                >
+                    <VStack
+                        gap="16"
+                        max
+                    >
+                        <ReviewDetailsContainer />
+                        {isAuth && <WorkRating reviewId={id} />}
+                        <RecommendationsList reviewId={id} />
+                        <CommentsContainer id={id} />
+                    </VStack>
+                </Page>
+            </MobileView>
+        </>
+    );
+
     return (
         <DynamicModuleLoader
             reducers={reducers}
             removeAfterUnmount
         >
-            <StickyContentLayout
-                content={
-                    <Page
-                        className={classNames(cls.ReviewDetailsPage, {}, [
-                            className,
-                        ])}
-                    >
-                        <VStack
-                            gap="16"
-                            max
-                        >
-                            <ReviewDetailsContainer />
-                            {isAuth && <WorkRating reviewId={id} />}
-                            <RecommendationsList reviewId={id} />
-                            <CommentsContainer id={id} />
-                        </VStack>
-                    </Page>
-                }
-                right={
-                    <VStack gap="24">
-                        <UserOwnerReviewInfoContainer />
-                        <WorkInfoContainer />
-                        <TagsContainer />
-                    </VStack>
-                }
-            />
+            {content}
         </DynamicModuleLoader>
     );
 };

@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { VStack } from '@/shared/UI-kit/Stack';
 import { ListBox } from '@/shared/UI-kit/Popups';
 import { WorkTypeEnums } from '@/entities/Work';
+import { useReviewFilters } from '@/features/ReviewListPage/libs/hooks/useReviewFilters';
 
 interface TabItem {
     value: string;

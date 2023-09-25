@@ -3,5 +3,8 @@
   "Login": "Login",
   "Logout": "Logout",
   "Profile": "Profile",
-  "Register": "Register"
+  "Register": "Register",
+  "About": "About",
+  "Reviews": "Reviews",
+  "Works": "Works"
 }

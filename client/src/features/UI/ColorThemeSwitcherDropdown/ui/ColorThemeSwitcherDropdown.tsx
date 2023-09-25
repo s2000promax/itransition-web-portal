@@ -13,14 +13,16 @@ import { LocalStorageEnums } from '@/shared/enums/localStorage.enums';
 
 interface ColorThemeSwitcherDropdownProps {
     className?: string;
+    isMobile?: boolean;
 }
 
 export const ColorThemeSwitcherDropdown = memo(
     (props: ColorThemeSwitcherDropdownProps) => {
-        const { className } = props;
+        const { className, isMobile } = props;
         const { t } = useTranslation('theme');
         const dispatch = useAppDispatch();
         const { theme, setTheme } = useContext(ThemeContext);
+        const direction = isMobile ? 'bottom left' : 'top right';
 
         useInitialEffect(() => {
             const localTheme = PersistenceService.get(LocalStorageEnums.THEME);
@@ -54,7 +56,7 @@ export const ColorThemeSwitcherDropdown = memo(
 
         return (
             <Dropdown
-                direction="top right"
+                direction={direction}
                 className={classNames('', {}, [className])}
                 items={items}
                 trigger={<ColorThemeInfoCard />}

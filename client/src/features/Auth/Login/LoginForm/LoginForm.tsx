@@ -140,7 +140,10 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
                     max
                     align={'center'}
                 >
-                    <HStack gap="8">
+                    <HStack
+                        gap="8"
+                        className={cls.providerContainer}
+                    >
                         <Button
                             className={cls.loginBtn}
                             onClick={handleGoogleLogin}
