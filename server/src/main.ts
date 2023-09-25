@@ -15,6 +15,7 @@ async function bootstrap() {
             'Access-Control-Allow-Credentials',
             'Origin',
             'X-Requested-With',
+            'Authorization',
             'Accept',
         ],
         origin: appConfig().origins,
