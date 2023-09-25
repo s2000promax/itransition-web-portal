@@ -50,6 +50,7 @@ export const ReviewTagSelector = memo((props: ReviewTagSelectorProps) => {
                 className={cls.input}
                 doNotClean
                 value={tagFilter}
+                direction={'bottom right'}
             />
         </VStack>
     );

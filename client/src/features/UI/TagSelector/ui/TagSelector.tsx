@@ -33,6 +33,7 @@ export const TagSelector = memo((props: TagSelectorProps) => {
                 items={tagList}
                 onAddValue={onChangeTag}
                 className={className}
+                direction={'bottom left'}
             />
         </HStack>
     );

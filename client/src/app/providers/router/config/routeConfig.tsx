@@ -78,7 +78,7 @@ export const routeConfig: Record<AppRoutesEnums, AppRoutesPropsT> = {
         path: getRouteAdmin(),
         element: <AdminDashboardPage />,
         authOnly: true,
-        roles: [UserRolesEnums.ADMIN],
+        roles: [UserRolesEnums.ADMIN, UserRolesEnums.SA],
     },
     [AppRoutesEnums.SUCCESS_AUTH_PROVIDER]: {
         path: getRouteSuccessAuthProvider(),

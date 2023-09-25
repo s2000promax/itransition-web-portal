@@ -1,9 +1,8 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import { BrowserView, MobileView } from 'react-device-detect';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import { Page } from '@/widgets/Page';
 import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
-import { useInitialEffect } from '@/shared/libs/hooks/useInitialEffect/useInitialEffect';
 import {
     DynamicModuleLoader,
     ReducersList,
@@ -34,14 +33,8 @@ const WorkListPage = ({ className }: WorkListPageProps) => {
     const dispatch = useAppDispatch();
     const [searchParams] = useSearchParams();
 
-    const handleFetchWorkListData = useCallback(() => {
+    useEffect(() => {
         dispatch(initWorkListPageService(searchParams));
-    }, [dispatch, searchParams]);
-
-    const debounceFetchWorkListData = useDebounce(handleFetchWorkListData, 300);
-
-    useInitialEffect(() => {
-        debounceFetchWorkListData();
     });
 
     const onLoadNextPart = useCallback(() => {

@@ -23,3 +23,15 @@ $api.interceptors.request.use((config) => {
     }
     return config;
 });
+
+$api.interceptors.response.use(
+    (response) => {
+        return response;
+    },
+    (error) => {
+        if (error.response && error.response.status === 403) {
+            console.error('Forbidden! User Blocked');
+        }
+        return Promise.reject(error);
+    },
+);
