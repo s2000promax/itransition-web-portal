@@ -61,7 +61,6 @@ export const Sidebar = memo(({ className }: SidebarProps) => {
             />
             <div className={cls.switchers}>
                 <ColorThemeSwitcherDropdown />
-
                 <LanguageDropdown />
             </div>
         </aside>

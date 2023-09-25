@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import AppRouter from '@/app/providers/router/ui/AppRouter';
 import { BrowserView, MobileView } from 'react-device-detect';
 import { classNames } from '@/shared/libs/classNames/classNames';
-import { useTheme } from '@/shared/libs/hooks/useTheme/useTheme';
 import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
 import { useAppToolbar } from '@/shared/libs/hooks/useAppToolbar/useAppToolbar';
 import { MainLayout } from '@/shared/layouts/MainLayout';
@@ -16,6 +15,7 @@ import {
 } from '@/entities/User';
 import { AppLoaderLayout } from '@/shared/layouts/AppLoaderLayout';
 import { useDebounce } from '@/shared/libs/hooks/useDebounce/useDebounce';
+import { MobileLayout } from '@/shared/layouts/MobileLayout';
 
 const App = memo(() => {
     const dispatch = useAppDispatch();
@@ -61,7 +61,10 @@ const App = memo(() => {
                     />
                 </BrowserView>
                 <MobileView>
-                    <div>Mobile</div>
+                    <MobileLayout
+                        header={<Navbar />}
+                        content={<AppRouter />}
+                    />
                 </MobileView>
             </Suspense>
         </div>

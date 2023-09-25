@@ -6,8 +6,11 @@ import { getUserDataSelector, isUserRoleAdminSelector } from '@/entities/User';
 import { Dropdown } from '@/shared/UI-kit/Popups';
 import { Avatar } from '@/shared/UI-kit/Avatar';
 import {
+    getRouteAbout,
     getRouteAdmin,
     getRouteProfile,
+    getRouteReviewList,
+    getRouteWorkList,
 } from '@/shared/routes/routes.patterns';
 import { removeAuthData } from '@/entities/Auth';
 import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
@@ -43,8 +46,20 @@ export const AvatarDropdown = memo((props: AvatarDropdownProps) => {
               ]
             : []),
         {
+            content: t('Reviews'),
+            href: getRouteReviewList(),
+        },
+        {
+            content: t('Works'),
+            href: getRouteWorkList(),
+        },
+        {
             content: t('Profile'),
             href: getRouteProfile(userData.id),
+        },
+        {
+            content: t('About'),
+            href: getRouteAbout(),
         },
         {
             content: t('Logout'),

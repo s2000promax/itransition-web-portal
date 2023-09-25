@@ -1,7 +1,7 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect } from 'react';
+import { BrowserView, MobileView } from 'react-device-detect';
 import { useSearchParams } from 'react-router-dom';
 import { classNames } from '@/shared/libs/classNames/classNames';
-import { useInitialEffect } from '@/shared/libs/hooks/useInitialEffect/useInitialEffect';
 import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
 import {
     DynamicModuleLoader,
@@ -55,20 +55,34 @@ const ReviewListPage = (props: ReviewListPageProps) => {
         300,
     );
 
-    useInitialEffect(() => {
-        // debouncedInitReviewListPageService();
-        dispatch(initReviewListPageService(searchParams));
-    });
+    useEffect(() => {
+        debouncedInitReviewListPageService();
+    }, [searchParams]);
 
     const onLoadNextPart = useCallback(() => {
         dispatch(fetchNextReviewListPageService());
     }, [dispatch]);
 
     const content = (
-        <StickyContentLayout
-            left={<ViewSelectorContainer />}
-            right={<FiltersContainer />}
-            content={
+        <>
+            <BrowserView>
+                <StickyContentLayout
+                    left={<ViewSelectorContainer />}
+                    right={<FiltersContainer />}
+                    content={
+                        <Page
+                            data-testid="ReviewListPage"
+                            onScrollEnd={onLoadNextPart}
+                            className={classNames('', {}, [className])}
+                        >
+                            <ReviewInfiniteList className={className} />
+                            {!isReviewsPageWasOpened &&
+                                !localIsReviewsPageWasOpened && <Greeting />}
+                        </Page>
+                    }
+                />
+            </BrowserView>
+            <MobileView>
                 <Page
                     data-testid="ReviewListPage"
                     onScrollEnd={onLoadNextPart}
@@ -78,8 +92,8 @@ const ReviewListPage = (props: ReviewListPageProps) => {
                     {!isReviewsPageWasOpened &&
                         !localIsReviewsPageWasOpened && <Greeting />}
                 </Page>
-            }
-        />
+            </MobileView>
+        </>
     );
 
     return (

@@ -1,3 +1,5 @@
+import { memo } from 'react';
+import { BrowserView, MobileView } from 'react-device-detect';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import cls from './WorkDetailsPage.module.scss';
 import { Page } from '@/widgets/Page';
@@ -6,7 +8,6 @@ import {
     RecommendationReviewsContainer,
     WorkDetailsContainer,
 } from '@/features/WorkDetailsPage';
-import { memo } from 'react';
 import { StickyContentLayout } from '@/shared/layouts/StickyContentLayout';
 import { VStack } from '@/shared/UI-kit/Stack';
 import {
@@ -32,34 +33,57 @@ const WorkDetailsPage = ({ className }: WorkDetailsPageProps) => {
     if (!id) {
         return null;
     }
+
+    const content = (
+        <>
+            <BrowserView>
+                <StickyContentLayout
+                    content={
+                        <Page
+                            className={classNames(cls.WorkDetailsPage, {}, [
+                                className,
+                            ])}
+                            data-testid="WorkDetailsPage"
+                        >
+                            <VStack
+                                gap="16"
+                                max
+                            >
+                                <WorkDetailsContainer workId={id} />
+                                <FeedBackContainer workId={id} />
+                            </VStack>
+                        </Page>
+                    }
+                    right={
+                        <VStack gap="24">
+                            <RecommendationReviewsContainer workId={id} />
+                        </VStack>
+                    }
+                />
+            </BrowserView>
+            <MobileView>
+                <Page
+                    className={classNames(cls.WorkDetailsPage, {}, [className])}
+                    data-testid="WorkDetailsPage"
+                >
+                    <VStack
+                        gap="16"
+                        max
+                    >
+                        <WorkDetailsContainer workId={id} />
+                        <FeedBackContainer workId={id} />
+                    </VStack>
+                </Page>
+            </MobileView>
+        </>
+    );
+
     return (
         <DynamicModuleLoader
             reducers={reducers}
             removeAfterUnmount
         >
-            <StickyContentLayout
-                content={
-                    <Page
-                        className={classNames(cls.WorkDetailsPage, {}, [
-                            className,
-                        ])}
-                        data-testid="WorkDetailsPage"
-                    >
-                        <VStack
-                            gap="16"
-                            max
-                        >
-                            <WorkDetailsContainer workId={id} />
-                            <FeedBackContainer workId={id} />
-                        </VStack>
-                    </Page>
-                }
-                right={
-                    <VStack gap="24">
-                        <RecommendationReviewsContainer workId={id} />
-                    </VStack>
-                }
-            />
+            {content}
         </DynamicModuleLoader>
     );
 };

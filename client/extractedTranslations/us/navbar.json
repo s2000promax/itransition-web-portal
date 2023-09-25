@@ -1,7 +1,10 @@
 {
+  "About": "About",
   "Dashboard": "Dashboard",
   "Login": "Login",
   "Logout": "Logout",
   "Profile": "Profile",
-  "Register": "Register"
+  "Register": "Register",
+  "Reviews": "Reviews",
+  "Works": "Works"
 }

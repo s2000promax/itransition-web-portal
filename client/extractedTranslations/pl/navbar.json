@@ -1,7 +1,10 @@
 {
+  "About": "O portalu",
   "Dashboard": "Panel",
   "Login": "Zaloguj sie",
   "Logout": "Wyloguj",
   "Profile": "Profil",
-  "Register": "Rejestr"
+  "Register": "Rejestr",
+  "Reviews": "Opinie",
+  "Works": "Pracuje"
 }

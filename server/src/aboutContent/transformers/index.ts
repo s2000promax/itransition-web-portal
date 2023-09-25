@@ -1,1 +1,0 @@
-export { UserResponse } from './userResponse';

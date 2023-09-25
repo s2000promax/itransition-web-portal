@@ -16,6 +16,7 @@ import { WorkModule } from './work/work.module';
 import { TagModule } from './tag/tag.module';
 import { AdminModule } from './admin/admin.module';
 import { AboutContentModule } from './aboutContent/aboutContent.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
     imports: [
@@ -34,6 +35,7 @@ import { AboutContentModule } from './aboutContent/aboutContent.module';
         TagModule,
         AdminModule,
         AboutContentModule,
+        NotificationsModule,
     ],
     controllers: [AppController],
     providers: [
