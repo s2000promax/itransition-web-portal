@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { BrowserView, MobileView } from 'react-device-detect';
 import { classNames } from '@/shared/libs/classNames/classNames';
@@ -24,7 +24,8 @@ import { RecommendationsList } from '@/features/RecommendationsList';
 import { workReducer } from '@/entities/Work';
 import { useSelector } from 'react-redux';
 import { getUserDataSelector } from '@/entities/User';
-import { reviewReducer } from '@/entities/Review';
+import { fetchReviewByIdService, reviewReducer } from '@/entities/Review';
+import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
 
 export interface ReviewDetailsPageProps {
     className?: string;
@@ -39,11 +40,16 @@ const reducers: ReducersList = {
 const ReviewDetailsPage = (props: ReviewDetailsPageProps) => {
     const { className } = props;
     const { id } = useParams<{ id: string }>();
+    const dispatch = useAppDispatch();
     const isAuth = useSelector(getUserDataSelector);
 
     if (!id) {
         return null;
     }
+
+    useEffect(() => {
+        dispatch(fetchReviewByIdService(id));
+    }, [id]);
 
     const content = (
         <>
