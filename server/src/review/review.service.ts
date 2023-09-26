@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { BlockTypeEnum, Review, ReviewTypeEnum } from '@prisma/client';
+import { BlockTypeEnum, Prisma, Review, ReviewTypeEnum } from '@prisma/client';
 import { ReviewDto } from './dto';
 import { JwtPayload } from '../config/types/auth/jwtPayload';
 
@@ -66,49 +66,45 @@ export class ReviewService {
 
     async updateReview(review: ReviewDto) {
         try {
+            const blocksUpdateData = review.blocks.map((block) => {
+                const paragraphsToUpdate = block.paragraphs!.map(
+                    (paragraph) => ({
+                        where: { id: paragraph.id },
+                        data: {
+                            sortId: paragraph.sortId,
+                            content: paragraph.content,
+                        },
+                    }),
+                );
+
+                const blockData: Prisma.ReviewBlockUpdateWithoutReviewInput = {
+                    sortId: block.sortId,
+                    type: block.type,
+                    title: block.title || null,
+                    src: block.type === BlockTypeEnum.IMAGE ? block.src : null,
+                    code: block.type === BlockTypeEnum.CODE ? block.code : null,
+                    paragraphs: {
+                        update: paragraphsToUpdate,
+                    },
+                };
+
+                if (block.id) {
+                    return {
+                        where: { id: block.id },
+                        data: blockData,
+                    };
+                }
+            });
+
             const updatedReview = await this.prismaService.review.update({
                 where: {
                     id: review.id,
                 },
                 data: {
-                    ownerId: review.ownerId,
-                    workId: review.workId,
                     title: review.title,
-                    workTitle: review.workTitle,
                     cover: review.cover,
-                    type: review.type,
-                    ownerRating: review.ownerRating,
-                    viewCounter: 0,
                     blocks: {
-                        create:
-                            review.blocks && review.blocks.length > 0
-                                ? review.blocks.map((block) => ({
-                                      sortId: block.sortId,
-                                      type: block.type,
-                                      title: block.title || undefined,
-                                      src:
-                                          block.type === BlockTypeEnum.IMAGE
-                                              ? block.src
-                                              : undefined,
-                                      code:
-                                          block.type === BlockTypeEnum.CODE
-                                              ? block.code
-                                              : undefined,
-                                      paragraphs:
-                                          block.type === BlockTypeEnum.TEXT
-                                              ? {
-                                                    create:
-                                                        block.paragraphs?.map(
-                                                            (paragraph) => ({
-                                                                sortId: paragraph.sortId,
-                                                                content:
-                                                                    paragraph.content,
-                                                            }),
-                                                        ) || [],
-                                                }
-                                              : undefined,
-                                  }))
-                                : [],
+                        update: blocksUpdateData,
                     },
                 },
             });
