@@ -15,6 +15,7 @@ import cls from './LoginForm.module.scss';
 import {
     getLoginEmailSelector,
     getLoginErrorSelector,
+    getLoginIsFormValidSelector,
     getLoginIsLoadingSelector,
     getLoginPasswordSelector,
     loginActions,
@@ -40,6 +41,7 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
     const password = useSelector(getLoginPasswordSelector);
     const isLoading = useSelector(getLoginIsLoadingSelector);
     const error = useSelector(getLoginErrorSelector);
+    const isValid = useSelector(getLoginIsFormValidSelector);
 
     const onChangeEmail = useCallback(
         (value: string) => {
@@ -123,7 +125,7 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
                 <Button
                     className={cls.loginBtn}
                     onClick={onLogin}
-                    disabled={isLoading}
+                    disabled={!isValid || isLoading}
                 >
                     {t('Login')}
                 </Button>

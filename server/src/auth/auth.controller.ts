@@ -47,9 +47,15 @@ export class AuthController {
     @Post('register')
     async register(@Body() dto: RegisterDto, @Res() res: Response) {
         try {
-            await this.authService.register(dto);
+            if (dto.email && dto.password) {
+                await this.authService.register(dto);
 
-            res.status(HttpStatus.OK).send();
+                res.status(HttpStatus.OK).send();
+            } else {
+                throw new BadRequestException(
+                    `Failed to register user with data: ${JSON.stringify(dto)}`,
+                );
+            }
         } catch (e) {
             throw new BadRequestException(
                 `Failed to register user with data: ${JSON.stringify(dto)}`,
