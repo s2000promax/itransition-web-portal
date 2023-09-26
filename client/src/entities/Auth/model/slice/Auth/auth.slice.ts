@@ -1,6 +1,6 @@
 import { AuthSchemaI } from '@/entities/Auth/model/types/auth.interface';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { removeAuthData } from '@/entities/Auth/model/services/auth.service';
+import { removeAuthData } from '@/entities/Auth/model/services/Auth/auth.service';
 import { UserI } from '@/entities/User';
 
 const initialState: AuthSchemaI = {

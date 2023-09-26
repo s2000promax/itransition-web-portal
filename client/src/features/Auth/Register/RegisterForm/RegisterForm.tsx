@@ -16,13 +16,14 @@ import {
     getRegisterEmailSelector,
     getRegisterErrorSelector,
     getRegisterFirstNameSelector,
+    getRegisterIsFormValidSelector,
     getRegisterIsLoadingSelector,
     getRegisterLastNameSelector,
     getRegisterPasswordSelector,
+    register,
     registerActions,
     registerReducer,
 } from '@/entities/Auth';
-import { register } from '@/entities/Auth';
 
 export interface RegisterFormProps {
     className?: string;
@@ -43,6 +44,7 @@ const RegisterForm = memo(({ className, onSuccess }: RegisterFormProps) => {
     const password = useSelector(getRegisterPasswordSelector);
     const isLoading = useSelector(getRegisterIsLoadingSelector);
     const error = useSelector(getRegisterErrorSelector);
+    const isValid = useSelector(getRegisterIsFormValidSelector);
 
     const onChangeFirstName = useCallback(
         (value: string) => {
@@ -139,7 +141,7 @@ const RegisterForm = memo(({ className, onSuccess }: RegisterFormProps) => {
                 <Button
                     className={cls.loginBtn}
                     onClick={onRegister}
-                    disabled={isLoading}
+                    disabled={!isValid || isLoading}
                 >
                     {t('Register')}
                 </Button>

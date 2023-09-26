@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RegisterSchemaI } from '../types/register.interface';
-import { register } from '../services/register.service';
+import { RegisterSchemaI } from '../../types/register.interface';
+import { register } from '../../services/Register/register.service';
 
 const initialState: RegisterSchemaI = {
     isLoading: false,
@@ -9,6 +9,7 @@ const initialState: RegisterSchemaI = {
     firstName: '',
     lastName: '',
     error: undefined,
+    isFormValid: false,
 };
 
 const registerSlice = createSlice({
@@ -17,15 +18,20 @@ const registerSlice = createSlice({
     reducers: {
         setEmail: (state, action: PayloadAction<string>) => {
             state.email = action.payload;
+            state.isFormValid = true;
         },
         setPassword: (state, action: PayloadAction<string>) => {
             state.password = action.payload;
+            state.isFormValid = true;
         },
         setFirstName: (state, action: PayloadAction<string>) => {
             state.firstName = action.payload;
         },
         setLastName: (state, action: PayloadAction<string>) => {
             state.lastName = action.payload;
+        },
+        setFormIsValid: (state, action: PayloadAction<boolean>) => {
+            state.isFormValid = action.payload;
         },
     },
     extraReducers: (builder) => {
