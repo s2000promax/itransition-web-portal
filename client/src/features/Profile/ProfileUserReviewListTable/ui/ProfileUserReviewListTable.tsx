@@ -1,17 +1,12 @@
 import React, { memo } from 'react';
 import { classNames } from '@/shared/libs/classNames/classNames';
 import cls from './ProfileUserReviewListTable.module.scss';
-import { HStack, VStack } from '@/shared/UI-kit/Stack';
+import { HStack } from '@/shared/UI-kit/Stack';
 import { useSelector } from 'react-redux';
 import { UserReviewListTable } from '@/features/Profile/ProfileUserReviewListTable/ui/UserReviewListTable/UserReviewListTable';
 import { Card } from '@/shared/UI-kit/Card';
-import {
-    fetchUserReviewListService,
-    getProfileUserReviewListSelector,
-} from '@/entities/Profile';
+import { getProfileUserReviewListSelector } from '@/entities/Profile';
 import { Skeleton } from '@/shared/UI-kit/Skeleton';
-import { useInitialEffect } from '@/shared/libs/hooks/useInitialEffect/useInitialEffect';
-import { useAppDispatch } from '@/shared/libs/hooks/useAppDispatch/useAppDispatch';
 
 interface ProfileUserReviewListTableProps {
     className?: string;
