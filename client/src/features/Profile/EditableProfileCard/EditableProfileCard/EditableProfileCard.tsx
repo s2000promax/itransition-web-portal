@@ -63,27 +63,15 @@ export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
     const handleFetchProfileData = useCallback(() => {
         if (id) {
             dispatch(fetchProfileData(id));
-        }
-    }, [dispatch, id]);
-    const debounceFetchProfileData = useDebounce(handleFetchProfileData, 300);
-
-    const handleFetchUserReviewList = useCallback(() => {
-        if (id) {
             dispatch(fetchUserReviewListService(id));
         }
     }, [dispatch, id]);
-    const debounceFetchUserReviewList = useDebounce(
-        handleFetchUserReviewList,
-        300,
-    );
+
+    const debounceFetchProfileData = useDebounce(handleFetchProfileData, 300);
 
     useInitialEffect(() => {
         if (id) {
             debounceFetchProfileData();
-
-            if (id === currentUser?.id || isAdmin) {
-                debounceFetchUserReviewList();
-            }
         }
     });
 
@@ -146,9 +134,7 @@ export const EditableProfileCard = memo((props: EditableProfileCardProps) => {
                     onChangeLastName={onChangeLastName}
                     onChangeAvatar={onChangeAvatar}
                 />
-                {(id === currentUser?.id || isAdmin) && (
-                    <ProfileUserReviewListTable isLoading={isLoading} />
-                )}
+                <ProfileUserReviewListTable isLoading={isLoading} />
             </VStack>
         </DynamicModuleLoader>
     );
