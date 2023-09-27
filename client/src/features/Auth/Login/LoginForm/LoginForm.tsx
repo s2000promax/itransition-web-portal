@@ -156,14 +156,14 @@ const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
                         <Button
                             className={cls.loginBtn}
                             onClick={handleFacebookLogin}
-                            disabled={isLoading}
+                            disabled={true}
                         >
                             {t('Facebook')}
                         </Button>
                         <Button
                             className={cls.loginBtn}
                             onClick={handleYandexLogin}
-                            disabled={isLoading}
+                            disabled={true}
                         >
                             {t('Yandex')}
                         </Button>
