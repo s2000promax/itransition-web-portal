@@ -343,7 +343,7 @@ export class AuthController {
             );
     }
 
-    @Get('woocommerce/callback')
+    @Post('woocommerce/callback')
     wooCommerceCallback(@Req() req: Request, @Res() res: Response) {
         console.log('Req:', req);
         console.log('Res', res);
