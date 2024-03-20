@@ -342,4 +342,12 @@ export class AuthController {
                 handleTimeoutAndErrors(),
             );
     }
+
+    @Get('woocommerce/callback')
+    wooCommerceCallback(@Req() req: Request, @Res() res: Response) {
+        console.log('Req:', req);
+        console.log('Res', res);
+
+        res.status(HttpStatus.OK).send();
+    }
 }
