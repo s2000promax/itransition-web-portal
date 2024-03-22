@@ -21,6 +21,7 @@ import { ProvidersEnums } from '../config/enums/providers.enums';
 
 @Injectable()
 export class AuthService {
+    private tempData: any;
     constructor(
         private readonly prismaService: PrismaService,
         private readonly userService: UserService,
@@ -157,5 +158,13 @@ export class AuthService {
         } catch (e) {
             console.log(e);
         }
+    }
+
+    saveData(data: any) {
+        this.tempData = data;
+    }
+
+    getData() {
+        return this.tempData;
     }
 }

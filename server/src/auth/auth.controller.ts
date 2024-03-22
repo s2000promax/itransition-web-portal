@@ -344,10 +344,18 @@ export class AuthController {
     }
 
     @Post('woocommerce/callback')
-    wooCommerceCallback(@Req() req: Request, @Res() res: Response) {
-        console.log('Req:', req);
-        console.log('Res', res);
+    wooCommerceCallback(@Body() dto: any, @Res() res: Response) {
+        console.log('Body:', dto);
+        // console.log('Res', res);
+        this.authService.saveData(dto);
 
         res.status(HttpStatus.OK).send();
+    }
+
+    @Get('woocommerce/get')
+    wooCommerceGet(@Res() res: Response) {
+        res.status(HttpStatus.OK).json({
+            data: this.authService.getData(),
+        });
     }
 }
