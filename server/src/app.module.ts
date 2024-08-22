@@ -17,6 +17,7 @@ import { TagModule } from './tag/tag.module';
 import { AdminModule } from './admin/admin.module';
 import { AboutContentModule } from './aboutContent/aboutContent.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { GoModule } from './go/go.module';
 
 @Module({
     imports: [
@@ -36,6 +37,7 @@ import { NotificationsModule } from './notifications/notifications.module';
         AdminModule,
         AboutContentModule,
         NotificationsModule,
+        GoModule,
     ],
     controllers: [AppController],
     providers: [
