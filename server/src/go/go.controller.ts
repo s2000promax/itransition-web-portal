@@ -26,8 +26,8 @@ export class GoController {
         private readonly httpService: HttpService,
     ) {}
 
-    @Post('getAll')
-    async getAll(@Body() dto: { token: string }, @Res() res: Response) {
+    @Post('users/getAll')
+    async usersGetAll(@Body() dto: { token: string }, @Res() res: Response) {
         const token = dto.token;
         const headers = {
             Authorization: `Bearer ${token}`,
@@ -35,6 +35,100 @@ export class GoController {
         try {
             const response = await firstValueFrom(
                 this.httpService.get(this.baseUrl + '/users', { headers }),
+            );
+            return res.status(HttpStatus.OK).json(response.data);
+        } catch (error) {
+            console.error(error);
+            throw new HttpException(
+                'Error while fetching users',
+                HttpStatus.INTERNAL_SERVER_ERROR,
+            );
+        }
+    }
+
+    @Post('managers/getAll')
+    async managersGetAll(@Body() dto: { token: string }, @Res() res: Response) {
+        const token = dto.token;
+        const headers = {
+            Authorization: `Bearer ${token}`,
+        };
+        try {
+            const response = await firstValueFrom(
+                this.httpService.get(this.baseUrl + '/managers/list', {
+                    headers,
+                }),
+            );
+            return res.status(HttpStatus.OK).json(response.data);
+        } catch (error) {
+            console.error(error);
+            throw new HttpException(
+                'Error while fetching users',
+                HttpStatus.INTERNAL_SERVER_ERROR,
+            );
+        }
+    }
+
+    @Post('cost_centers/getAll')
+    async costCentersGetAll(
+        @Body() dto: { token: string },
+        @Res() res: Response,
+    ) {
+        const token = dto.token;
+        const headers = {
+            Authorization: `Bearer ${token}`,
+        };
+        try {
+            const response = await firstValueFrom(
+                this.httpService.get(this.baseUrl + '/cost_centers/list', {
+                    headers,
+                }),
+            );
+            return res.status(HttpStatus.OK).json(response.data);
+        } catch (error) {
+            console.error(error);
+            throw new HttpException(
+                'Error while fetching users',
+                HttpStatus.INTERNAL_SERVER_ERROR,
+            );
+        }
+    }
+
+    @Post('departments/getAll')
+    async departmentsGetAll(
+        @Body() dto: { token: string },
+        @Res() res: Response,
+    ) {
+        const token = dto.token;
+        const headers = {
+            Authorization: `Bearer ${token}`,
+        };
+        try {
+            const response = await firstValueFrom(
+                this.httpService.get(this.baseUrl + '/departments/list', {
+                    headers,
+                }),
+            );
+            return res.status(HttpStatus.OK).json(response.data);
+        } catch (error) {
+            console.error(error);
+            throw new HttpException(
+                'Error while fetching users',
+                HttpStatus.INTERNAL_SERVER_ERROR,
+            );
+        }
+    }
+
+    @Post('orders/getAll')
+    async ordersGetAll(@Body() dto: { token: string }, @Res() res: Response) {
+        const token = dto.token;
+        const headers = {
+            Authorization: `Bearer ${token}`,
+        };
+        try {
+            const response = await firstValueFrom(
+                this.httpService.get(this.baseUrl + '/orders/list', {
+                    headers,
+                }),
             );
             return res.status(HttpStatus.OK).json(response.data);
         } catch (error) {
